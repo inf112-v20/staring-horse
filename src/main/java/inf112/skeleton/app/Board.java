@@ -13,6 +13,9 @@ public class Board {
         this.height = height;
         this.width = width;
         this.boardGrid = new IElement[height][width];
+
+        this.boardGrid[5][5] = new Flag();
+        this.boardGrid[2][4] = new Hole();
     }
 
     public int getHeight(){
