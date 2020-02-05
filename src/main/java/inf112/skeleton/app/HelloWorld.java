@@ -75,7 +75,6 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
 
         playerVector = new Vector2();
 
-
         orthogonalTiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, 1);
 
         camera.setToOrtho(false, 1500, 1500);

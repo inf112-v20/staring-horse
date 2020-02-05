@@ -8,6 +8,7 @@ public class Flag implements IElement{
 
     }
 
+
     @Override
     public Color getTileColor() {
         return Color.GREEN;
