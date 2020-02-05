@@ -54,15 +54,10 @@ public class Game implements ApplicationListener {
         }
 
         if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
-            
+            playerRobot.setX(playerRobot.getX()+1);
         }
 
         renderRobot();
-
-        System.out.println(playerRobot.getX());
-
-        playerRobot.moveTo(playerRobot.getX() + 1, 8);
-
         renderGrid();
     }
 

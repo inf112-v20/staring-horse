@@ -7,10 +7,10 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 public class Main {
     public static void main(String[] args) {
         LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
-        cfg.title = "hello-world";
+        cfg.title = "Robert rrallly";
         cfg.width = 500;
         cfg.height = 500;
 
-        new LwjglApplication(new Game(), cfg);
+        new LwjglApplication(new HelloWorld(), cfg);
     }
 }
