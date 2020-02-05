@@ -14,9 +14,6 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
-import org.lwjgl.Sys;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
-
 
 public class HelloWorld extends InputAdapter implements ApplicationListener {
     private TiledMap tiledMap;
@@ -80,7 +77,6 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
         camera.setToOrtho(false, 1500, 1500);
         camera.update();
         orthogonalTiledMapRenderer.setView(camera);
-
     }
 
     @Override
