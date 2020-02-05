@@ -15,6 +15,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
 import org.lwjgl.Sys;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 
 public class HelloWorld extends InputAdapter implements ApplicationListener {
@@ -23,7 +24,6 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
     private TiledMapTileLayer flagLayer;
     private TiledMapTileLayer playerLayer;
     private TiledMapTileLayer holeLayer;
-    private TmxMapLoader tmxLoader;
     private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
     private OrthographicCamera camera;
 
@@ -34,7 +34,9 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
     private StaticTiledMapTile playerTilemap;
 
     private Texture playerTextures;
-    private TextureRegion hmm;
+    private TextureRegion aliveTexture;
+    private TextureRegion deadTexture;
+    private TextureRegion wonTexture;
 
     private int playerX;
     private int playerY;
@@ -46,17 +48,24 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
 
         Gdx.input.setInputProcessor(this);
 
+        // Split the player textures.
         playerTextures = new Texture("player.png");
         TextureRegion textureRegion = new TextureRegion(playerTextures);
-        TextureRegion[][] cool = textureRegion.split(300,300);
-        hmm = cool[0][0];
+        TextureRegion[][] coolTextures = textureRegion.split(300,300);
+        aliveTexture = coolTextures[0][0];
+        deadTexture = coolTextures[0][1];
+        wonTexture = coolTextures[0][2];
+
         playerCell = new TiledMapTileLayer.Cell();
         playerWonCell = new TiledMapTileLayer.Cell();
         playerDiedCell = new TiledMapTileLayer.Cell();
 
-        playerTilemap = new StaticTiledMapTile(hmm);
+        playerTilemap = new StaticTiledMapTile(aliveTexture);
 
         playerLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Player");
+        flagLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Flag");
+        holeLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Hole");
+        boardLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Board");
 
         playerCell.setTile(playerTilemap);
 
@@ -69,7 +78,6 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
 
         orthogonalTiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, 1);
 
-        boardLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Board");
         camera.setToOrtho(false, 1500, 1500);
         camera.update();
         orthogonalTiledMapRenderer.setView(camera);
@@ -78,7 +86,6 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
 
     @Override
     public void dispose() {
-        playerTextures.dispose();
     }
 
     @Override
@@ -87,6 +94,16 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         playerLayer.setCell(playerX,playerY, playerCell);
+
+        if (flagLayer.getCell(playerX, playerY) != null) {
+            playerLayer.setCell(playerX ,playerY, playerWonCell);
+            playerTilemap.setTextureRegion(wonTexture);
+        }
+
+        if (holeLayer.getCell(playerX, playerY) != null) {
+            playerLayer.setCell(playerX, playerY, playerDiedCell);
+            playerTilemap.setTextureRegion(deadTexture);
+        }
 
         orthogonalTiledMapRenderer.render();
     }
@@ -106,7 +123,7 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
     @Override
     public boolean keyUp(int code) {
 
-
+        // input and remove player texture from last cell
         if (Input.Keys.LEFT == code) {
             playerLayer.setCell(playerX, playerY, null);
             playerLayer.setCell(--playerX, playerY, playerCell);
@@ -120,7 +137,6 @@ public class HelloWorld extends InputAdapter implements ApplicationListener {
             playerLayer.setCell(playerX, playerY, null);
             playerLayer.setCell(playerX, ++playerY, playerCell);
         }
-
         return false;
     }
 }
