@@ -41,6 +41,13 @@ public class Game extends InputAdapter implements ApplicationListener {
     private int playerX;
     private int playerY;
 
+    private Board board;
+    private Robot playerRobot;
+
+    public Game(){
+        this.playerRobot = new Robot();
+    }
+
     @Override
     public void create() {
         tiledMap = new TmxMapLoader().load("map.tmx");
@@ -80,6 +87,7 @@ public class Game extends InputAdapter implements ApplicationListener {
         camera.update();
         orthogonalTiledMapRenderer.setView(camera);
 
+        this.board = new Board(boardLayer.getWidth(), boardLayer.getHeight());
     }
 
     @Override
