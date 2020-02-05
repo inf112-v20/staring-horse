@@ -5,12 +5,14 @@ public class Robot {
     private int x;
     private int y;
     private Direction dir;
+    private int healthPoints;
 
     public Robot(){
         // initializes robots position
         this.x = 0;
         this.y = 0;
         this.dir = Direction.NORTH;
+        this.healthPoints = 10;
     }
 
     public int getX(){
@@ -40,5 +42,9 @@ public class Robot {
     public void moveTo(int x, int y){
         this.setX(x);
         this.setY(y);
+    }
+
+    public void hurtPlayer(){
+        this.healthPoints--;
     }
 }
