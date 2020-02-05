@@ -33,16 +33,20 @@ public class Game extends InputAdapter implements ApplicationListener {
     private Vector2 playerVector;
     private StaticTiledMapTile playerTilemap;
 
+    /*
     private Texture playerTextures;
     private TextureRegion aliveTexture;
     private TextureRegion deadTexture;
     private TextureRegion wonTexture;
+    */
 
     private int playerX;
     private int playerY;
 
     private Board board;
     private Robot playerRobot;
+
+    private Player test;
 
     public Game(){
         this.playerRobot = new Robot();
@@ -55,18 +59,23 @@ public class Game extends InputAdapter implements ApplicationListener {
 
         Gdx.input.setInputProcessor(this);
 
+        test = new Player();
+        test.loadAssets();
+
         // Split the player textures.
+        /*
         playerTextures = new Texture("player.png");
         TextureRegion[][] textureRegion = new TextureRegion(playerTextures).split(300,300);
         aliveTexture = textureRegion[0][0];
         deadTexture = textureRegion[0][1];
         wonTexture = textureRegion[0][2];
-
+        */
         playerCell = new TiledMapTileLayer.Cell();
         playerWonCell = new TiledMapTileLayer.Cell();
         playerDiedCell = new TiledMapTileLayer.Cell();
 
-        playerTilemap = new StaticTiledMapTile(aliveTexture);
+
+        playerTilemap = new StaticTiledMapTile(test.getAliveTexture());
 
         playerLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Player");
         flagLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Flag");
@@ -103,12 +112,12 @@ public class Game extends InputAdapter implements ApplicationListener {
 
         if (flagLayer.getCell(playerX, playerY) != null) {
             playerLayer.setCell(playerX ,playerY, playerWonCell);
-            playerTilemap.setTextureRegion(wonTexture);
+            playerTilemap.setTextureRegion(test.getWonTexture());
         }
 
         if (holeLayer.getCell(playerX, playerY) != null) {
             playerLayer.setCell(playerX, playerY, playerDiedCell);
-            playerTilemap.setTextureRegion(deadTexture);
+            playerTilemap.setTextureRegion(test.getDeadTexture());
         }
 
         orthogonalTiledMapRenderer.render();
