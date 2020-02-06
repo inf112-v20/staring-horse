@@ -59,12 +59,13 @@ Vi bestemte oss for å jobbe utfra en kombinasjon av Scrum og Kanban metodikk. D
 Scrum begrenser oppgavene som skal løses i en iterasjon (sprint), mens i Kanban begrenser man antall oppgaver som skal løses samtidig. Dette håper vi vil hjelpe å holde oss fokusert og sikre at vi ikke tar på oss for mye arbeid ved å legge til nye ting underveis og ha for lange «in progress» lister på prosjekt tavlen vår. I Kanban jobber man også med kontinuerlig flyt som gir rom for endringer, dette vil være nyttig for oss som ferskt team for å kunne tilpasse arbeidsmengden underveis, siden vi ikke enda vet hvor mange oppgaver vi klarer å gjennomføre i en iterasjon.
 
 I et slikt studentprosjekt ser vi at mesteparten av utfordringene vi møter handler om tid. Det å få nok tid til å arbeide med prosjektet når man må kombinere det med flere andre fag er ikke alltid enkelt. I tillegg går gruppemedlemmene på forskjellige studieretninger med ulike valgfag, og har dermed også ulike timeplaner. Dette gjør at møter ansikt til ansikt ikke alltid kan legges til tidspunkt som passer for alle, og at arbeid ikke alltid kan utføres samtidig; for noen passer det gjerne best tidlig i uken og formiddager, mens for andre er andre dager og tidspunkt bedre. Vi har foreløpig løst dette greit ved å legge møter til ettermiddager da dette er et tidspunkt som passer bra for gruppemedlemmenes timeplan.
+Mangelen på erfaring med å jobbe på denne måten i prosjekt fører også med seg endel utfordringer i forhold til å vite hvilke løsninger som fungerer best. Alle gruppemedlemmene har som oftest jobbet alene med å skrive og levere kode tidligere. Her må vi prøve oss frem og endre fremgangsmåte etterhvert som det trengs, og i tillegg dra nytte av all teorien som finnes om de ulike agile metodene og erfaringer andre har lært av.
 
-Som anbefalt kommer vi til å bruke github for å dele kode og lage en wiki med møtereferater. Dokumenter deler vi i Google Docs. Ellers lager vi prosjekt-tavlen vår i github, der alle arbeidsoppgaver og brukerhistorier blir lagt inn. Tavlen deler vi inn i 5 kolonner:
-1. 	Backlog: Alle krav og oppgaver vi skal løse i løpet av prosjektet.
-2. 	To do – iterasjon: Oppgavene vi har planlagt å løse i løpet av en iterasjon.
-3. 	In progress: Oppgaver som er påbegynt i iterasjonen.
-4. 	Ready for team review: Her legges oppgaver som skal godkjennes av hele teamet for at alle skal få si sin mening og vi får konsekvente løsninger, spesielt kodeoppgaver.
+Som anbefalt kommer vi til å bruke github for å dele kode, dokumenter og lage en wiki med møtereferater. Ellers lager vi prosjekt-tavlen vår i github, der alle arbeidsoppgaver og brukerhistorier blir lagt inn. Tavlen deler vi inn i 5 kolonner:
+1. 	Backlog: Alle krav og oppgaver vi skal løse i løpet av prosjektet (ikke satt opp i prioritert rekkefølge).
+2. 	To do – iterasjon: Oppgavene vi har planlagt å løse i løpet av en iterasjon (prioritert rekkefølge).
+3. 	In progress: Oppgaver som er påbegynt i iterasjonen (prioritert rekkefølge).
+4. 	Ready for team review: Her legges oppgaver som skal godkjennes av hele teamet for at alle skal få si sin mening og vi får konsekvente løsninger, spesielt kodeoppgaver (prioritert rekkefølge).
 5. 	Done: Oppgaver der akseptansekriterier er nådd og som er helt ferdige.
 
 Organisering og booking av rom til møter tar teamlead ansvar for, og vi tar sikte på to-tre to timers møter i uken, inkl den obligatoriske gruppetimen, der vi får diskutert oppgaver og utfordringer ansikt til ansikt, og jobbet med parprogrammering for å utvikle koden til spillet. Møtereferater blir lagt i wiki på github. Individuelle arbeidsoppgaver blir fordelt på slutten av hvert møte, og nye møter blir avtalt enten i gruppetimen eller via Slack. Kommunikasjon mellom møter foregår også i Slack, i gruppen staring-horse. Vi har avtalt at alle sjekker Slack iallefall én gang for dagen, rett før lunsj, slik at man har tid å svare/løse problemstillinger på ettermiddagen. Teamlead har hovedansvar for å følge opp arbeid, men da vi har valgt å ha litt flytende roller vil det også være et feller ansvar i gruppen å hjelpe hverandre å holde oversikt og sikre at arbeidsoppgavene blir utført.
@@ -75,24 +76,24 @@ Organisering og booking av rom til møter tar teamlead ansvar for, og vi tar sik
 
 *Akseptansekriterier:* Brett synlig på skjermen med 10x10 antall ruter, hver rute har basis utseende basert på brettspillet RoboRally.
 
-*Arbeidsoppgaver:* Sette seg inn i LibGDX og Tiled. Designe strukturen til koden. Implementere Board class, Game class og BoardTest class.    
+*Arbeidsoppgaver:* Sette seg inn i LibGDX og Tiled. Designe strukturen til koden og implementere den.    
 2.    Som spiller trenger jeg å se elementer på spillbrettet for å navigere roboten rundt elementene.
 
 *Akseptansekriterier:* Vise minst ett hull og ett flagg plassert på brettet. Ha identifiserbart design på elementene slik at de kan skilles fra hverandre.
 
-*Arbeidsoppgaver:* Velge design på hull og flagg basert på designet fra brettspillet. Designe strukturen til koden, med IElement interface, Hole class og Flag class.
+*Arbeidsoppgaver:* Velge design på hull og flagg basert på designet fra brettspillet. Designe strukturen til koden og implementere den.
 3.    Som spiller trenger jeg å se roboten for å forstå hvor jeg kan bevege meg.
 
 *Akseptansekriterier:* Vise roboten med (x,y) koordinater og retning.
 
-*Arbeidsoppgaver:* Velge designet på roboten og implementere Robot class.
+*Arbeidsoppgaver:* Velge utseende til roboten. Designe og planlegge kode, og implementere den.
 
 ## Oppsummering og Retrospektiv
 
-Vanskelig å komme godt i gang med arbeidet fordi det var utfordrende å forstå ideen om brukerhistorier og kravspesifikasjon. Her kunne gruppen som en helhet diskutert bedre og satt seg enda mer inn i teori for å lære og komme mer forberedt til møter. Vi klarte likevel å lage tre historier vi klarte å løse i stor grad i løpet av iterasjonen uten at arbeidsmengden ble for stor.
+Vanskelig å komme godt i gang med arbeidet fordi det var utfordrende å forstå ideen om brukerhistorier og kravspesifikasjon. Her kunne gruppen som en helhet diskutert bedre og satt seg enda mer inn i teori for å lære og komme mer forberedt til møter. Vi skrev tre historier vi klarte å løse i stor grad i løpet av iterasjonen, uten at arbeidsmengden ble for stor, så her traff vi bra på mengden oppgaver i to-do kolonnen vår.
 
-Det tok tid å sette seg inn i LibGDX og Tilde, og kombinere dette med det man hadde lært om objekt orientert programmering i Java fra før. Vi føler derfor at kodedesignet vårt ikke er av optimal kvalitet og vil fokusere på å forbedre dette i neste iterasjon.
+Det tok tid å sette seg inn i LibGDX og Tilde, og å kombinere dette med det man hadde lært om objekt orientert programmering i Java fra før var en utfordring. Vi føler derfor at kodedesignet vårt er et stykke fra optimal kvalitet og vil fokusere mye av kapasiteten vår på å forbedre dette i neste iterasjon.
 
 Planlegging av møter og kommunikasjonen i gruppen fungerte bra, alle gjorde seg tilgjengelige og dedikerte den tiden vi trengte for å løse arbeidsoppgavene vi hadde satt oss. Vi vil fortsette å bruke Slack mellom møter, og ha to-tre møter i uken.
 
-Fordeling av arbeid vil vi definere enda tydeligere fremover slik at alle føler seg sikre på det de skal gjøre mellom hver møte. Vi vil også ha tydeligere oversikt på hva man skal gå gjennom på møtene, og gjerne bruke 10 minutt på å gå gjennom hva vi har fått gjennomført mellom møtet og hva vil vil få gjort i løpet av møtet.
+Arbeidsoppgaver vil vi definere enda tydeligere fremover slik at alle føler seg sikre på det de skal gjøre mellom hvert møte. Vi vil også ha tydeligere oversikt på hva man skal gå gjennom på møtene for å få mest mulig ut av tiden vår ansikt-til-ansikt. Dette vil vi løse ved å bruke 10 minutter før hvert møte på å gå gjennom hva vi har fått gjennomført mellom møtene, og hva vi basert på det, vil få gjort i løpet av møtet.
