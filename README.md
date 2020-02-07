@@ -1,5 +1,5 @@
-# INF112 Maven template 
-Simple skeleton with libgdx. 
+# INF112 Robo Rally
+Staring-horse sin java implementasjon av robo rally
 
 
 ## Known bugs
