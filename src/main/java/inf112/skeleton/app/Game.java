@@ -27,8 +27,6 @@ public class Game extends InputAdapter implements ApplicationListener {
     private TiledMapTileLayer.Cell playerDiedCell;
     private StaticTiledMapTile playerTilemap;
 
-    private int playerPosX;
-    private int playerPosY;
     private Player player;
 
     public Game(){
@@ -75,17 +73,17 @@ public class Game extends InputAdapter implements ApplicationListener {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        playerLayer.setCell(playerPosX,playerPosY, playerCell);
+        playerLayer.setCell(player.getXPos(), player.getYPos(), playerCell);
 
         // Checks if a player is on a flag, and switches texture.
-        if (flagLayer.getCell(playerPosX, playerPosY) != null) {
-            playerLayer.setCell(playerPosX,playerPosY, playerWonCell);
+        if (flagLayer.getCell(player.getXPos(), player.getYPos()) != null) {
+            playerLayer.setCell(player.getXPos(), player.getYPos(), playerWonCell);
             playerTilemap.setTextureRegion(player.getWonTexture());
         }
 
         // Checks if a player is on a hole, and switches texture.
-        if (holeLayer.getCell(playerPosX, playerPosY) != null) {
-            playerLayer.setCell(playerPosX, playerPosY, playerDiedCell);
+        if (holeLayer.getCell(player.getXPos(), player.getYPos()) != null) {
+            playerLayer.setCell(player.getXPos(), player.getYPos(), playerDiedCell);
             playerTilemap.setTextureRegion(player.getDeadTexture());
         }
 
@@ -110,17 +108,22 @@ public class Game extends InputAdapter implements ApplicationListener {
         // Detect when a key is let go and
         // inputs the player texture into a new cell and removes it from last cell
         if (Input.Keys.LEFT == code) {
-            playerLayer.setCell(playerPosX, playerPosY, null);
-            playerLayer.setCell(--playerPosX, playerPosY, playerCell);
+            playerLayer.setCell(player.getXPos(), player.getYPos(), null);
+            player.setXPos(player.getXPos()-1);
+            playerLayer.setCell(player.getXPos(), player.getYPos(), playerCell);
+
         } else if (Input.Keys.RIGHT == code) {
-            playerLayer.setCell(playerPosX, playerPosY, null);
-            playerLayer.setCell(++playerPosX, playerPosY, playerCell);
+            playerLayer.setCell(player.getXPos(), player.getYPos(), null);
+            player.setXPos(player.getXPos()+1);
+            playerLayer.setCell(player.getXPos(), player.getYPos(), playerCell);
         } else if (Input.Keys.DOWN == code) {
-            playerLayer.setCell(playerPosX, playerPosY, null);
-            playerLayer.setCell(playerPosX, --playerPosY, playerCell);
+            playerLayer.setCell(player.getXPos(), player.getYPos(), null);
+            player.setYPos(player.getYPos()-1);
+            playerLayer.setCell(player.getXPos(), player.getYPos(), playerCell);
         } else if (Input.Keys.UP == code) {
-            playerLayer.setCell(playerPosX, playerPosY, null);
-            playerLayer.setCell(playerPosX, ++playerPosY, playerCell);
+            playerLayer.setCell(player.getXPos(), player.getYPos(), null);
+            player.setYPos(player.getYPos()+1);
+            playerLayer.setCell(player.getXPos(), player.getYPos(), playerCell);
         }
         return false;
     }

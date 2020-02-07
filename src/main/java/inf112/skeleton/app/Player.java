@@ -40,11 +40,11 @@ public class Player {
         return this.tilemap;
     }
 
-    public void setxPos(int x) { this.xPos = x; }
+    public void setXPos(int x) { this.xPos = x; }
 
-    public void setyPos(int y) { this.yPos = y; }
+    public void setYPos(int y) { this.yPos = y; }
 
-    public int getyPos() { return yPos; }
+    public int getYPos() { return yPos; }
 
     public int getXPos() { return xPos; }
 
