@@ -37,7 +37,6 @@ public class Game extends InputAdapter implements ApplicationListener {
     public void create() {
         tiledMap = new TmxMapLoader().load("map.tmx");
         camera = new OrthographicCamera();
-
         Gdx.input.setInputProcessor(this);
 
         player = new Player();
