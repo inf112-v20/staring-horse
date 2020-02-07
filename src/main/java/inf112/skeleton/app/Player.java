@@ -2,8 +2,6 @@ package inf112.skeleton.app;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 
 public class Player {
 
@@ -11,11 +9,6 @@ public class Player {
     private int yPos;
     private Direction direction;
     private int healthPoints;
-
-    private TiledMapTileLayer.Cell playerCell;
-    private TiledMapTileLayer.Cell playerWonCell;
-    private TiledMapTileLayer.Cell playerDiedCell;
-    private StaticTiledMapTile tilemap;
 
     private Texture playerTextures;
     private TextureRegion aliveTexture;
@@ -31,12 +24,6 @@ public class Player {
         this.aliveTexture = new TextureRegion();
         this.deadTexture = new TextureRegion();
         this.wonTexture = new TextureRegion();
-
-        this.tilemap = new StaticTiledMapTile(aliveTexture);
-    }
-
-    public StaticTiledMapTile getTilemap() {
-        return this.tilemap;
     }
 
     public void setXPos(int x) { this.xPos = x; }
