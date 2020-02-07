@@ -71,6 +71,10 @@ Som anbefalt kommer vi til å bruke github for å dele kode, dokumenter og lage 
 Organisering og booking av rom til møter tar teamlead ansvar for, og vi tar sikte på to-tre to timers møter i uken, inkl den obligatoriske gruppetimen, der vi får diskutert oppgaver og utfordringer ansikt til ansikt, og jobbet med parprogrammering for å utvikle koden til spillet. Møtereferater blir lagt i wiki på github. Individuelle arbeidsoppgaver blir fordelt på slutten av hvert møte, og nye møter blir avtalt enten i gruppetimen eller via Slack. Kommunikasjon mellom møter foregår også i Slack, i gruppen staring-horse. Vi har avtalt at alle sjekker Slack iallefall én gang for dagen, rett før lunsj, slik at man har tid å svare/løse problemstillinger på ettermiddagen. Teamlead har hovedansvar for å følge opp arbeid, men da vi har valgt å ha litt flytende roller vil det også være et feller ansvar i gruppen å hjelpe hverandre å holde oversikt og sikre at arbeidsoppgavene blir utført.
 
 ## Deloppgave 4: Kode og brukerhistorier
+For å visualisere hvordan vi ville designe koden vår valgte vi å lage et UML-diagram. Diagrammet vi har laget i første omgang er ikke fullstendig, men er fremdeles ett startpunkt for å få en bedre oversikt over koden. UML-diagrammet kommer mest sannsynlig til å bli endret på over tid når vi finner bedre løsninger. 
+
+![oblig-uml](https://github.com/inf112-v20/staring-horse/blob/master/oblig-uml.PNG)
+
 *Brukerhistorier for første iterasjon:*
 1.    Som spiller trenger jeg å se et brett slik at jeg kan programmere roboten min.
 
