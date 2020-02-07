@@ -19,11 +19,6 @@ public class Player {
     public Player() {
         this.xPos = 0;
         this.yPos = 0;
-        this.playerTextures = new Texture("player.png");
-        this.textureRegion = new TextureRegion(playerTextures).split(300,300);
-        this.aliveTexture = new TextureRegion();
-        this.deadTexture = new TextureRegion();
-        this.wonTexture = new TextureRegion();
     }
 
     public void setXPos(int x) { this.xPos = x; }
@@ -33,6 +28,14 @@ public class Player {
     public int getYPos() { return yPos; }
 
     public int getXPos() { return xPos; }
+
+    public void setDirection(Direction dir){
+        this.direction = dir;
+    }
+
+    public Direction getDirection() {
+        return this.direction;
+    }
 
     public void moveForward(){
         if(this.direction == Direction.NORTH){
@@ -99,6 +102,12 @@ public class Player {
     }
 
     public void loadAssets() {
+        this.playerTextures = new Texture("player.png");
+        this.textureRegion = new TextureRegion(playerTextures).split(300,300);
+        this.aliveTexture = new TextureRegion();
+        this.deadTexture = new TextureRegion();
+        this.wonTexture = new TextureRegion();
+
         aliveTexture = textureRegion[0][0];
         deadTexture = textureRegion[0][1];
         wonTexture = textureRegion[0][2];
