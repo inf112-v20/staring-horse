@@ -56,9 +56,9 @@ public class Game extends InputAdapter implements ApplicationListener {
         holeLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Hole");
         boardLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Board");
 
-        playerCell.setTile(playerTilemap);
-        playerWonCell.setTile(playerTilemap);
-        playerDiedCell.setTile(playerTilemap);
+        playerCell.setTile(player.getTilemap());
+        playerWonCell.setTile(player.getTilemap());
+        playerDiedCell.setTile(player.getTilemap());
 
         orthogonalTiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, (float) 1/300);
         camera.setToOrtho(false, boardLayer.getWidth(), boardLayer.getHeight());

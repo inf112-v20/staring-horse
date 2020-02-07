@@ -1,20 +1,22 @@
 package inf112.skeleton.app;
 
-import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
+import com.sun.scenario.effect.impl.prism.PrImage;
 
 public class Player {
 
-    private int x;
-    private int y;
+    private int xPos;
+    private int yPos;
     private Direction direction;
     private int healthPoints;
 
     private TiledMapTileLayer.Cell playerCell;
     private TiledMapTileLayer.Cell playerWonCell;
     private TiledMapTileLayer.Cell playerDiedCell;
+    private StaticTiledMapTile tilemap;
 
     private Texture playerTextures;
     private TextureRegion aliveTexture;
@@ -23,25 +25,40 @@ public class Player {
     private TextureRegion[][] textureRegion;
 
     public Player() {
-        this.x = 0;
-        this.y = 0;
-        playerTextures = new Texture("player.png");
-        textureRegion = new TextureRegion(playerTextures).split(300,300);
-        aliveTexture = new TextureRegion();
-        deadTexture = new TextureRegion();
-        wonTexture = new TextureRegion();
+        this.xPos = 0;
+        this.yPos = 0;
+        this.playerTextures = new Texture("player.png");
+        this.textureRegion = new TextureRegion(playerTextures).split(300,300);
+        this.aliveTexture = new TextureRegion();
+        this.deadTexture = new TextureRegion();
+        this.wonTexture = new TextureRegion();
+
+        this.tilemap = new StaticTiledMapTile(aliveTexture);
     }
 
+    public StaticTiledMapTile getTilemap() {
+        return this.tilemap;
+    }
+
+    public void setxPos(int x) { this.xPos = x; }
+
+    public void setyPos(int y) { this.yPos = y; }
+
+    public int getyPos() { return yPos; }
+
+    public int getXPos() { return xPos; }
+
+
     public TextureRegion getAliveTexture() {
-        return aliveTexture;
+        return this.aliveTexture;
     }
 
     public TextureRegion getDeadTexture() {
-        return deadTexture;
+        return this.deadTexture;
     }
 
     public TextureRegion getWonTexture() {
-        return wonTexture;
+        return this.wonTexture;
     }
 
     public void loadAssets() {
