@@ -11,8 +11,6 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
-import com.badlogic.gdx.math.Vector2;
-
 
 
 public class Game extends InputAdapter implements ApplicationListener {
@@ -27,26 +25,14 @@ public class Game extends InputAdapter implements ApplicationListener {
     private TiledMapTileLayer.Cell playerCell;
     private TiledMapTileLayer.Cell playerWonCell;
     private TiledMapTileLayer.Cell playerDiedCell;
-    private Vector2 playerVector;
     private StaticTiledMapTile playerTilemap;
 
-    /*
-    private Texture playerTextures;
-    private TextureRegion aliveTexture;
-    private TextureRegion deadTexture;
-    private TextureRegion wonTexture;
-    */
-
-    private int playerX;
-    private int playerY;
-
-    private Board board;
-    private Robot playerRobot;
-
-    private Player test;
+    private int playerPosX;
+    private int playerPosY;
+    private Player player;
 
     public Game(){
-        this.playerRobot = new Robot();
+
     }
 
     @Override
@@ -56,23 +42,14 @@ public class Game extends InputAdapter implements ApplicationListener {
 
         Gdx.input.setInputProcessor(this);
 
-        test = new Player();
-        test.loadAssets();
+        player = new Player();
+        player.loadAssets();
 
-        // Split the player textures.
-        /*
-        playerTextures = new Texture("player.png");
-        TextureRegion[][] textureRegion = new TextureRegion(playerTextures).split(300,300);
-        aliveTexture = textureRegion[0][0];
-        deadTexture = textureRegion[0][1];
-        wonTexture = textureRegion[0][2];
-        */
         playerCell = new TiledMapTileLayer.Cell();
         playerWonCell = new TiledMapTileLayer.Cell();
         playerDiedCell = new TiledMapTileLayer.Cell();
 
-
-        playerTilemap = new StaticTiledMapTile(test.getAliveTexture());
+        playerTilemap = new StaticTiledMapTile(player.getAliveTexture());
 
         playerLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Player");
         flagLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Flag");
@@ -80,20 +57,13 @@ public class Game extends InputAdapter implements ApplicationListener {
         boardLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Board");
 
         playerCell.setTile(playerTilemap);
-
         playerWonCell.setTile(playerTilemap);
-
         playerDiedCell.setTile(playerTilemap);
 
-        playerVector = new Vector2();
-
-        orthogonalTiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, 1);
-
-        camera.setToOrtho(false, 3000, 3000);
+        orthogonalTiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, (float) 1/300);
+        camera.setToOrtho(false, boardLayer.getWidth(), boardLayer.getHeight());
         camera.update();
         orthogonalTiledMapRenderer.setView(camera);
-
-        this.board = new Board(boardLayer.getWidth(), boardLayer.getHeight());
     }
 
     @Override
@@ -105,16 +75,18 @@ public class Game extends InputAdapter implements ApplicationListener {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        playerLayer.setCell(playerX,playerY, playerCell);
+        playerLayer.setCell(playerPosX,playerPosY, playerCell);
 
-        if (flagLayer.getCell(playerX, playerY) != null) {
-            playerLayer.setCell(playerX ,playerY, playerWonCell);
-            playerTilemap.setTextureRegion(test.getWonTexture());
+        // Checks if a player is on a flag, and switches texture.
+        if (flagLayer.getCell(playerPosX, playerPosY) != null) {
+            playerLayer.setCell(playerPosX,playerPosY, playerWonCell);
+            playerTilemap.setTextureRegion(player.getWonTexture());
         }
 
-        if (holeLayer.getCell(playerX, playerY) != null) {
-            playerLayer.setCell(playerX, playerY, playerDiedCell);
-            playerTilemap.setTextureRegion(test.getDeadTexture());
+        // Checks if a player is on a hole, and switches texture.
+        if (holeLayer.getCell(playerPosX, playerPosY) != null) {
+            playerLayer.setCell(playerPosX, playerPosY, playerDiedCell);
+            playerTilemap.setTextureRegion(player.getDeadTexture());
         }
 
         orthogonalTiledMapRenderer.render();
@@ -135,19 +107,20 @@ public class Game extends InputAdapter implements ApplicationListener {
     @Override
     public boolean keyUp(int code) {
 
-        // input and remove player texture from last cell
+        // Detect when a key is let go and
+        // inputs the player texture into a new cell and removes it from last cell
         if (Input.Keys.LEFT == code) {
-            playerLayer.setCell(playerX, playerY, null);
-            playerLayer.setCell(--playerX, playerY, playerCell);
+            playerLayer.setCell(playerPosX, playerPosY, null);
+            playerLayer.setCell(--playerPosX, playerPosY, playerCell);
         } else if (Input.Keys.RIGHT == code) {
-            playerLayer.setCell(playerX, playerY, null);
-            playerLayer.setCell(++playerX, playerY, playerCell);
+            playerLayer.setCell(playerPosX, playerPosY, null);
+            playerLayer.setCell(++playerPosX, playerPosY, playerCell);
         } else if (Input.Keys.DOWN == code) {
-            playerLayer.setCell(playerX, playerY, null);
-            playerLayer.setCell(playerX, --playerY, playerCell);
+            playerLayer.setCell(playerPosX, playerPosY, null);
+            playerLayer.setCell(playerPosX, --playerPosY, playerCell);
         } else if (Input.Keys.UP == code) {
-            playerLayer.setCell(playerX, playerY, null);
-            playerLayer.setCell(playerX, ++playerY, playerCell);
+            playerLayer.setCell(playerPosX, playerPosY, null);
+            playerLayer.setCell(playerPosX, ++playerPosY, playerCell);
         }
         return false;
     }
