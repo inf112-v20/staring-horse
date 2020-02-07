@@ -111,7 +111,6 @@ public class Game extends InputAdapter implements ApplicationListener {
             playerLayer.setCell(player.getXPos(), player.getYPos(), null);
             player.setXPos(player.getXPos()-1);
             playerLayer.setCell(player.getXPos(), player.getYPos(), playerCell);
-
         } else if (Input.Keys.RIGHT == code) {
             playerLayer.setCell(player.getXPos(), player.getYPos(), null);
             player.setXPos(player.getXPos()+1);
