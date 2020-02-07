@@ -34,6 +34,57 @@ public class Player {
 
     public int getXPos() { return xPos; }
 
+    public void moveForward(){
+        if(this.direction == Direction.NORTH){
+            this.moveNorth();
+        } else if(this.direction == Direction.EAST){
+            this.moveEast();
+        } else if(this.direction == Direction.SOUTH){
+            this.moveSouth();
+        } else if(this.direction == Direction.WEST){
+            this.moveWest();
+        }
+    }
+
+    public void moveNorth(){
+        this.setYPos(this.getYPos()+1);
+    }
+
+    public void moveEast(){
+        this.setXPos(this.getXPos()+1);
+    }
+
+    public void moveSouth(){
+        this.setYPos(this.getYPos()-1);
+    }
+
+    public void moveWest(){
+        this.setXPos(this.getXPos()-1);
+    }
+
+    public void rotateClockwise(){
+        if(this.direction == Direction.NORTH){
+            this.direction = Direction.EAST;
+        } else if(this.direction == Direction.EAST){
+            this.direction = Direction.SOUTH;
+        } else if(this.direction == Direction.SOUTH){
+            this.direction = Direction.WEST;
+        } else if(this.direction == Direction.WEST){
+            this.direction = Direction.NORTH;
+        }
+    }
+
+    public void rotateCounterClockwise(){
+        if(this.direction == Direction.NORTH){
+            this.direction = Direction.WEST;
+        } else if(this.direction == Direction.EAST){
+            this.direction = Direction.NORTH;
+        } else if(this.direction == Direction.SOUTH){
+            this.direction = Direction.EAST;
+        } else if(this.direction == Direction.WEST){
+            this.direction = Direction.SOUTH;
+        }
+    }
 
     public TextureRegion getAliveTexture() {
         return this.aliveTexture;

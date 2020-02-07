@@ -109,19 +109,19 @@ public class Game extends InputAdapter implements ApplicationListener {
         // inputs the player texture into a new cell and removes it from last cell
         if (Input.Keys.LEFT == code) {
             playerLayer.setCell(player.getXPos(), player.getYPos(), null);
-            player.setXPos(player.getXPos()-1);
+            player.moveWest();
             playerLayer.setCell(player.getXPos(), player.getYPos(), playerCell);
         } else if (Input.Keys.RIGHT == code) {
             playerLayer.setCell(player.getXPos(), player.getYPos(), null);
-            player.setXPos(player.getXPos()+1);
+            player.moveEast();
             playerLayer.setCell(player.getXPos(), player.getYPos(), playerCell);
         } else if (Input.Keys.DOWN == code) {
             playerLayer.setCell(player.getXPos(), player.getYPos(), null);
-            player.setYPos(player.getYPos()-1);
+            player.moveSouth();
             playerLayer.setCell(player.getXPos(), player.getYPos(), playerCell);
         } else if (Input.Keys.UP == code) {
             playerLayer.setCell(player.getXPos(), player.getYPos(), null);
-            player.setYPos(player.getYPos()+1);
+            player.moveNorth();
             playerLayer.setCell(player.getXPos(), player.getYPos(), playerCell);
         }
         return false;
