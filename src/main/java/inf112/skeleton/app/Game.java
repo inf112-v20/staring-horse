@@ -19,6 +19,7 @@ public class Game extends InputAdapter implements ApplicationListener {
     private TiledMapTileLayer flagLayer;
     private TiledMapTileLayer playerLayer;
     private TiledMapTileLayer holeLayer;
+    private TiledMapTileLayer wallLayer;
     private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
     private OrthographicCamera camera;
 
@@ -52,6 +53,7 @@ public class Game extends InputAdapter implements ApplicationListener {
         flagLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Flag");
         holeLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Hole");
         boardLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Board");
+        wallLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Wall");
 
         playerCell.setTile(playerTilemap);
         playerWonCell.setTile(playerTilemap);
@@ -86,7 +88,8 @@ public class Game extends InputAdapter implements ApplicationListener {
             playerTilemap.setTextureRegion(player.getDeadTexture());
         }
 
-        orthogonalTiledMapRenderer.render();
+
+            orthogonalTiledMapRenderer.render();
     }
 
     @Override
