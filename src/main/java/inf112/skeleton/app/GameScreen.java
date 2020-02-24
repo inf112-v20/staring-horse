@@ -49,6 +49,7 @@ public class GameScreen implements Screen {
         holeLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Hole");
         boardLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Board");
 
+
         playerCell.setTile(playerTilemap);
         playerWonCell.setTile(playerTilemap);
         playerDiedCell.setTile(playerTilemap);
