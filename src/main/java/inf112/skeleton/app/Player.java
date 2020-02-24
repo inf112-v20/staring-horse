@@ -41,14 +41,19 @@ public class Player {
     }
 
     public void moveForward(int forwardDistance){
-        if(this.direction == Direction.NORTH){
-            for(int i = 0; i < forwardDistance; i++){this.moveNorth();}
-        } else if(this.direction == Direction.EAST){
-            for(int i = 0; i < forwardDistance; i++){this.moveEast();}
-        } else if(this.direction == Direction.SOUTH){
-            for(int i = 0; i < forwardDistance; i++){this.moveSouth();}
-        } else if(this.direction == Direction.WEST){
-            for(int i = 0; i < forwardDistance; i++){this.moveWest();}
+        switch (this.direction) {
+            case WEST:
+                for (int i = 0; i < forwardDistance; i++){this.moveWest();}
+                break;
+            case SOUTH:
+                for(int i = 0; i < forwardDistance; i++){this.moveSouth();}
+                break;
+            case EAST:
+                for(int i = 0; i < forwardDistance; i++){this.moveEast();}
+                break;
+            case NORTH:
+                for(int i = 0; i < forwardDistance; i++){this.moveNorth();}
+                break;
         }
     }
 
@@ -69,26 +74,36 @@ public class Player {
     }
 
     public void rotateClockwise(){
-        if(this.direction == Direction.NORTH){
-            this.direction = Direction.EAST;
-        } else if(this.direction == Direction.EAST){
-            this.direction = Direction.SOUTH;
-        } else if(this.direction == Direction.SOUTH){
-            this.direction = Direction.WEST;
-        } else if(this.direction == Direction.WEST){
-            this.direction = Direction.NORTH;
+        switch (this.direction) {
+            case WEST:
+                this.direction = Direction.NORTH;
+                break;
+            case SOUTH:
+                this.direction = Direction.WEST;
+                break;
+            case EAST:
+                this.direction = Direction.SOUTH;
+                break;
+            case NORTH:
+                this.direction = Direction.EAST;
+                break;
         }
     }
 
     public void rotateCounterClockwise(){
-        if(this.direction == Direction.NORTH){
-            this.direction = Direction.WEST;
-        } else if(this.direction == Direction.EAST){
-            this.direction = Direction.NORTH;
-        } else if(this.direction == Direction.SOUTH){
-            this.direction = Direction.EAST;
-        } else if(this.direction == Direction.WEST){
-            this.direction = Direction.SOUTH;
+        switch (this.direction) {
+            case WEST:
+                this.direction = Direction.SOUTH;
+                break;
+            case SOUTH:
+                this.direction = Direction.EAST;
+                break;
+            case EAST:
+                this.direction = Direction.NORTH;
+                break;
+            case NORTH:
+                this.direction = Direction.WEST;
+                break;
         }
     }
 
