@@ -41,7 +41,7 @@ public class PlayerTest {
 
     @Test
     public void playerMoveForwardWhileNorthMovesPlayerUpOne(){
-        testPlayer.moveForward();
+        testPlayer.moveForward(1);
 
         assertEquals(testPlayer.getYPos(), startY+1);
     }

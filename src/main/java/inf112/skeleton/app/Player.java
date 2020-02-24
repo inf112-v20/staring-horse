@@ -10,6 +10,7 @@ public class Player {
     private Direction direction;
     private int healthPoints;
     private CardStack cardStack;
+    private ProgramCardAction previousAction;
 
     private Texture playerTextures;
     private TextureRegion aliveTexture;
@@ -39,15 +40,15 @@ public class Player {
         return this.direction;
     }
 
-    public void moveForward(){
+    public void moveForward(int forwardDistance){
         if(this.direction == Direction.NORTH){
-            this.moveNorth();
+            for(int i = 0; i < forwardDistance; i++){this.moveNorth();}
         } else if(this.direction == Direction.EAST){
-            this.moveEast();
+            for(int i = 0; i < forwardDistance; i++){this.moveEast();}
         } else if(this.direction == Direction.SOUTH){
-            this.moveSouth();
+            for(int i = 0; i < forwardDistance; i++){this.moveSouth();}
         } else if(this.direction == Direction.WEST){
-            this.moveWest();
+            for(int i = 0; i < forwardDistance; i++){this.moveWest();}
         }
     }
 
@@ -89,6 +90,34 @@ public class Player {
         } else if(this.direction == Direction.WEST){
             this.direction = Direction.SOUTH;
         }
+    }
+
+    public void performProgramCardAction(){
+
+        ProgramCard progCard = new ProgramCard();
+
+        switch (progCard.getAction()){
+            case MOVE_ONE:
+                this.moveForward(1);
+                break;
+            case MOVE_TWO:
+                this.moveForward(2);
+                break;
+            case MOVE_THREE:
+                this.moveForward(3);
+                break;
+            case TURN_LEFT:
+                this.rotateCounterClockwise();
+                break;
+            case TURN_RIGHT:
+                this.rotateClockwise();
+                break;
+            case U_TURN:
+                this.rotateClockwise();
+                this.rotateClockwise();
+                break;
+            }
+
     }
 
     public TextureRegion getAliveTexture() {
