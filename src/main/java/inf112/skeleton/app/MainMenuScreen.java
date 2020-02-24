@@ -1,8 +1,5 @@
 package inf112.skeleton.app;
 
-<<<<<<< Updated upstream
-public class MainMenuScreen {
-=======
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 
@@ -50,5 +47,4 @@ public class MainMenuScreen implements Screen {
     public void dispose() {
 
     }
->>>>>>> Stashed changes
 }

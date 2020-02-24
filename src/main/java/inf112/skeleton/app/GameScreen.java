@@ -1,11 +1,4 @@
 package inf112.skeleton.app;
-
-<<<<<<< Updated upstream
-import com.badlogic.gdx.Screen;
-
-public class GameScreen implements Screen {
-
-=======
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -33,15 +26,11 @@ public class GameScreen implements Screen {
 
     private Player player;
 
->>>>>>> Stashed changes
     private final RoboRally roboRally;
 
     public GameScreen(RoboRally roboRally){
         this.roboRally = roboRally;
 
-<<<<<<< Updated upstream
-        
-=======
         tiledMap = new TmxMapLoader().load("map.tmx");
         camera = new OrthographicCamera();
         //Gdx.input.setInputProcessor(this);
@@ -68,7 +57,6 @@ public class GameScreen implements Screen {
         camera.setToOrtho(false, boardLayer.getWidth(), boardLayer.getHeight());
         camera.update();
         orthogonalTiledMapRenderer.setView(camera);
->>>>>>> Stashed changes
     }
 
     @Override
@@ -78,9 +66,6 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float v) {
-<<<<<<< Updated upstream
-
-=======
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -99,7 +84,6 @@ public class GameScreen implements Screen {
         }
 
         orthogonalTiledMapRenderer.render();
->>>>>>> Stashed changes
     }
 
     @Override

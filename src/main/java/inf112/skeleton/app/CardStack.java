@@ -1,8 +1,5 @@
 package inf112.skeleton.app;
 
-<<<<<<< Updated upstream
-public class CardStack {
-=======
 import java.util.Stack;
 
 public class CardStack {
@@ -14,5 +11,4 @@ public class CardStack {
             this.cardStack.add(new ProgramCard());
         }
     }
->>>>>>> Stashed changes
 }
