@@ -21,6 +21,7 @@ public class Player {
     public Player() {
         this.xPos = 0;
         this.yPos = 0;
+        this.direction = Direction.NORTH;
         this.cardStack = new CardStack();
     }
 
@@ -107,10 +108,7 @@ public class Player {
         }
     }
 
-    public void performProgramCardAction(){
-
-        ProgramCard progCard = new ProgramCard();
-
+    public void performProgramCardAction(ProgramCard progCard){
         switch (progCard.getAction()){
             case MOVE_ONE:
                 this.moveForward(1);
@@ -132,7 +130,6 @@ public class Player {
                 this.rotateClockwise();
                 break;
             }
-
     }
 
     public TextureRegion getAliveTexture() {
