@@ -40,11 +40,37 @@ public class PlayerTest {
     }
 
     @Test
-    public void playerMoveForwardWhileNorthMovesPlayerUpOne(){
+    public void playerMoveForwardWhileFacingNorthMovesPlayerOneUp(){
+        testPlayer.setDirection(Direction.NORTH);
         testPlayer.moveForward(1);
 
         assertEquals(testPlayer.getYPos(), startY+1);
     }
+
+    @Test
+    public void playerMoveForwardWhileFacingEastMovesPlayerOneRight(){
+        testPlayer.setDirection(Direction.EAST);
+        testPlayer.moveForward(1);
+
+        assertEquals(testPlayer.getXPos(), startX+1);
+    }
+
+    @Test
+    public void playerMoveForwardWhileFacingSouthMovesPlayerOneDown(){
+        testPlayer.setDirection(Direction.SOUTH);
+        testPlayer.moveForward(1);
+
+        assertEquals(testPlayer.getYPos(), startY-1);
+    }
+
+    @Test
+    public void playerMoveForwardWhileFacingWestMovesPlayerOneLeft(){
+        testPlayer.setDirection(Direction.WEST);
+        testPlayer.moveForward(1);
+
+        assertEquals(testPlayer.getXPos(), startX-1);
+    }
+
 
     @Test
     public void rotateClockWiseRotatesPlayerFromNorthToEast(){
