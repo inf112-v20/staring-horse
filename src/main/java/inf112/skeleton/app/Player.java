@@ -19,8 +19,8 @@ public class Player {
     private TextureRegion[][] textureRegion;
 
     public Player() {
-        this.xPos = 0;
-        this.yPos = 0;
+        this.xPos = 5;
+        this.yPos = 5;
         this.direction = Direction.NORTH;
         this.cardStack = new CardStack();
     }

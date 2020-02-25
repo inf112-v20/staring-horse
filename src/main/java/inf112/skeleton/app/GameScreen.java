@@ -70,6 +70,21 @@ public class GameScreen implements Screen {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        switch (player.getDirection()){
+            case NORTH:
+                playerCell.setRotation(TiledMapTileLayer.Cell.ROTATE_0);
+                break;
+            case WEST:
+                playerCell.setRotation(TiledMapTileLayer.Cell.ROTATE_90);
+                break;
+            case SOUTH:
+                playerCell.setRotation(TiledMapTileLayer.Cell.ROTATE_180);
+                break;
+            case EAST:
+                playerCell.setRotation(TiledMapTileLayer.Cell.ROTATE_270);
+                break;
+        }
+
         playerLayer.setCell(player.getXPos(), player.getYPos(), playerCell);
 
         // Checks if a player is on a flag, and switches texture.
