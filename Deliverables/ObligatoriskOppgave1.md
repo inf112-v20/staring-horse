@@ -9,9 +9,9 @@ Av roller valgte vi Kristine som teamlead med hovedansvar for organisering av m�
 Det overordnede målet for prosjektet er å utvikle en digital versjon av brettspillet RoboRally. Et spill der vi beveger roboter på et brett ved hjelp av programkort med retningsinstrukser, og samler et antall flagg raskest mulig for å vinne. Det må kunne spilles runder og faser, og det må være mulig å vinne og tape, enten ved at en robot når alle flaggene sine eller dør. Det skal kunne spilles med flere spillere over LAN, ha en graphic user interface og kunne fungere uavhengig av operativsystem.
 
 **Høynivåkrav til systemet:**
-  * vise spillebrett
-  * vise robot
-  * vise flere roboter
+* vise spillebrett
+* vise robot
+* vise flere roboter
 * gjennomføre en fase
 * spille en runde
 * vinne spillet
