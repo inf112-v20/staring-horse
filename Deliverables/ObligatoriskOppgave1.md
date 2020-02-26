@@ -9,49 +9,49 @@ Av roller valgte vi Kristine som teamlead med hovedansvar for organisering av m�
 Det overordnede målet for prosjektet er å utvikle en digital versjon av brettspillet RoboRally. Et spill der vi beveger roboter på et brett ved hjelp av programkort med retningsinstrukser, og samler et antall flagg raskest mulig for å vinne. Det må kunne spilles runder og faser, og det må være mulig å vinne og tape, enten ved at en robot når alle flaggene sine eller dør. Det skal kunne spilles med flere spillere over LAN, ha en graphic user interface og kunne fungere uavhengig av operativsystem.
 
 **Høynivåkrav til systemet:**
-* vise spillebrett
-* vise robot
-* vise flere roboter
-* gjennomføre en fase
-* spille en runde
-* vinne spillet
-* avslutte spillet
-* kunne dele ut kort
-* vise elementer på spillbrettet
-* vise flagg på brettet
-* besøke et flagg
-* kunne utføre lovlig trekk
-* robot kan få skade
-* robot kan få reparert skade med skiftenøkkel
-* robot kan miste et liv
-* robot kan dø
-* spiller kan programmere roboten med programkort
-* godkjenne programkort-sekvens for runden
-* prioritering på programmeringskort avgjør rekkefølge på robotens bevegelser i hver fase
-* prioritering gjøres på nytt for hver fase
-* antall kort justeres/reduseres basert på mengden skade roboten har
-* robot kan fyre av laser
-* når nest siste spiller er ferdig skal stoppeklokken på 30 sek settes i gang
-* vise hull på brettet
-* robot dør hvis den havner i hull
-* robot dør hvis den havner utenfor brettet
-* robot dør hvis den får 10 i skade
-* vegger stopper bevegelse hos robot
-* vegger stopper lasere
-* vegger ligger mellom to felt på spillbrettet
-* robot stopper laser
-* en robot kan dytte en annen
-* ta backup
-* spiller annonserer powerdown
-* robot kan være i powerdown
-* aktivere robot fra powerdown
-* samlebånd beveger robot
-* tannhjul roterer robot
+*   vise spillebrett
+*   vise robot
+*   vise flere roboter
+*   gjennomføre en fase
+*   spille en runde
+*   vinne spillet
+*   avslutte spillet
+*   kunne dele ut kort
+*   vise elementer på spillbrettet
+*   vise flagg på brettet
+*   besøke et flagg
+*   kunne utføre lovlig trekk
+*   robot kan få skade
+*   robot kan få reparert skade med skiftenøkkel
+*   robot kan miste et liv
+*   robot kan dø
+*   spiller kan programmere roboten med programkort
+*   godkjenne programkort-sekvens for runden
+*   prioritering på programmeringskort avgjør rekkefølge på robotens bevegelser i hver fase
+*   prioritering gjøres på nytt for hver fase
+*   antall kort justeres/reduseres basert på mengden skade roboten har
+*   robot kan fyre av laser
+*   når nest siste spiller er ferdig skal stoppeklokken på 30 sek settes i gang
+*   vise hull på brettet
+*   robot dør hvis den havner i hull
+*   robot dør hvis den havner utenfor brettet
+*   robot dør hvis den får 10 i skade
+*   vegger stopper bevegelse hos robot
+*   vegger stopper lasere
+*   vegger ligger mellom to felt på spillbrettet
+*   robot stopper laser
+*   en robot kan dytte en annen
+*   ta backup
+*   spiller annonserer powerdown
+*   robot kan være i powerdown
+*   aktivere robot fra powerdown
+*   samlebånd beveger robot
+*   tannhjul roterer robot
 
 **Prioritert liste av krav til første innlevering:**
-* Vise brett
-* Plassere og vise elementer på brettet
-* Plassere og vise robot
+*   Vise brett
+*   Plassere og vise elementer på brettet
+*   Plassere og vise robot
 
 ## Deloppgave 3: Velg og tilpass en prosess for gruppen
 Vi bestemte oss for å jobbe utfra en kombinasjon av Scrum og Kanban metodikk. Dette gir oss et rammeverk å jobbe med som ikke er for låst, da vi enda ikke vet hva som fungerer best for prosjektet og gruppen. Elementene vi vil trekke ut spesifikt fra Scrum er hvordan gruppemedlemmene står friere til å organisere hvordan de jobber sammen eller løser oppgavene sine; siden vi er et nytt team synes vi det er greit å kunne prøve seg frem litt med hvordan vi løser oppgavene og tilpasse arbeidsmåten etter hvert. Når det er sagt, så ser vi for oss å bruke parprogrammering som en arbeidsmetode for å dele kunnskap og sikre at koden vi skriver er konsekvent, og at alle i gruppen får bidra så godt de kan.
