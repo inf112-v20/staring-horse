@@ -3,6 +3,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -28,10 +30,13 @@ public class GameScreen implements Screen {
 
     private final RoboRally roboRally;
 
+    private Texture programCardTexture;
+    private SpriteBatch batch;
+
     public GameScreen(RoboRally roboRally){
         this.roboRally = roboRally;
 
-        tiledMap = new TmxMapLoader().load("map.tmx");
+        tiledMap = new TmxMapLoader().load("backgroundTest.tmx");
         camera = new OrthographicCamera();
         //Gdx.input.setInputProcessor(this);
 
@@ -49,6 +54,7 @@ public class GameScreen implements Screen {
         holeLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Hole");
         boardLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Board");
 
+        batch = new SpriteBatch();
 
         playerCell.setTile(playerTilemap);
         playerWonCell.setTile(playerTilemap);
@@ -85,6 +91,7 @@ public class GameScreen implements Screen {
                 break;
         }
 
+        playerLayer.setCell(player.getXPos(), player.getYPos(), null);
         playerLayer.setCell(player.getXPos(), player.getYPos(), playerCell);
 
         // Checks if a player is on a flag, and switches texture.
@@ -100,6 +107,12 @@ public class GameScreen implements Screen {
         }
 
         orthogonalTiledMapRenderer.render();
+
+        batch.begin();
+        for(int i = 0; i < 9; i++) {
+            batch.draw(new ProgramCard().getTexture(), 30+(i*55), 50, 200 / 4, 340 / 4);
+        }
+        batch.end();
     }
 
     @Override

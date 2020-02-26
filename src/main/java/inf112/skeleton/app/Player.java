@@ -9,7 +9,6 @@ public class Player {
     private int yPos;
     private Direction direction;
     private int healthPoints;
-    private CardStack cardStack;
     private ProgramCardAction previousAction;
 
     private Texture playerTextures;
@@ -19,10 +18,9 @@ public class Player {
     private TextureRegion[][] textureRegion;
 
     public Player() {
-        this.xPos = 5;
-        this.yPos = 5;
+        this.xPos = 10;
+        this.yPos = 15;
         this.direction = Direction.NORTH;
-        this.cardStack = new CardStack();
     }
 
     public void setXPos(int x) { this.xPos = x; }
