@@ -5,11 +5,20 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
+
 
 public class GameScreen implements Screen {
 
@@ -26,12 +35,13 @@ public class GameScreen implements Screen {
     private TiledMapTileLayer.Cell playerDiedCell;
     private StaticTiledMapTile playerTilemap;
 
+
+    private Stage stage;
+
     private Player player;
 
     private final RoboRally roboRally;
 
-    private Texture programCardTexture;
-    private SpriteBatch batch;
 
     public GameScreen(RoboRally roboRally){
         this.roboRally = roboRally;
@@ -54,16 +64,57 @@ public class GameScreen implements Screen {
         holeLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Hole");
         boardLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Board");
 
-        batch = new SpriteBatch();
-
         playerCell.setTile(playerTilemap);
         playerWonCell.setTile(playerTilemap);
         playerDiedCell.setTile(playerTilemap);
 
+        // create a stage for image buttons.
+        stage = new Stage(new ScreenViewport());
+        Gdx.input.setInputProcessor(stage);
+
+        // create 9 of the same button.
+        for (int i = 0; i < 9; i++) {
+            ImageButton cardButton = makeImageButton();
+            cardButton.setPosition((float) (30 + 60*i), 55);
+            stage.addActor(cardButton);
+        }
         orthogonalTiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, (float) 1/300);
         camera.setToOrtho(false, boardLayer.getWidth(), boardLayer.getHeight());
         camera.update();
         orthogonalTiledMapRenderer.setView(camera);
+    }
+
+    /**
+     * Creates a new ImageButton.
+     * @return a ImageButton.
+     */
+    public ImageButton makeImageButton() {
+        ProgramCard card = new ProgramCard();
+
+        Texture programCardTexturePressed = new Texture("ProgramCardMove1Pressed.png");
+
+        // create a drawable for each state of the button.
+        Drawable drawable = new TextureRegionDrawable(new TextureRegion(card.getTexture()));
+        Drawable pressedDrawable = new TextureRegionDrawable(new TextureRegion(programCardTexturePressed));
+        ImageButton imageButton = new ImageButton(drawable);
+
+        imageButton.setSize((float) 200 / 4, (float) 340 / 4);
+        imageButton.getStyle() .imageDown = pressedDrawable;
+        imageButton.getStyle() .imageUp = drawable;
+        imageButton.setPosition(30,55);
+
+        imageButton.addListener(new InputListener(){
+            @Override
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                System.out.println("Not Pressed.");
+            }
+            @Override
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                System.out.println("Pressed");
+                return true;
+            }
+        });
+        return imageButton;
     }
 
     @Override
@@ -108,11 +159,8 @@ public class GameScreen implements Screen {
 
         orthogonalTiledMapRenderer.render();
 
-        batch.begin();
-        for(int i = 0; i < 9; i++) {
-            batch.draw(new ProgramCard().getTexture(), 30+(i*55), 50, 200 / 4, 340 / 4);
-        }
-        batch.end();
+        stage.act();
+        stage.draw();
     }
 
     @Override
