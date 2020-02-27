@@ -50,7 +50,6 @@ public class ProgramCard {
         return this.action;
     }
 
-
     /**
      * Creates a new ImageButton of a input card.
      * @param card a program card with a texture

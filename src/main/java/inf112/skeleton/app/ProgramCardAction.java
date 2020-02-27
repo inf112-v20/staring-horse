@@ -15,6 +15,9 @@ public enum ProgramCardAction {
     private static final ProgramCardAction[] ACTIONS = values();
     private static final Random RANDOM = new Random();
 
+    /**
+     * @return random ProgramCardAction
+     */
     public static ProgramCardAction getRandomProgramCardAction(){
         return ACTIONS[RANDOM.nextInt(ACTIONS.length)];
     }

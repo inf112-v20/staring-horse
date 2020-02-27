@@ -10,6 +10,9 @@ public class CardDeck {
         this.deck = new ArrayList<>();
     }
 
+    /**
+     * Draw 9 new random ProgramCards
+     */
     public void drawNineProgramCards(){
         this.deck.clear();
         for(int i = 0; i < 9; i++){
@@ -17,6 +20,11 @@ public class CardDeck {
         }
     }
 
+    /**
+     * Get ProgramCard in index from deck
+     * @param index
+     * @return ProgramCard
+     */
     public ProgramCard getCard(int index){
         return this.deck.get(index);
     }
