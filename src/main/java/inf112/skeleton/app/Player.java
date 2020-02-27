@@ -41,6 +41,23 @@ public class Player {
         return this.direction;
     }
 
+    public void moveBackward(int backwardDistance){
+        switch (this.direction) {
+            case WEST:
+                for (int i = 0; i < backwardDistance; i++){this.moveEast();}
+                break;
+            case SOUTH:
+                for(int i = 0; i < backwardDistance; i++){this.moveNorth();}
+                break;
+            case EAST:
+                for(int i = 0; i < backwardDistance; i++){this.moveWest();}
+                break;
+            case NORTH:
+                for(int i = 0; i < backwardDistance; i++){this.moveSouth();}
+                break;
+        }
+    }
+
     public void moveForward(int forwardDistance){
         switch (this.direction) {
             case WEST:
@@ -124,6 +141,9 @@ public class Player {
                 break;
             case TURN_RIGHT:
                 this.rotateClockwise();
+                break;
+            case MOVE_BACK_ONE:
+                this.moveBackward(1);
                 break;
             case U_TURN:
                 this.rotateClockwise();
