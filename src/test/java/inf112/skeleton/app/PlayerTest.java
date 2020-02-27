@@ -81,7 +81,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void rotateCounterClockWiseRotatesPlayerFromNorthToEast(){
+    public void rotateCounterClockWiseRotatesPlayerFromNorthToEast() {
         testPlayer.setDirection(Direction.NORTH);
         testPlayer.rotateCounterClockwise();
 
