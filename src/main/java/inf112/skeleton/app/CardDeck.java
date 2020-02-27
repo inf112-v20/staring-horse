@@ -11,6 +11,14 @@ public class CardDeck {
     }
 
     public void drawNineProgramCards(){
+        this.deck.clear();
+        for(int i = 0; i < 9; i++){
+            this.deck.add(new ProgramCard());
+        }
+    }
+
+    public ProgramCard getCard(int index){
+        return this.deck.get(index);
     }
 
 }

@@ -10,6 +10,7 @@ public class Player {
     private Direction direction;
     private int healthPoints;
     private ProgramCardAction previousAction;
+    private CardDeck cardDeck;
 
     private Texture playerTextures;
     private TextureRegion aliveTexture;
@@ -21,6 +22,7 @@ public class Player {
         this.xPos = 10;
         this.yPos = 15;
         this.direction = Direction.NORTH;
+        this.cardDeck = new CardDeck();
     }
 
     public void setXPos(int x) { this.xPos = x; }
@@ -128,6 +130,14 @@ public class Player {
                 this.rotateClockwise();
                 break;
             }
+    }
+
+    public void drawNewDeck(){
+        this.cardDeck.drawNineProgramCards();
+    }
+
+    public ProgramCard getProgramCard(int index){
+        return this.cardDeck.getCard(index);
     }
 
     public TextureRegion getAliveTexture() {
