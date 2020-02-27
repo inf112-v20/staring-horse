@@ -80,12 +80,14 @@ For å visualisere hvordan vi ville designe koden vår valgte vi å lage et UML-
 
 *Akseptansekriterier:* Brett synlig på skjermen med 10x10 antall ruter, hver rute har basis utseende basert på brettspillet RoboRally.
 
-*Arbeidsoppgaver:* Sette seg inn i LibGDX og Tiled. Designe strukturen til koden og implementere den.    
+*Arbeidsoppgaver:* Sette seg inn i LibGDX og Tiled. Designe strukturen til koden og implementere den.
+
 2.    Som spiller trenger jeg å se elementer på spillbrettet for å navigere roboten rundt elementene.
 
 *Akseptansekriterier:* Vise minst ett hull og ett flagg plassert på brettet. Ha identifiserbart design på elementene slik at de kan skilles fra hverandre.
 
 *Arbeidsoppgaver:* Velge design på hull og flagg basert på designet fra brettspillet. Designe strukturen til koden og implementere den.
+
 3.    Som spiller trenger jeg å se roboten for å forstå hvor jeg kan bevege meg.
 
 *Akseptansekriterier:* Vise roboten med (x,y) koordinater og retning.
