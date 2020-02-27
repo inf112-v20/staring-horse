@@ -35,7 +35,6 @@ public class GameScreen implements Screen {
     private TiledMapTileLayer.Cell playerDiedCell;
     private StaticTiledMapTile playerTilemap;
 
-
     private Stage stage;
 
     private Player player;
@@ -74,7 +73,7 @@ public class GameScreen implements Screen {
 
         // create 9 of the same button.
         for (int i = 0; i < 9; i++) {
-            ImageButton cardButton = makeImageButton();
+            ImageButton cardButton = makeImageButton(new ProgramCard());
             cardButton.setPosition((float) (30 + 60*i), 55);
             stage.addActor(cardButton);
         }
@@ -88,12 +87,10 @@ public class GameScreen implements Screen {
      * Creates a new ImageButton.
      * @return a ImageButton.
      */
-    public ImageButton makeImageButton() {
-        ProgramCard card = new ProgramCard();
+    public ImageButton makeImageButton(ProgramCard card) {
+        Texture programCardTexturePressed = card.getTexture();
 
-        Texture programCardTexturePressed = new Texture("ProgramCardMove1Pressed.png");
-
-        // create a drawable for each state of the button.
+        // create a drawable for each state of the button
         Drawable drawable = new TextureRegionDrawable(new TextureRegion(card.getTexture()));
         Drawable pressedDrawable = new TextureRegionDrawable(new TextureRegion(programCardTexturePressed));
         ImageButton imageButton = new ImageButton(drawable);
@@ -110,7 +107,7 @@ public class GameScreen implements Screen {
             }
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Pressed");
+                System.out.println("Pressed.");
                 return true;
             }
         });
