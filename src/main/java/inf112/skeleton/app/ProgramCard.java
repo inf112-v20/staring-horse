@@ -55,9 +55,10 @@ public class ProgramCard {
      * @return a ImageButton.
      */
     public ImageButton makeCardImageButton() {
+        final ProgramCard programCard = this;
         Texture programCardTexturePressed = new Texture("ProgramCardMove1Pressed.png");
         // create a drawable for each state of the button
-        Drawable drawable = new TextureRegionDrawable(new TextureRegion(this.getTexture()));
+        final Drawable drawable = new TextureRegionDrawable(new TextureRegion(this.getTexture()));
         Drawable pressedDrawable = new TextureRegionDrawable(new TextureRegion(programCardTexturePressed));
         ImageButton imageButton = new ImageButton(drawable);
 
@@ -73,12 +74,10 @@ public class ProgramCard {
             }
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Pressed.");
+                System.out.println("Pressed: " + programCard.getAction());
                 return true;
             }
         });
         return imageButton;
     }
-
-
 }

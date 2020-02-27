@@ -66,14 +66,16 @@ public class GameScreen implements Screen {
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
 
+        this.player.drawNewDeck();
         // create 9 of the same button.
+        for(int i = 0; i < 9; i++) {
+            ProgramCard card = player.getProgramCard(i);
+            cardButton = card.makeCardImageButton();
+            cardButton.setPosition((float) (30 + 60*i), 55);
+            stage.addActor(cardButton);
+        }
 
-        ProgramCard card = new ProgramCard();
-        cardButton = card.makeCardImageButton();
-        cardButton.setPosition((float) (30 + 60), 55);
-        stage.addActor(cardButton);
-
-            orthogonalTiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, (float) 1/300);
+        orthogonalTiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, (float) 1/300);
         camera.setToOrtho(false, boardLayer.getWidth(), boardLayer.getHeight());
         camera.update();
         orthogonalTiledMapRenderer.setView(camera);
@@ -121,10 +123,6 @@ public class GameScreen implements Screen {
         }
 
         orthogonalTiledMapRenderer.render();
-
-        if (cardButton.isPressed()) {
-            System.out.println("!");
-        }
 
         stage.act();
         stage.draw();
