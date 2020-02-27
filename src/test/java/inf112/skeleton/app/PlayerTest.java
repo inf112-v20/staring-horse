@@ -74,8 +74,17 @@ public class PlayerTest {
 
     @Test
     public void rotateClockWiseRotatesPlayerFromNorthToEast(){
+        testPlayer.setDirection(Direction.NORTH);
         testPlayer.rotateClockwise();
 
         assertEquals(testPlayer.getDirection(), Direction.EAST);
+    }
+
+    @Test
+    public void rotateCounterClockWiseRotatesPlayerFromNorthToEast(){
+        testPlayer.setDirection(Direction.NORTH);
+        testPlayer.rotateCounterClockwise();
+
+        assertEquals(testPlayer.getDirection(), Direction.WEST);
     }
 }
