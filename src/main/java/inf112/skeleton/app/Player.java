@@ -2,7 +2,6 @@ package inf112.skeleton.app;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector2;
 
 public class Player {
 
@@ -149,7 +148,7 @@ public class Player {
             case TURN_RIGHT:
                 this.rotateClockwise();
                 break;
-            case MOVE_BACK_ONE:
+            case BACK_UP:
                 this.moveBackward(1);
                 break;
             case U_TURN:

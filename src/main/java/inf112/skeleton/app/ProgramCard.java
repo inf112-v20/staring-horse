@@ -41,8 +41,31 @@ public class ProgramCard {
             case MOVE_ONE:
                 this.texture = new Texture(Gdx.files.internal("ProgramCards/ProgramCardMove1.png"));
                 break;
+            case MOVE_TWO:
+                this.texture = new Texture(Gdx.files.internal("ProgramCards/ProgramCardMove2.png"));
+                break;
+            case MOVE_THREE:
+                this.texture = new Texture(Gdx.files.internal("ProgramCards/ProgramCardMove3.png"));
+                break;
+            case TURN_LEFT:
+                this.texture = new Texture(Gdx.files.internal("ProgramCards/ProgramCardTurnLeft.png"));
+                break;
+            case TURN_RIGHT:
+                this.texture = new Texture(Gdx.files.internal("ProgramCards/ProgramCardTurnRight.png"));
+                break;
+            case U_TURN:
+                this.texture = new Texture(Gdx.files.internal("ProgramCards/ProgramCardUTurn.png"));
+                break;
+            case BACK_UP:
+                this.texture = new Texture(Gdx.files.internal("ProgramCards/ProgramCardBackUp.png"));
+                break;
+            case AGAIN:
+                this.texture = new Texture(Gdx.files.internal("ProgramCards/ProgramCardAgain.png"));
+                break;
+            default:
+                this.texture = new Texture("ProgramCards/ProgramCardMove1Pressed.png");
+                break;
         }
-        this.texture = new Texture(Gdx.files.internal("ProgramCards/ProgramCardMove1.png"));
         return this.texture;
     }
 

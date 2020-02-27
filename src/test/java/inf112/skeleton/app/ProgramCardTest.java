@@ -76,7 +76,7 @@ public class ProgramCardTest {
 
     @Test
     public void moveBackOneWhileFacingNorth(){
-        playerCard = new ProgramCard(ProgramCardAction.MOVE_BACK_ONE);
+        playerCard = new ProgramCard(ProgramCardAction.BACK_UP);
         testPlayer.performProgramCardAction(playerCard);
 
         assertEquals(testPlayer.getYPos(), startY - 1);

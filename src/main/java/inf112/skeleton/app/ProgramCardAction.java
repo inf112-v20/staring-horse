@@ -9,7 +9,7 @@ public enum ProgramCardAction {
     TURN_LEFT,
     TURN_RIGHT,
     U_TURN,
-    MOVE_BACK_ONE,
+    BACK_UP,
     AGAIN;
 
     private static final ProgramCardAction[] ACTIONS = values();
