@@ -40,7 +40,7 @@ public class GameScreen implements Screen {
     public GameScreen(RoboRally roboRally){
         this.roboRally = roboRally;
 
-        tiledMap = new TmxMapLoader().load("backgroundTest.tmx");
+        tiledMap = new TmxMapLoader().load("Maps/backgroundTest.tmx");
         camera = new OrthographicCamera();
         //Gdx.input.setInputProcessor(this);
 

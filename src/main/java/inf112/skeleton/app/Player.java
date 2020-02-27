@@ -173,7 +173,7 @@ public class Player {
     }
 
     public void loadAssets() {
-        this.playerTextures = new Texture("player.png");
+        /*this.playerTextures = new Texture("player.png");
         this.textureRegion = new TextureRegion(playerTextures).split(300,300);
         this.aliveTexture = new TextureRegion();
         this.deadTexture = new TextureRegion();
@@ -181,6 +181,11 @@ public class Player {
 
         aliveTexture = textureRegion[0][0];
         deadTexture = textureRegion[0][1];
-        wonTexture = textureRegion[0][2];
+        wonTexture = textureRegion[0][2];*/
+
+        this.playerTextures = new Texture("Robo.png");
+        this.aliveTexture = new TextureRegion(playerTextures);
+        this.deadTexture = new TextureRegion(playerTextures);
+        this.wonTexture = new TextureRegion(playerTextures);
     }
 }

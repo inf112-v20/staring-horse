@@ -39,10 +39,10 @@ public class ProgramCard {
     public Texture getTexture(){
         switch (this.action){
             case MOVE_ONE:
-                this.texture = new Texture(Gdx.files.internal("ProgramCardMove1.png"));
+                this.texture = new Texture(Gdx.files.internal("ProgramCards/ProgramCardMove1.png"));
                 break;
         }
-        this.texture = new Texture(Gdx.files.internal("ProgramCardMove1.png"));
+        this.texture = new Texture(Gdx.files.internal("ProgramCards/ProgramCardMove1.png"));
         return this.texture;
     }
 
@@ -56,7 +56,7 @@ public class ProgramCard {
      */
     public ImageButton makeCardImageButton() {
         final ProgramCard programCard = this;
-        Texture programCardTexturePressed = new Texture("ProgramCardMove1Pressed.png");
+        Texture programCardTexturePressed = new Texture("ProgramCards/ProgramCardMove1Pressed.png");
         // create a drawable for each state of the button
         final Drawable drawable = new TextureRegionDrawable(new TextureRegion(this.getTexture()));
         Drawable pressedDrawable = new TextureRegionDrawable(new TextureRegion(programCardTexturePressed));
