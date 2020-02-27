@@ -30,42 +30,57 @@ Vårt andre forbedringspunkt vil være å ha stor fokus på å forbedre kodedesi
 
 #### Brukerhistorier med arbeidsoppgaver og akseptansekriterier vi har jobbet med denne iterasjonen:
 
-1. Som spiller må jeg kunne bevege roboten på brettet basert på instruksjoner fra programkort.
-Arbeidsoppgaver: Implementere klasse for programkort med instrukser tilsvarende brettspillet om bevegelser på brettet. Disse skal endre på robot-klassens tilstand slik at roboten flytter seg rundt på brettet.
-Akseptansekriteriet: Robot kan beveges med instrukser fra minst ett programkort. 
+**1.** Som spiller må jeg kunne bevege roboten på brettet basert på instruksjoner fra programkort.
 
-2. Som spiller må jeg kunne velge 5 programkort i den rekkefølgen jeg ønsker for å bevege roboten på spillbrettet.
-Arbeidsoppgaver: Implementere muligheten for å velge 5 vilkårlige programkort som spilleren kan sette i ønsket rekkefølge.
-Akseptansekriteriet: Fullført når spilleren kan velge og sette opp 5 programkort i prioritert rekkefølge.
+_Arbeidsoppgaver:_ Implementere klasse for programkort med instrukser tilsvarende brettspillet om bevegelser på brettet. Disse skal endre på robot-klassens tilstand slik at roboten flytter seg rundt på brettet.
+
+_Akseptansekriteriet:_ Robot kan beveges med instrukser fra minst ett programkort.
+
+**2.** Som spiller vil jeg se programkort på skjermen for å ha oversikt over hvordan roboten skal bevege seg/vite hvordan roboten skal bevege seg på brettet.
+
+_Arbeidsoppgaver:_ Designe utseende og velge plassering av kort i forhold til spillbrettet – inspirert av brettspillet. Gjøre de synlig på skjermen for å gi en fin visuell opplevelse av spillet.
+
+_Akseptansekriteriet:_ Fullført når programkort er synlig på skjermen med valgt design.
+
+**3.** Som spiller må jeg kunne velge 5 programkort i den rekkefølgen jeg ønsker for å bevege roboten på spillbrettet.
+
+_Arbeidsoppgaver:_ Implementere muligheten for å velge 5 vilkårlige programkort som spilleren kan sette i ønsket rekkefølge.
+
+_Akseptansekriteriet:_ Fullført når spilleren kan velge og sette opp 5 programkort i prioritert rekkefølge.
  
-3. Som spiller vil jeg se programkort på skjermen for å ha oversikt over hvordan roboten skal bevege seg/vite hvordan roboten skal bevege seg på brettet.
-Arbeidsoppgaver: Designe utseende og velge plassering av kort i forhold til spillbrettet – inspirert av brettspillet. Gjøre de synlig på skjermen for å gi en fin visuell opplevelse av spillet.
-Akseptansekriteriet: Fullført når programkort er synlig på skjermen med valgt design.
- 
-4. Som spiller vil jeg se vegger på brettet for å planlegge rekkefølgen på bevegelsene mine.
-Legge til vegger på brettet. Bruke Tiled for å lage Wall layer.
+**4.** Som spiller vil jeg se vegger på brettet for å planlegge rekkefølgen på bevegelsene mine.
+
+_Arbeidsoppgaver:_ Legge til vegger på brettet. Bruke Tiled for å lage Wall layer.
 Viktig: Vegger ligger mellom to felt på brettet.
-Akseptansekriteriet: Fullført når vegger er synlige på brettet
+
+_Akseptansekriteriet:_ Fullført når vegger er synlige på brettet
  
-5. Som spiller vil jeg at roboten min skal bli stoppet av vegger for å øke vanskelighetsgraden i spillet og gjøre det mer utfordrende å vinne.
-Implementere at roboten blir stoppet av vegger. 
-Akseptansekriteriet: Fullført når roboten ikke kan bevege seg gjennom (minst én type) vegg.
- 
+**5.** Som spiller vil jeg at roboten min skal bli stoppet av vegger for å øke vanskelighetsgraden i spillet og gjøre det mer utfordrende å vinne.
+
+_Arbeidsoppgaver:_ Implementere at roboten blir stoppet av vegger. 
+
+_Akseptansekriteriet:_ Fullført når roboten ikke kan bevege seg gjennom (minst én type) vegg.
+
+
 Bildet under viser et eksempel på hvordan project boardet vårt ser ut i løpet av iterasjonen.
 
 ![projectBoardOblig2](https://github.com/inf112-v20/staring-horse/blob/master/Staring-horse%20mid-iteration%20project%20board.png)
 
+ 
 #### Prioritering fremover
 
 Det vi vil prioritere fremover og i neste iterasjon er å implementere (ikke prioritert rekkefølge):
+
 - Mulighet for å vinne, tape og dø
 - Implementere runder og faser
 - Plukke flere flagg i riktig rekkefølge for å vinne
 - Lasere
 - Menu-screen før spillet starter (som vi senere vil at skal gi mulighet for å velge brett, evt regler, vanskelighetsgrad m.m)
 
-Vi har fått til bevegelse med programkort, fått til brett og en robot på brettet, vegger som hindrer bevegelse, flagg den kan nå for å vinne og hull den kan falle i som skal føre til at den dør. Basert på hvordan vi satte opp og spilte det fysiske brettspillet, føler vi at vi har implementert det som trengs for å spille spillet og at det er tid for å implementere muligheten for å faktisk gjennomføre runder og faser. Da må man også ha mulighet for å vinne, tape og dø. Lasere er også noe som vi vil ha med for å gjøre spillet mer spennende og utfordrende. En menu-screen er et designvalg vi har tatt basert på gruppemedlemmenes tidligere spillerfaring, som gir spilleren mer kontroll over hvordan h*n vil spille. Vi vil ikke at spilleren skal bli «kastet» inn i spillet uten å få velge brett, regler osv.
-MVP listen og endringer
+Vi har fått til bevegelse med programkort, fått til brett og en robot på brettet, vegger som hindrer bevegelse, flagg den kan nå for å vinne og hull den kan falle i som skal føre til at den dør. Basert på hvordan vi satte opp og spilte det fysiske brettspillet, føler vi at vi har implementert det som trengs for å spille spillet og at det er tid for å implementere muligheten for å faktisk gjennomføre runder og faser. Da må man også ha mulighet for å vinne, tape og dø. Lasere er også noe som vi vil ha med for å gjøre spillet mer spennende og utfordrende. En menu-screen er et designvalg vi har tatt basert på gruppemedlemmenes tidligere spillerfaring, som gir spilleren mer kontroll over hvordan han/hun vil spille. Vi vil ikke at spilleren skal bli «kastet» inn i spillet uten å få velge brett, regler osv.
+
+#### MVP listen og endringer
+
 Etter å ha spilt det fysiske brettspillet valgte vi å flytte noen av høynivåkravene våre til Nice-to-have kravlisten, da vi følte at man uten disse fortsatt har et fungerende spill. Ellers jobber vi videre med høynivåkravlisten slik den står i backlog. Det vi fjernet fra listen var:
 
 - når nest siste spiller er ferdig skal stoppeklokken på 30 sek settes i gang
