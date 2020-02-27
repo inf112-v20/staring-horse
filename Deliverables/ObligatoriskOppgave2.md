@@ -1,15 +1,17 @@
+# <p align="center">Obligatorisk Oppgave 2</p>
 
-### Deloppgave 1: Prosjekt og prosjektstruktur
+## Deloppgave 1: Prosjekt og prosjektstruktur
 
-##### Retrospektiv og vurdering av iterasjonen
+### Retrospektiv og vurdering av iterasjonen
 
-###### Roller, arbeidsfordeling og gruppedynamikk
+#### Roller, arbeidsfordeling og gruppedynamikk
 
 Rollefordelingen i teamet fungerer bra, kundekontakt Terje har fått enda tydeligere ansvar for å ta spørsmål til gruppeleder ved at han noterer ned en liste med spørsmål vi lurer på, istedenfor at alle spør underveis når ting dukker opp. Terje har også hatt ansvar for UML diagram og fått kodet enda mer i denne iterasjonen. Kristine fortsetter som teamlead, hun har hatt oversikt over møtetidspunkt, rombooking, satt opp og fulgt opp brukerhistorier og oppgaver på project board og sikret at gruppen holder seg til de oppgavene som er satt og vet hva de skal jobbe med om de er usikre, og ellers skrevet rapporter og referat. Vi beholder Olav og Johan med hovedansvar for koden, de skal sikre at den er sammenhengende og klar til innleveringene, de har dessuten til nå gjort en kjempeinnsats med å skrive mesteparten av koden og kommet opp med kodeløsninger. 
 
-Ellers føler vi at dynamikken i gruppen er fin, kommunikasjon via Slack og møtene er bra, og alle bidrar så godt de kan der de kan. Dette kommer enda ikke helt tydelig frem av commits da mesteparten av koden har blitt commitet fra samme datamaskin pga par/gruppe-programmeringen og tideligere arbeid i prosjektet.
+Ellers føler vi at dynamikken i gruppen er fin, kommunikasjon via Slack og møtene er bra, og alle bidrar så godt de kan der de kan. Dette kommer enda ikke helt tydelig frem av commits da mesteparten av koden har blitt commitet fra samme datamaskin pga par/gruppe-programmeringen og tideligere arbeid i prosjektet. 
+Ps. Commits fra Kristine.G.Mo og Kristine89 er samme person. Skal prøve å merge brukerene for å samle alle hennes commits på en bruker.
 
-###### Metodikk og arbeidsmåte
+#### Metodikk og arbeidsmåte
 
 Vi føler at metodikken vi har valgt med kombinasjonen av Kanban og Scrum fungerer bra, og gir oss den friheten vi trenger for å kunne prøve oss frem i arbeidet, men også et bra rammeverk å holde oss innenfor, slik som tenkt og forklart i første innlevering. I tillegg til møter med parkoding for å dele kunnskap og ideer, vi vil også sette av tid til koding på egenhånd da dette ser ut til å være litt mer effektivt for gruppemedlemmene, og gir oss enda bedre mulighet for å legge opp arbeidet i forhold til timeplanene våre og hvilke tidspunkt vi jobber best; for noen er det gjerne på morgenene, for andre ettermiddag/kveld. Her vil vi at alle skal få utnytte sine styrker, i tillegg til at vi fortsetter å utfordre oss selv med samarbeid.
 
@@ -17,7 +19,7 @@ Project board og issues på Git har fungert veldig bra for oss, det har gjort at
 
 Til nå i prosjektet synes vi at arbeidsmengden vi har satt opp har vært passelig, og vi har fått løst oppgavene i stor grad innenfor den tiden vi har til rådighet. Det har tatt en del tid å sette seg inn i de nye verktøyene som LibGDX og Tiled, og bruke de sammen med det vi kan om objekt orientert programmering, og vi har derfor ikke oppnådd optimal kodedesign. Vi har også brukt en del tid på å lage brukerhistorier og sette oss inn i prosjektmetodikk, da dette er et viktig læringsmål i faget.
  
-######  Forbedringspunkt
+####  Forbedringspunkt
 
 Det første forbedringspunktet vi har bestemt oss for er å få en jevnere fordeling av kodeoppgaver. De som er best på koding ønsker å bli enda flinkere til å dele kunnskap om koding med de i gruppen som ikke er like kunnskapsrike. Helt konkret vil vi sette opp ett-to ekstra ansikt-til-ansikt møter i løpet av iterasjonene med dette som formål.      
 
@@ -26,7 +28,7 @@ Vårt andre forbedringspunkt vil være å ha stor fokus på å forbedre kodedesi
 
 ## Deloppgave 2: Krav
 
-###### Brukerhistorier med arbeidsoppgaver og akseptansekriterier vi har jobbet med denne iterasjonen:
+#### Brukerhistorier med arbeidsoppgaver og akseptansekriterier vi har jobbet med denne iterasjonen:
 
 1. Som spiller må jeg kunne bevege roboten på brettet basert på instruksjoner fra programkort.
 Arbeidsoppgaver: Implementere klasse for programkort med instrukser tilsvarende brettspillet om bevegelser på brettet. Disse skal endre på robot-klassens tilstand slik at roboten flytter seg rundt på brettet.
@@ -53,7 +55,7 @@ Bildet under viser et eksempel på hvordan project boardet vårt ser ut i løpet
 
 ![projectBoardOblig2](https://github.com/inf112-v20/staring-horse/blob/master/Staring-horse%20mid-iteration%20project%20board.png)
 
-###### Prioritering fremover
+#### Prioritering fremover
 
 Det vi vil prioritere fremover og i neste iterasjon er å implementere (ikke prioritert rekkefølge):
 - Mulighet for å vinne, tape og dø
@@ -71,12 +73,13 @@ Etter å ha spilt det fysiske brettspillet valgte vi å flytte noen av høynivå
 - robot kan være i powerdown
 - aktivere robot fra powerdown
 
-###### Bugs i kravene vi har utført
+#### Bugs i kravene vi har utført
 
 Når vi skalerer skjermen til fullskjerm, skalerer ikke knappene, i.e. programkortene, seg til tilsvarende størrelse. Dette gjør det vanskelig å skjønne hvor på skjermen man skal trykke for å velge kort, da knappen ikke lenger er på selve kortene. Dette skal vi jobbe videre med i neste iterasjon.
 
 
-###### Linker til møtereferat fra denne iterasjonen
+### Linker til møtereferat fra denne iterasjonen
+
 **[Møtereferat 19. februar(1)](https://github.com/inf112-v20/staring-horse/wiki/M%C3%B8te-5,-19.-februar-klokken-0800)**
 
 **[Møtereferat 19. februar(2)](https://github.com/inf112-v20/staring-horse/wiki/M%C3%B8te-6,-19.-februar-klokken-1400)**
