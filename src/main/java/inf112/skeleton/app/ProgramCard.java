@@ -51,14 +51,13 @@ public class ProgramCard {
     }
 
     /**
-     * Creates a new ImageButton of a input card.
-     * @param card a program card with a texture
+     * Creates a new ImageButton of a input card
      * @return a ImageButton.
      */
-    public static ImageButton makeCardImageButton(ProgramCard card) {
+    public ImageButton makeCardImageButton() {
         Texture programCardTexturePressed = new Texture("ProgramCardMove1Pressed.png");
         // create a drawable for each state of the button
-        Drawable drawable = new TextureRegionDrawable(new TextureRegion(card.getTexture()));
+        Drawable drawable = new TextureRegionDrawable(new TextureRegion(this.getTexture()));
         Drawable pressedDrawable = new TextureRegionDrawable(new TextureRegion(programCardTexturePressed));
         ImageButton imageButton = new ImageButton(drawable);
 

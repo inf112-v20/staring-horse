@@ -11,6 +11,7 @@ import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import org.lwjgl.Sys;
 
 
 public class GameScreen implements Screen {
@@ -31,6 +32,7 @@ public class GameScreen implements Screen {
     private Stage stage;
 
     private Player player;
+    private ImageButton cardButton;
 
     private final RoboRally roboRally;
 
@@ -65,16 +67,17 @@ public class GameScreen implements Screen {
         Gdx.input.setInputProcessor(stage);
 
         // create 9 of the same button.
-        for (int i = 0; i < 9; i++) {
-            ProgramCard card = new ProgramCard();
-            ImageButton cardButton = ProgramCard.makeCardImageButton(card);
-            cardButton.setPosition((float) (30 + 60*i), 55);
-            stage.addActor(cardButton);
-        }
-        orthogonalTiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, (float) 1/300);
+
+        ProgramCard card = new ProgramCard();
+        cardButton = card.makeCardImageButton();
+        cardButton.setPosition((float) (30 + 60), 55);
+        stage.addActor(cardButton);
+
+            orthogonalTiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, (float) 1/300);
         camera.setToOrtho(false, boardLayer.getWidth(), boardLayer.getHeight());
         camera.update();
         orthogonalTiledMapRenderer.setView(camera);
+
     }
 
     @Override
@@ -118,6 +121,10 @@ public class GameScreen implements Screen {
         }
 
         orthogonalTiledMapRenderer.render();
+
+        if (cardButton.isPressed()) {
+            System.out.println("!");
+        }
 
         stage.act();
         stage.draw();
