@@ -17,6 +17,11 @@ public class ProgramCard {
         this.priority = new Random().nextInt(this.maxPriority - this.minPriority) + this.minPriority;
     }
 
+    public ProgramCard(ProgramCardAction action){
+        this.action = action;
+        this.priority = new Random().nextInt(this.maxPriority - this.minPriority) + this.minPriority;
+    }
+
     public Texture getTexture(){
         switch (this.action){
             case MOVE_ONE:
