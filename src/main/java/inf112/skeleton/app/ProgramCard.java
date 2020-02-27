@@ -2,6 +2,12 @@ package inf112.skeleton.app;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 import java.util.Random;
 
@@ -30,4 +36,38 @@ public class ProgramCard {
     public ProgramCardAction getAction() {
         return this.action;
     }
+
+
+    /**
+     * Creates a new ImageButton of a input card.
+     * @param card a program card with a texture
+     * @return a ImageButton.
+     */
+    public static ImageButton makeCardImageButton(ProgramCard card) {
+        Texture programCardTexturePressed = new Texture("ProgramCardMove1Pressed.png");
+        // create a drawable for each state of the button
+        Drawable drawable = new TextureRegionDrawable(new TextureRegion(card.getTexture()));
+        Drawable pressedDrawable = new TextureRegionDrawable(new TextureRegion(programCardTexturePressed));
+        ImageButton imageButton = new ImageButton(drawable);
+
+        imageButton.setSize((float) 200 / 4, (float) 340 / 4);
+        imageButton.getStyle() .imageUp = drawable;
+        imageButton.getStyle() .imageDown = pressedDrawable;
+        imageButton.setPosition(30,55);
+
+        imageButton.addListener(new InputListener(){
+            @Override
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                System.out.println("Not Pressed.");
+            }
+            @Override
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                System.out.println("Pressed.");
+                return true;
+            }
+        });
+        return imageButton;
+    }
+
+
 }
