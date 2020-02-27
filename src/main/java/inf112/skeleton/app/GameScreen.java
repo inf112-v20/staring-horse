@@ -11,7 +11,6 @@ import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import org.lwjgl.Sys;
 
 
 public class GameScreen implements Screen {
@@ -70,7 +69,7 @@ public class GameScreen implements Screen {
         // create 9 of the same button.
         for(int i = 0; i < 9; i++) {
             ProgramCard card = player.getProgramCard(i);
-            cardButton = card.makeCardImageButton();
+            cardButton = card.makeCardImageButton(player, this);
             cardButton.setPosition((float) (30 + 60*i), 55);
             stage.addActor(cardButton);
         }
@@ -80,6 +79,7 @@ public class GameScreen implements Screen {
         camera.update();
         orthogonalTiledMapRenderer.setView(camera);
 
+        renderPlayer();
     }
 
     @Override
@@ -107,9 +107,6 @@ public class GameScreen implements Screen {
                 break;
         }
 
-        playerLayer.setCell(player.getXPos(), player.getYPos(), null);
-        playerLayer.setCell(player.getXPos(), player.getYPos(), playerCell);
-
         // Checks if a player is on a flag, and switches texture.
         if (flagLayer.getCell(player.getXPos(), player.getYPos()) != null) {
             playerLayer.setCell(player.getXPos(), player.getYPos(), playerWonCell);
@@ -126,6 +123,14 @@ public class GameScreen implements Screen {
 
         stage.act();
         stage.draw();
+    }
+
+    public void unrenderPlayer() {
+        playerLayer.setCell(player.getXPos(), player.getYPos(), null);
+    }
+
+    public void renderPlayer(){
+        playerLayer.setCell(player.getXPos(), player.getYPos(), playerCell);
     }
 
     @Override

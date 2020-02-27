@@ -2,6 +2,7 @@ package inf112.skeleton.app;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 
 public class Player {
 
@@ -11,6 +12,7 @@ public class Player {
     private int healthPoints;
     private ProgramCardAction previousAction;
     private CardDeck cardDeck;
+    private ProgramCard[] chosenCards;
 
     private Texture playerTextures;
     private TextureRegion aliveTexture;
@@ -23,11 +25,16 @@ public class Player {
         this.yPos = 15;
         this.direction = Direction.NORTH;
         this.cardDeck = new CardDeck();
+        this.chosenCards = new ProgramCard[5];
     }
 
-    public void setXPos(int x) { this.xPos = x; }
+    public void setXPos(int x) {
+        this.xPos = x;
+    }
 
-    public void setYPos(int y) { this.yPos = y; }
+    public void setYPos(int y) {
+        this.yPos = y;
+    }
 
     public int getYPos() { return yPos; }
 

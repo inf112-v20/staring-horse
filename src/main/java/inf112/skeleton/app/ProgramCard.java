@@ -54,7 +54,7 @@ public class ProgramCard {
      * Creates a new ImageButton of a input card
      * @return a ImageButton.
      */
-    public ImageButton makeCardImageButton() {
+    public ImageButton makeCardImageButton(final Player player, final GameScreen gameScreen) {
         final ProgramCard programCard = this;
         Texture programCardTexturePressed = new Texture("ProgramCards/ProgramCardMove1Pressed.png");
         // create a drawable for each state of the button
@@ -75,6 +75,11 @@ public class ProgramCard {
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 System.out.println("Pressed: " + programCard.getAction());
+
+                gameScreen.unrenderPlayer();
+                player.performProgramCardAction(programCard);
+                gameScreen.renderPlayer();
+
                 return true;
             }
         });
