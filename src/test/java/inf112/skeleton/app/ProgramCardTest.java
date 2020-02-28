@@ -9,7 +9,7 @@ public class ProgramCardTest {
     ProgramCard playerCard;
     int startX;
     int startY;
-    Direction dir;
+    Direction startDir;
 
     // TODO add more tests.
 
@@ -18,11 +18,11 @@ public class ProgramCardTest {
         testPlayer = new Player();
         startX = 5;
         startY = 2;
-        dir = Direction.NORTH;
+        startDir = Direction.NORTH;
 
         testPlayer.setXPos(startX);
         testPlayer.setYPos(startY);
-        testPlayer.setDirection(dir);
+        testPlayer.setDirection(startDir);
     }
 
     @Test
@@ -82,5 +82,15 @@ public class ProgramCardTest {
         testPlayer.performProgramCardAction(playerCard);
 
         assertEquals(testPlayer.getYPos(), startY - 1);
+    }
+
+    @Test
+    public void moveOneCardThenAgainCardMovesPlayerTwoTiles(){
+        playerCard = new ProgramCard(ProgramCardAction.MOVE_ONE);
+        testPlayer.performProgramCardAction(playerCard);
+        ProgramCard playerCardAgain = new ProgramCard(ProgramCardAction.AGAIN);
+        testPlayer.performProgramCardAction(playerCardAgain);
+
+        assertEquals(testPlayer.getYPos(), startY + 2);
     }
 }

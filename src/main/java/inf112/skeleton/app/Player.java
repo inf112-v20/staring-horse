@@ -2,6 +2,7 @@ package inf112.skeleton.app;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import org.lwjgl.Sys;
 
 public class Player {
 
@@ -139,8 +140,10 @@ public class Player {
         }
     }
 
-    public void performProgramCardAction(ProgramCard progCard){
-        switch (progCard.getAction()){
+    public void performProgramCardAction(ProgramCard progCard) {
+        ProgramCardAction action = progCard.getAction();
+
+        switch (action) {
             case MOVE_ONE:
                 this.moveForward(1);
                 break;
@@ -163,9 +166,19 @@ public class Player {
                 this.rotateClockwise();
                 this.rotateClockwise();
                 break;
-            default:
+            case AGAIN:
+                if (this.previousAction != null) {
+                    this.performProgramCardAction(new ProgramCard(this.previousAction));
+                }
                 break;
-            }
+            default:
+                System.out.println("ProgramCardAction not implemented: " + action);
+                break;
+        }
+
+        if (action != ProgramCardAction.AGAIN) {
+            this.previousAction = action;
+        }
     }
 
     public void drawNewDeck(){

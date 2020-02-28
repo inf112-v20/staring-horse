@@ -118,6 +118,9 @@ public class GameScreen implements Screen {
         // and should probably only be called when the player has moved.
     }
 
+    /**
+     * Update PlayerCell-rotation based on Direction
+     */
     public void updatePlayerRotation(){
         switch (player.getDirection()){
             case NORTH:
