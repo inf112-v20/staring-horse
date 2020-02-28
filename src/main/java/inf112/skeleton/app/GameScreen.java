@@ -107,6 +107,19 @@ public class GameScreen implements Screen {
                 break;
         }
 
+        checkTile();
+
+        orthogonalTiledMapRenderer.render();
+
+        stage.act();
+        stage.draw();
+    }
+
+    /**
+     * Checks if the player/robot is standing on a special tile
+     * e.g. a flag or hole tile. Then changes the players texture and cell
+     */
+    public void checkTile() {
         // Checks if a player is on a flag, and switches texture.
         if (flagLayer.getCell(player.getXPos(), player.getYPos()) != null) {
             playerLayer.setCell(player.getXPos(), player.getYPos(), playerWonCell);
@@ -119,10 +132,9 @@ public class GameScreen implements Screen {
             playerTilemap.setTextureRegion(player.getDeadTexture());
         }
 
-        orthogonalTiledMapRenderer.render();
-
-        stage.act();
-        stage.draw();
+        // TODO add the rest of the special tiles (conveyor, wall and so on)
+        // Potentially move this method to a different class.
+        // and should probably only be called when the player has moved.
     }
 
     public void unrenderPlayer() {
