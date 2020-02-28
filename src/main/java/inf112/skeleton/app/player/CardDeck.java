@@ -1,4 +1,4 @@
-package inf112.skeleton.app.Player;
+package inf112.skeleton.app.player;
 
 import java.util.ArrayList;
 

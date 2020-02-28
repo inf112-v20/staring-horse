@@ -1,4 +1,4 @@
-package inf112.skeleton.app.Player;
+package inf112.skeleton.app.player;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -9,8 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import inf112.skeleton.app.Enums.ProgramCardAction;
-import inf112.skeleton.app.Screen.GameScreen;
+import inf112.skeleton.app.enums.ProgramCardAction;
+import inf112.skeleton.app.screen.GameScreen;
 
 import java.util.Random;
 

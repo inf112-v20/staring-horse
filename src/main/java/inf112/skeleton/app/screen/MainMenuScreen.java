@@ -1,4 +1,4 @@
-package inf112.skeleton.app.Screen;
+package inf112.skeleton.app.screen;
 
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;

@@ -1,10 +1,10 @@
-package inf112.skeleton.app.Player;
+package inf112.skeleton.app.player;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import inf112.skeleton.app.Enums.Direction;
-import inf112.skeleton.app.Enums.ProgramCardAction;
-import inf112.skeleton.app.Screen.GameScreen;
+import inf112.skeleton.app.enums.Direction;
+import inf112.skeleton.app.enums.ProgramCardAction;
+import inf112.skeleton.app.screen.GameScreen;
 
 public class Player {
 

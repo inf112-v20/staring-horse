@@ -1,4 +1,4 @@
-package inf112.skeleton.app.Enums;
+package inf112.skeleton.app.enums;
 
 import java.util.Random;
 

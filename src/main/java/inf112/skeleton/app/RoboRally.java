@@ -1,8 +1,8 @@
 package inf112.skeleton.app;
 
 import com.badlogic.gdx.Game;
-import inf112.skeleton.app.Screen.GameScreen;
-import inf112.skeleton.app.Screen.MainMenuScreen;
+import inf112.skeleton.app.screen.GameScreen;
+import inf112.skeleton.app.screen.MainMenuScreen;
 
 public class RoboRally extends Game {
 
