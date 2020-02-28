@@ -19,8 +19,6 @@ public class Player {
     private TextureRegion playerTexture;
     private int numCardsInHand;
 
-    // TODO Organize methods so its more readable.
-
     public Player() {
         this.xPos = 10;
         this.yPos = 15;
