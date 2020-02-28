@@ -94,6 +94,10 @@ Når vi skalerer skjermen til fullskjerm, skalerer ikke knappene, i.e. programko
 
 Spiller kan stå på bakgrunnsbrettet og gå utenfor brettet. Dette skal i fremtiden fikses ved at spilleren skal respawne etter å gå av brettet.
 
+### UML Diagram Oblig 2
+
+![oblig2-uml](https://github.com/inf112-v20/staring-horse/blob/master/Deliverables/Images/oblig2-uml.PNG)
+
 
 ### Linker til møtereferat fra denne iterasjonen
 
