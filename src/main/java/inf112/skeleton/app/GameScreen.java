@@ -45,13 +45,11 @@ public class GameScreen implements Screen {
         //Gdx.input.setInputProcessor(this);
 
         player = new Player();
-        player.loadAssets();
 
         playerCell = new TiledMapTileLayer.Cell();
-        playerWonCell = new TiledMapTileLayer.Cell();
-        playerDiedCell = new TiledMapTileLayer.Cell();
+        player.loadAssets();
 
-        playerTilemap = new StaticTiledMapTile(player.getAliveTexture());
+        playerTilemap = new StaticTiledMapTile(player.getTexture());
 
         playerLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Player");
         flagLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Flag");
@@ -59,8 +57,6 @@ public class GameScreen implements Screen {
         boardLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Board");
 
         playerCell.setTile(playerTilemap);
-        playerWonCell.setTile(playerTilemap);
-        playerDiedCell.setTile(playerTilemap);
 
         // create a stage for image buttons.
         stage = new Stage(new ScreenViewport());
@@ -93,21 +89,7 @@ public class GameScreen implements Screen {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        switch (player.getDirection()){
-            case NORTH:
-                playerCell.setRotation(TiledMapTileLayer.Cell.ROTATE_0);
-                break;
-            case WEST:
-                playerCell.setRotation(TiledMapTileLayer.Cell.ROTATE_90);
-                break;
-            case SOUTH:
-                playerCell.setRotation(TiledMapTileLayer.Cell.ROTATE_180);
-                break;
-            case EAST:
-                playerCell.setRotation(TiledMapTileLayer.Cell.ROTATE_270);
-                break;
-        }
-
+        updatePlayerRotation();
         checkTile();
 
         orthogonalTiledMapRenderer.render();
@@ -123,19 +105,34 @@ public class GameScreen implements Screen {
     public void checkTile() {
         // Checks if a player is on a flag, and switches texture.
         if (flagLayer.getCell(player.getXPos(), player.getYPos()) != null) {
-            playerLayer.setCell(player.getXPos(), player.getYPos(), playerWonCell);
-            playerTilemap.setTextureRegion(player.getWonTexture());
+            System.out.println("Player on flag");
         }
 
         // Checks if a player is on a hole, and switches texture.
         if (holeLayer.getCell(player.getXPos(), player.getYPos()) != null) {
-            playerLayer.setCell(player.getXPos(), player.getYPos(), playerDiedCell);
-            playerTilemap.setTextureRegion(player.getDeadTexture());
+            System.out.println("Player died");
         }
 
         // TODO add the rest of the special tiles (conveyor, wall and so on)
         // Potentially move this method to a different class.
         // and should probably only be called when the player has moved.
+    }
+
+    public void updatePlayerRotation(){
+        switch (player.getDirection()){
+            case NORTH:
+                playerCell.setRotation(TiledMapTileLayer.Cell.ROTATE_0);
+                break;
+            case WEST:
+                playerCell.setRotation(TiledMapTileLayer.Cell.ROTATE_90);
+                break;
+            case SOUTH:
+                playerCell.setRotation(TiledMapTileLayer.Cell.ROTATE_180);
+                break;
+            case EAST:
+                playerCell.setRotation(TiledMapTileLayer.Cell.ROTATE_270);
+                break;
+        }
     }
 
     public void unrenderPlayer() {

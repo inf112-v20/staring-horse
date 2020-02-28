@@ -13,11 +13,7 @@ public class Player {
     private CardDeck cardDeck;
     private ProgramCard[] chosenCards;
 
-    private Texture playerTextures;
-    private TextureRegion aliveTexture;
-    private TextureRegion deadTexture;
-    private TextureRegion wonTexture;
-    private TextureRegion[][] textureRegion;
+    private TextureRegion playerTexture;
 
     // TODO Organize methods so its more readable.
 
@@ -178,34 +174,12 @@ public class Player {
         return this.cardDeck.getCard(index);
     }
 
-    public TextureRegion getAliveTexture() {
-        return this.aliveTexture;
-    }
-
-    public TextureRegion getDeadTexture() {
-        return this.deadTexture;
-    }
-
-    public TextureRegion getWonTexture() {
-        return this.wonTexture;
+    public TextureRegion getTexture() {
+        return this.playerTexture;
     }
 
     public void loadAssets() {
-        /*this.playerTextures = new Texture("player.png");
-        this.textureRegion = new TextureRegion(playerTextures).split(300,300);
-        this.aliveTexture = new TextureRegion();
-        this.deadTexture = new TextureRegion();
-        this.wonTexture = new TextureRegion();
+        this.playerTexture = new TextureRegion(new Texture("Robo.png"));
 
-        aliveTexture = textureRegion[0][0];
-        deadTexture = textureRegion[0][1];
-        wonTexture = textureRegion[0][2];*/
-
-        // TODO remove old texture and potentially remove the alive,dead and won textureRegions.
-        // Could be used in the future though.
-        this.playerTextures = new Texture("Robo.png");
-        this.aliveTexture = new TextureRegion(playerTextures);
-        this.deadTexture = new TextureRegion(playerTextures);
-        this.wonTexture = new TextureRegion(playerTextures);
     }
 }
