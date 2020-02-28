@@ -27,6 +27,7 @@ public class ProgramCard {
         this.action = ProgramCardAction.getRandomProgramCardAction();
         this.priority = new Random().nextInt(this.maxPriority - this.minPriority) + this.minPriority;
         this.isInHand = false;
+        this.texture = getTexture();
     }
 
     /**
@@ -36,6 +37,8 @@ public class ProgramCard {
     public ProgramCard(ProgramCardAction action){
         this.action = action;
         this.priority = new Random().nextInt(this.maxPriority - this.minPriority) + this.minPriority;
+        this.isInHand = false;
+        this.texture = getTexture();
     }
 
     /**
@@ -97,10 +100,13 @@ public class ProgramCard {
         // TODO make position be depended on the screen size or viewport instead of static.
         imageButton.setPosition(30,55);
 
-        imageButton.addListener(new InputListener(){
+        imageButton.addListener(new InputListener() {
+
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+
             }
+
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 System.out.println("Pressed: " + programCard.getAction());

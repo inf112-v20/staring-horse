@@ -27,8 +27,6 @@ public class GameScreen implements Screen {
     private OrthographicCamera camera;
 
     private TiledMapTileLayer.Cell playerCell;
-    private TiledMapTileLayer.Cell playerWonCell;
-    private TiledMapTileLayer.Cell playerDiedCell;
     private StaticTiledMapTile playerTilemap;
 
     private Stage stage;
@@ -45,7 +43,6 @@ public class GameScreen implements Screen {
 
         tiledMap = new TmxMapLoader().load("Maps/backgroundTest.tmx");
         camera = new OrthographicCamera();
-        //Gdx.input.setInputProcessor(this);
 
         player = new Player();
 
@@ -66,7 +63,7 @@ public class GameScreen implements Screen {
         Gdx.input.setInputProcessor(stage);
 
         this.player.drawNewDeck();
-        // create 9 of the same button.
+        // make each card in the players deck into an imageButton
         for(int i = 0; i < 9; i++) {
             ProgramCard card = player.getProgramCard(i);
             cardButton = card.makeCardImageButton(player, this);

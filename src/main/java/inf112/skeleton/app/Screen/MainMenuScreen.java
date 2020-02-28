@@ -5,11 +5,9 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import inf112.skeleton.app.RoboRally;
 
 public class MainMenuScreen implements Screen {
-    private final RoboRally roboRally;
     OrthographicCamera camera;
 
     public MainMenuScreen(RoboRally roboRally) {
-        this.roboRally = roboRally;
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
