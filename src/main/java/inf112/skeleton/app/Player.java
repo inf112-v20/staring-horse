@@ -63,6 +63,8 @@ public class Player {
             case NORTH:
                 for(int i = 0; i < backwardDistance; i++){this.moveSouth();}
                 break;
+            default:
+                break;
         }
     }
 
@@ -79,6 +81,8 @@ public class Player {
                 break;
             case NORTH:
                 for(int i = 0; i < forwardDistance; i++){this.moveNorth();}
+                break;
+            default:
                 break;
         }
     }
@@ -113,6 +117,8 @@ public class Player {
             case NORTH:
                 this.direction = Direction.EAST;
                 break;
+            default:
+                break;
         }
     }
 
@@ -129,6 +135,8 @@ public class Player {
                 break;
             case NORTH:
                 this.direction = Direction.WEST;
+                break;
+            default:
                 break;
         }
     }
@@ -156,6 +164,8 @@ public class Player {
             case U_TURN:
                 this.rotateClockwise();
                 this.rotateClockwise();
+                break;
+            default:
                 break;
             }
     }

@@ -1,6 +1,6 @@
 # INF112 Robo Rally
-### How to run the game:
-*   Run Main.java
+### How to run the game
+    *   Run Main.java
 
 ### Known bugs
 Currently throws "WARNING: An illegal reflective access operation has occurred", 

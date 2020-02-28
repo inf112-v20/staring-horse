@@ -63,6 +63,7 @@ public class Game extends InputAdapter implements ApplicationListener {
 
     @Override
     public void dispose() {
+        // dispose
     }
 
     @Override
@@ -90,14 +91,17 @@ public class Game extends InputAdapter implements ApplicationListener {
 
     @Override
     public void resize(int width, int height) {
+        // resize
     }
 
     @Override
     public void pause() {
+    // pause
     }
 
     @Override
     public void resume() {
+    // resume
     }
 
     @Override

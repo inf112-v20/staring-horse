@@ -16,35 +16,36 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void show() {
-
+    // show
     }
 
     @Override
     public void render(float v) {
+    // render
     }
 
     @Override
     public void resize(int i, int i1) {
-
+    // resize
     }
 
     @Override
     public void pause() {
-
+    // pause
     }
 
     @Override
     public void resume() {
-
+    // resume
     }
 
     @Override
     public void hide() {
-
+    // hide
     }
 
     @Override
     public void dispose() {
-
+    // dispose
     }
 }
