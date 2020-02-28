@@ -36,6 +36,7 @@ public class GameScreen implements Screen {
     private final RoboRally roboRally;
 
 
+    // TODO Organize constructor. (take things out that dont need to be there/make methods/move to new classes)
     public GameScreen(RoboRally roboRally){
         this.roboRally = roboRally;
 

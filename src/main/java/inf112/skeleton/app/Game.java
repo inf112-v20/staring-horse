@@ -12,7 +12,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 
-
+// TODO delete game class or repurpose it.
 public class Game extends InputAdapter implements ApplicationListener {
     private TiledMap tiledMap;
     private TiledMapTileLayer boardLayer;
@@ -29,10 +29,6 @@ public class Game extends InputAdapter implements ApplicationListener {
     private StaticTiledMapTile playerTilemap;
 
     private Player player;
-
-    public Game(){
-
-    }
 
     @Override
     public void create() {

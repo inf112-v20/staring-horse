@@ -88,6 +88,7 @@ public class ProgramCard {
         imageButton.setSize((float) 200 / 4, (float) 340 / 4);
         imageButton.getStyle() .imageUp = drawable;
         imageButton.getStyle() .imageDown = pressedDrawable;
+        // TODO make position be depended on the screen size or viewport instead of static.
         imageButton.setPosition(30,55);
 
         imageButton.addListener(new InputListener(){
@@ -99,6 +100,7 @@ public class ProgramCard {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 System.out.println("Pressed: " + programCard.getAction());
 
+                // TODO make a check if a player is has the card in its register/hand before using performAction.
                 gameScreen.unrenderPlayer();
                 player.performProgramCardAction(programCard);
                 gameScreen.renderPlayer();

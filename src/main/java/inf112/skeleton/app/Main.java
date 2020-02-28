@@ -10,7 +10,7 @@ public class Main {
         cfg.title = "Robo Rally";
         cfg.width = 700;
         cfg.height = 700;
-
+        // TODO change screen size for each map.
         new LwjglApplication(new RoboRally(), cfg);
     }
 }

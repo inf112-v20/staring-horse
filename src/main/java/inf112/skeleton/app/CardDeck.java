@@ -11,6 +11,18 @@ public class CardDeck {
     }
 
     /**
+     * Adds a ProgramCard to the deck
+     * @param card
+     */
+    public void addCardToDeck(ProgramCard card) {
+        deck.add(card);
+    }
+
+    public void addCardToDeck(ProgramCard card, int index) {
+        deck.add(index, card);
+    }
+
+    /**
      * Draw 9 new random ProgramCards
      */
     public void drawNineProgramCards(){

@@ -19,6 +19,8 @@ public class Player {
     private TextureRegion wonTexture;
     private TextureRegion[][] textureRegion;
 
+    // TODO Organize methods so its more readable.
+
     public Player() {
         this.xPos = 10;
         this.yPos = 15;
@@ -189,6 +191,8 @@ public class Player {
         deadTexture = textureRegion[0][1];
         wonTexture = textureRegion[0][2];*/
 
+        // TODO remove old texture and potentially remove the alive,dead and won textureRegions.
+        // Could be used in the future though.
         this.playerTextures = new Texture("Robo.png");
         this.aliveTexture = new TextureRegion(playerTextures);
         this.deadTexture = new TextureRegion(playerTextures);

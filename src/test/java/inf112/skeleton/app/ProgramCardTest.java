@@ -11,6 +11,8 @@ public class ProgramCardTest {
     int startY;
     Direction dir;
 
+    // TODO add more tests.
+
     @Before
     public void before(){
         testPlayer = new Player();
