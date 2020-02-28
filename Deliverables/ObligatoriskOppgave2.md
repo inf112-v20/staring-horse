@@ -92,6 +92,8 @@ Etter å ha spilt det fysiske brettspillet valgte vi å flytte noen av høynivå
 
 Når vi skalerer skjermen til fullskjerm, skalerer ikke knappene, i.e. programkortene, seg til tilsvarende størrelse. Dette gjør det vanskelig å skjønne hvor på skjermen man skal trykke for å velge kort, da knappen ikke lenger er på selve kortene. Dette skal vi jobbe videre med i neste iterasjon.
 
+Spiller kan stå på bakgrunnsbrettet og gå utenfor brettet. Dette skal i fremtiden fikses ved at spilleren skal respawne etter å gå av brettet.
+
 
 ### Linker til møtereferat fra denne iterasjonen
 
