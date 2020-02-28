@@ -19,12 +19,12 @@ public class ProgramCard {
     private int priority;
     private Texture texture;
     private ImageButton cardButton;
-    private boolean inhand;
+    private boolean isInHand;
 
     public ProgramCard(){
         this.action = ProgramCardAction.getRandomProgramCardAction();
         this.priority = new Random().nextInt(this.maxPriority - this.minPriority) + this.minPriority;
-        this.inhand = false;
+        this.isInHand = false;
     }
 
     /**
@@ -104,15 +104,13 @@ public class ProgramCard {
                 System.out.println("Pressed: " + programCard.getAction());
                 // TODO make a check if a player is has the card in its register/hand before using performAction.
 
-                if (programCard.inHand() && player.myTurn()) {
-                    gameScreen.unrenderPlayer();
-                    player.performProgramCardAction(programCard);
-                    gameScreen.renderPlayer();
-                }
-
-                if (!programCard.inHand()) {
+                if (!programCard.isInHand()) {
                     player.addToChosenCards(programCard);
                     gameScreen.showPlayersHand();
+
+                    if(player.isHandFull()) {
+                        player.executeCardsInHand(gameScreen);
+                    }
                 }
 
                 return true;
@@ -126,11 +124,11 @@ public class ProgramCard {
         return cardButton;
     }
 
-    public void setInhand(boolean bool) {
-        this.inhand = bool;
+    public void setIsInHand(boolean bool) {
+        this.isInHand = bool;
     }
 
-    public boolean inHand() {
-        return this.inhand;
+    public boolean isInHand() {
+        return this.isInHand;
     }
 }

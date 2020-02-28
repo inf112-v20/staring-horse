@@ -1,8 +1,9 @@
 package inf112.skeleton.app;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import org.lwjgl.Sys;
+import com.badlogic.gdx.utils.Timer;
 
 public class Player {
 
@@ -198,21 +199,56 @@ public class Player {
 
     }
 
+    /**
+     * Add ProgramCard to player hand
+     * @param card
+     */
     public void addToChosenCards(ProgramCard card) {
         if (numCardsInHand < 5) {
             hand[numCardsInHand] = card;
             numCardsInHand += 1;
-            card.setInhand(true);
+            card.setIsInHand(true);
         } else {
             System.out.println("Your hand is full!");
         }
     }
 
     public ProgramCard[] getHand() {
-        return hand;
+        return this.hand;
     }
 
     public boolean myTurn() {
         return true;
+    }
+
+    public boolean isHandFull() {
+        for (int i = 0; i < this.hand.length; i++) {
+            if (this.hand[i] == null){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     *
+     * @param gameScreen
+     */
+    public void executeCardsInHand(GameScreen gameScreen){
+        for (int i = 0; i < this.hand.length; i++) {
+            ProgramCard currentCard = this.hand[i];
+
+            gameScreen.unrenderPlayer();
+            performProgramCardAction(currentCard);
+            gameScreen.renderPlayer();
+
+            System.out.println("Executed " + currentCard.getAction());
+        }
+
+        clearHand();
+    }
+
+    private void clearHand() {
+        this.hand = new ProgramCard[hand.length];
     }
 }
