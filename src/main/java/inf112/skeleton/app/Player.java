@@ -11,9 +11,10 @@ public class Player {
     private int healthPoints;
     private ProgramCardAction previousAction;
     private CardDeck cardDeck;
-    private ProgramCard[] chosenCards;
+    private ProgramCard[] hand;
 
     private TextureRegion playerTexture;
+    private int numCardsInHand;
 
     // TODO Organize methods so its more readable.
 
@@ -22,7 +23,8 @@ public class Player {
         this.yPos = 15;
         this.direction = Direction.NORTH;
         this.cardDeck = new CardDeck();
-        this.chosenCards = new ProgramCard[5];
+        this.hand = new ProgramCard[5];
+        this.numCardsInHand = 0;
     }
 
     public void setXPos(int x) {
@@ -181,5 +183,23 @@ public class Player {
     public void loadAssets() {
         this.playerTexture = new TextureRegion(new Texture("Robo.png"));
 
+    }
+
+    public void addToChosenCards(ProgramCard card) {
+        if (numCardsInHand < 5) {
+            hand[numCardsInHand] = card;
+            numCardsInHand += 1;
+            card.setInhand(true);
+        } else {
+            System.out.println("Your hand is full!");
+        }
+    }
+
+    public ProgramCard[] getHand() {
+        return hand;
+    }
+
+    public boolean myTurn() {
+        return true;
     }
 }

@@ -3,6 +3,7 @@ package inf112.skeleton.app;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -17,10 +18,13 @@ public class ProgramCard {
     private ProgramCardAction action;
     private int priority;
     private Texture texture;
+    private ImageButton cardButton;
+    private boolean inhand;
 
     public ProgramCard(){
         this.action = ProgramCardAction.getRandomProgramCardAction();
         this.priority = new Random().nextInt(this.maxPriority - this.minPriority) + this.minPriority;
+        this.inhand = false;
     }
 
     /**
@@ -99,15 +103,35 @@ public class ProgramCard {
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 System.out.println("Pressed: " + programCard.getAction());
-
                 // TODO make a check if a player is has the card in its register/hand before using performAction.
-                gameScreen.unrenderPlayer();
-                player.performProgramCardAction(programCard);
-                gameScreen.renderPlayer();
+
+                if (programCard.inHand() && player.myTurn()) {
+                    gameScreen.unrenderPlayer();
+                    player.performProgramCardAction(programCard);
+                    gameScreen.renderPlayer();
+                }
+
+                if (!programCard.inHand()) {
+                    player.addToChosenCards(programCard);
+                    gameScreen.showPlayersHand();
+                }
 
                 return true;
             }
         });
+        cardButton = imageButton;
         return imageButton;
+    }
+
+    public Actor getCardButton() {
+        return cardButton;
+    }
+
+    public void setInhand(boolean bool) {
+        this.inhand = bool;
+    }
+
+    public boolean inHand() {
+        return this.inhand;
     }
 }

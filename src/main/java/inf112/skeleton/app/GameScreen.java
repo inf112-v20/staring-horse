@@ -135,6 +135,28 @@ public class GameScreen implements Screen {
         }
     }
 
+    /**
+     * renders each card which is in the player hand
+     */
+    public void showPlayersHand() {
+        ProgramCard[] hand = player.getHand();
+
+        // checks if there are any cards in the hand before rendering any cards
+        if (hand[0] != null) {
+            for (int i = 0; i < 5; i++) {
+                // Currently uses the cards presented at the start of each "round"
+                if (hand[i] != null) {
+
+                    ProgramCard card = hand[i];
+                    card.getCardButton().setSize(card.getTexture().getWidth() / 6, card.getTexture().getHeight() / 6);
+                    card.getCardButton().setPosition((float)((camera.viewportWidth * 0.11) + (60 * i)), (float) (camera.viewportHeight * 0.05));
+                }
+            }
+        }
+    }
+
+
+
     public void unrenderPlayer() {
         playerLayer.setCell(player.getXPos(), player.getYPos(), null);
     }
