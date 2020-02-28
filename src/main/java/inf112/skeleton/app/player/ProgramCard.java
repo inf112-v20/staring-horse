@@ -102,13 +102,12 @@ public class ProgramCard {
 
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-
+                // could be useful in the future.
             }
 
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 System.out.println("Pressed: " + programCard.getAction());
-                // TODO make a check if a player is has the card in its register/hand before using performAction.
 
                 if (!programCard.isInHand()) {
                     player.addToChosenCards(programCard);

@@ -1,5 +1,5 @@
 # INF112 Robo Rally
-### How to run the game
+###  How to run the game
     *   Run Main.java
 
 ### Known bugs

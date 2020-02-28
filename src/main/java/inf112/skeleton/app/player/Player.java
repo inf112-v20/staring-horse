@@ -30,26 +30,6 @@ public class Player {
         this.numCardsInHand = 0;
     }
 
-    public void setXPos(int x) {
-        this.xPos = x;
-    }
-
-    public void setYPos(int y) {
-        this.yPos = y;
-    }
-
-    public int getYPos() { return yPos; }
-
-    public int getXPos() { return xPos; }
-
-    public void setDirection(Direction dir){
-        this.direction = dir;
-    }
-
-    public Direction getDirection() {
-        return this.direction;
-    }
-
     public void moveBackward(int backwardDistance){
         switch (this.direction) {
             case WEST:
@@ -86,22 +66,6 @@ public class Player {
             default:
                 break;
         }
-    }
-
-    public void moveNorth(){
-        this.setYPos(this.getYPos()+1);
-    }
-
-    public void moveEast(){
-        this.setXPos(this.getXPos()+1);
-    }
-
-    public void moveSouth(){
-        this.setYPos(this.getYPos()-1);
-    }
-
-    public void moveWest(){
-        this.setXPos(this.getXPos()-1);
     }
 
     public void rotateClockwise(){
@@ -183,21 +147,37 @@ public class Player {
         }
     }
 
-    public void drawNewDeck(){
-        this.cardDeck.drawNineProgramCards();
+    public void setDirection(Direction dir){
+        this.direction = dir;
     }
 
-    public ProgramCard getProgramCard(int index){
-        return this.cardDeck.getCard(index);
+    public Direction getDirection() {
+        return this.direction;
     }
 
-    public TextureRegion getTexture() {
-        return this.playerTexture;
+    public void moveNorth(){
+        this.setYPos(this.getYPos()+1);
+    }
+
+    public void moveEast(){
+        this.setXPos(this.getXPos()+1);
+    }
+
+    public void moveSouth(){
+        this.setYPos(this.getYPos()-1);
+    }
+
+    public void moveWest(){
+        this.setXPos(this.getXPos()-1);
     }
 
     public void loadAssets() {
         this.playerTexture = new TextureRegion(new Texture("Robo.png"));
 
+    }
+
+    public void drawNewDeck(){
+        this.cardDeck.drawNineProgramCards();
     }
 
     /**
@@ -212,23 +192,6 @@ public class Player {
         } else {
             System.out.println("Your hand is full!");
         }
-    }
-
-    public ProgramCard[] getHand() {
-        return this.hand;
-    }
-
-    public boolean myTurn() {
-        return true;
-    }
-
-    public boolean isHandFull() {
-        for (int i = 0; i < this.hand.length; i++) {
-            if (this.hand[i] == null){
-                return false;
-            }
-        }
-        return true;
     }
 
     /**
@@ -249,7 +212,40 @@ public class Player {
         clearHand();
     }
 
+    public ProgramCard getProgramCard(int index){
+        return this.cardDeck.getCard(index);
+    }
+
+    public TextureRegion getTexture() {
+        return this.playerTexture;
+    }
+
     private void clearHand() {
         this.hand = new ProgramCard[hand.length];
     }
+
+    public ProgramCard[] getHand() {
+        return this.hand;
+    }
+
+    public boolean isHandFull() {
+        for (int i = 0; i < this.hand.length; i++) {
+            if (this.hand[i] == null){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void setXPos(int x) {
+        this.xPos = x;
+    }
+
+    public void setYPos(int y) {
+        this.yPos = y;
+    }
+
+    public int getYPos() { return yPos; }
+
+    public int getXPos() { return xPos; }
 }
