@@ -1,7 +1,8 @@
-package inf112.skeleton.app;
+package inf112.skeleton.app.Screen;
 
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import inf112.skeleton.app.RoboRally;
 
 public class MainMenuScreen implements Screen {
     private final RoboRally roboRally;
