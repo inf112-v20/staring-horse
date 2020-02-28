@@ -27,7 +27,6 @@ public class ProgramCard {
         this.action = ProgramCardAction.getRandomProgramCardAction();
         this.priority = new Random().nextInt(this.maxPriority - this.minPriority) + this.minPriority;
         this.isInHand = false;
-        this.texture = getTexture();
     }
 
     /**
@@ -38,7 +37,6 @@ public class ProgramCard {
         this.action = action;
         this.priority = new Random().nextInt(this.maxPriority - this.minPriority) + this.minPriority;
         this.isInHand = false;
-        this.texture = getTexture();
     }
 
     /**
