@@ -64,7 +64,7 @@ _Akseptansekriteriet:_ Fullført når roboten ikke kan bevege seg gjennom (minst
 
 Bildet under viser et eksempel på hvordan project boardet vårt ser ut i løpet av iterasjonen.
 
-![projectBoardOblig2](https://github.com/inf112-v20/staring-horse/blob/master/Staring-horse%20mid-iteration%20project%20board.png)
+![projectBoardOblig2](https://github.com/inf112-v20/staring-horse/blob/master/Deliverables/Images/Staring-horse%20mid-iteration%20project%20board.png)
 
  
 #### Prioritering fremover

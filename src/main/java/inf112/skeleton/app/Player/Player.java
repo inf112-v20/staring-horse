@@ -232,7 +232,7 @@ public class Player {
     }
 
     /**
-     *
+     * Execute all programcards in hand
      * @param gameScreen
      */
     public void executeCardsInHand(GameScreen gameScreen){

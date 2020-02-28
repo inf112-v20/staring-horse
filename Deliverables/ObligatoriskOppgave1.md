@@ -73,7 +73,7 @@ Organisering og booking av rom til møter tar teamlead ansvar for, og vi tar sik
 ## Deloppgave 4: Kode og brukerhistorier
 For å visualisere hvordan vi ville designe koden vår valgte vi å lage et UML-diagram. Diagrammet vi har laget i første omgang er ikke fullstendig, men fungerer bra som et startpunkt for å få en bedre oversikt over koden. UML-diagrammet kommer mest sannsynlig til å bli endret på over tid når vi finner andre løsninger. 
 
-![oblig-uml](https://github.com/inf112-v20/staring-horse/blob/master/oblig-uml.PNG)
+![oblig-uml](https://github.com/inf112-v20/staring-horse/blob/master/Deliverables/Images/oblig-uml.PNG)
 
 *Brukerhistorier for første iterasjon:*
 1.    Som spiller trenger jeg å se et brett slik at jeg kan programmere roboten min.
