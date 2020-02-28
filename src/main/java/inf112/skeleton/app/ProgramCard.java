@@ -98,7 +98,6 @@ public class ProgramCard {
         imageButton.addListener(new InputListener(){
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Not Pressed.");
             }
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
