@@ -19,13 +19,12 @@ Project board og issues på Git har fungert veldig bra for oss, det har gjort at
 
 Til nå i prosjektet synes vi at arbeidsmengden vi har satt opp har vært passelig, og vi har fått løst oppgavene i stor grad innenfor den tiden vi har til rådighet. Det har tatt en del tid å sette seg inn i de nye verktøyene som LibGDX og Tiled, og bruke de sammen med det vi kan om objekt orientert programmering, og vi har derfor ikke oppnådd optimal kodedesign. Vi har også brukt en del tid på å lage brukerhistorier og sette oss inn i prosjektmetodikk, da dette er et viktig læringsmål i faget.
  
-####  Forbedringspunkt
+#### Forbedringspunkt
 
 Det første forbedringspunktet vi har bestemt oss for er å få en jevnere fordeling av kodeoppgaver. De som er best på koding ønsker å bli enda flinkere til å dele kunnskap om koding med de i gruppen som ikke er like kunnskapsrike. Helt konkret vil vi sette opp ett-to ekstra ansikt-til-ansikt møter i løpet av iterasjonene med dette som formål.      
 
 Vårt andre forbedringspunkt vil være å ha stor fokus på å forbedre kodedesignet med gruppediskusjoner, veiledning fra gruppeleder og å lære enda mer om gamedesign via nettet, nå når vi har kommet bedre inn i arbeidsmåten og funnet ut hva som fungerer for teamet.  
  
-
 ## Deloppgave 2: Krav
 
 #### Brukerhistorier med arbeidsoppgaver og akseptansekriterier vi har jobbet med denne iterasjonen:
@@ -61,21 +60,19 @@ _Arbeidsoppgaver:_ Implementere at roboten blir stoppet av vegger.
 
 _Akseptansekriteriet:_ Fullført når roboten ikke kan bevege seg gjennom (minst én type) vegg.
 
-
 Bildet under viser et eksempel på hvordan project boardet vårt ser ut i løpet av iterasjonen.
 
 ![projectBoardOblig2](https://github.com/inf112-v20/staring-horse/blob/master/Deliverables/Images/Staring-horse%20mid-iteration%20project%20board.png)
-
  
 #### Prioritering fremover
 
 Det vi vil prioritere fremover og i neste iterasjon er å implementere (ikke prioritert rekkefølge):
 
-- Mulighet for å vinne, tape og dø
-- Implementere runder og faser
-- Plukke flere flagg i riktig rekkefølge for å vinne
-- Lasere
-- Menu-screen før spillet starter (som vi senere vil at skal gi mulighet for å velge brett, evt regler, vanskelighetsgrad m.m)
+-   Mulighet for å vinne, tape og dø
+-   Implementere runder og faser
+-   Plukke flere flagg i riktig rekkefølge for å vinne
+-   Lasere
+-   Menu-screen før spillet starter (som vi senere vil at skal gi mulighet for å velge brett, evt regler, vanskelighetsgrad m.m)
 
 Vi har fått til bevegelse med programkort, fått til brett og en robot på brettet, vegger som hindrer bevegelse, flagg den kan nå for å vinne og hull den kan falle i som skal føre til at den dør. Basert på hvordan vi satte opp og spilte det fysiske brettspillet, føler vi at vi har implementert det som trengs for å spille spillet og at det er tid for å implementere muligheten for å faktisk gjennomføre runder og faser. Da må man også ha mulighet for å vinne, tape og dø. Lasere er også noe som vi vil ha med for å gjøre spillet mer spennende og utfordrende. En menu-screen er et designvalg vi har tatt basert på gruppemedlemmenes tidligere spillerfaring, som gir spilleren mer kontroll over hvordan han/hun vil spille. Vi vil ikke at spilleren skal bli «kastet» inn i spillet uten å få velge brett, regler osv.
 
@@ -83,10 +80,10 @@ Vi har fått til bevegelse med programkort, fått til brett og en robot på bret
 
 Etter å ha spilt det fysiske brettspillet valgte vi å flytte noen av høynivåkravene våre til Nice-to-have kravlisten, da vi følte at man uten disse fortsatt har et fungerende spill. Ellers jobber vi videre med høynivåkravlisten slik den står i backlog. Det vi fjernet fra listen var:
 
-- når nest siste spiller er ferdig skal stoppeklokken på 30 sek settes i gang
-- spiller annonserer powerdown
-- robot kan være i powerdown
-- aktivere robot fra powerdown
+-   når nest siste spiller er ferdig skal stoppeklokken på 30 sek settes i gang
+-   spiller annonserer powerdown
+-   robot kan være i powerdown
+-   aktivere robot fra powerdown
 
 #### Bugs i kravene vi har utført
 
@@ -99,7 +96,6 @@ Når spiller står på flagg eller hull skrives det veldig mange ganger til kons
 ### UML Diagram Oblig 2
 
 ![oblig2-uml](https://github.com/inf112-v20/staring-horse/blob/master/Deliverables/Images/oblig2-uml.PNG)
-
 
 ### Linker til møtereferat fra denne iterasjonen
 
