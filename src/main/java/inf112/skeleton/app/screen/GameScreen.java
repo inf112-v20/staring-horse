@@ -10,6 +10,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import inf112.skeleton.app.player.Player;
 import inf112.skeleton.app.player.ProgramCard;
@@ -59,7 +60,7 @@ public class GameScreen implements Screen {
         playerCell.setTile(playerTilemap);
 
         // create a stage for image buttons.
-        stage = new Stage(new ScreenViewport());
+        stage = new Stage(new FitViewport(800,800, camera));
         Gdx.input.setInputProcessor(stage);
 
         this.player.drawNewDeck();
@@ -170,6 +171,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void resize(int i, int i1) {
+        stage.getViewport().update(i,i1, true);
         // resize
     }
 
