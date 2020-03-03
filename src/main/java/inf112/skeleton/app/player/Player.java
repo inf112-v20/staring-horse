@@ -204,7 +204,9 @@ public class Player {
             performProgramCardAction(currentCard);
             gameScreen.renderPlayer();
 
-            System.out.println("Executed " + currentCard.getAction());
+            System.out.println("Executed: " + currentCard.getAction());
+
+            gameScreen.checkTile();
         }
 
         clearHand();

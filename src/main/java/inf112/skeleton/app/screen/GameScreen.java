@@ -68,7 +68,7 @@ public class GameScreen implements Screen {
         for(int i = 0; i < 9; i++) {
             ProgramCard card = player.getProgramCard(i);
             cardButton = card.makeCardImageButton(player, this);
-            cardButton.setPosition((float) (30 + 60*i), 55);
+            cardButton.setPosition((float) ((cardButton.getWidth()*i)+(camera.viewportWidth/2)-cardButton.getWidth()*4.5), (float) (camera.viewportWidth*0.05));
             stage.addActor(cardButton);
         }
 
@@ -91,7 +91,6 @@ public class GameScreen implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         updatePlayerRotation();
-        checkTile();
 
         orthogonalTiledMapRenderer.render();
 
@@ -153,7 +152,7 @@ public class GameScreen implements Screen {
 
                     ProgramCard card = hand[i];
                     card.getCardButton().setSize(card.getTexture().getWidth() / 6, card.getTexture().getHeight() / 6);
-                    card.getCardButton().setPosition((float)((camera.viewportWidth * 0.11) + (60 * i)), (float) (camera.viewportHeight * 0.05));
+                    card.getCardButton().setPosition((float) ((cardButton.getWidth()*i)+(camera.viewportWidth/2)-cardButton.getWidth()*2.5), (float) (camera.viewportWidth*0.2));
                 }
             }
         }
