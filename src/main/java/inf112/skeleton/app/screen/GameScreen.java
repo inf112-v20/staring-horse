@@ -2,7 +2,6 @@ package inf112.skeleton.app.screen;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.maps.MapGroupLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -14,6 +13,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import inf112.skeleton.app.enums.Direction;
 import inf112.skeleton.app.player.Player;
 import inf112.skeleton.app.player.ProgramCard;
 import inf112.skeleton.app.RoboRally;
@@ -93,15 +93,33 @@ public class GameScreen extends InputAdapter implements Screen {
         renderPlayer();
     }
 
-    private String getObjectLayer(String layer) {
+    private boolean canGo() {
+        String wallObj = getObjectName("wallObjects");
+        Direction wallDir;
+        switch (wallObj) {
+            case "SouthWall":
+                wallDir = Direction.SOUTH;
+                break;
+            case "WestWall":
+                wallDir = Direction.WEST;
+                break;
+            default:
+                throw new IllegalStateException("Unexpected value: " + wallObj);
+        }
+
+        if (player.getDirection() == wallDir) {return false;}
+
+        return true;
+    }
+
+    public String getObjectName(String layer) {
         for (MapObject obj : tiledMap.getLayers().get(layer).getObjects()) {
             Rectangle rect = ((RectangleMapObject) obj).getRectangle();
             int layer_x = (int) rect.x / TILE_AREA;
             int layer_y = (int) rect.y / TILE_AREA;
 
-            if (player.getXPos() == layer_x && player.getYPos() == layer_y) {
+            if (player.getXPos() == layer_x && player.getYPos() == layer_y)
                 return obj.getName();
-            }
         }
         return "";
     }
