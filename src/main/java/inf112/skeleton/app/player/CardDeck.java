@@ -1,5 +1,8 @@
 package inf112.skeleton.app.player;
 
+import inf112.skeleton.app.enums.ProgramCardAction;
+import org.lwjgl.Sys;
+
 import java.util.ArrayList;
 
 public class CardDeck {
@@ -28,7 +31,11 @@ public class CardDeck {
     public void drawNineProgramCards(){
         this.deck.clear();
         for(int i = 0; i < 9; i++){
-            this.deck.add(new ProgramCard());
+            if (i < 8) {
+                this.deck.add(new ProgramCard(ProgramCardAction.getAllProgramCardActions()[i]));
+            } else {
+                this.deck.add(new ProgramCard());
+            }
         }
     }
 

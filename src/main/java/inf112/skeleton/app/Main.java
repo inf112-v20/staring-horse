@@ -20,4 +20,4 @@ public class Main {
 
         new LwjglApplication(new RoboRally(), cfg);
     }
-}
+}   
