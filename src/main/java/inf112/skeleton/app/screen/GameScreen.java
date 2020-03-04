@@ -1,6 +1,5 @@
 package inf112.skeleton.app.screen;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -11,13 +10,12 @@ import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import inf112.skeleton.app.player.Player;
 import inf112.skeleton.app.player.ProgramCard;
 import inf112.skeleton.app.RoboRally;
 
 
-public class GameScreen implements Screen {
+public class GameScreen extends InputAdapter implements Screen {
 
     private TiledMap tiledMap;
     private TiledMapTileLayer boardLayer;
@@ -59,9 +57,18 @@ public class GameScreen implements Screen {
 
         playerCell.setTile(playerTilemap);
 
+
         // create a stage for image buttons.
-        stage = new Stage(new FitViewport(800,800, camera));
-        Gdx.input.setInputProcessor(stage);
+        stage = new Stage(new FitViewport(900,900, camera));
+
+        // temporary, should be removed when we no longer need movement with the arrow keys
+        InputProcessor inputProcessorOne = stage;
+        InputProcessor inputProcessorTwo = this;
+        InputMultiplexer inputMultiplexer = new InputMultiplexer();
+        inputMultiplexer.addProcessor(inputProcessorOne);
+        inputMultiplexer.addProcessor(inputProcessorTwo);
+        Gdx.input.setInputProcessor(inputMultiplexer);
+
 
         this.player.drawNewDeck();
         // make each card in the players deck into an imageButton
@@ -194,5 +201,28 @@ public class GameScreen implements Screen {
         // dispose
     }
 
+    @Override
+    public boolean keyUp(int code) {
 
+        System.out.println("WE ARE HERE HELP *US YES IN THE COMPUTER");
+        if (Input.Keys.LEFT == code) {
+            unrenderPlayer();
+            player.rotateCounterClockwise();
+            renderPlayer();
+        } else if (Input.Keys.RIGHT == code) {
+            unrenderPlayer();
+            player.rotateClockwise();
+            renderPlayer();
+        } else if (Input.Keys.DOWN == code) {
+            unrenderPlayer();
+            player.moveBackward(1);
+            renderPlayer();
+        } else if (Input.Keys.UP == code) {
+            unrenderPlayer();
+            player.moveForward(1);
+            renderPlayer();
+        }
+
+        return false;
+    }
 }

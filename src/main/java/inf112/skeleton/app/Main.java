@@ -12,8 +12,8 @@ public class Main {
         cfg.title = "Robo Rally";
 
         // TODO change screen size for each map.
-        cfg.width = 800;
-        cfg.height = 800;
+        cfg.width = 900;
+        cfg.height = 900;
 
         cfg.x = ((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth())/2 - cfg.width/2;
         cfg.y = 0;
