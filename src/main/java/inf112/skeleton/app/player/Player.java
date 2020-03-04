@@ -206,7 +206,7 @@ public class Player {
 
             System.out.println("Executed: " + currentCard.getAction());
 
-            gameScreen.checkTile();
+            //gameScreen.checkTile();
         }
 
         clearHand();
