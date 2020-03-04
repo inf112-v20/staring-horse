@@ -2,11 +2,15 @@ package inf112.skeleton.app.screen;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.maps.MapGroupLayer;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -17,11 +21,13 @@ import inf112.skeleton.app.RoboRally;
 
 public class GameScreen extends InputAdapter implements Screen {
 
+    private int TILE_AREA = 300;
     private TiledMap tiledMap;
     private TiledMapTileLayer boardLayer;
     private TiledMapTileLayer flagLayer;
     private TiledMapTileLayer playerLayer;
     private TiledMapTileLayer holeLayer;
+
     private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
     private OrthographicCamera camera;
 
@@ -79,12 +85,25 @@ public class GameScreen extends InputAdapter implements Screen {
             stage.addActor(cardButton);
         }
 
-        orthogonalTiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, (float) 1/300);
+        orthogonalTiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, (float) 1/TILE_AREA);
         camera.setToOrtho(false, boardLayer.getWidth(), boardLayer.getHeight());
         camera.update();
         orthogonalTiledMapRenderer.setView(camera);
 
         renderPlayer();
+    }
+
+    private String getObjectLayer(String layer) {
+        for (MapObject obj : tiledMap.getLayers().get(layer).getObjects()) {
+            Rectangle rect = ((RectangleMapObject) obj).getRectangle();
+            int layer_x = (int) rect.x / TILE_AREA;
+            int layer_y = (int) rect.y / TILE_AREA;
+
+            if (player.getXPos() == layer_x && player.getYPos() == layer_y) {
+                return obj.getName();
+            }
+        }
+        return "";
     }
 
     @Override
@@ -103,26 +122,6 @@ public class GameScreen extends InputAdapter implements Screen {
 
         stage.act();
         stage.draw();
-    }
-
-    /**
-     * Checks if the player/robot is standing on a special tile
-     * e.g. a flag or hole tile. Then changes the players texture and cell
-     */
-    public void checkTile() {
-        // Checks if a player is on a flag, and switches texture.
-        if (flagLayer.getCell(player.getXPos(), player.getYPos()) != null) {
-            System.out.println("Player on flag");
-        }
-
-        // Checks if a player is on a hole, and switches texture.
-        if (holeLayer.getCell(player.getXPos(), player.getYPos()) != null) {
-            System.out.println("Player died");
-        }
-
-        // TODO add the rest of the special tiles (conveyor, wall and so on)
-        // Potentially move this method to a different class.
-        // and should probably only be called when the player has moved.
     }
 
     /**
