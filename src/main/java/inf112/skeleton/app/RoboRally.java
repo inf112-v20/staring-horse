@@ -9,6 +9,19 @@ public class RoboRally extends Game {
     public GameScreen gameScreen;
     public MainMenuScreen menuScreen;
 
+    private static RoboRally SINGLE_INSTANCE = null;
+
+    private RoboRally() {
+        
+    }
+
+    public static RoboRally getInstance() {
+        if (SINGLE_INSTANCE == null)
+            SINGLE_INSTANCE = new RoboRally();
+
+        return SINGLE_INSTANCE;
+    }
+
     @Override
     public void create() {
         gameScreen = new GameScreen(this);

@@ -16,6 +16,6 @@ public class Main {
         cfg.x = ((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth())/2 - cfg.width/2;
         cfg.y = 0;
 
-        new LwjglApplication(new RoboRally(), cfg);
+        new LwjglApplication(RoboRally.getInstance(), cfg);
     }
 }   

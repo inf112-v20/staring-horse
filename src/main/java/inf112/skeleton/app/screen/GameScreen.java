@@ -93,7 +93,7 @@ public class GameScreen extends InputAdapter implements Screen {
         renderPlayer();
     }
 
-    private boolean canGo() {
+    private boolean canGo(Direction dir) {
         String wallObj = getObjectName("wallObjects");
         Direction wallDir;
         switch (wallObj) {
@@ -118,8 +118,7 @@ public class GameScreen extends InputAdapter implements Screen {
             int layer_x = (int) rect.x / TILE_AREA;
             int layer_y = (int) rect.y / TILE_AREA;
 
-            if (player.getXPos() == layer_x && player.getYPos() == layer_y)
-                return obj.getName();
+
         }
         return "";
     }
