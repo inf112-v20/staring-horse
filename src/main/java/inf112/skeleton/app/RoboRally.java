@@ -14,7 +14,7 @@ public class RoboRally extends Game {
         gameScreen = new GameScreen(this);
         menuScreen = new MainMenuScreen(this);
 
-        setScreen(gameScreen);
+        setScreen(menuScreen);
     }
 
     public void render() {
