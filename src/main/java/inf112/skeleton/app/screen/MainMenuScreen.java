@@ -1,5 +1,6 @@
 package inf112.skeleton.app.screen;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -18,8 +19,8 @@ public class MainMenuScreen implements Screen {
     private RoboRally roboRally;
     private Stage stage;
 
-    public MainMenuScreen(RoboRally roboRally){
-        this.roboRally = roboRally;
+    public MainMenuScreen(){
+        this.roboRally = RoboRally.getInstance();
 
         /// create stage and set it as input processor
         stage = new Stage(new ScreenViewport());
@@ -57,7 +58,7 @@ public class MainMenuScreen implements Screen {
         newGame.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                roboRally.setScreen(roboRally.gameScreen);
+                roboRally.setGameScreen();
             }
         });
 

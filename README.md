@@ -3,8 +3,7 @@
     *   Run Main.java
 
 ### Known bugs
-    *   Player can move background tiles.
-    *   Window can not be scaled without major issues. 
+    *   Player can move on background tiles.
 
 Currently throws "WARNING: An illegal reflective access operation has occurred", 
 when the java version used is >8. This has no effect on function or performance, and is just a warning.

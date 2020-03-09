@@ -1,5 +1,6 @@
 package inf112.skeleton.app.player;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import inf112.skeleton.app.enums.Direction;
@@ -194,9 +195,9 @@ public class Player {
 
     /**
      * Execute all programcards in hand
-     * @param gameScreen
      */
-    public void executeCardsInHand(GameScreen gameScreen){
+    public void executeCardsInHand(){
+        GameScreen gameScreen = GameScreen.getInstance();
         for (int i = 0; i < this.hand.length; i++) {
             ProgramCard currentCard = this.hand[i];
 
@@ -205,8 +206,6 @@ public class Player {
             gameScreen.renderPlayer();
 
             System.out.println("Executed: " + currentCard.getAction());
-
-            //gameScreen.checkTile();
         }
 
         clearHand();

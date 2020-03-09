@@ -5,15 +5,9 @@ import inf112.skeleton.app.screen.GameScreen;
 import inf112.skeleton.app.screen.MainMenuScreen;
 
 public class RoboRally extends Game {
-
-    public GameScreen gameScreen;
-    public MainMenuScreen menuScreen;
-
     private static RoboRally SINGLE_INSTANCE = null;
 
-    private RoboRally() {
-        
-    }
+    private RoboRally() {}
 
     public static RoboRally getInstance() {
         if (SINGLE_INSTANCE == null)
@@ -24,10 +18,15 @@ public class RoboRally extends Game {
 
     @Override
     public void create() {
-        gameScreen = new GameScreen(this);
-        menuScreen = new MainMenuScreen(this);
+        setMenuScreen();
+    }
 
-        setScreen(menuScreen);
+    public void setMenuScreen() {
+        setScreen(new MainMenuScreen());
+    }
+
+    public void setGameScreen(){
+        setScreen(GameScreen.getInstance());
     }
 
     public void render() {

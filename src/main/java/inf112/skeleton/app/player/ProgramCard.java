@@ -100,7 +100,6 @@ public class ProgramCard {
         imageButton.setPosition(30,55);
 
         imageButton.addListener(new InputListener() {
-
             @Override
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
                 // could be useful in the future.
@@ -115,7 +114,7 @@ public class ProgramCard {
                     gameScreen.showPlayersHand();
 
                     if(player.isHandFull()) {
-                        player.executeCardsInHand(gameScreen);
+                        player.executeCardsInHand();
                     }
                 }
 

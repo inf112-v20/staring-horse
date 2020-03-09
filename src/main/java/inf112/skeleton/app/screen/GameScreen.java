@@ -39,13 +39,21 @@ public class GameScreen extends InputAdapter implements Screen {
     private Player player;
     private ImageButton cardButton;
 
-    private final RoboRally roboRally;
+    private RoboRally roboRally = RoboRally.getInstance();
 
+    private static GameScreen SINGLE_INSTANCE = null;
+    
+    private GameScreen(){}
 
-    // TODO Organize constructor. (take things out that dont need to be there/make methods/move to new classes)
-    public GameScreen(RoboRally roboRally){
-        this.roboRally = roboRally;
+    public static GameScreen getInstance() {
+        if (SINGLE_INSTANCE == null)
+            SINGLE_INSTANCE = new GameScreen();
 
+        return SINGLE_INSTANCE;
+    }
+
+    @Override
+    public void show() {
         tiledMap = new TmxMapLoader().load("Maps/backgroundTest.tmx");
         camera = new OrthographicCamera();
 
@@ -124,11 +132,6 @@ public class GameScreen extends InputAdapter implements Screen {
     }
 
     @Override
-    public void show() {
-        // show
-    }
-
-    @Override
     public void render(float v) {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -181,8 +184,6 @@ public class GameScreen extends InputAdapter implements Screen {
         }
     }
 
-
-
     public void unrenderPlayer() {
         playerLayer.setCell(player.getXPos(), player.getYPos(), null);
     }
@@ -194,7 +195,6 @@ public class GameScreen extends InputAdapter implements Screen {
     @Override
     public void resize(int i, int i1) {
         stage.getViewport().update(i,i1, true);
-        // resize
     }
 
     @Override
@@ -219,8 +219,6 @@ public class GameScreen extends InputAdapter implements Screen {
 
     @Override
     public boolean keyUp(int code) {
-
-        System.out.println("WE ARE HERE HELP *US YES IN THE COMPUTER");
         if (Input.Keys.LEFT == code) {
             unrenderPlayer();
             player.rotateCounterClockwise();
@@ -237,6 +235,8 @@ public class GameScreen extends InputAdapter implements Screen {
             unrenderPlayer();
             player.moveForward(1);
             renderPlayer();
+        } else if (Input.Keys.Q == code) {
+            roboRally.setMenuScreen();
         }
 
         return false;
