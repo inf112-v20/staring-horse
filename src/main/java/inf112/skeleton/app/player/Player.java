@@ -154,8 +154,7 @@ public class Player {
         return this.direction;
     }
 
-    public void moveNorth(){
-        this.setYPos(this.getYPos()+1);
+    public void moveNorth(){ this.setYPos(this.getYPos()+1);
     }
 
     public void moveEast(){
