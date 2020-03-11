@@ -101,7 +101,7 @@ public class GameScreen extends InputAdapter implements Screen {
         renderPlayer();
     }
 
-    private boolean canGo(Direction dir) {
+    public boolean canGo(Direction dir) {
         String wallObj = getObjectName("wallObjects");
         Direction wallDir;
         switch (wallObj) {
