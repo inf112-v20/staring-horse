@@ -22,7 +22,7 @@ public class Player {
 
     public Player() {
         this.xPos = 10;
-        this.yPos = 15;
+        this.yPos = 16;
         this.direction = Direction.NORTH;
         this.cardDeck = new CardDeck();
         this.hand = new ProgramCard[5];
