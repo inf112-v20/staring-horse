@@ -42,7 +42,7 @@ public class GameScreen extends InputAdapter implements Screen {
     private RoboRally roboRally = RoboRally.getInstance();
 
     private static GameScreen SINGLE_INSTANCE = null;
-    
+
     private GameScreen(){}
 
     public static GameScreen getInstance() {
@@ -182,6 +182,15 @@ public class GameScreen extends InputAdapter implements Screen {
                 }
             }
         }
+    }
+
+    /**
+     * @param x
+     * @param y
+     * @return true if position is a hole or is off the map
+     */
+    public boolean isHole(int x, int y){
+        return holeLayer.getCell(x,y) != null || boardLayer.getCell(x,y) == null;
     }
 
     public void unrenderPlayer() {

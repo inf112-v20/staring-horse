@@ -6,65 +6,120 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import inf112.skeleton.app.enums.Direction;
 import inf112.skeleton.app.enums.ProgramCardAction;
 import inf112.skeleton.app.screen.GameScreen;
+import org.lwjgl.Sys;
 
 public class Player {
 
     private int xPos;
     private int yPos;
     private Direction direction;
+
+    private int respawnXPos;
+    private int respawnYPos;
+
     private int healthPoints;
+    private int lives;
+
     private ProgramCardAction previousAction;
     private CardDeck cardDeck;
     private ProgramCard[] hand;
 
     private TextureRegion playerTexture;
     private int numCardsInHand;
+    private Direction respawnDirection;
 
     public Player() {
-        this.xPos = 10;
-        this.yPos = 16;
-        this.direction = Direction.NORTH;
+        this.respawnXPos = 10;
+        this.respawnYPos = 16;
+        this.respawnDirection = Direction.NORTH;
+
+        this.xPos = respawnXPos;
+        this.yPos = respawnYPos;
+        this.direction = respawnDirection;
+
         this.cardDeck = new CardDeck();
         this.hand = new ProgramCard[5];
         this.numCardsInHand = 0;
+
+        this.healthPoints = 10;
+        this.lives = 3;
     }
 
-    public void moveBackward(int backwardDistance){
+    public void moveBackward(int backWardDistance){
+        for (int i = 0; i < backWardDistance; i++){
+            this.moveBackwardOne();
+        }
+    }
+
+    private void moveBackwardOne(){
         switch (this.direction) {
-            case WEST:
-                for (int i = 0; i < backwardDistance; i++){this.moveEast();}
-                break;
-            case SOUTH:
-                for(int i = 0; i < backwardDistance; i++){this.moveNorth();}
-                break;
             case EAST:
-                for(int i = 0; i < backwardDistance; i++){this.moveWest();}
+                this.moveWest();
                 break;
             case NORTH:
-                for(int i = 0; i < backwardDistance; i++){this.moveSouth();}
+                this.moveSouth();
+                break;
+            case WEST:
+                this.moveEast();
+                break;
+            case SOUTH:
+                this.moveNorth();
                 break;
             default:
                 break;
+        }
+
+        if(GameScreen.getInstance().isHole(this.xPos, this.yPos)){
+            killRobot();
         }
     }
 
     public void moveForward(int forwardDistance){
+        for (int i = 0; i < forwardDistance; i++){
+            this.moveForwardOne();
+        }
+    }
+
+    private void moveForwardOne(){
         switch (this.direction) {
             case WEST:
-                for (int i = 0; i < forwardDistance; i++){this.moveWest();}
+                this.moveWest();
                 break;
             case SOUTH:
-                for(int i = 0; i < forwardDistance; i++){this.moveSouth();}
+                this.moveSouth();
                 break;
             case EAST:
-                for(int i = 0; i < forwardDistance; i++){this.moveEast();}
+                this.moveEast();
                 break;
             case NORTH:
-                for(int i = 0; i < forwardDistance; i++){this.moveNorth();}
+                this.moveNorth();
                 break;
             default:
                 break;
         }
+
+        if(GameScreen.getInstance().isHole(this.xPos, this.yPos)){
+            killRobot();
+        }
+    }
+
+    private void killRobot() {
+        this.lives--;
+        if(this.lives == 0){
+            System.out.println("Player is out");
+        } else {
+            respawn();
+        }
+    }
+
+    /**
+     * respawn robot at respawn-point
+     */
+    private void respawn(){
+        System.out.println("Respawning robot");
+        this.direction = respawnDirection;
+        this.xPos = respawnXPos;
+        this.yPos = respawnYPos;
     }
 
     public void rotateClockwise(){
@@ -107,6 +162,8 @@ public class Player {
 
     public void performProgramCardAction(ProgramCard progCard) {
         ProgramCardAction action = progCard.getAction();
+
+        System.out.println("Execute: " + progCard.getAction());
 
         switch (action) {
             case MOVE_ONE:
@@ -203,8 +260,6 @@ public class Player {
             gameScreen.unrenderPlayer();
             performProgramCardAction(currentCard);
             gameScreen.renderPlayer();
-
-            System.out.println("Executed: " + currentCard.getAction());
         }
 
         clearHand();
