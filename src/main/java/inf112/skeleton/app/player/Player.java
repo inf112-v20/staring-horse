@@ -69,9 +69,9 @@ public class Player {
                 break;
         }
 
-        if(GameScreen.getInstance().isHole(this.xPos, this.yPos)){
-            killRobot();
-        }
+        //if(GameScreen.getInstance().isHole(this.xPos, this.yPos)){
+        //    killRobot();
+        //}
     }
 
     public void moveForward(int forwardDistance){
@@ -98,9 +98,9 @@ public class Player {
                 break;
         }
 
-        if(GameScreen.getInstance().isHole(this.xPos, this.yPos)){
-            killRobot();
-        }
+        //if(GameScreen.getInstance().isHole(this.xPos, this.yPos)){
+        //    killRobot();
+        //}
     }
 
     private void killRobot() {
