@@ -28,7 +28,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void playerSetXSetsCorrectX(){
+    public void setXPosShouldChangeTestPlayersPosition(){
         int newXPos = 10;
         testPlayer.setXPos(newXPos);
 

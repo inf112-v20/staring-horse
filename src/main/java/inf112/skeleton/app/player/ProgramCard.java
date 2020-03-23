@@ -30,8 +30,8 @@ public class ProgramCard {
     }
 
     /**
-     * 
-     * @param action
+     * Construct ProgramCard with spesified ProgramCardAction
+     * @param action - spesified ProgramCardAction
      */
     public ProgramCard(ProgramCardAction action){
         this.action = action;
@@ -110,7 +110,7 @@ public class ProgramCard {
                 System.out.println("Pressed: " + programCard.getAction());
 
                 if (!programCard.isInHand()) {
-                    player.addToChosenCards(programCard);
+                    player.addCardToHand(programCard);
                     gameScreen.showPlayersHand();
 
                     if(player.isHandFull()) {

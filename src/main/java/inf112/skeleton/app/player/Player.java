@@ -16,6 +16,7 @@ public class Player {
 
     private int respawnXPos;
     private int respawnYPos;
+    private Direction respawnDirection;
 
     private int healthPoints;
     private int lives;
@@ -26,7 +27,6 @@ public class Player {
 
     private TextureRegion playerTexture;
     private int numCardsInHand;
-    private Direction respawnDirection;
 
     public Player() {
         this.respawnXPos = 10;
@@ -69,9 +69,9 @@ public class Player {
                 break;
         }
 
-        //if(GameScreen.getInstance().isHole(this.xPos, this.yPos)){
-        //    killRobot();
-        //}
+        /*if(GameScreen.getInstance().isHole(this.xPos, this.yPos)){
+            killRobot();
+        }*/
     }
 
     public void moveForward(int forwardDistance){
@@ -98,15 +98,15 @@ public class Player {
                 break;
         }
 
-        //if(GameScreen.getInstance().isHole(this.xPos, this.yPos)){
-        //    killRobot();
-        //}
+        /*if(GameScreen.getInstance().isHole(this.xPos, this.yPos)){
+            killRobot();
+        }*/
     }
 
     private void killRobot() {
         this.lives--;
         if(this.lives == 0){
-            System.out.println("Player is out");
+            System.out.println("Player is out of lives");
         } else {
             respawn();
         }
@@ -211,7 +211,8 @@ public class Player {
         return this.direction;
     }
 
-    public void moveNorth(){ this.setYPos(this.getYPos()+1);
+    public void moveNorth(){
+        this.setYPos(this.getYPos()+1);
     }
 
     public void moveEast(){
@@ -237,9 +238,9 @@ public class Player {
 
     /**
      * Add ProgramCard to player hand
-     * @param card
+     * @param card - ProgramCard to add to player hand
      */
-    public void addToChosenCards(ProgramCard card) {
+    public void addCardToHand(ProgramCard card) {
         if (numCardsInHand < 5) {
             hand[numCardsInHand] = card;
             numCardsInHand += 1;
@@ -254,9 +255,7 @@ public class Player {
      */
     public void executeCardsInHand(){
         GameScreen gameScreen = GameScreen.getInstance();
-        for (int i = 0; i < this.hand.length; i++) {
-            ProgramCard currentCard = this.hand[i];
-
+        for (ProgramCard currentCard : this.hand) {
             gameScreen.unrenderPlayer();
             performProgramCardAction(currentCard);
             gameScreen.renderPlayer();
@@ -282,12 +281,7 @@ public class Player {
     }
 
     public boolean isHandFull() {
-        for (int i = 0; i < this.hand.length; i++) {
-            if (this.hand[i] == null){
-                return false;
-            }
-        }
-        return true;
+        return numCardsInHand >= 5;
     }
 
     public void setXPos(int x) {

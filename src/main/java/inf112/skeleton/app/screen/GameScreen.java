@@ -43,7 +43,9 @@ public class GameScreen extends InputAdapter implements Screen {
 
     private static GameScreen SINGLE_INSTANCE = null;
 
-    private GameScreen(){}
+    private GameScreen(){
+        show();
+    }
 
     public static GameScreen getInstance() {
         if (SINGLE_INSTANCE == null)
@@ -115,7 +117,7 @@ public class GameScreen extends InputAdapter implements Screen {
                 throw new IllegalStateException("Unexpected value: " + wallObj);
         }
 
-        if (player.getDirection() == wallDir) {return false;}
+        if (player.getDirection() == wallDir) return false;
 
         return true;
     }
@@ -177,7 +179,8 @@ public class GameScreen extends InputAdapter implements Screen {
                 if (hand[i] != null) {
 
                     ProgramCard card = hand[i];
-                    card.getCardButton().setSize(card.getTexture().getWidth() / 6, card.getTexture().getHeight() / 6);
+                    int cardSizeDivisor = 6;
+                    card.getCardButton().setSize(card.getTexture().getWidth() / cardSizeDivisor, card.getTexture().getHeight() / cardSizeDivisor);
                     card.getCardButton().setPosition((float) ((cardButton.getWidth()*i)+(camera.viewportWidth/2)-cardButton.getWidth()*2.5), (float) (camera.viewportWidth*0.2));
                 }
             }
@@ -185,8 +188,8 @@ public class GameScreen extends InputAdapter implements Screen {
     }
 
     /**
-     * @param x
-     * @param y
+     * @param x - x-position on screen
+     * @param y - y-position on screen
      * @return true if position is a hole or is off the map
      */
     public boolean isHole(int x, int y){
