@@ -13,8 +13,6 @@ public class PlayerTest {
     int startY;
     Direction startDirection;
 
-    // TODO add more tests.
-
     @Before
     public void before(){
         testPlayer = new Player();
