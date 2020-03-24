@@ -55,7 +55,7 @@ public class ProgramCardTest {
     }
 
     @Test
-    public void shouldTurnLeftWhenFacingNorthProgramCard(){
+    public void shouldTurnWestWhenFacingNorthProgramCard(){
         playerCard = new ProgramCard(ProgramCardAction.TURN_LEFT);
         testPlayer.performProgramCardAction(playerCard);
 
@@ -63,7 +63,7 @@ public class ProgramCardTest {
     }
 
     @Test
-    public void shouldTurnRightWhenFacingSouthProgramCard(){
+    public void shouldTurnWestWhenFacingSouthProgramCard(){
         testPlayer.setDirection(Direction.SOUTH);
         playerCard = new ProgramCard(ProgramCardAction.TURN_RIGHT);
         testPlayer.performProgramCardAction(playerCard);
