@@ -34,7 +34,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void playerSetYSetsCorrectY(){
+    public void playerSetYPosShouldChangeTestPlayersPosition(){
         int newYPos = 20;
         testPlayer.setYPos(newYPos);
 
@@ -42,7 +42,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void playerMoveForwardWhileFacingNorthMovesPlayerOneUp(){
+    public void playerMoveForwardWhileFacingNorthShouldMovePlayerOneUp(){
         testPlayer.setDirection(Direction.NORTH);
         testPlayer.moveForward(1);
 
@@ -50,7 +50,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void playerMoveForwardWhileFacingEastMovesPlayerOneRight(){
+    public void playerMoveForwardWhileFacingEastShouldMovePlayerOneRight(){
         testPlayer.setDirection(Direction.EAST);
         testPlayer.moveForward(1);
 
@@ -58,7 +58,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void playerMoveForwardWhileFacingSouthMovesPlayerOneDown(){
+    public void playerMoveForwardWhileFacingSouthShouldMovePlayerOneDown(){
         testPlayer.setDirection(Direction.SOUTH);
         testPlayer.moveForward(1);
 
@@ -66,7 +66,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void playerMoveForwardWhileFacingWestMovesPlayerOneLeft(){
+    public void playerMoveForwardWhileFacingWestShouldMovePlayerOneLeft(){
         testPlayer.setDirection(Direction.WEST);
         testPlayer.moveForward(1);
 
@@ -75,7 +75,7 @@ public class PlayerTest {
 
 
     @Test
-    public void rotateClockWiseRotatesPlayerFromNorthToEast(){
+    public void rotateClockWiseShouldRotatePlayerFromNorthToEast(){
         testPlayer.setDirection(Direction.NORTH);
         testPlayer.rotateClockwise();
 
@@ -83,7 +83,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void rotateCounterClockWiseRotatesPlayerFromNorthToEast() {
+    public void rotateCounterClockWiseShouldRotatePlayerFromNorthToEast() {
         testPlayer.setDirection(Direction.NORTH);
         testPlayer.rotateCounterClockwise();
 

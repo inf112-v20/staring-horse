@@ -29,7 +29,7 @@ public class ProgramCardTest {
     }
 
     @Test
-    public void walkNorthWithMoveOneProgramCard(){
+    public void shouldMoveOneNorthWithMoveOneProgramCard(){
         playerCard = new ProgramCard(ProgramCardAction.MOVE_ONE);
         testPlayer.performProgramCardAction(playerCard);
 
@@ -37,7 +37,7 @@ public class ProgramCardTest {
     }
 
     @Test
-    public void walkWestWithMoveTwoProgramCard(){
+    public void shouldMoveTwoWestWithMoveTwoProgramCard(){
         testPlayer.setDirection(Direction.WEST);
         playerCard = new ProgramCard(ProgramCardAction.MOVE_TWO);
         testPlayer.performProgramCardAction(playerCard);
@@ -46,7 +46,7 @@ public class ProgramCardTest {
     }
 
     @Test
-    public void walkEastWithMoveThreeProgramCard(){
+    public void shouldMoveThreeEastWithMoveThreeProgramCard(){
         testPlayer.setDirection(Direction.EAST);
         playerCard = new ProgramCard(ProgramCardAction.MOVE_THREE);
         testPlayer.performProgramCardAction(playerCard);
@@ -55,7 +55,7 @@ public class ProgramCardTest {
     }
 
     @Test
-    public void turnLeftWhenFacingNorthProgramCard(){
+    public void shouldTurnLeftWhenFacingNorthProgramCard(){
         playerCard = new ProgramCard(ProgramCardAction.TURN_LEFT);
         testPlayer.performProgramCardAction(playerCard);
 
@@ -63,7 +63,7 @@ public class ProgramCardTest {
     }
 
     @Test
-    public void turnRightWhenFacingSouthProgramCard(){
+    public void shouldTurnRightWhenFacingSouthProgramCard(){
         testPlayer.setDirection(Direction.SOUTH);
         playerCard = new ProgramCard(ProgramCardAction.TURN_RIGHT);
         testPlayer.performProgramCardAction(playerCard);
@@ -72,7 +72,7 @@ public class ProgramCardTest {
     }
 
     @Test
-    public void takeUTurnWhenFacingNorthProgramCard(){
+    public void shouldMakeUTurnWhenFacingNorthProgramCard(){
         playerCard = new ProgramCard(ProgramCardAction.U_TURN);
         testPlayer.performProgramCardAction(playerCard);
 
@@ -80,7 +80,7 @@ public class ProgramCardTest {
     }
 
     @Test
-    public void moveBackOneWhileFacingNorth(){
+    public void shouldMoveBackOneWhileFacingNorth(){
         playerCard = new ProgramCard(ProgramCardAction.BACK_UP);
         testPlayer.performProgramCardAction(playerCard);
 
@@ -88,7 +88,8 @@ public class ProgramCardTest {
     }
 
     @Test
-    public void moveOneCardThenAgainCardMovesPlayerTwoTiles(){
+    //shouldMovePlayerTwoTilesWithMoveOneCardThenOneAgainCard()
+    public void moveOneCardThenOneAgainCardShouldMovePlayerTwoTiles(){
         playerCard = new ProgramCard(ProgramCardAction.MOVE_ONE);
         testPlayer.performProgramCardAction(playerCard);
         ProgramCard playerCardAgain = new ProgramCard(ProgramCardAction.AGAIN);
