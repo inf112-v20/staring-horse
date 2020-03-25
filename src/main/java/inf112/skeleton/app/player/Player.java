@@ -3,6 +3,7 @@ package inf112.skeleton.app.player;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import inf112.skeleton.app.RoboRally;
 import inf112.skeleton.app.enums.Direction;
 import inf112.skeleton.app.enums.ProgramCardAction;
 import inf112.skeleton.app.screen.GameScreen;
@@ -27,6 +28,10 @@ public class Player {
 
     private TextureRegion playerTexture;
     private int numCardsInHand;
+
+    // bool set to true when using player for tests (solves error when
+    // referencing TmxMapLoader in GameScreen while in tests)
+    private boolean isTestPlayer = false;
 
     public Player() {
         this.respawnXPos = 10;
@@ -69,9 +74,9 @@ public class Player {
                 break;
         }
 
-        /*if(GameScreen.getInstance().isHole(this.xPos, this.yPos)){
+        if(!this.isTestPlayer && GameScreen.getInstance().isHole(this.xPos, this.yPos)){
             killRobot();
-        }*/
+        }
     }
 
     public void moveForward(int forwardDistance){
@@ -98,15 +103,16 @@ public class Player {
                 break;
         }
 
-        /*if(GameScreen.getInstance().isHole(this.xPos, this.yPos)){
+        if(!this.isTestPlayer && GameScreen.getInstance().isHole(this.xPos, this.yPos)){
             killRobot();
-        }*/
+        }
     }
 
     private void killRobot() {
         this.lives--;
-        if(this.lives == 0){
+        if(this.lives <= 0){
             System.out.println("Player is out of lives");
+            RoboRally.getInstance().setMenuScreen();
         } else {
             respawn();
         }
@@ -295,4 +301,6 @@ public class Player {
     public int getYPos() { return yPos; }
 
     public int getXPos() { return xPos; }
+
+    public void setToTestPlayer(){this.isTestPlayer = true;}
 }

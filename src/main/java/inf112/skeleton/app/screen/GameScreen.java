@@ -138,8 +138,6 @@ public class GameScreen extends InputAdapter implements Screen {
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        updatePlayerRotation();
-
         orthogonalTiledMapRenderer.render();
 
         stage.act();
@@ -201,6 +199,7 @@ public class GameScreen extends InputAdapter implements Screen {
     }
 
     public void renderPlayer(){
+        updatePlayerRotation();
         playerLayer.setCell(player.getXPos(), player.getYPos(), playerCell);
     }
 
