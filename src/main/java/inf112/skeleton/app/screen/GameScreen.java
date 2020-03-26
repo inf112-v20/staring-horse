@@ -122,6 +122,11 @@ public class GameScreen extends InputAdapter implements Screen {
 
         orthogonalTiledMapRenderer.render();
 
+        if (player.hasWon()) {
+            System.out.println("The Player has won!!!");
+            RoboRally.getInstance().setMenuScreen();
+        }
+
         stage.act();
         stage.draw();
     }
@@ -165,6 +170,30 @@ public class GameScreen extends InputAdapter implements Screen {
         }
         return "";
     }
+
+
+    public void pickUpFlag(Player player) {
+        String objectname = GameScreen.getInstance().getObjectNameOnPlayer(tiledMap, player);
+        switch(objectname) {
+            case "flag1":
+                player.addFlag("flag1");
+                System.out.println("picked up a flag1" );
+                break;
+            case "flag2":
+                player.addFlag("flag2");
+                System.out.println("picked up a flag2" );
+                break;
+            case "flag3":
+                player.addFlag("flag3");
+                System.out.println("picked up a flag3" );
+                break;
+            case "flag4":
+                player.addFlag("flag4");
+                System.out.println("picked up a flag4" );
+                break;
+        }
+    }
+
 
     /**
      * renders each card which is in the player hand

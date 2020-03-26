@@ -3,11 +3,14 @@ package inf112.skeleton.app.player;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.MapObjects;
 import inf112.skeleton.app.RoboRally;
 import inf112.skeleton.app.enums.Direction;
 import inf112.skeleton.app.enums.ProgramCardAction;
 import inf112.skeleton.app.screen.GameScreen;
 import org.lwjgl.Sys;
+
+import java.util.ArrayList;
 
 public class Player {
 
@@ -29,6 +32,8 @@ public class Player {
     private TextureRegion playerTexture;
     private int numCardsInHand;
 
+    private ArrayList<String> flags;
+
     // bool set to true when using player for tests (solves error when
     // referencing TmxMapLoader in GameScreen while in tests)
     private boolean isTestPlayer = false;
@@ -48,7 +53,23 @@ public class Player {
 
         this.healthPoints = 10;
         this.lives = 3;
+
+        this.flags = new ArrayList<>();
     }
+
+
+    /**
+     * checks if the player has collected all the flags. / stood on all flags
+     * @return
+     */
+    public boolean hasWon() {
+        return (flags.contains("flag1") && flags.contains("flag2") && flags.contains("flag3") && flags.contains("flag4"));
+    }
+
+    public void addFlag(String flag) {
+        flags.add(flag);
+    }
+
 
     public void moveBackward(int backWardDistance){
         for (int i = 0; i < backWardDistance; i++){
@@ -72,6 +93,10 @@ public class Player {
                 break;
             default:
                 break;
+        }
+
+        if (!this.isTestPlayer) {
+            GameScreen.getInstance().pickUpFlag(this);
         }
 
         if(!this.isTestPlayer && GameScreen.getInstance().isHole(this.xPos, this.yPos)){
@@ -103,6 +128,10 @@ public class Player {
                 break;
         }
 
+        if (!this.isTestPlayer) {
+            GameScreen.getInstance().pickUpFlag(this);
+        }
+
         if(!this.isTestPlayer && GameScreen.getInstance().isHole(this.xPos, this.yPos)){
             killRobot();
         }
@@ -111,7 +140,7 @@ public class Player {
     private void killRobot() {
         this.lives--;
         if(this.lives <= 0){
-            System.out.println("Player is out of lives");
+            System.out.println("Player is out of lives!!!");
             RoboRally.getInstance().setMenuScreen();
         } else {
             respawn();
