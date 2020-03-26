@@ -2,11 +2,13 @@ package inf112.skeleton.app.screen;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.maps.tiled.TiledMapTileSets;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
@@ -144,14 +146,21 @@ public class GameScreen extends InputAdapter implements Screen {
         }
     }
 
-    public String getCurrentLayer(TiledMap tiledMap, Player player, String layer) {
-        for (MapObject obj : tiledMap.getLayers().get(layer).getObjects()) {
-            Rectangle rect = ((RectangleMapObject) obj).getRectangle();
-            int layer_x = (int) rect.x / GameScreen.TILE_AREA;
-            int layer_y = (int) rect.y / GameScreen.TILE_AREA;
+    public boolean canGo() {
+        String objectName = getObjectNameOnPlayer(tiledMap, player);
+        return false;
+    }
 
-            if (player.getXPos() == layer_x && player.getYPos() == layer_y) {
-                return obj.getName();
+    public String getObjectNameOnPlayer(TiledMap tiledMap, Player player) {
+        for (MapLayer layer : tiledMap.getLayers()) {
+            for (MapObject obj : tiledMap.getLayers().get(layer.getName()).getObjects()) {
+                Rectangle rect = ((RectangleMapObject) obj).getRectangle();
+                int layer_x = (int) rect.x / GameScreen.TILE_AREA;
+                int layer_y = (int) rect.y / GameScreen.TILE_AREA;
+
+                if (player.getXPos() == layer_x && player.getYPos() == layer_y) {
+                    return obj.getName();
+                }
             }
         }
         return "";
