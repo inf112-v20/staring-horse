@@ -33,7 +33,6 @@ public class GameScreen extends InputAdapter implements Screen {
 
     private MapObjects flagObjects;
     private MapObjects wallObjects;
-    private MapObjects laserObjects;
 
     private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
     private OrthographicCamera camera;
@@ -80,7 +79,6 @@ public class GameScreen extends InputAdapter implements Screen {
 
         flagObjects = tiledMap.getLayers().get("flagObjects").getObjects();
         wallObjects = tiledMap.getLayers().get("wallObjects").getObjects();
-        laserObjects = tiledMap.getLayers().get("laserObjects").getObjects();
 
 
         playerCell.setTile(playerTilemap);
@@ -151,19 +149,68 @@ public class GameScreen extends InputAdapter implements Screen {
         }
     }
 
-    public boolean canGo() {
-        String objectName = getObjectNameOnPlayer(tiledMap, player);
-        return false;
+    public boolean canGo(Player player, boolean backwards) {
+        Direction wallDirection;
+        String objectName = getObjectNameOnXandY(tiledMap, player.getXPos(), player.getYPos());
+        switch (objectName) {
+            case "SouthWall":
+                if (backwards == true) {
+                    wallDirection = Direction.NORTH;
+                }
+                else {
+                    wallDirection = Direction.SOUTH;
+                }
+                if (player.getDirection() == wallDirection) {
+                    return false;
+                }
+                break;
+            case "WestWall":
+                if (backwards == true) {
+                    wallDirection = Direction.EAST;
+                }
+                else {
+                    wallDirection = Direction.WEST;
+                }
+                if (player.getDirection() == wallDirection) {
+                    return false;
+                }
+                break;
+            case "EastWall":
+                if (backwards == true) {
+                    wallDirection = Direction.WEST;
+                }
+                else {
+                    wallDirection = Direction.EAST;
+                }
+                if (player.getDirection() == wallDirection) {
+                    return false;
+                }
+                break;
+            case "NorthWall":
+                if (backwards == true) {
+                    wallDirection = Direction.SOUTH;
+                }
+                else {
+                    wallDirection = Direction.NORTH;
+                }
+                if (player.getDirection() == wallDirection) {
+                    return false;
+                }
+                break;
+            case "":
+                return true;
+        }
+        return true;
     }
 
-    public String getObjectNameOnPlayer(TiledMap tiledMap, Player player) {
+    public String getObjectNameOnXandY(TiledMap tiledMap, int x, int y) {
         for (MapLayer layer : tiledMap.getLayers()) {
             for (MapObject obj : tiledMap.getLayers().get(layer.getName()).getObjects()) {
                 Rectangle rect = ((RectangleMapObject) obj).getRectangle();
                 int layer_x = (int) rect.x / GameScreen.TILE_AREA;
                 int layer_y = (int) rect.y / GameScreen.TILE_AREA;
 
-                if (player.getXPos() == layer_x && player.getYPos() == layer_y) {
+                if (x == layer_x && y == layer_y) {
                     return obj.getName();
                 }
             }
@@ -173,7 +220,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
 
     public void pickUpFlag(Player player) {
-        String objectname = GameScreen.getInstance().getObjectNameOnPlayer(tiledMap, player);
+        String objectname = GameScreen.getInstance().getObjectNameOnXandY(tiledMap, player.getXPos(), player.getYPos());
         switch(objectname) {
             case "flag1":
                 player.addFlag("flag1");

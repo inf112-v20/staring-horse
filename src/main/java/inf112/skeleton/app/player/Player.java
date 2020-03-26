@@ -102,15 +102,31 @@ public class Player {
     private void moveBackwardOne(){
         switch (this.direction) {
             case EAST:
+                if (!GameScreen.getInstance().canGo(this, true)) {
+                    System.out.println("Player can't go WEST");
+                    break;
+                }
                 this.moveWest();
                 break;
             case NORTH:
+                if (!GameScreen.getInstance().canGo(this, true)) {
+                    System.out.println("Player can't go SOUTH");
+                    break;
+                }
                 this.moveSouth();
                 break;
             case WEST:
+                if (!GameScreen.getInstance().canGo(this, true)) {
+                    System.out.println("Player can't go EAST");
+                    break;
+                }
                 this.moveEast();
                 break;
             case SOUTH:
+                if (!GameScreen.getInstance().canGo(this, true)) {
+                    System.out.println("Player can't go NORTH");
+                    break;
+                }
                 this.moveNorth();
                 break;
             default:
@@ -135,18 +151,32 @@ public class Player {
     private void moveForwardOne(){
         switch (this.direction) {
             case WEST:
+                if (!GameScreen.getInstance().canGo(this, false)) {
+                    System.out.println("Player can't go WEST");
+                    break;
+                }
                 this.moveWest();
                 break;
             case SOUTH:
+                if (!GameScreen.getInstance().canGo(this, false)) {
+                    System.out.println("Player can't go SOUTH");
+                    break;
+                }
                 this.moveSouth();
                 break;
             case EAST:
+                if (!GameScreen.getInstance().canGo(this, false)) {
+                    System.out.println("Player can't go EAST");
+                    break;
+                }
                 this.moveEast();
                 break;
             case NORTH:
+                if (!GameScreen.getInstance().canGo(this, false)) {
+                    System.out.println("Player can't go NORTH");
+                    break;
+                }
                 this.moveNorth();
-                break;
-            default:
                 break;
         }
 
