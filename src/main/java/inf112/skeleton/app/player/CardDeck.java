@@ -28,15 +28,16 @@ public class CardDeck {
     /**
      * Draw 9 new random ProgramCards
      */
-    public void drawNineProgramCards(){
+    public ArrayList<ProgramCard> drawNineProgramCards(){
         this.deck.clear();
         for(int i = 0; i < 9; i++){
             if (i < 8) {
-                this.deck.add(new ProgramCard(ProgramCardAction.getAllProgramCardActions()[i]));
+                this.addCardToDeck(new ProgramCard(ProgramCardAction.getAllProgramCardActions()[i]));
             } else {
-                this.deck.add(new ProgramCard());
+                this.addCardToDeck(new ProgramCard());
             }
         }
+        return deck;
     }
 
     /**
