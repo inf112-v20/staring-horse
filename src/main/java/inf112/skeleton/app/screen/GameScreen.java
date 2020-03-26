@@ -121,7 +121,7 @@ public class GameScreen extends InputAdapter implements Screen {
         orthogonalTiledMapRenderer.render();
 
         if (player.hasWon()) {
-            System.out.println("The Player has won!!!");
+            System.out.println("THE PLAYER HAS WON!");
             RoboRally.getInstance().setMenuScreen();
         }
 
@@ -154,7 +154,7 @@ public class GameScreen extends InputAdapter implements Screen {
         String objectName = getObjectNameOnXandY(tiledMap, player.getXPos(), player.getYPos());
         switch (objectName) {
             case "SouthWall":
-                if (backwards == true) {
+                if (backwards) {
                     wallDirection = Direction.NORTH;
                 }
                 else {
@@ -165,7 +165,7 @@ public class GameScreen extends InputAdapter implements Screen {
                 }
                 break;
             case "WestWall":
-                if (backwards == true) {
+                if (backwards) {
                     wallDirection = Direction.EAST;
                 }
                 else {
@@ -176,7 +176,7 @@ public class GameScreen extends InputAdapter implements Screen {
                 }
                 break;
             case "EastWall":
-                if (backwards == true) {
+                if (backwards) {
                     wallDirection = Direction.WEST;
                 }
                 else {
@@ -187,7 +187,7 @@ public class GameScreen extends InputAdapter implements Screen {
                 }
                 break;
             case "NorthWall":
-                if (backwards == true) {
+                if (backwards) {
                     wallDirection = Direction.SOUTH;
                 }
                 else {

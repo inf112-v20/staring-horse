@@ -192,7 +192,7 @@ public class Player {
     private void killRobot() {
         this.lives--;
         if(this.lives <= 0){
-            System.out.println("Player is out of lives!!!");
+            System.out.println("PLAYER IS OUT OF LIVES!");
             RoboRally.getInstance().setMenuScreen();
         } else {
             respawn();
