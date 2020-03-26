@@ -178,6 +178,16 @@ public class GameScreen extends InputAdapter implements Screen {
         }
     }
 
+
+    /**
+     * @param x - x-position on screen
+     * @param y - y-position on screen
+     * @return true if position is a hole or is off the map
+     */
+    public boolean isHole(int x, int y){
+        return holeLayer.getCell(x,y) != null || boardLayer.getCell(x,y) == null;
+    }
+
     public void unrenderPlayer() {
         playerLayer.setCell(player.getXPos(), player.getYPos(), null);
     }
