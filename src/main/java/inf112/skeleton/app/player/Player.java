@@ -67,7 +67,29 @@ public class Player {
     }
 
     public void addFlag(String flag) {
-        flags.add(flag);
+        if (flags.contains(flag)) {
+            System.out.println("You already have this flag.");
+        }
+
+        if (flag == "flag1" && flags.size() == 0) {
+            flags.add(flag);
+            System.out.println("Picked up flag 1");
+        } else if (flags.size() == 0) {
+            System.out.println("Take Flag 1 first!");
+        } else if (flag == "flag2" && flags.get(0) == "flag1" && flags.size() == 1) {
+            flags.add(flag);
+            System.out.println("Picked up flag 2");
+        } else if (flags.size() == 1) {
+            System.out.println("Take Flag 2 first!");
+        } else if (flag == "flag3" && flags.get(1) == "flag2" && flags.size() == 2) {
+            flags.add(flag);
+            System.out.println("Picked up flag 3");
+        } else if (flags.size() == 2) {
+            System.out.println("Take Flag 3 first!");
+        } else if (flag == "flag4" && flags.get(2) == "flag3" && flags.size() == 3) {
+            flags.add(flag);
+            System.out.println("Picked up flag 4");
+        }
     }
 
 

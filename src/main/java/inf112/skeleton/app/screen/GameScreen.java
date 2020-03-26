@@ -177,19 +177,15 @@ public class GameScreen extends InputAdapter implements Screen {
         switch(objectname) {
             case "flag1":
                 player.addFlag("flag1");
-                System.out.println("picked up a flag1" );
                 break;
             case "flag2":
                 player.addFlag("flag2");
-                System.out.println("picked up a flag2" );
                 break;
             case "flag3":
                 player.addFlag("flag3");
-                System.out.println("picked up a flag3" );
                 break;
             case "flag4":
                 player.addFlag("flag4");
-                System.out.println("picked up a flag4" );
                 break;
         }
     }
