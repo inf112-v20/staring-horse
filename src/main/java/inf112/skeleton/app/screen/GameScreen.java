@@ -3,6 +3,7 @@ import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -21,12 +22,16 @@ import inf112.skeleton.app.RoboRally;
 
 public class GameScreen extends InputAdapter implements Screen {
 
-    private int TILE_AREA = 300;
+    public static final int TILE_AREA = 300;
     private TiledMap tiledMap;
     private TiledMapTileLayer boardLayer;
     private TiledMapTileLayer flagLayer;
     private TiledMapTileLayer playerLayer;
     private TiledMapTileLayer holeLayer;
+
+    private MapObjects flagObjects;
+    private MapObjects wallObjects;
+    private MapObjects laserObjects;
 
     private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
     private OrthographicCamera camera;
@@ -71,6 +76,11 @@ public class GameScreen extends InputAdapter implements Screen {
         holeLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Hole");
         boardLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Board");
 
+        flagObjects = tiledMap.getLayers().get("flagObjects").getObjects();
+        wallObjects = tiledMap.getLayers().get("wallObjects").getObjects();
+        laserObjects = tiledMap.getLayers().get("laserObjects").getObjects();
+
+
         playerCell.setTile(playerTilemap);
 
 
@@ -101,36 +111,6 @@ public class GameScreen extends InputAdapter implements Screen {
         orthogonalTiledMapRenderer.setView(camera);
 
         renderPlayer();
-    }
-
-    public boolean canGo(Direction dir) {
-        String wallObj = getObjectName("wallObjects");
-        Direction wallDir;
-        switch (wallObj) {
-            case "SouthWall":
-                wallDir = Direction.SOUTH;
-                break;
-            case "WestWall":
-                wallDir = Direction.WEST;
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + wallObj);
-        }
-
-        if (player.getDirection() == wallDir) return false;
-
-        return true;
-    }
-
-    public String getObjectName(String layer) {
-        for (MapObject obj : tiledMap.getLayers().get(layer).getObjects()) {
-            Rectangle rect = ((RectangleMapObject) obj).getRectangle();
-            int layer_x = (int) rect.x / TILE_AREA;
-            int layer_y = (int) rect.y / TILE_AREA;
-
-
-        }
-        return "";
     }
 
     @Override
@@ -164,6 +144,19 @@ public class GameScreen extends InputAdapter implements Screen {
         }
     }
 
+    public String getCurrentLayer(TiledMap tiledMap, Player player, String layer) {
+        for (MapObject obj : tiledMap.getLayers().get(layer).getObjects()) {
+            Rectangle rect = ((RectangleMapObject) obj).getRectangle();
+            int layer_x = (int) rect.x / GameScreen.TILE_AREA;
+            int layer_y = (int) rect.y / GameScreen.TILE_AREA;
+
+            if (player.getXPos() == layer_x && player.getYPos() == layer_y) {
+                return obj.getName();
+            }
+        }
+        return "";
+    }
+
     /**
      * renders each card which is in the player hand
      */
@@ -183,15 +176,6 @@ public class GameScreen extends InputAdapter implements Screen {
                 }
             }
         }
-    }
-
-    /**
-     * @param x - x-position on screen
-     * @param y - y-position on screen
-     * @return true if position is a hole or is off the map
-     */
-    public boolean isHole(int x, int y){
-        return holeLayer.getCell(x,y) != null || boardLayer.getCell(x,y) == null;
     }
 
     public void unrenderPlayer() {

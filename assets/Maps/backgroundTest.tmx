@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="25" height="25" tilewidth="300" tileheight="300" infinite="0" nextlayerid="14" nextobjectid="20">
+<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="25" height="25" tilewidth="300" tileheight="300" infinite="0" nextlayerid="15" nextobjectid="24">
  <tileset firstgid="1" source="tiles.tsx"/>
  <tileset firstgid="137" source="Background.tsx"/>
  <layer id="5" name="Background" width="25" height="25">
@@ -292,6 +292,12 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
+ <objectgroup id="14" name="flagObjects">
+  <object id="20" name="flag1" x="1200" y="900" width="300" height="300"/>
+  <object id="21" name="flag2" x="5700" y="1800" width="300" height="300"/>
+  <object id="22" name="flag3" x="1200" y="4200" width="300" height="300"/>
+  <object id="23" name="flag4" x="5700" y="3900" width="300" height="300"/>
+ </objectgroup>
  <objectgroup id="11" name="laserObjects">
   <object id="13" x="5100" y="3000" width="1200" height="300"/>
   <object id="19" x="900" y="1500" width="300" height="1500"/>
