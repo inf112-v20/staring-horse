@@ -60,7 +60,7 @@ public class Player {
 
     /**
      * checks if the player has collected all the flags. / stood on all flags
-     * @return
+     * @return true if player has won
      */
     public boolean hasWon() {
         return (flags.contains("flag1") && flags.contains("flag2") && flags.contains("flag3") && flags.contains("flag4"));
@@ -71,22 +71,22 @@ public class Player {
             System.out.println("You already have this flag.");
         }
 
-        if (flag == "flag1" && flags.size() == 0) {
+        if (flag.equals("flag1") && flags.size() == 0) {
             flags.add(flag);
             System.out.println("Picked up flag 1");
         } else if (flags.size() == 0) {
             System.out.println("Take Flag 1 first!");
-        } else if (flag == "flag2" && flags.get(0) == "flag1" && flags.size() == 1) {
+        } else if (flag.equals("flag2") && flags.get(0).equals("flag1") && flags.size() == 1) {
             flags.add(flag);
             System.out.println("Picked up flag 2");
         } else if (flags.size() == 1) {
             System.out.println("Take Flag 2 first!");
-        } else if (flag == "flag3" && flags.get(1) == "flag2" && flags.size() == 2) {
+        } else if (flag.equals("flag3") && flags.get(1).equals("flag2") && flags.size() == 2) {
             flags.add(flag);
             System.out.println("Picked up flag 3");
         } else if (flags.size() == 2) {
             System.out.println("Take Flag 3 first!");
-        } else if (flag == "flag4" && flags.get(2) == "flag3" && flags.size() == 3) {
+        } else if (flag.equals("flag4") && flags.get(2).equals("flag3") && flags.size() == 3) {
             flags.add(flag);
             System.out.println("Picked up flag 4");
         }
@@ -102,28 +102,28 @@ public class Player {
     private void moveBackwardOne(){
         switch (this.direction) {
             case EAST:
-                if (!GameScreen.getInstance().canGo(this, true)) {
+                if (!this.isTestPlayer && !GameScreen.getInstance().canGo(this, true)) {
                     System.out.println("Player can't go WEST");
                     break;
                 }
                 this.moveWest();
                 break;
             case NORTH:
-                if (!GameScreen.getInstance().canGo(this, true)) {
+                if (!this.isTestPlayer && !GameScreen.getInstance().canGo(this, true)) {
                     System.out.println("Player can't go SOUTH");
                     break;
                 }
                 this.moveSouth();
                 break;
             case WEST:
-                if (!GameScreen.getInstance().canGo(this, true)) {
+                if (!this.isTestPlayer && !GameScreen.getInstance().canGo(this, true)) {
                     System.out.println("Player can't go EAST");
                     break;
                 }
                 this.moveEast();
                 break;
             case SOUTH:
-                if (!GameScreen.getInstance().canGo(this, true)) {
+                if (!this.isTestPlayer && !GameScreen.getInstance().canGo(this, true)) {
                     System.out.println("Player can't go NORTH");
                     break;
                 }
@@ -151,28 +151,28 @@ public class Player {
     private void moveForwardOne(){
         switch (this.direction) {
             case WEST:
-                if (!GameScreen.getInstance().canGo(this, false)) {
+                if (!this.isTestPlayer && !GameScreen.getInstance().canGo(this, false)) {
                     System.out.println("Player can't go WEST");
                     break;
                 }
                 this.moveWest();
                 break;
             case SOUTH:
-                if (!GameScreen.getInstance().canGo(this, false)) {
+                if (!this.isTestPlayer && !GameScreen.getInstance().canGo(this, false)) {
                     System.out.println("Player can't go SOUTH");
                     break;
                 }
                 this.moveSouth();
                 break;
             case EAST:
-                if (!GameScreen.getInstance().canGo(this, false)) {
+                if (!this.isTestPlayer && !GameScreen.getInstance().canGo(this, false)) {
                     System.out.println("Player can't go EAST");
                     break;
                 }
                 this.moveEast();
                 break;
             case NORTH:
-                if (!GameScreen.getInstance().canGo(this, false)) {
+                if (!this.isTestPlayer && !GameScreen.getInstance().canGo(this, false)) {
                     System.out.println("Player can't go NORTH");
                     break;
                 }
