@@ -140,10 +140,9 @@ public class GameScreen extends InputAdapter implements Screen {
         }
     }
 
-    public boolean canGo(Player player, boolean backwards) {
+    public boolean canGoCurrentTile(String currentObjectName, boolean backwards) {
         Direction wallDirection;
-        String objectName = getObjectNameOnXandY(tiledMap, player.getXPos(), player.getYPos());
-        switch (objectName) {
+        switch (currentObjectName) {
             case "SouthWall":
                 if (backwards) {
                     wallDirection = Direction.NORTH;
@@ -184,12 +183,84 @@ public class GameScreen extends InputAdapter implements Screen {
                 else {
                     wallDirection = Direction.NORTH;
                 }
+                System.out.println(wallDirection);
                 if (player.getDirection() == wallDirection) {
                     return false;
                 }
                 break;
-            case "":
-                return true;
+        }
+        return true;
+    }
+
+    public boolean canGo(Player player, boolean backwards) {
+        String objectName = getObjectNameOnXandY(tiledMap, player.getXPos(), player.getYPos());
+        int step = 1;
+        if (canGoCurrentTile(objectName, backwards)) {
+            switch (player.getDirection()) {
+                case SOUTH:
+                    if (backwards) {
+                        step = -1;
+                        objectName = getObjectNameOnXandY(tiledMap, player.getXPos(), player.getYPos() - step);
+                        if (objectName.equals("SouthWall")) {
+                            return false;
+                        }
+                    }
+                    else {
+                        objectName = getObjectNameOnXandY(tiledMap, player.getXPos(), player.getYPos() - step);
+                        if (objectName.equals("NorthWall")) {
+                            return false;
+                        }
+                    }
+                    break;
+                case WEST:
+                    if (backwards) {
+                        step = -1;
+                        objectName = getObjectNameOnXandY(tiledMap, player.getXPos() - step, player.getYPos());
+                        if (objectName.equals("WestWall")) {
+                            return false;
+                        }
+                    }
+                    else {
+                        objectName = getObjectNameOnXandY(tiledMap, player.getXPos() - step, player.getYPos());
+                        if (objectName.equals("EastWall")) {
+                            return false;
+                        }
+                    }
+                    break;
+                case EAST:
+                    if (backwards) {
+                        step = -1;
+                        objectName = getObjectNameOnXandY(tiledMap, player.getXPos() + step, player.getYPos());
+                        if (objectName.equals("EastWall")) {
+                            return false;
+                        }
+                    }
+                    else {
+                        objectName = getObjectNameOnXandY(tiledMap, player.getXPos() + step, player.getYPos());
+                        if (objectName.equals("WestWall")) {
+                            return false;
+                        }
+                    }
+                    break;
+                case NORTH:
+                    if (backwards) {
+                        step = -1;
+                        objectName = getObjectNameOnXandY(tiledMap, player.getXPos(), player.getYPos() + step);
+                        if (objectName.equals("NorthWall")) {
+                            return false;
+                        }
+                    }
+                    else {
+                        objectName = getObjectNameOnXandY(tiledMap, player.getXPos(), player.getYPos() + step);
+                        if (objectName.equals("SouthWall")) {
+                            return false;
+                        }
+                    }
+                    break;
+            }
+        }
+        else {
+            return false;
         }
         return true;
     }
@@ -208,7 +279,7 @@ public class GameScreen extends InputAdapter implements Screen {
         }
         return "";
     }
-    
+
     public void pickUpFlag(Player player) {
         String objectname = getObjectNameOnXandY(tiledMap, player.getXPos(), player.getYPos());
         switch(objectname) {
