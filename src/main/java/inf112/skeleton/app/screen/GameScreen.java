@@ -217,10 +217,9 @@ public class GameScreen extends InputAdapter implements Screen {
         }
         return "";
     }
-
-
+    
     public void pickUpFlag(Player player) {
-        String objectname = GameScreen.getInstance().getObjectNameOnXandY(tiledMap, player.getXPos(), player.getYPos());
+        String objectname = getObjectNameOnXandY(tiledMap, player.getXPos(), player.getYPos());
         switch(objectname) {
             case "flag1":
                 player.addFlag("flag1");
