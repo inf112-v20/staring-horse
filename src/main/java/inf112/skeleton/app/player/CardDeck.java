@@ -1,7 +1,6 @@
 package inf112.skeleton.app.player;
 
 import inf112.skeleton.app.enums.ProgramCardAction;
-import org.lwjgl.Sys;
 
 import java.util.ArrayList;
 
