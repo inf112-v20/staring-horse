@@ -31,9 +31,6 @@ public class GameScreen extends InputAdapter implements Screen {
     private TiledMapTileLayer playerLayer;
     private TiledMapTileLayer holeLayer;
 
-    private MapObjects flagObjects;
-    private MapObjects wallObjects;
-
     private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
     private OrthographicCamera camera;
 
@@ -76,10 +73,6 @@ public class GameScreen extends InputAdapter implements Screen {
         flagLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Flag");
         holeLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Hole");
         boardLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Board");
-
-        flagObjects = tiledMap.getLayers().get("flagObjects").getObjects();
-        wallObjects = tiledMap.getLayers().get("wallObjects").getObjects();
-
 
         playerCell.setTile(playerTilemap);
 

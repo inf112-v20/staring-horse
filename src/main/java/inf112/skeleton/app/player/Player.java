@@ -8,7 +8,6 @@ import inf112.skeleton.app.RoboRally;
 import inf112.skeleton.app.enums.Direction;
 import inf112.skeleton.app.enums.ProgramCardAction;
 import inf112.skeleton.app.screen.GameScreen;
-import org.lwjgl.Sys;
 
 import java.util.ArrayList;
 
@@ -22,7 +21,7 @@ public class Player {
     private int respawnYPos;
     private Direction respawnDirection;
 
-    private int healthPoints;
+    private int healthPoints; // Will be used for lasers in the next iteration.
     private int lives;
 
     private ProgramCardAction previousAction;

@@ -18,7 +18,7 @@ public class ProgramCard {
     private int maxPriority = 500;
     private int minPriority = 50;
     private ProgramCardAction action;
-    private int priority;
+    private int priority; // will be used in the near future.
     private Texture texture;
     private ImageButton cardButton;
     private boolean isInHand;
@@ -96,7 +96,6 @@ public class ProgramCard {
         imageButton.setSize((float) 200 / 4, (float) 340 / 4);
         imageButton.getStyle() .imageUp = drawable;
         imageButton.getStyle() .imageDown = pressedDrawable;
-        // TODO make position be depended on the screen size or viewport instead of static.
         imageButton.setPosition(30,55);
 
         imageButton.addListener(new InputListener() {
