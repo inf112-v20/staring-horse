@@ -19,8 +19,9 @@ Oppsummert føler vi at vi har funnet kommunikasjonskanaler og verktøy som komm
 I den neste og siste iterasjonen vil prioriteten ligge på å ferdigstille og forbedre koden fra kravene vi har begynt på i denne iterasjonen; spesifikt de som har med å kunne vinne og tape og runder og faser, slik at vi ender opp med et spill som faktisk fungerer å spille. 
 De brukerhistoriene det gjelder spesifikt har vi lagt klar i To Do kolonnen. Når vi jobbet med brukerhistorie #7 (se i krav-delen under) oppdaget vi at vi måtte dele opp arbeidsoppgaven og akseptansekriteriet for at den ikke skulle bli for stor siden vi enda ikke har en motspiller.
 
+#### Project Board (klart til neste iterasjon)
 
-«Skjermdump av projectboard»
+![projectBoardOblig3](https://github.com/inf112-v20/staring-horse/blob/master/Deliverables/Images/Staring-horse-end-iteration-project-board-oblig3.png)
 
 ## Deloppgave 2: Krav
 
@@ -122,4 +123,4 @@ Vi hadde et problem med at testene krasjet når man refererte til GameScreen fra
 
 **[Møtereferat 26. mars](https://github.com/inf112-v20/staring-horse/wiki/M%C3%B8te-18,-26.-mars)**
 
-**[Møtereferat 27. mars]()**
+**[Møtereferat 27. mars](https://github.com/inf112-v20/staring-horse/wiki/M%C3%B8te-19,-27.-mars)**
