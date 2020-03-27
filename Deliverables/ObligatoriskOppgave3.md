@@ -100,7 +100,7 @@ Vi hadde et problem med at testene krasjet når man refererte til GameScreen fra
 
 #### UML-diagram
 
-![oblig3-uml](https://github.com/inf112-v20/staring-horse/blob/master/Deliverables/Images/oblig3-uml.PNG)
+![Oblig3-uml](https://github.com/inf112-v20/staring-horse/blob/master/Deliverables/Images/Oblig3_uml.png)
 
 
 ## Møtereferat
