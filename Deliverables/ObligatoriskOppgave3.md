@@ -100,7 +100,15 @@ I tillegg manglet vi å ferdigstille kravet om at vegger stopper robot fra forri
 
 Vi hadde et problem med at testene krasjet når man refererte til GameScreen fra Player (for å finne ut om spilleren har gått av brettet eller i et hull). Dette løste vi ved å ha en boolean Player.isTestPlayer som man setter til true (Player.setToTestPlayer()) på spilleren som brukes til testing. Dette er mest sannsynligvis kun en midlertidig løsning som skal bli endret på i neste iterasjon (dette medfører større endringer i kode-strukturen som vi ikke føler er realistisk å gjennomføre før tidsfristen), men vi følte løsningen var nødvendig for å kunne fortsette å jobbe med brukerhistoriene vi har prioritert til denne iterasjonen.
 
+#### Manuelle tester
+
+Testing av vegger: Bruk piltastene for å gå mot og på vegger. Forventet resultat er at roboten blir stoppet og ikke kan bevege seg gjennom de.
+
+Sjekke død: Gå enten i hull eller utenfor brettet med piltastene. Etter 3 ganger skal roboten dø og du blir sendt tilbake til main menu screen.
+
+
 #### UML-diagram
+
 
 ![Oblig3-uml](https://github.com/inf112-v20/staring-horse/blob/master/Deliverables/Images/Oblig3_uml.png)
 
