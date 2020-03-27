@@ -16,7 +16,8 @@ Oppsummert føler vi at vi har funnet kommunikasjonskanaler og verktøy som komm
 
 #### Prioriterte oppgaver videre
 
-I den neste og siste iterasjonen vil prioriteten ligge på å ferdigstille og forbedre kravene vi har begynt på i denne iterasjonen (ligger i ny prioritert rekkefølge i To do og In Progress), spesifikt de som har med å kunne vinne og tape og runder og faser, slik at vi ender opp med et spill som faktisk fungerer å spille. Vi vil prøve å få til enten en AI eller multi-player også.
+I den neste og siste iterasjonen vil prioriteten ligge på å ferdigstille og forbedre koden fra kravene vi har begynt på i denne iterasjonen; spesifikt de som har med å kunne vinne og tape og runder og faser, slik at vi ender opp med et spill som faktisk fungerer å spille. 
+De brukerhistoriene det gjelder spesifikt har vi lagt klar i To Do kolonnen. Når vi jobbet med brukerhistorie #7 (se i krav-delen under) oppdaget vi at vi måtte dele opp arbeidsoppgaven og akseptansekriteriet for at den ikke skulle bli for stor siden vi enda ikke har en motspiller.
 
 
 «Skjermdump av projectboard»
@@ -87,7 +88,7 @@ _Arbeidsoppgave:_ Implementere at roboten taper hvis den mister alle liv, eller 
 
 _Akseptansekriterier:_ Fullført når roboten taper spillet og ikke får spille lenger når den taper alle liv eller en annen robot vinner spillet.
 
-I tillegg manglet vi å ferdigstille kravet om at vegger stopper robot fra forrige iterasjon (brukerhistorie #5 i forrige rapport), så denne ble også jobbet videre med. Denne iterasjonen ble ikke som forventet, og arbeidsmengden vi hadde satt oss viste seg å bli for stor. Prioritet videre vil som nevnt over være å fokusere på selve spillets gang og å ferdigstille brukerhistoriene vi er i gang med. Vi ser at realistisk sett kan det være vi må fjerne noen flere krav fra mvp (se hvilke vi vurderer å fjerne under), men vi lar den stå som den er nå og vil ta en ny vurdering mot midten av iterasjonen.
+I tillegg manglet vi å ferdigstille kravet om at vegger stopper robot fra forrige iterasjon, så denne ble også jobbet videre med (ligger i In Progress kolonnen). Denne iterasjonen ble ikke som forventet, og arbeidsmengden vi hadde satt oss viste seg å bli litt for stor. Prioritet videre vil som nevnt over være å fokusere på selve spillets gang og å ferdigstille brukerhistoriene vi er i gang med. Vi ser at realistisk sett kan det være vi må fjerne noen flere krav fra mvp (se hvilke vi vurderer å fjerne under), men vi lar den stå som den er nå og vil ta en ny vurdering mot midten av iterasjonen.
 
 - Implementere tannhjul som roterer robot.
 - Implementere at roboten kan få reparert skade med skiftenøkkel.
