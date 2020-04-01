@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import inf112.skeleton.app.RoboRally;
 import inf112.skeleton.app.enums.Direction;
 import inf112.skeleton.app.enums.ProgramCardAction;
+import inf112.skeleton.app.gamelogic.GameLogic;
 import inf112.skeleton.app.screen.GameScreen;
 
 import java.util.ArrayList;
@@ -99,28 +100,28 @@ public class Player {
     private void moveBackwardOne(){
         switch (this.direction) {
             case EAST:
-                if (!this.isTestPlayer && !GameScreen.getInstance().canGo(this, true)) {
+                if (!this.isTestPlayer && !GameLogic.getInstance().canGo(this, true)) {
                     System.out.println("Player can't go WEST");
                     break;
                 }
                 this.moveWest();
                 break;
             case NORTH:
-                if (!this.isTestPlayer && !GameScreen.getInstance().canGo(this, true)) {
+                if (!this.isTestPlayer && !GameLogic.getInstance().canGo(this, true)) {
                     System.out.println("Player can't go SOUTH");
                     break;
                 }
                 this.moveSouth();
                 break;
             case WEST:
-                if (!this.isTestPlayer && !GameScreen.getInstance().canGo(this, true)) {
+                if (!this.isTestPlayer && !GameLogic.getInstance().canGo(this, true)) {
                     System.out.println("Player can't go EAST");
                     break;
                 }
                 this.moveEast();
                 break;
             case SOUTH:
-                if (!this.isTestPlayer && !GameScreen.getInstance().canGo(this, true)) {
+                if (!this.isTestPlayer && !GameLogic.getInstance().canGo(this, true)) {
                     System.out.println("Player can't go NORTH");
                     break;
                 }
@@ -131,10 +132,10 @@ public class Player {
         }
 
         if (!this.isTestPlayer) {
-            GameScreen.getInstance().pickUpFlag(this);
+            GameLogic.getInstance().pickUpFlag(this);
         }
 
-        if(!this.isTestPlayer && GameScreen.getInstance().isHole(this.xPos, this.yPos)){
+        if(!this.isTestPlayer && GameLogic.getInstance().isHole(this.xPos, this.yPos)){
             killRobot();
         }
     }
@@ -148,28 +149,28 @@ public class Player {
     private void moveForwardOne(){
         switch (this.direction) {
             case WEST:
-                if (!this.isTestPlayer && !GameScreen.getInstance().canGo(this, false)) {
+                if (!this.isTestPlayer && !GameLogic.getInstance().canGo(this, false)) {
                     System.out.println("Player can't go WEST");
                     break;
                 }
                 this.moveWest();
                 break;
             case SOUTH:
-                if (!this.isTestPlayer && !GameScreen.getInstance().canGo(this, false)) {
+                if (!this.isTestPlayer && !GameLogic.getInstance().canGo(this, false)) {
                     System.out.println("Player can't go SOUTH");
                     break;
                 }
                 this.moveSouth();
                 break;
             case EAST:
-                if (!this.isTestPlayer && !GameScreen.getInstance().canGo(this, false)) {
+                if (!this.isTestPlayer && !GameLogic.getInstance().canGo(this, false)) {
                     System.out.println("Player can't go EAST");
                     break;
                 }
                 this.moveEast();
                 break;
             case NORTH:
-                if (!this.isTestPlayer && !GameScreen.getInstance().canGo(this, false)) {
+                if (!this.isTestPlayer && !GameLogic.getInstance().canGo(this, false)) {
                     System.out.println("Player can't go NORTH");
                     break;
                 }
@@ -178,10 +179,10 @@ public class Player {
         }
 
         if (!this.isTestPlayer) {
-            GameScreen.getInstance().pickUpFlag(this);
+            GameLogic.getInstance().pickUpFlag(this);
         }
 
-        if(!this.isTestPlayer && GameScreen.getInstance().isHole(this.xPos, this.yPos)){
+        if(!this.isTestPlayer && GameLogic.getInstance().isHole(this.xPos, this.yPos)){
             killRobot();
         }
     }

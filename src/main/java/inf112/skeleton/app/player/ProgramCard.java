@@ -112,7 +112,7 @@ public class ProgramCard {
                     player.addCardToHand(programCard);
                     gameScreen.showPlayersHand();
 
-                    if(player.isHandFull()) {
+                    if(player.isHandFull() && programCard.isInHand) {
                         player.executeCardsInHand();
                     }
                 }

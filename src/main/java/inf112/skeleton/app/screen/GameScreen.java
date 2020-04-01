@@ -2,19 +2,14 @@ package inf112.skeleton.app.screen;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.maps.MapLayer;
-import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import inf112.skeleton.app.enums.Direction;
 import inf112.skeleton.app.player.Player;
 import inf112.skeleton.app.player.ProgramCard;
 import inf112.skeleton.app.RoboRally;
@@ -25,9 +20,7 @@ public class GameScreen extends InputAdapter implements Screen {
     public static final int TILE_AREA = 300;
     private TiledMap tiledMap;
     private TiledMapTileLayer boardLayer;
-    private TiledMapTileLayer flagLayer;
     private TiledMapTileLayer playerLayer;
-    private TiledMapTileLayer holeLayer;
 
     private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
     private OrthographicCamera camera;
@@ -68,8 +61,6 @@ public class GameScreen extends InputAdapter implements Screen {
         playerTilemap = new StaticTiledMapTile(player.getTexture());
 
         playerLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Player");
-        flagLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Flag");
-        holeLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Hole");
         boardLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Board");
 
         playerCell.setTile(playerTilemap);
@@ -120,6 +111,10 @@ public class GameScreen extends InputAdapter implements Screen {
         stage.draw();
     }
 
+    public TiledMap getTiledMap() {
+        return tiledMap;
+    }
+
     /**
      * Update PlayerCell-rotation based on Direction
      */
@@ -136,164 +131,6 @@ public class GameScreen extends InputAdapter implements Screen {
                 break;
             case EAST:
                 playerCell.setRotation(TiledMapTileLayer.Cell.ROTATE_270);
-                break;
-        }
-    }
-
-    public boolean canGoCurrentTile(String currentObjectName, boolean backwards) {
-        Direction wallDirection;
-        switch (currentObjectName) {
-            case "SouthWall":
-                if (backwards) {
-                    wallDirection = Direction.NORTH;
-                }
-                else {
-                    wallDirection = Direction.SOUTH;
-                }
-                if (player.getDirection() == wallDirection) {
-                    return false;
-                }
-                break;
-            case "WestWall":
-                if (backwards) {
-                    wallDirection = Direction.EAST;
-                }
-                else {
-                    wallDirection = Direction.WEST;
-                }
-                if (player.getDirection() == wallDirection) {
-                    return false;
-                }
-                break;
-            case "EastWall":
-                if (backwards) {
-                    wallDirection = Direction.WEST;
-                }
-                else {
-                    wallDirection = Direction.EAST;
-                }
-                if (player.getDirection() == wallDirection) {
-                    return false;
-                }
-                break;
-            case "NorthWall":
-                if (backwards) {
-                    wallDirection = Direction.SOUTH;
-                }
-                else {
-                    wallDirection = Direction.NORTH;
-                }
-                System.out.println(wallDirection);
-                if (player.getDirection() == wallDirection) {
-                    return false;
-                }
-                break;
-        }
-        return true;
-    }
-
-    public boolean canGo(Player player, boolean backwards) {
-        String objectName = getObjectNameOnXandY(tiledMap, player.getXPos(), player.getYPos());
-        int step = 1;
-        if (canGoCurrentTile(objectName, backwards)) {
-            switch (player.getDirection()) {
-                case SOUTH:
-                    if (backwards) {
-                        step = -1;
-                        objectName = getObjectNameOnXandY(tiledMap, player.getXPos(), player.getYPos() - step);
-                        if (objectName.equals("SouthWall")) {
-                            return false;
-                        }
-                    }
-                    else {
-                        objectName = getObjectNameOnXandY(tiledMap, player.getXPos(), player.getYPos() - step);
-                        if (objectName.equals("NorthWall")) {
-                            return false;
-                        }
-                    }
-                    break;
-                case WEST:
-                    if (backwards) {
-                        step = -1;
-                        objectName = getObjectNameOnXandY(tiledMap, player.getXPos() - step, player.getYPos());
-                        if (objectName.equals("WestWall")) {
-                            return false;
-                        }
-                    }
-                    else {
-                        objectName = getObjectNameOnXandY(tiledMap, player.getXPos() - step, player.getYPos());
-                        if (objectName.equals("EastWall")) {
-                            return false;
-                        }
-                    }
-                    break;
-                case EAST:
-                    if (backwards) {
-                        step = -1;
-                        objectName = getObjectNameOnXandY(tiledMap, player.getXPos() + step, player.getYPos());
-                        if (objectName.equals("EastWall")) {
-                            return false;
-                        }
-                    }
-                    else {
-                        objectName = getObjectNameOnXandY(tiledMap, player.getXPos() + step, player.getYPos());
-                        if (objectName.equals("WestWall")) {
-                            return false;
-                        }
-                    }
-                    break;
-                case NORTH:
-                    if (backwards) {
-                        step = -1;
-                        objectName = getObjectNameOnXandY(tiledMap, player.getXPos(), player.getYPos() + step);
-                        if (objectName.equals("NorthWall")) {
-                            return false;
-                        }
-                    }
-                    else {
-                        objectName = getObjectNameOnXandY(tiledMap, player.getXPos(), player.getYPos() + step);
-                        if (objectName.equals("SouthWall")) {
-                            return false;
-                        }
-                    }
-                    break;
-            }
-        }
-        else {
-            return false;
-        }
-        return true;
-    }
-
-    public String getObjectNameOnXandY(TiledMap tiledMap, int x, int y) {
-        for (MapLayer layer : tiledMap.getLayers()) {
-            for (MapObject obj : tiledMap.getLayers().get(layer.getName()).getObjects()) {
-                Rectangle rect = ((RectangleMapObject) obj).getRectangle();
-                int layer_x = (int) rect.x / GameScreen.TILE_AREA;
-                int layer_y = (int) rect.y / GameScreen.TILE_AREA;
-
-                if (x == layer_x && y == layer_y) {
-                    return obj.getName();
-                }
-            }
-        }
-        return "";
-    }
-
-    public void pickUpFlag(Player player) {
-        String objectname = getObjectNameOnXandY(tiledMap, player.getXPos(), player.getYPos());
-        switch(objectname) {
-            case "flag1":
-                player.addFlag("flag1");
-                break;
-            case "flag2":
-                player.addFlag("flag2");
-                break;
-            case "flag3":
-                player.addFlag("flag3");
-                break;
-            case "flag4":
-                player.addFlag("flag4");
                 break;
         }
     }
@@ -318,16 +155,6 @@ public class GameScreen extends InputAdapter implements Screen {
                 }
             }
         }
-    }
-
-
-    /**
-     * @param x - x-position on screen
-     * @param y - y-position on screen
-     * @return true if position is a hole or is off the map
-     */
-    public boolean isHole(int x, int y){
-        return holeLayer.getCell(x,y) != null || boardLayer.getCell(x,y) == null;
     }
 
     public void unrenderPlayer() {
