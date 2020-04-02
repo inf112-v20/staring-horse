@@ -124,7 +124,7 @@ public class ProgramCard {
         return imageButton;
     }
 
-    public Actor getCardButton() {
+    public ImageButton getCardButton() {
         return cardButton;
     }
 

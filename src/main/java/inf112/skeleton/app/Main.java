@@ -10,8 +10,8 @@ public class Main {
         LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
         cfg.title = "Robo Rally";
 
-        cfg.width = 900;
-        cfg.height = 900;
+        cfg.height = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().height;
+        cfg.width = cfg.height;
 
         cfg.x = ((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth())/2 - cfg.width/2;
         cfg.y = 0;

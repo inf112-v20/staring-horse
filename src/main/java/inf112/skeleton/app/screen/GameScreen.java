@@ -10,6 +10,7 @@ import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import inf112.skeleton.app.gamelogic.GameLoop;
 import inf112.skeleton.app.player.Player;
 import inf112.skeleton.app.player.ProgramCard;
 import inf112.skeleton.app.RoboRally;
@@ -36,6 +37,7 @@ public class GameScreen extends InputAdapter implements Screen {
     private RoboRally roboRally = RoboRally.getInstance();
 
     private static GameScreen SINGLE_INSTANCE = null;
+    private GameLoop gameLoop;
 
     private GameScreen(){
         show();
@@ -77,20 +79,13 @@ public class GameScreen extends InputAdapter implements Screen {
         inputMultiplexer.addProcessor(inputProcessorTwo);
         Gdx.input.setInputProcessor(inputMultiplexer);
 
-
-        this.player.drawNewDeck();
-        // make each card in the players deck into an imageButton
-        for(int i = 0; i < 9; i++) {
-            ProgramCard card = player.getProgramCard(i);
-            cardButton = card.makeCardImageButton(player, this);
-            cardButton.setPosition((float) ((cardButton.getWidth()*i)+(camera.viewportWidth/2)-cardButton.getWidth()*4.5), (float) (camera.viewportWidth*0.05));
-            stage.addActor(cardButton);
-        }
-
         orthogonalTiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, (float) 1/TILE_AREA);
         camera.setToOrtho(false, boardLayer.getWidth(), boardLayer.getHeight());
         camera.update();
         orthogonalTiledMapRenderer.setView(camera);
+        
+        gameLoop = new GameLoop(player, this);
+        gameLoop.startGame();
 
         renderPlayer();
     }
@@ -157,6 +152,25 @@ public class GameScreen extends InputAdapter implements Screen {
         }
     }
 
+    /**
+     * make each card in a deck into an imageButton
+     */
+    public void makeSelectableCards(){
+        stage.clear();
+
+        //CardDeck cardDeck = new CardDeck();
+        //cardDeck.drawNineProgramCards();
+
+        this.player.drawNewDeck();
+
+        for(int i = 0; i < 9; i++) {
+            ProgramCard card = player.getProgramCard(i);
+            cardButton = card.makeCardImageButton(player, this);
+            cardButton.setPosition((((cardButton.getWidth() + 10)*i)+(camera.viewportWidth+150)), (float) (30));
+            stage.addActor(cardButton);
+        }
+    }
+
     public void unrenderPlayer() {
         playerLayer.setCell(player.getXPos(), player.getYPos(), null);
     }
@@ -164,6 +178,10 @@ public class GameScreen extends InputAdapter implements Screen {
     public void renderPlayer(){
         updatePlayerRotation();
         playerLayer.setCell(player.getXPos(), player.getYPos(), playerCell);
+    }
+
+    public void startNextRound(){
+        this.gameLoop.startNewRound();
     }
 
     @Override

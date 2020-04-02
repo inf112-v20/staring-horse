@@ -347,6 +347,8 @@ public class Player {
         }
 
         clearHand();
+
+        GameScreen.getInstance().startNextRound();
     }
 
     public ProgramCard getProgramCard(int index){
