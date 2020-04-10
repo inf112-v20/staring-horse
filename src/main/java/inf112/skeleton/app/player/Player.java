@@ -131,10 +131,6 @@ public class Player {
                 break;
         }
 
-        if (!this.isTestPlayer) {
-            GameLogic.getInstance().pickUpFlag(this);
-        }
-
         if(!this.isTestPlayer && GameLogic.getInstance().isHole(this.xPos, this.yPos)){
             killRobot();
         }
@@ -176,10 +172,6 @@ public class Player {
                 }
                 this.moveNorth();
                 break;
-        }
-
-        if (!this.isTestPlayer) {
-            GameLogic.getInstance().pickUpFlag(this);
         }
 
         if(!this.isTestPlayer && GameLogic.getInstance().isHole(this.xPos, this.yPos)){
@@ -285,6 +277,10 @@ public class Player {
 
         if (action != ProgramCardAction.AGAIN) {
             this.previousAction = action;
+        }
+
+        if (!this.isTestPlayer) {
+            GameLogic.getInstance().pickUpFlag(this);
         }
     }
 
