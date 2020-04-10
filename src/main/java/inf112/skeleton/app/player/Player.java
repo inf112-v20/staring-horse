@@ -237,10 +237,10 @@ public class Player {
         }
     }
 
-    public void performProgramCardAction(ProgramCard progCard) {
-        ProgramCardAction action = progCard.getAction();
+    public void performProgramCardAction(ProgramCard programCard) {
+        ProgramCardAction action = programCard.getAction();
 
-        System.out.println("Execute: " + progCard.getAction());
+        System.out.println("Execute: " + programCard.getAction());
 
         switch (action) {
             case MOVE_ONE:
@@ -334,17 +334,14 @@ public class Player {
     /**
      * Execute all programcards in hand
      */
-    public void executeCardsInHand(){
+    public void executeCardInHand(int phase){
         GameScreen gameScreen = GameScreen.getInstance();
-        for (ProgramCard currentCard : this.hand) {
-            gameScreen.unrenderPlayer();
-            performProgramCardAction(currentCard);
-            gameScreen.renderPlayer();
-        }
 
-        clearHand();
+        gameScreen.unrenderPlayer();
+        performProgramCardAction(this.hand[phase]);
+        gameScreen.renderPlayer();
 
-        gameScreen.startNextRound();
+        if(phase == 4) clearHand();
     }
 
     public ProgramCard getProgramCard(int index){

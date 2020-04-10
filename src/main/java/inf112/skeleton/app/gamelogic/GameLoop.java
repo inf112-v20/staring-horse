@@ -4,19 +4,22 @@ import inf112.skeleton.app.RoboRally;
 import inf112.skeleton.app.player.Player;
 import inf112.skeleton.app.screen.GameScreen;
 
+import java.util.concurrent.TimeUnit;
+
+
 public class GameLoop {
 
     private Player player;
     private GameScreen gameScreen;
     private int roundNumber;
 
-    public GameLoop(Player player, GameScreen gameScreen){
+    public GameLoop(Player player, GameScreen gameScreen) {
         this.player = player;
         this.gameScreen = gameScreen;
         this.roundNumber = 1;
     }
 
-    public void startNewRound(){
+    public void startNewRound() {
         System.out.println("Starting round " + roundNumber++);
         this.player.drawNewDeck();
         gameScreen.makePlayerDeckMatchSelectableCards();
@@ -26,6 +29,19 @@ public class GameLoop {
             System.out.println("THE PLAYER HAS WON!");
             RoboRally.getInstance().setMenuScreen();
         }
+    }
+
+    public void startActivationPhase() {
+
+        for(int phase = 0; phase < 5; phase++){
+
+            // check priority for players and execute cards accordingly
+
+            player.executeCardInHand(phase);
+
+        }
+
+        startNewRound();
     }
 
 }

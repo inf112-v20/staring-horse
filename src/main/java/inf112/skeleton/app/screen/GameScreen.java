@@ -194,7 +194,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
                 if(player.isHandFull()) {
                     //gameScreen.showPlayersHand();
-                    player.executeCardsInHand();
+                    gameLoop.startActivationPhase();
                 }
 
 
