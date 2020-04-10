@@ -39,9 +39,7 @@ public class GameScreen extends InputAdapter implements Screen {
     private static GameScreen SINGLE_INSTANCE = null;
     private GameLoop gameLoop;
 
-    private GameScreen(){
-        show();
-    }
+    private GameScreen(){}
 
     public static GameScreen getInstance() {
         if (SINGLE_INSTANCE == null)
@@ -85,7 +83,7 @@ public class GameScreen extends InputAdapter implements Screen {
         orthogonalTiledMapRenderer.setView(camera);
         
         gameLoop = new GameLoop(player, this);
-        gameLoop.startGame();
+        gameLoop.startNewRound();
 
         renderPlayer();
     }
@@ -156,10 +154,7 @@ public class GameScreen extends InputAdapter implements Screen {
      * make each card in a deck into an imageButton
      */
     public void makeSelectableCards(){
-        stage.clear();
-
-        //CardDeck cardDeck = new CardDeck();
-        //cardDeck.drawNineProgramCards();
+        //stage.clear();
 
         this.player.drawNewDeck();
 

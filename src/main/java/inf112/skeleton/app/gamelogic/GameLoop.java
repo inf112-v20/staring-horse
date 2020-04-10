@@ -16,10 +16,6 @@ public class GameLoop {
         this.roundNumber = 1;
     }
 
-    public void startGame(){
-        this.startNewRound();
-    }
-
     public void startNewRound(){
         System.out.println("Starting round " + roundNumber++);
         gameScreen.makeSelectableCards();

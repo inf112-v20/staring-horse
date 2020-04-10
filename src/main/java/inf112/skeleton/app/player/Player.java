@@ -348,7 +348,7 @@ public class Player {
 
         clearHand();
 
-        GameScreen.getInstance().startNextRound();
+        gameScreen.startNextRound();
     }
 
     public ProgramCard getProgramCard(int index){
@@ -361,6 +361,7 @@ public class Player {
 
     private void clearHand() {
         this.hand = new ProgramCard[hand.length];
+        this.numCardsInHand = 0;
     }
 
     public ProgramCard[] getHand() {
