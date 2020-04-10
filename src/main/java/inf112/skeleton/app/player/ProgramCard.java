@@ -80,49 +80,7 @@ public class ProgramCard {
         return this.action;
     }
 
-    /**
-     * Creates a new ImageButton of a input card
-     * @return a ImageButton.
-     */
-    public ImageButton makeCardImageButton(final Player player, final GameScreen gameScreen) {
-        final ProgramCard programCard = this;
 
-        Texture programCardTexturePressed = new Texture("ProgramCards/ProgramCardMove1Pressed.png");
-        // create a drawable for each state of the button
-        final Drawable drawable = new TextureRegionDrawable(new TextureRegion(this.getTexture()));
-        Drawable pressedDrawable = new TextureRegionDrawable(new TextureRegion(programCardTexturePressed));
-        ImageButton imageButton = new ImageButton(drawable);
-
-        imageButton.setSize((float) 200 / 4, (float) 340 / 4);
-        imageButton.getStyle() .imageUp = drawable;
-        imageButton.getStyle() .imageDown = pressedDrawable;
-        imageButton.setPosition(30,55);
-
-        imageButton.addListener(new InputListener() {
-            @Override
-            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-                // could be useful in the future.
-            }
-
-            @Override
-            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                System.out.println("Pressed: " + programCard.getAction());
-
-                if (!programCard.isInHand()) {
-                    player.addCardToHand(programCard);
-                    gameScreen.showPlayersHand();
-
-                    if(player.isHandFull() && programCard.isInHand) {
-                        player.executeCardsInHand();
-                    }
-                }
-
-                return true;
-            }
-        });
-        cardButton = imageButton;
-        return imageButton;
-    }
 
     public ImageButton getCardButton() {
         return cardButton;

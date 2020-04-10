@@ -18,7 +18,9 @@ public class GameLoop {
 
     public void startNewRound(){
         System.out.println("Starting round " + roundNumber++);
-        gameScreen.makeSelectableCards();
+        this.player.drawNewDeck();
+        gameScreen.makePlayerDeckMatchSelectableCards();
+
 
         if (player.hasWon()) {
             System.out.println("THE PLAYER HAS WON!");

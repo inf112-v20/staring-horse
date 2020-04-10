@@ -2,13 +2,20 @@ package inf112.skeleton.app.screen;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import inf112.skeleton.app.gamelogic.GameLoop;
 import inf112.skeleton.app.player.Player;
@@ -38,6 +45,8 @@ public class GameScreen extends InputAdapter implements Screen {
 
     private static GameScreen SINGLE_INSTANCE = null;
     private GameLoop gameLoop;
+
+    private Array<ImageButton> selectableCardButtons;
 
     private GameScreen(){}
 
@@ -81,7 +90,9 @@ public class GameScreen extends InputAdapter implements Screen {
         camera.setToOrtho(false, boardLayer.getWidth(), boardLayer.getHeight());
         camera.update();
         orthogonalTiledMapRenderer.setView(camera);
-        
+
+        makeSelectableCards();
+
         gameLoop = new GameLoop(player, this);
         gameLoop.startNewRound();
 
@@ -143,25 +154,87 @@ public class GameScreen extends InputAdapter implements Screen {
 
                     ProgramCard card = hand[i];
                     int cardSizeDivisor = 6;
-                    card.getCardButton().setSize(card.getTexture().getWidth() / cardSizeDivisor, card.getTexture().getHeight() / cardSizeDivisor);
-                    card.getCardButton().setPosition((float) ((cardButton.getWidth()*i)+(camera.viewportWidth/2)-cardButton.getWidth()*2.5), (float) (camera.viewportWidth*0.2));
+                    //card.getCardButton().setSize(card.getTexture().getWidth() / cardSizeDivisor, card.getTexture().getHeight() / cardSizeDivisor);
+                    //card.getCardButton().setPosition((float) ((cardButton.getWidth()*i)+(camera.viewportWidth/2)-cardButton.getWidth()*2.5), (float) (camera.viewportWidth*0.2));
                 }
             }
         }
     }
 
     /**
+     * Creates a new ImageButton of a input card
+     * @return a ImageButton.
+     */
+    public ImageButton makeCardImageButton(final Player player, final GameScreen gameScreen, final int i) {
+
+        // create a drawable for each state of the button
+        final Drawable drawable = new TextureRegionDrawable(
+                new TextureRegion(new Texture(Gdx.files.internal("ProgramCards/ProgramCardAgain.png"))));
+        final ImageButton imageButton = new ImageButton(drawable);
+
+        imageButton.setSize((float) 200 / 4, (float) 340 / 4);
+
+        imageButton.setPosition(30,55);
+
+        imageButton.addListener(new InputListener() {
+            @Override
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                // could be useful in the future.
+            }
+
+            @Override
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                imageButton.setVisible(false);
+                
+                System.out.println("Pressed: imagebutton " + i);
+
+
+                player.addCardToHand(player.getProgramCard(i));
+                //gameScreen.showPlayersHand();
+
+                if(player.isHandFull()) {
+                    //gameScreen.showPlayersHand();
+                    player.executeCardsInHand();
+                }
+
+
+
+
+                return true;
+
+
+            }
+        });
+        cardButton = imageButton;
+        return imageButton;
+    }
+
+    public void changeDrawable(ImageButton dabutton, ProgramCard card) {
+        dabutton.getStyle() .imageUp = new TextureRegionDrawable(new TextureRegion(card.getTexture()));
+    }
+
+    public void makePlayerDeckMatchSelectableCards() {
+        for(int i = 0; i < 9; i++) {
+            selectableCardButtons.get(i).setVisible(true);
+            changeDrawable(selectableCardButtons.get(i), player.getProgramCard(i));
+        }
+    }
+
+    /**
      * make each card in a deck into an imageButton
      */
-    public void makeSelectableCards(){
+    private void makeSelectableCards(){
         //stage.clear();
 
         this.player.drawNewDeck();
 
+        selectableCardButtons = new Array<>();
         for(int i = 0; i < 9; i++) {
-            ProgramCard card = player.getProgramCard(i);
-            cardButton = card.makeCardImageButton(player, this);
+            ProgramCard card = new ProgramCard();
+            cardButton = makeCardImageButton(player, this, i);
+            selectableCardButtons.add(cardButton); // saijgokasdjhighjka
             cardButton.setPosition((((cardButton.getWidth() + 10)*i)+(camera.viewportWidth+150)), (float) (30));
+            changeDrawable(cardButton, card);
             stage.addActor(cardButton);
         }
     }
