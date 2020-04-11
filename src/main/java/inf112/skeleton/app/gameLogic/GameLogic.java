@@ -218,22 +218,12 @@ public class GameLogic {
     // TODO Add to execute programcard action in pla
     public void changeDirOnGear(IRobot player) {
         String objectName = getObjectNameOnXandY(tiledMap,player.getXPos(), player.getYPos());
-        switch (player.getDirection()) {
-            case NORTH:
-                if (Objects.equals(objectName, "clockwise")) player.setDirection(EAST);
-                if (Objects.equals(objectName, "counterclockwise")) player.setDirection(WEST);
+        switch (objectName) {
+            case "clockwise":
+                player.rotateClockwise();
                 break;
-            case EAST:
-                if (Objects.equals(objectName, "clockwise")) player.setDirection(SOUTH);
-                if (Objects.equals(objectName, "counterclockwise")) player.setDirection(NORTH);
-                break;
-            case SOUTH:
-                if (Objects.equals(objectName, "clockwise")) player.setDirection(WEST);
-                if (Objects.equals(objectName, "counterclockwise")) player.setDirection(EAST);
-                break;
-            case WEST:
-                if (Objects.equals(objectName, "clockwise")) player.setDirection(NORTH);
-                if (Objects.equals(objectName, "counterclockwise")) player.setDirection(SOUTH);
+            case "counterclockwise":
+                player.rotateCounterClockwise();
                 break;
             default:
                 break;

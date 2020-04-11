@@ -194,42 +194,12 @@ public class AI implements IRobot {
 
     @Override
     public void rotateClockwise(){
-        switch (this.direction) {
-            case WEST:
-                this.direction = Direction.NORTH;
-                break;
-            case SOUTH:
-                this.direction = Direction.WEST;
-                break;
-            case EAST:
-                this.direction = Direction.SOUTH;
-                break;
-            case NORTH:
-                this.direction = Direction.EAST;
-                break;
-            default:
-                break;
-        }
+        this.direction = Direction.rotateClockwise(direction);
     }
 
     @Override
     public void rotateCounterClockwise(){
-        switch (this.direction) {
-            case WEST:
-                this.direction = Direction.SOUTH;
-                break;
-            case SOUTH:
-                this.direction = Direction.EAST;
-                break;
-            case EAST:
-                this.direction = Direction.NORTH;
-                break;
-            case NORTH:
-                this.direction = Direction.WEST;
-                break;
-            default:
-                break;
-        }
+        this.direction = Direction.rotateCounterClockwise(direction);
     }
 
     @Override
