@@ -244,8 +244,8 @@ public class GameScreen extends InputAdapter implements Screen {
             image.setDrawable(new TextureRegionDrawable(new TextureRegion(card.getTexture())));
 
             int cardSizeDivisor = 4;
-            image.setSize(card.getTexture().getWidth() / cardSizeDivisor, card.getTexture().getHeight() / cardSizeDivisor);
-            image.setPosition(300 + (i*(card.getTexture().getWidth() / cardSizeDivisor)), 150);
+            image.setSize((float) card.getTexture().getWidth() / cardSizeDivisor, (float) card.getTexture().getHeight() / cardSizeDivisor);
+            image.setPosition(300 + (i*((float) card.getTexture().getWidth() / cardSizeDivisor)), 150);
 
             handCards.add(image);
             stage.addActor(image);
