@@ -2,9 +2,8 @@ package inf112.skeleton.app;
 
 import inf112.skeleton.app.enums.Direction;
 import inf112.skeleton.app.enums.ProgramCardAction;
-import inf112.skeleton.app.player.Player;
-import inf112.skeleton.app.player.ProgramCard;
-import inf112.skeleton.app.screen.GameScreen;
+import inf112.skeleton.app.robot.Player;
+import inf112.skeleton.app.programCard.ProgramCard;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;

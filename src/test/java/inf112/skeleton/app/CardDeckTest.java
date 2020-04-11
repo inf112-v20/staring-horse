@@ -1,7 +1,7 @@
 package inf112.skeleton.app;
 
-import inf112.skeleton.app.player.CardDeck;
-import inf112.skeleton.app.player.ProgramCard;
+import inf112.skeleton.app.programCard.CardDeck;
+import inf112.skeleton.app.programCard.ProgramCard;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;

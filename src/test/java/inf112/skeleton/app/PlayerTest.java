@@ -1,7 +1,7 @@
 package inf112.skeleton.app;
 
 import inf112.skeleton.app.enums.Direction;
-import inf112.skeleton.app.player.Player;
+import inf112.skeleton.app.robot.Player;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;

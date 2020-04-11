@@ -1,7 +1,7 @@
-package inf112.skeleton.app.gamelogic;
+package inf112.skeleton.app.gameLogic;
 
 import inf112.skeleton.app.RoboRally;
-import inf112.skeleton.app.player.Player;
+import inf112.skeleton.app.robot.Player;
 import inf112.skeleton.app.screen.GameScreen;
 
 

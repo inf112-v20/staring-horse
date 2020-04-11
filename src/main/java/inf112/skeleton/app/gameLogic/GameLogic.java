@@ -1,14 +1,13 @@
-package inf112.skeleton.app.gamelogic;
+package inf112.skeleton.app.gameLogic;
 
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.math.EarClippingTriangulator;
 import com.badlogic.gdx.math.Rectangle;
 import inf112.skeleton.app.enums.Direction;
-import inf112.skeleton.app.player.Player;
+import inf112.skeleton.app.robot.Player;
 import inf112.skeleton.app.robot.IRobot;
 import inf112.skeleton.app.screen.GameScreen;
 

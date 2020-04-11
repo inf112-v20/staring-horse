@@ -1,4 +1,4 @@
-package inf112.skeleton.app.player;
+package inf112.skeleton.app.programCard;
 
 import inf112.skeleton.app.enums.ProgramCardAction;
 

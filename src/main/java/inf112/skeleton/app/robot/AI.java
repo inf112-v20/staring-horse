@@ -5,8 +5,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import inf112.skeleton.app.RoboRally;
 import inf112.skeleton.app.enums.Direction;
 import inf112.skeleton.app.enums.ProgramCardAction;
-import inf112.skeleton.app.gamelogic.GameLogic;
-import inf112.skeleton.app.player.ProgramCard;
+import inf112.skeleton.app.gameLogic.GameLogic;
+import inf112.skeleton.app.programCard.ProgramCard;
 
 import java.util.ArrayList;
 

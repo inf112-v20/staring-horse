@@ -2,7 +2,7 @@ package inf112.skeleton.app.robot;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import inf112.skeleton.app.enums.Direction;
-import inf112.skeleton.app.player.ProgramCard;
+import inf112.skeleton.app.programCard.ProgramCard;
 
 public interface IRobot {
     boolean hasWon();
