@@ -1,4 +1,4 @@
-package inf112.skeleton.app.player;
+package inf112.skeleton.app.robot;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -6,12 +6,11 @@ import inf112.skeleton.app.RoboRally;
 import inf112.skeleton.app.enums.Direction;
 import inf112.skeleton.app.enums.ProgramCardAction;
 import inf112.skeleton.app.gamelogic.GameLogic;
-import inf112.skeleton.app.robot.IRobot;
-import inf112.skeleton.app.screen.GameScreen;
+import inf112.skeleton.app.player.ProgramCard;
 
 import java.util.ArrayList;
 
-public class Player implements IRobot {
+public class AI implements IRobot {
 
     private int xPos;
     private int yPos;
@@ -30,15 +29,11 @@ public class Player implements IRobot {
 
     // bool set to true when using player for tests (solves error when
     // referencing TmxMapLoader in GameScreen while in tests)
-    private boolean isTestPlayer = false;
+    private boolean isTestRobot = false;
 
     private TextureRegion robotTexture;
 
-    private CardDeck cardDeck;
-    private ProgramCard[] hand;
-    private int numCardsInHand;
-
-    public Player() {
+    public AI(){
         this.respawnXPos = 10;
         this.respawnYPos = 16;
         this.respawnDirection = Direction.NORTH;
@@ -46,10 +41,6 @@ public class Player implements IRobot {
         this.xPos = respawnXPos;
         this.yPos = respawnYPos;
         this.direction = respawnDirection;
-
-        this.cardDeck = new CardDeck();
-        this.hand = new ProgramCard[5];
-        this.numCardsInHand = 0;
 
         this.healthPoints = 10;
         this.lives = 3;
@@ -89,7 +80,6 @@ public class Player implements IRobot {
         }
     }
 
-
     @Override
     public void moveBackward(int backWardDistance){
         for (int i = 0; i < backWardDistance; i++){
@@ -101,28 +91,28 @@ public class Player implements IRobot {
     public void moveBackwardOne(){
         switch (this.direction) {
             case EAST:
-                if (!this.isTestPlayer && !GameLogic.getInstance().canGo(this, true)) {
+                if (!this.isTestRobot && !GameLogic.getInstance().canGo(this, true)) {
                     System.out.println("Player can't go WEST");
                     break;
                 }
                 this.moveWest();
                 break;
             case NORTH:
-                if (!this.isTestPlayer && !GameLogic.getInstance().canGo(this, true)) {
+                if (!this.isTestRobot && !GameLogic.getInstance().canGo(this, true)) {
                     System.out.println("Player can't go SOUTH");
                     break;
                 }
                 this.moveSouth();
                 break;
             case WEST:
-                if (!this.isTestPlayer && !GameLogic.getInstance().canGo(this, true)) {
+                if (!this.isTestRobot && !GameLogic.getInstance().canGo(this, true)) {
                     System.out.println("Player can't go EAST");
                     break;
                 }
                 this.moveEast();
                 break;
             case SOUTH:
-                if (!this.isTestPlayer && !GameLogic.getInstance().canGo(this, true)) {
+                if (!this.isTestRobot && !GameLogic.getInstance().canGo(this, true)) {
                     System.out.println("Player can't go NORTH");
                     break;
                 }
@@ -132,7 +122,7 @@ public class Player implements IRobot {
                 break;
         }
 
-        if(!this.isTestPlayer && GameLogic.getInstance().isHole(this.xPos, this.yPos)){
+        if(!this.isTestRobot && GameLogic.getInstance().isHole(this.xPos, this.yPos)){
             killRobot();
         }
     }
@@ -148,28 +138,28 @@ public class Player implements IRobot {
     public void moveForwardOne(){
         switch (this.direction) {
             case WEST:
-                if (!this.isTestPlayer && !GameLogic.getInstance().canGo(this, false)) {
+                if (!this.isTestRobot && !GameLogic.getInstance().canGo(this, false)) {
                     System.out.println("Player can't go WEST");
                     break;
                 }
                 this.moveWest();
                 break;
             case SOUTH:
-                if (!this.isTestPlayer && !GameLogic.getInstance().canGo(this, false)) {
+                if (!this.isTestRobot && !GameLogic.getInstance().canGo(this, false)) {
                     System.out.println("Player can't go SOUTH");
                     break;
                 }
                 this.moveSouth();
                 break;
             case EAST:
-                if (!this.isTestPlayer && !GameLogic.getInstance().canGo(this, false)) {
+                if (!this.isTestRobot && !GameLogic.getInstance().canGo(this, false)) {
                     System.out.println("Player can't go EAST");
                     break;
                 }
                 this.moveEast();
                 break;
             case NORTH:
-                if (!this.isTestPlayer && !GameLogic.getInstance().canGo(this, false)) {
+                if (!this.isTestRobot && !GameLogic.getInstance().canGo(this, false)) {
                     System.out.println("Player can't go NORTH");
                     break;
                 }
@@ -177,7 +167,7 @@ public class Player implements IRobot {
                 break;
         }
 
-        if(!this.isTestPlayer && GameLogic.getInstance().isHole(this.xPos, this.yPos)){
+        if(!this.isTestRobot && GameLogic.getInstance().isHole(this.xPos, this.yPos)){
             killRobot();
         }
     }
@@ -285,7 +275,7 @@ public class Player implements IRobot {
             this.previousAction = action;
         }
 
-        if (!this.isTestPlayer) {
+        if (!this.isTestRobot) {
             GameLogic.getInstance().pickUpFlag(this);
         }
     }
@@ -325,61 +315,9 @@ public class Player implements IRobot {
         this.robotTexture = new TextureRegion(new Texture("Robo.png"));
     }
 
-    public void drawNewDeck(){
-        this.cardDeck.drawNineProgramCards();
-    }
-
-    /**
-     * Add ProgramCard to player hand
-     * @param card - ProgramCard to add to player hand
-     */
-    public void addCardToHand(ProgramCard card) {
-        if (numCardsInHand < 5) {
-            hand[numCardsInHand] = card;
-            numCardsInHand += 1;
-            card.setIsInHand(true);
-        } else {
-            System.out.println("Your hand is full!");
-        }
-    }
-
-    /**
-     * Execute all programcards in hand
-     */
-    public void executeCardInHand(int phase){
-        GameScreen gameScreen = GameScreen.getInstance();
-
-        gameScreen.unrenderRobot(this);
-        performProgramCardAction(this.hand[phase]);
-        gameScreen.renderRobot(this);
-
-        if(phase == 4) clearHand();
-    }
-
-    public ProgramCard getProgramCard(int index){
-        return this.cardDeck.getCard(index);
-    }
-
     @Override
     public TextureRegion getTexture() {
         return this.robotTexture;
-    }
-
-    private void clearHand() {
-        this.hand = new ProgramCard[hand.length];
-        this.numCardsInHand = 0;
-    }
-
-    public ProgramCard[] getHand() {
-        return this.hand;
-    }
-
-    public int getNumCardsInHand(){
-        return this.numCardsInHand;
-    }
-
-    public boolean isHandFull() {
-        return numCardsInHand >= 5;
     }
 
     @Override
@@ -398,5 +336,5 @@ public class Player implements IRobot {
     @Override
     public int getXPos() { return xPos; }
 
-    public void setToTestPlayer(){this.isTestPlayer = true;}
+    public void setToTestPlayer(){this.isTestRobot = true;}
 }

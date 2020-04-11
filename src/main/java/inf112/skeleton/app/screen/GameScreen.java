@@ -21,6 +21,8 @@ import inf112.skeleton.app.gamelogic.GameLoop;
 import inf112.skeleton.app.player.Player;
 import inf112.skeleton.app.player.ProgramCard;
 import inf112.skeleton.app.RoboRally;
+import inf112.skeleton.app.robot.AI;
+import inf112.skeleton.app.robot.IRobot;
 
 import java.util.ArrayList;
 
@@ -99,7 +101,12 @@ public class GameScreen extends InputAdapter implements Screen {
         gameLoop = new GameLoop(player, this);
         gameLoop.startNewRound();
 
-        renderPlayer();
+        renderRobot(player);
+
+        // test-AI does nothing
+        AI ai = new AI();
+        ai.moveForward(1);
+        renderRobot(ai);
     }
 
     @Override
@@ -247,13 +254,13 @@ public class GameScreen extends InputAdapter implements Screen {
         }
     }
 
-    public void unrenderPlayer() {
-        playerLayer.setCell(player.getXPos(), player.getYPos(), null);
+    public void unrenderRobot(IRobot robot) {
+        playerLayer.setCell(robot.getXPos(), robot.getYPos(), null);
     }
 
-    public void renderPlayer(){
+    public void renderRobot(IRobot robot){
         updatePlayerRotation();
-        playerLayer.setCell(player.getXPos(), player.getYPos(), playerCell);
+        playerLayer.setCell(robot.getXPos(), robot.getYPos(), playerCell);
     }
 
     @Override
@@ -284,21 +291,21 @@ public class GameScreen extends InputAdapter implements Screen {
     @Override
     public boolean keyUp(int code) {
         if (Input.Keys.LEFT == code) {
-            unrenderPlayer();
+            unrenderRobot(player);
             player.rotateCounterClockwise();
-            renderPlayer();
+            renderRobot(player);
         } else if (Input.Keys.RIGHT == code) {
-            unrenderPlayer();
+            unrenderRobot(player);
             player.rotateClockwise();
-            renderPlayer();
+            renderRobot(player);
         } else if (Input.Keys.DOWN == code) {
-            unrenderPlayer();
+            unrenderRobot(player);
             player.moveBackward(1);
-            renderPlayer();
+            renderRobot(player);
         } else if (Input.Keys.UP == code) {
-            unrenderPlayer();
+            unrenderRobot(player);
             player.moveForward(1);
-            renderPlayer();
+            renderRobot(player);
         } else if (Input.Keys.Q == code) {
             roboRally.setMenuScreen();
         }
