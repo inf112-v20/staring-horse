@@ -275,8 +275,10 @@ public class AI implements IRobot {
             this.previousAction = action;
         }
 
+        // TODO move this into GameLoop and do after all the robots has moved.
         if (!this.isTestRobot) {
             GameLogic.getInstance().pickUpFlag(this);
+            GameLogic.getInstance().changeDirOnGear(this);
         }
     }
 

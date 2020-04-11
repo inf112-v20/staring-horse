@@ -216,7 +216,7 @@ public class GameLogic {
      * @param player robot
      */
     // TODO Add to execute programcard action in pla
-    public void changeDirOnGear(Player player) {
+    public void changeDirOnGear(IRobot player) {
         String objectName = getObjectNameOnXandY(tiledMap,player.getXPos(), player.getYPos());
         switch (player.getDirection()) {
             case NORTH:
