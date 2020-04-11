@@ -33,9 +33,12 @@ public class AI implements IRobot {
 
     private TextureRegion robotTexture;
 
+    private ArrayList<Integer> respawnPoints;
+
     public AI(){
-        this.respawnXPos = 10;
-        this.respawnYPos = 16;
+        this.respawnPoints = GameLogic.getInstance().getXandYposofRespawnPoint();
+        this.respawnXPos = respawnPoints.get(2);
+        this.respawnYPos = respawnPoints.get(3);
         this.respawnDirection = Direction.NORTH;
 
         this.xPos = respawnXPos;

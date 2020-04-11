@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import inf112.skeleton.app.gameLogic.GameLogic;
 import inf112.skeleton.app.gameLogic.GameLoop;
 import inf112.skeleton.app.robot.Player;
 import inf112.skeleton.app.programCard.ProgramCard;
@@ -117,7 +118,6 @@ public class GameScreen extends InputAdapter implements Screen {
         // test-AI does nothing
         ai = new AI();
         robotCellHashMap.put(ai, aiCell);
-        ai.moveForward(1);
         renderRobot(ai);
     }
 

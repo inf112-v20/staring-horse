@@ -2,6 +2,7 @@ package inf112.skeleton.app.gameLogic;
 
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -11,6 +12,7 @@ import inf112.skeleton.app.robot.Player;
 import inf112.skeleton.app.robot.IRobot;
 import inf112.skeleton.app.screen.GameScreen;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 import static inf112.skeleton.app.enums.Direction.*;
@@ -238,6 +240,25 @@ public class GameLogic {
             default:
                 break;
         }
+    }
+
+    public ArrayList<Integer> getXandYposofRespawnPoint() {
+        TiledMapTileLayer respawnObjects = (TiledMapTileLayer) tiledMap.getLayers().get("SpawnPoint");
+        ArrayList<Integer> gamerlist = new ArrayList<>();
+        for (int x = 0; x < respawnObjects.getWidth(); x++) {
+            for (int y = 0; y < respawnObjects.getHeight(); y++) {
+
+                if (respawnObjects.getCell(x, y) != null) {
+                    System.out.println("GAMER DUDE!");
+                    System.out.println(x);
+                    System.out.println(y);
+                    gamerlist.add(x);
+                    gamerlist.add(y);
+                }
+            }
+        }
+        System.out.println(gamerlist);
+        return gamerlist;
     }
 
 }

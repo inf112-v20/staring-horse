@@ -39,9 +39,12 @@ public class Player implements IRobot {
     private ProgramCard[] hand;
     private int numCardsInHand;
 
+    private ArrayList<Integer> respawnPoints;
+
     public Player() {
-        this.respawnXPos = 10;
-        this.respawnYPos = 16;
+        this.respawnPoints = GameLogic.getInstance().getXandYposofRespawnPoint();
+        this.respawnXPos = respawnPoints.get(0);
+        this.respawnYPos = respawnPoints.get(1);
         this.respawnDirection = Direction.NORTH;
 
         this.xPos = respawnXPos;
