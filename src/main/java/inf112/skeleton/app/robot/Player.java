@@ -10,6 +10,7 @@ import inf112.skeleton.app.programCard.CardDeck;
 import inf112.skeleton.app.programCard.ProgramCard;
 import inf112.skeleton.app.screen.GameScreen;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class Player implements IRobot {
@@ -42,6 +43,25 @@ public class Player implements IRobot {
     private ArrayList<Integer> respawnPoints;
 
     public Player() {
+        this.respawnXPos = 10;
+        this.respawnYPos = 16;
+        this.respawnDirection = Direction.NORTH;
+
+        this.xPos = respawnXPos;
+        this.yPos = respawnYPos;
+        this.direction = respawnDirection;
+
+        this.cardDeck = new CardDeck();
+        this.hand = new ProgramCard[5];
+        this.numCardsInHand = 0;
+
+        this.healthPoints = 10;
+        this.lives = 3;
+
+        this.flags = new ArrayList<>();
+    }
+
+    public Player(ArrayList<Integer> respawnPoints) {
         this.respawnPoints = GameLogic.getInstance().getXandYposofRespawnPoint();
         this.respawnXPos = respawnPoints.get(0);
         this.respawnYPos = respawnPoints.get(1);
