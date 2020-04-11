@@ -5,10 +5,13 @@ import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import com.badlogic.gdx.math.EarClippingTriangulator;
 import com.badlogic.gdx.math.Rectangle;
 import inf112.skeleton.app.enums.Direction;
 import inf112.skeleton.app.player.Player;
 import inf112.skeleton.app.screen.GameScreen;
+
+import static inf112.skeleton.app.enums.Direction.*;
 
 public class GameLogic {
 
@@ -27,12 +30,26 @@ public class GameLogic {
         return SINGLE_INSTANCE;
     }
 
+    public String getObjectNameOnXandY(TiledMap tiledMap, int x, int y) {
+        for (MapLayer layer : tiledMap.getLayers()) {
+            for (MapObject obj : tiledMap.getLayers().get(layer.getName()).getObjects()) {
+                Rectangle rect = ((RectangleMapObject) obj).getRectangle();
+                int layer_x = (int) rect.x / GameScreen.TILE_AREA;
+                int layer_y = (int) rect.y / GameScreen.TILE_AREA;
+
+                if (x == layer_x && y == layer_y) {
+                    return obj.getName();
+                }
+            }
+        }
+        return "";
+    }
+
     /**
      * @param x - x-position on screen
      * @param y - y-position on screen
      * @return true if position is a hole or is off the map
      */
-
     public boolean isHole(int x, int y) {
         TiledMapTileLayer holeLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Hole");
         TiledMapTileLayer boardLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Board");
@@ -128,7 +145,7 @@ public class GameLogic {
                 break;
             case "WestWall":
                 if (backwards) {
-                    wallDirection = Direction.EAST;
+                    wallDirection = EAST;
                 }
                 else {
                     wallDirection = Direction.WEST;
@@ -142,7 +159,7 @@ public class GameLogic {
                     wallDirection = Direction.WEST;
                 }
                 else {
-                    wallDirection = Direction.EAST;
+                    wallDirection = EAST;
                 }
                 if (player.getDirection() == wallDirection) {
                     return false;
@@ -164,20 +181,6 @@ public class GameLogic {
         return true;
     }
 
-    public String getObjectNameOnXandY(TiledMap tiledMap, int x, int y) {
-        for (MapLayer layer : tiledMap.getLayers()) {
-            for (MapObject obj : tiledMap.getLayers().get(layer.getName()).getObjects()) {
-                Rectangle rect = ((RectangleMapObject) obj).getRectangle();
-                int layer_x = (int) rect.x / GameScreen.TILE_AREA;
-                int layer_y = (int) rect.y / GameScreen.TILE_AREA;
-
-                if (x == layer_x && y == layer_y) {
-                    return obj.getName();
-                }
-            }
-        }
-        return "";
-    }
 
     public void pickUpFlag(Player player) {
         String objectname = getObjectNameOnXandY(tiledMap, player.getXPos(), player.getYPos());
@@ -196,6 +199,43 @@ public class GameLogic {
                 break;
         }
     }
-
+    // TODO Add to execute programcard action in player / robot
+    public void changeDirOnGear(Player player) {
+        String objectName = getObjectNameOnXandY(tiledMap,player.getXPos(), player.getYPos());
+        switch (player.getDirection()) {
+            case NORTH:
+                if (objectName.equals("clockwise")) {
+                    player.setDirection(EAST);
+                }
+                if (objectName.equals("counterclockwise")) {
+                    player.setDirection(WEST);
+                }
+                break;
+            case EAST:
+                if (objectName.equals("clockwise")) {
+                    player.setDirection(SOUTH);
+                }
+                if (objectName.equals("counterclockwise")) {
+                    player.setDirection(NORTH);
+                }
+                break;
+            case SOUTH:
+                if (objectName.equals("clockwise")) {
+                    player.setDirection(WEST);
+                }
+                if (objectName.equals("counterclockwise")) {
+                    player.setDirection(EAST);
+                }
+                break;
+            case WEST:
+                if (objectName.equals("clockwise")) {
+                    player.setDirection(NORTH);
+                }
+                if (objectName.equals("counterclockwise")) {
+                    player.setDirection(SOUTH);
+                }
+                break;
+        }
+    }
 
 }
