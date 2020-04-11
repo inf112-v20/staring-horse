@@ -11,6 +11,8 @@ import inf112.skeleton.app.enums.Direction;
 import inf112.skeleton.app.player.Player;
 import inf112.skeleton.app.screen.GameScreen;
 
+import java.util.Objects;
+
 import static inf112.skeleton.app.enums.Direction.*;
 
 public class GameLogic {
@@ -182,9 +184,15 @@ public class GameLogic {
     }
 
 
+    /**
+     * Calls robot.addFlag("the current flag the robot is standing on")
+     * This method does not add the flag to the robots list of flags, but
+     * identifies the current flag the robot is standing on and calling addFlag.
+     * @param player robot
+     */
     public void pickUpFlag(Player player) {
-        String objectname = getObjectNameOnXandY(tiledMap, player.getXPos(), player.getYPos());
-        switch(objectname) {
+        String objectName = getObjectNameOnXandY(tiledMap, player.getXPos(), player.getYPos());
+        switch(objectName) {
             case "flag1":
                 player.addFlag("flag1");
                 break;
@@ -197,43 +205,36 @@ public class GameLogic {
             case "flag4":
                 player.addFlag("flag4");
                 break;
+            default:
+                break;
         }
     }
-    // TODO Add to execute programcard action in player / robot
+
+    /**
+     * Changes the robots direction when on a gear.
+     * @param player robot
+     */
+    // TODO Add to execute programcard action in pla
     public void changeDirOnGear(Player player) {
         String objectName = getObjectNameOnXandY(tiledMap,player.getXPos(), player.getYPos());
         switch (player.getDirection()) {
             case NORTH:
-                if (objectName.equals("clockwise")) {
-                    player.setDirection(EAST);
-                }
-                if (objectName.equals("counterclockwise")) {
-                    player.setDirection(WEST);
-                }
+                if (Objects.equals(objectName, "clockwise")) player.setDirection(EAST);
+                if (Objects.equals(objectName, "counterclockwise")) player.setDirection(WEST);
                 break;
             case EAST:
-                if (objectName.equals("clockwise")) {
-                    player.setDirection(SOUTH);
-                }
-                if (objectName.equals("counterclockwise")) {
-                    player.setDirection(NORTH);
-                }
+                if (Objects.equals(objectName, "clockwise")) player.setDirection(SOUTH);
+                if (Objects.equals(objectName, "counterclockwise")) player.setDirection(NORTH);
                 break;
             case SOUTH:
-                if (objectName.equals("clockwise")) {
-                    player.setDirection(WEST);
-                }
-                if (objectName.equals("counterclockwise")) {
-                    player.setDirection(EAST);
-                }
+                if (Objects.equals(objectName, "clockwise")) player.setDirection(WEST);
+                if (Objects.equals(objectName, "counterclockwise")) player.setDirection(EAST);
                 break;
             case WEST:
-                if (objectName.equals("clockwise")) {
-                    player.setDirection(NORTH);
-                }
-                if (objectName.equals("counterclockwise")) {
-                    player.setDirection(SOUTH);
-                }
+                if (Objects.equals(objectName, "clockwise")) player.setDirection(NORTH);
+                if (Objects.equals(objectName, "counterclockwise")) player.setDirection(SOUTH);
+                break;
+            default:
                 break;
         }
     }
