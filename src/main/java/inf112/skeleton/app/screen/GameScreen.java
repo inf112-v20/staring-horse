@@ -25,6 +25,7 @@ import inf112.skeleton.app.robot.AI;
 import inf112.skeleton.app.robot.IRobot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class GameScreen extends InputAdapter implements Screen {
@@ -43,6 +44,7 @@ public class GameScreen extends InputAdapter implements Screen {
     private Stage stage;
 
     private Player player;
+    private AI ai;
 
     private RoboRally roboRally = RoboRally.getInstance();
 
@@ -51,6 +53,9 @@ public class GameScreen extends InputAdapter implements Screen {
 
     private ArrayList<ImageButton> selectableCardButtons;
     private ArrayList<Image> handCards;
+
+    private HashMap<IRobot,TiledMapTileLayer.Cell> robotCellHashMap;
+    private TiledMapTileLayer.Cell aiCell;
 
     private GameScreen(){}
 
@@ -78,6 +83,9 @@ public class GameScreen extends InputAdapter implements Screen {
 
         playerCell.setTile(playerTilemap);
 
+        aiCell = new TiledMapTileLayer.Cell();
+        aiCell.setTile(playerTilemap);
+
 
         // create a stage for image buttons.
         stage = new Stage(new FitViewport(900,900, camera));
@@ -101,10 +109,14 @@ public class GameScreen extends InputAdapter implements Screen {
         gameLoop = new GameLoop(player, this);
         gameLoop.startNewRound();
 
+        robotCellHashMap = new HashMap<>();
+        robotCellHashMap.put(player, playerCell);
+
         renderRobot(player);
 
         // test-AI does nothing
-        AI ai = new AI();
+        ai = new AI();
+        robotCellHashMap.put(ai, aiCell);
         ai.moveForward(1);
         renderRobot(ai);
     }
@@ -260,7 +272,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
     public void renderRobot(IRobot robot){
         updatePlayerRotation();
-        playerLayer.setCell(robot.getXPos(), robot.getYPos(), playerCell);
+        playerLayer.setCell(robot.getXPos(), robot.getYPos(), robotCellHashMap.get(robot));
     }
 
     @Override
@@ -308,6 +320,10 @@ public class GameScreen extends InputAdapter implements Screen {
             renderRobot(player);
         } else if (Input.Keys.Q == code) {
             roboRally.setMenuScreen();
+        } else if (Input.Keys.SPACE == code) {
+            unrenderRobot(ai);
+            ai.moveForward(1);
+            renderRobot(ai);
         }
 
         return false;
