@@ -2,15 +2,7 @@ package inf112.skeleton.app.player;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import inf112.skeleton.app.enums.ProgramCardAction;
-import inf112.skeleton.app.screen.GameScreen;
 
 import java.util.Random;
 
@@ -20,7 +12,6 @@ public class ProgramCard {
     private ProgramCardAction action;
     private int priority; // will be used in the near future.
     private Texture texture;
-    private ImageButton cardButton;
     private boolean isInHand;
 
     public ProgramCard(){
@@ -78,12 +69,6 @@ public class ProgramCard {
 
     public ProgramCardAction getAction() {
         return this.action;
-    }
-
-
-
-    public ImageButton getCardButton() {
-        return cardButton;
     }
 
     public void setIsInHand(boolean bool) {

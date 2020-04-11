@@ -185,6 +185,7 @@ public class Player {
             System.out.println("PLAYER IS OUT OF LIVES!");
             RoboRally.getInstance().setMenuScreen();
         } else {
+            System.out.println(lives + " lives left");
             respawn();
         }
     }
@@ -359,6 +360,10 @@ public class Player {
 
     public ProgramCard[] getHand() {
         return this.hand;
+    }
+
+    public int getNumCardsInHand(){
+        return this.numCardsInHand;
     }
 
     public boolean isHandFull() {

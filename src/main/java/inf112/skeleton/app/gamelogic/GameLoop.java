@@ -4,8 +4,6 @@ import inf112.skeleton.app.RoboRally;
 import inf112.skeleton.app.player.Player;
 import inf112.skeleton.app.screen.GameScreen;
 
-import java.util.concurrent.TimeUnit;
-
 
 public class GameLoop {
 
@@ -41,6 +39,7 @@ public class GameLoop {
 
         }
 
+        gameScreen.makeHandInvisible();
         startNewRound();
     }
 

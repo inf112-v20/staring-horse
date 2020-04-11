@@ -12,15 +12,17 @@ import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import inf112.skeleton.app.gamelogic.GameLoop;
 import inf112.skeleton.app.player.Player;
 import inf112.skeleton.app.player.ProgramCard;
 import inf112.skeleton.app.RoboRally;
+
+import java.util.ArrayList;
 
 
 public class GameScreen extends InputAdapter implements Screen {
@@ -39,14 +41,14 @@ public class GameScreen extends InputAdapter implements Screen {
     private Stage stage;
 
     private Player player;
-    private ImageButton cardButton;
 
     private RoboRally roboRally = RoboRally.getInstance();
 
     private static GameScreen SINGLE_INSTANCE = null;
     private GameLoop gameLoop;
 
-    private Array<ImageButton> selectableCardButtons;
+    private ArrayList<ImageButton> selectableCardButtons;
+    private ArrayList<Image> handCards;
 
     private GameScreen(){}
 
@@ -92,6 +94,7 @@ public class GameScreen extends InputAdapter implements Screen {
         orthogonalTiledMapRenderer.setView(camera);
 
         makeSelectableCards();
+        makePlayerHandImages();
 
         gameLoop = new GameLoop(player, this);
         gameLoop.startNewRound();
@@ -139,28 +142,6 @@ public class GameScreen extends InputAdapter implements Screen {
         }
     }
 
-
-    /**
-     * renders each card which is in the player hand
-     */
-    public void showPlayersHand() {
-        ProgramCard[] hand = player.getHand();
-
-        // checks if there are any cards in the hand before rendering any cards
-        if (hand[0] != null) {
-            for (int i = 0; i < 5; i++) {
-                // Currently uses the cards presented at the start of each "round"
-                if (hand[i] != null) {
-
-                    ProgramCard card = hand[i];
-                    int cardSizeDivisor = 6;
-                    //card.getCardButton().setSize(card.getTexture().getWidth() / cardSizeDivisor, card.getTexture().getHeight() / cardSizeDivisor);
-                    //card.getCardButton().setPosition((float) ((cardButton.getWidth()*i)+(camera.viewportWidth/2)-cardButton.getWidth()*2.5), (float) (camera.viewportWidth*0.2));
-                }
-            }
-        }
-    }
-
     /**
      * Creates a new ImageButton of a input card
      * @return a ImageButton.
@@ -185,38 +166,38 @@ public class GameScreen extends InputAdapter implements Screen {
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 imageButton.setVisible(false);
-                
                 System.out.println("Pressed: imagebutton " + i);
 
+                gameScreen.addCardToPlayerHand(player.getProgramCard(i));
 
-                player.addCardToHand(player.getProgramCard(i));
-                //gameScreen.showPlayersHand();
 
                 if(player.isHandFull()) {
                     //gameScreen.showPlayersHand();
                     gameLoop.startActivationPhase();
                 }
 
-
-
-
                 return true;
-
-
             }
         });
-        cardButton = imageButton;
+
         return imageButton;
     }
 
-    public void changeDrawable(ImageButton dabutton, ProgramCard card) {
-        dabutton.getStyle() .imageUp = new TextureRegionDrawable(new TextureRegion(card.getTexture()));
+    private void addCardToPlayerHand(ProgramCard programCard) {
+        player.addCardToHand(programCard);
+
+        handCards.get(player.getNumCardsInHand()-1).setVisible(true);
+        changeImageTexture(handCards.get(player.getNumCardsInHand()-1), programCard.getTexture());
+    }
+
+    public void changeImageButtonDrawable(ImageButton button, ProgramCard card) {
+        button.getStyle() .imageUp = new TextureRegionDrawable(new TextureRegion(card.getTexture()));
     }
 
     public void makePlayerDeckMatchSelectableCards() {
         for(int i = 0; i < 9; i++) {
             selectableCardButtons.get(i).setVisible(true);
-            changeDrawable(selectableCardButtons.get(i), player.getProgramCard(i));
+            changeImageButtonDrawable(selectableCardButtons.get(i), player.getProgramCard(i));
         }
     }
 
@@ -224,18 +205,45 @@ public class GameScreen extends InputAdapter implements Screen {
      * make each card in a deck into an imageButton
      */
     private void makeSelectableCards(){
-        //stage.clear();
-
         this.player.drawNewDeck();
 
-        selectableCardButtons = new Array<>();
+        selectableCardButtons = new ArrayList<>();
         for(int i = 0; i < 9; i++) {
+            // placeholder for texture
             ProgramCard card = new ProgramCard();
-            cardButton = makeCardImageButton(player, this, i);
-            selectableCardButtons.add(cardButton); // saijgokasdjhighjka
+
+            ImageButton cardButton = makeCardImageButton(player, this, i);
+            selectableCardButtons.add(cardButton);
             cardButton.setPosition((((cardButton.getWidth() + 10)*i)+(camera.viewportWidth+150)), (float) (30));
-            changeDrawable(cardButton, card);
+            changeImageButtonDrawable(cardButton, card);
             stage.addActor(cardButton);
+        }
+    }
+
+    public void changeImageTexture(Image image, Texture texture){
+        image.setDrawable(new TextureRegionDrawable(new TextureRegion(texture)));
+    }
+
+    private void makePlayerHandImages(){
+
+        handCards = new ArrayList<>();
+
+        for (int i = 0; i < 5; i++) {
+
+            // placeholder for texture
+            ProgramCard card = new ProgramCard();
+
+            Image image = new Image();
+            image.setDrawable(new TextureRegionDrawable(new TextureRegion(card.getTexture())));
+
+            int cardSizeDivisor = 4;
+            image.setSize(card.getTexture().getWidth() / cardSizeDivisor, card.getTexture().getHeight() / cardSizeDivisor);
+            image.setPosition(300 + (i*(card.getTexture().getWidth() / cardSizeDivisor)), 150);
+
+            handCards.add(image);
+            stage.addActor(image);
+
+            image.setVisible(false);
         }
     }
 
@@ -246,10 +254,6 @@ public class GameScreen extends InputAdapter implements Screen {
     public void renderPlayer(){
         updatePlayerRotation();
         playerLayer.setCell(player.getXPos(), player.getYPos(), playerCell);
-    }
-
-    public void startNextRound(){
-        this.gameLoop.startNewRound();
     }
 
     @Override
@@ -300,5 +304,11 @@ public class GameScreen extends InputAdapter implements Screen {
         }
 
         return false;
+    }
+
+    public void makeHandInvisible() {
+        for (Image image:handCards) {
+            image.setVisible(false);
+        }
     }
 }
