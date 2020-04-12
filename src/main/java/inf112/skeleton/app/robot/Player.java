@@ -300,7 +300,7 @@ public class Player implements IRobot {
 
     @Override
     public void loadAssets() {
-        this.robotTexture = new TextureRegion(new Texture("Robo.png"));
+        this.robotTexture = new TextureRegion(new Texture("Robot1.png"));
     }
 
     public void drawNewDeck(){

@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 public class AI implements IRobot {
 
+    private int id;
     private int xPos;
     private int yPos;
     private Direction direction;
@@ -33,6 +34,9 @@ public class AI implements IRobot {
 
     private TextureRegion robotTexture;
 
+    // amount of AI-robots made used for giving robots unique ID/name
+    private static int aiNumber = 2;
+
 
     public AI(){
         this.respawnXPos = 0;
@@ -48,6 +52,7 @@ public class AI implements IRobot {
 
         this.flags = new ArrayList<>();
 
+        this.id = aiNumber++;
     }
 
     public void executeRandomProgramCardAction(){
@@ -100,28 +105,28 @@ public class AI implements IRobot {
         switch (this.direction) {
             case EAST:
                 if (!this.isTestRobot && !GameLogic.getInstance().canGo(this, true)) {
-                    System.out.println("Robot can't go WEST");
+                    System.out.println("Robot" + this.id + " can't go WEST");
                     break;
                 }
                 this.moveWest();
                 break;
             case NORTH:
                 if (!this.isTestRobot && !GameLogic.getInstance().canGo(this, true)) {
-                    System.out.println("Robot can't go SOUTH");
+                    System.out.println("Robot" + this.id + " can't go SOUTH");
                     break;
                 }
                 this.moveSouth();
                 break;
             case WEST:
                 if (!this.isTestRobot && !GameLogic.getInstance().canGo(this, true)) {
-                    System.out.println("Robot can't go EAST");
+                    System.out.println("Robot" + this.id + " can't go EAST");
                     break;
                 }
                 this.moveEast();
                 break;
             case SOUTH:
                 if (!this.isTestRobot && !GameLogic.getInstance().canGo(this, true)) {
-                    System.out.println("Robot can't go NORTH");
+                    System.out.println("Robot" + this.id + " can't go NORTH");
                     break;
                 }
                 this.moveNorth();
@@ -147,28 +152,28 @@ public class AI implements IRobot {
         switch (this.direction) {
             case WEST:
                 if (!this.isTestRobot && !GameLogic.getInstance().canGo(this, false)) {
-                    System.out.println("Robot can't go WEST");
+                    System.out.println("Robot" + this.id + " can't go WEST");
                     break;
                 }
                 this.moveWest();
                 break;
             case SOUTH:
                 if (!this.isTestRobot && !GameLogic.getInstance().canGo(this, false)) {
-                    System.out.println("Robot can't go SOUTH");
+                    System.out.println("Robot" + this.id + " can't go SOUTH");
                     break;
                 }
                 this.moveSouth();
                 break;
             case EAST:
                 if (!this.isTestRobot && !GameLogic.getInstance().canGo(this, false)) {
-                    System.out.println("Robot can't go EAST");
+                    System.out.println("Robot" + this.id + " can't go EAST");
                     break;
                 }
                 this.moveEast();
                 break;
             case NORTH:
                 if (!this.isTestRobot && !GameLogic.getInstance().canGo(this, false)) {
-                    System.out.println("Robot can't go NORTH");
+                    System.out.println("Robot" + this.id + " can't go NORTH");
                     break;
                 }
                 this.moveNorth();
@@ -184,16 +189,16 @@ public class AI implements IRobot {
     public void killRobot() {
         this.lives--;
         if(this.lives <= 0){
-            System.out.println("ROBOT IS OUT OF LIVES!");
+            System.out.println("Robot" + this.id + " IS OUT OF LIVES!");
         } else {
-            System.out.println(lives + " lives left");
+            System.out.println("Robot" + this.id + ": " + lives + " lives left");
             respawn();
         }
     }
 
     @Override
     public void respawn(){
-        System.out.println("Respawning robot");
+        System.out.println("Respawning robot...");
         this.direction = respawnDirection;
         this.xPos = respawnXPos;
         this.yPos = respawnYPos;
@@ -291,7 +296,7 @@ public class AI implements IRobot {
 
     @Override
     public void loadAssets() {
-        this.robotTexture = new TextureRegion(new Texture("Robo.png"));
+        this.robotTexture = new TextureRegion(new Texture("Robot" + this.id + ".png"));
     }
 
     @Override

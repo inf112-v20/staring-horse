@@ -40,7 +40,6 @@ public class GameScreen extends InputAdapter implements Screen {
     private OrthographicCamera camera;
 
     private TiledMapTileLayer.Cell playerCell;
-    private StaticTiledMapTile playerTilemap;
 
     private Stage stage;
 
@@ -81,15 +80,13 @@ public class GameScreen extends InputAdapter implements Screen {
 
         playerCell = new TiledMapTileLayer.Cell();
 
-        playerTilemap = new StaticTiledMapTile(player.getTexture());
-
         playerLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Player");
         boardLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Board");
 
-        playerCell.setTile(playerTilemap);
+        playerCell.setTile(new StaticTiledMapTile(player.getTexture()));
 
         aiCell = new TiledMapTileLayer.Cell();
-        aiCell.setTile(playerTilemap);
+        aiCell.setTile(new StaticTiledMapTile(ai.getTexture()));
 
 
         // create a stage for image buttons.
