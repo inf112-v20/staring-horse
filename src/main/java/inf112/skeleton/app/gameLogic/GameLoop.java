@@ -1,6 +1,7 @@
 package inf112.skeleton.app.gameLogic;
 
 import inf112.skeleton.app.RoboRally;
+import inf112.skeleton.app.robot.AI;
 import inf112.skeleton.app.robot.Player;
 import inf112.skeleton.app.screen.GameScreen;
 
@@ -8,11 +9,13 @@ import inf112.skeleton.app.screen.GameScreen;
 public class GameLoop {
 
     private Player player;
+    private AI ai;
     private GameScreen gameScreen;
     private int roundNumber;
 
-    public GameLoop(Player player, GameScreen gameScreen) {
+    public GameLoop(Player player, AI ai, GameScreen gameScreen) {
         this.player = player;
+        this.ai = ai;
         this.gameScreen = gameScreen;
         this.roundNumber = 1;
     }
@@ -36,7 +39,7 @@ public class GameLoop {
             // check priority for players and execute cards accordingly
 
             player.executeCardInHand(phase);
-
+            ai.executeRandomProgramCardAction();
         }
 
         gameScreen.makeHandInvisible();

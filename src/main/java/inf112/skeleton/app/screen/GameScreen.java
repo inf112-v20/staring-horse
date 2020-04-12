@@ -73,9 +73,9 @@ public class GameScreen extends InputAdapter implements Screen {
         camera = new OrthographicCamera();
 
         player = new Player();
+        ai = new AI();
 
         playerCell = new TiledMapTileLayer.Cell();
-        player.loadAssets();
 
         playerTilemap = new StaticTiledMapTile(player.getTexture());
 
@@ -107,7 +107,7 @@ public class GameScreen extends InputAdapter implements Screen {
         makeSelectableCards();
         makePlayerHandImages();
 
-        gameLoop = new GameLoop(player, this);
+        gameLoop = new GameLoop(player, ai, this);
         gameLoop.startNewRound();
 
         robotCellHashMap = new HashMap<>();
@@ -115,8 +115,6 @@ public class GameScreen extends InputAdapter implements Screen {
 
         renderRobot(player);
 
-        // test-AI does nothing
-        ai = new AI();
         robotCellHashMap.put(ai, aiCell);
         renderRobot(ai);
     }

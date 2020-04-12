@@ -2,11 +2,11 @@ package inf112.skeleton.app.robot;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import inf112.skeleton.app.RoboRally;
 import inf112.skeleton.app.enums.Direction;
 import inf112.skeleton.app.enums.ProgramCardAction;
 import inf112.skeleton.app.gameLogic.GameLogic;
 import inf112.skeleton.app.programCard.ProgramCard;
+import inf112.skeleton.app.screen.GameScreen;
 
 import java.util.ArrayList;
 
@@ -27,7 +27,7 @@ public class AI implements IRobot {
 
     private ArrayList<String> flags;
 
-    // bool set to true when using player for tests (solves error when
+    // bool set to true when using Robot for tests (solves error when
     // referencing TmxMapLoader in GameScreen while in tests)
     private boolean isTestRobot = false;
 
@@ -49,6 +49,14 @@ public class AI implements IRobot {
         this.lives = 3;
 
         this.flags = new ArrayList<>();
+
+        this.loadAssets();
+    }
+
+    public void executeRandomProgramCardAction(){
+        GameScreen.getInstance().unrenderRobot(this);
+        this.performProgramCardAction(new ProgramCard());
+        GameScreen.getInstance().renderRobot(this);
     }
 
     @Override
@@ -95,28 +103,28 @@ public class AI implements IRobot {
         switch (this.direction) {
             case EAST:
                 if (!this.isTestRobot && !GameLogic.getInstance().canGo(this, true)) {
-                    System.out.println("Player can't go WEST");
+                    System.out.println("Robot can't go WEST");
                     break;
                 }
                 this.moveWest();
                 break;
             case NORTH:
                 if (!this.isTestRobot && !GameLogic.getInstance().canGo(this, true)) {
-                    System.out.println("Player can't go SOUTH");
+                    System.out.println("Robot can't go SOUTH");
                     break;
                 }
                 this.moveSouth();
                 break;
             case WEST:
                 if (!this.isTestRobot && !GameLogic.getInstance().canGo(this, true)) {
-                    System.out.println("Player can't go EAST");
+                    System.out.println("Robot can't go EAST");
                     break;
                 }
                 this.moveEast();
                 break;
             case SOUTH:
                 if (!this.isTestRobot && !GameLogic.getInstance().canGo(this, true)) {
-                    System.out.println("Player can't go NORTH");
+                    System.out.println("Robot can't go NORTH");
                     break;
                 }
                 this.moveNorth();
@@ -142,28 +150,28 @@ public class AI implements IRobot {
         switch (this.direction) {
             case WEST:
                 if (!this.isTestRobot && !GameLogic.getInstance().canGo(this, false)) {
-                    System.out.println("Player can't go WEST");
+                    System.out.println("Robot can't go WEST");
                     break;
                 }
                 this.moveWest();
                 break;
             case SOUTH:
                 if (!this.isTestRobot && !GameLogic.getInstance().canGo(this, false)) {
-                    System.out.println("Player can't go SOUTH");
+                    System.out.println("Robot can't go SOUTH");
                     break;
                 }
                 this.moveSouth();
                 break;
             case EAST:
                 if (!this.isTestRobot && !GameLogic.getInstance().canGo(this, false)) {
-                    System.out.println("Player can't go EAST");
+                    System.out.println("Robot can't go EAST");
                     break;
                 }
                 this.moveEast();
                 break;
             case NORTH:
                 if (!this.isTestRobot && !GameLogic.getInstance().canGo(this, false)) {
-                    System.out.println("Player can't go NORTH");
+                    System.out.println("Robot can't go NORTH");
                     break;
                 }
                 this.moveNorth();
@@ -179,8 +187,7 @@ public class AI implements IRobot {
     public void killRobot() {
         this.lives--;
         if(this.lives <= 0){
-            System.out.println("PLAYER IS OUT OF LIVES!");
-            RoboRally.getInstance().setMenuScreen();
+            System.out.println("ROBOT IS OUT OF LIVES!");
         } else {
             System.out.println(lives + " lives left");
             respawn();
@@ -311,5 +318,5 @@ public class AI implements IRobot {
     @Override
     public int getXPos() { return xPos; }
 
-    public void setToTestPlayer(){this.isTestRobot = true;}
+    public void setToTestRobot(){this.isTestRobot = true;}
 }

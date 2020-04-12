@@ -59,6 +59,8 @@ public class Player implements IRobot {
         this.lives = 3;
 
         this.flags = new ArrayList<>();
+
+        this.loadAssets();
     }
 
     public Player(ArrayList<Integer> respawnPoints) {
