@@ -72,8 +72,12 @@ public class GameScreen extends InputAdapter implements Screen {
         tiledMap = new TmxMapLoader().load("Maps/backgroundTest.tmx");
         camera = new OrthographicCamera();
 
+        ArrayList<Integer> respawnPoints = GameLogic.getInstance().getXandYposofRespawnPoint();
         player = new Player();
+        player.setRespawnPoint(respawnPoints.get(0), respawnPoints.get(1));
+
         ai = new AI();
+        ai.setRespawnPoint(respawnPoints.get(2),respawnPoints.get(3));
 
         playerCell = new TiledMapTileLayer.Cell();
 

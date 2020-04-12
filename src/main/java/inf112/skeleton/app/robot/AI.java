@@ -33,12 +33,10 @@ public class AI implements IRobot {
 
     private TextureRegion robotTexture;
 
-    private ArrayList<Integer> respawnPoints;
 
     public AI(){
-        this.respawnPoints = GameLogic.getInstance().getXandYposofRespawnPoint();
-        this.respawnXPos = respawnPoints.get(2);
-        this.respawnYPos = respawnPoints.get(3);
+        this.respawnXPos = 0;
+        this.respawnYPos = 0;
         this.respawnDirection = Direction.NORTH;
 
         this.xPos = respawnXPos;
@@ -50,7 +48,6 @@ public class AI implements IRobot {
 
         this.flags = new ArrayList<>();
 
-        this.loadAssets();
     }
 
     public void executeRandomProgramCardAction(){
@@ -299,6 +296,9 @@ public class AI implements IRobot {
 
     @Override
     public TextureRegion getTexture() {
+        if (robotTexture == null) {
+            loadAssets();
+        }
         return this.robotTexture;
     }
 
@@ -317,6 +317,14 @@ public class AI implements IRobot {
 
     @Override
     public int getXPos() { return xPos; }
+
+    @Override
+    public void setRespawnPoint(int x, int y) {
+        respawnXPos = x;
+        respawnYPos = y;
+        setXPos(respawnXPos);
+        setYPos(respawnYPos);
+    }
 
     public void setToTestRobot(){this.isTestRobot = true;}
 }

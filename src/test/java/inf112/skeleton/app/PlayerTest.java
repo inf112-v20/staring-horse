@@ -17,8 +17,9 @@ public class PlayerTest {
     public void before(){
         testPlayer = new Player();
         testPlayer.setToTestPlayer();
-        startX = 5;
-        startY = 2;
+        testPlayer.setRespawnPoint(13,13);
+        startX = testPlayer.getXPos();
+        startY = testPlayer.getYPos();
         startDirection = Direction.NORTH;
 
         testPlayer.setYPos(startY);

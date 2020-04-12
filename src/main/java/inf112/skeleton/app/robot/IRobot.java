@@ -53,4 +53,6 @@ public interface IRobot {
     int getYPos();
 
     int getXPos();
+
+    void setRespawnPoint(int x, int y);
 }

@@ -1,5 +1,6 @@
 package inf112.skeleton.app.robot;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import inf112.skeleton.app.RoboRally;
@@ -40,11 +41,10 @@ public class Player implements IRobot {
     private ProgramCard[] hand;
     private int numCardsInHand;
 
-    private ArrayList<Integer> respawnPoints;
 
     public Player() {
-        this.respawnXPos = 10;
-        this.respawnYPos = 16;
+        this.respawnXPos = 0;
+        this.respawnYPos = 0;
         this.respawnDirection = Direction.NORTH;
 
         this.xPos = respawnXPos;
@@ -60,28 +60,8 @@ public class Player implements IRobot {
 
         this.flags = new ArrayList<>();
 
-        this.loadAssets();
     }
 
-    public Player(ArrayList<Integer> respawnPoints) {
-        this.respawnPoints = GameLogic.getInstance().getXandYposofRespawnPoint();
-        this.respawnXPos = respawnPoints.get(0);
-        this.respawnYPos = respawnPoints.get(1);
-        this.respawnDirection = Direction.NORTH;
-
-        this.xPos = respawnXPos;
-        this.yPos = respawnYPos;
-        this.direction = respawnDirection;
-
-        this.cardDeck = new CardDeck();
-        this.hand = new ProgramCard[5];
-        this.numCardsInHand = 0;
-
-        this.healthPoints = 10;
-        this.lives = 3;
-
-        this.flags = new ArrayList<>();
-    }
 
     @Override
     public boolean hasWon() {
@@ -360,6 +340,9 @@ public class Player implements IRobot {
 
     @Override
     public TextureRegion getTexture() {
+        if (robotTexture == null) {
+            loadAssets();
+        }
         return this.robotTexture;
     }
 
@@ -396,5 +379,15 @@ public class Player implements IRobot {
     @Override
     public int getXPos() { return xPos; }
 
+    @Override
+    public void setRespawnPoint(int x, int y) {
+        respawnXPos = x;
+        respawnYPos = y;
+        setXPos(respawnXPos);
+        setYPos(respawnYPos);
+    }
+
     public void setToTestPlayer(){this.isTestPlayer = true;}
+
+
 }
