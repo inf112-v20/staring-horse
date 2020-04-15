@@ -217,7 +217,6 @@ public class GameLogic {
      * Changes the robots direction when on a gear.
      * @param player robot
      */
-    // TODO Add to execute programcard action in pla
     public void changeDirOnGear(IRobot player) {
         String objectName = getObjectNameOnXandY(tiledMap,player.getXPos(), player.getYPos());
         switch (objectName) {
@@ -235,20 +234,61 @@ public class GameLogic {
     public ArrayList<Integer> getXandYposofRespawnPoint() {
         TiledMapTileLayer respawnObjects = (TiledMapTileLayer) tiledMap.getLayers().get("SpawnPoint");
         ArrayList<Integer> gamerlist = new ArrayList<>();
-        for (int x = 0; x < respawnObjects.getWidth(); x++) {
-            for (int y = 0; y < respawnObjects.getHeight(); y++) {
 
+        for (int x = 0; x < respawnObjects.getWidth(); x++)
+            for (int y = 0; y < respawnObjects.getHeight(); y++)
                 if (respawnObjects.getCell(x, y) != null) {
-                    System.out.println("GAMER DUDE!");
-                    System.out.println(x);
-                    System.out.println(y);
                     gamerlist.add(x);
                     gamerlist.add(y);
                 }
-            }
-        }
-        System.out.println(gamerlist);
         return gamerlist;
     }
+
+    public void conveyorBelt(IRobot robot) {
+        String objectName = getObjectNameOnXandY(tiledMap, robot.getXPos(), robot.getYPos());
+        switch (objectName) {
+            case "SingleEast":
+                robot.moveForwardOne(EAST);
+                break;
+            case "SingleEtoS":
+                robot.rotateClockwise();
+                robot.moveForwardOne(SOUTH);
+                break;
+            case "SingleSouth":
+                robot.moveForwardOne(SOUTH);
+                break;
+            case "DoubleNorth":
+                robot.moveForward(2,NORTH);
+                break;
+            case "DoubleNtoE":
+                robot.rotateClockwise();
+                robot.moveForward(2,EAST);
+                break;
+            case "DoubleEast":
+                robot.moveForward(2,EAST);
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void endOfPhaseCheck(IRobot robot) {
+        if (robot instanceof Player) {
+            GameScreen.getInstance().unrenderRobot(robot);
+            Player player = (Player) robot;
+            if (!player.getIsTestPlayer()) {
+                pickUpFlag(player);
+                changeDirOnGear(player);
+                conveyorBelt(player);
+            }
+        } else {
+            GameScreen.getInstance().unrenderRobot(robot);
+            pickUpFlag(robot);
+            changeDirOnGear(robot);
+            conveyorBelt(robot);
+        }
+        GameScreen.getInstance().renderRobot(robot);
+    }
+
 
 }

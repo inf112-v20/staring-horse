@@ -97,15 +97,15 @@ public class Player implements IRobot {
 
 
     @Override
-    public void moveBackward(int backWardDistance){
+    public void moveBackward(int backWardDistance, Direction dir){
         for (int i = 0; i < backWardDistance; i++){
-            this.moveBackwardOne();
+            this.moveBackwardOne(dir);
         }
     }
 
     @Override
-    public void moveBackwardOne(){
-        switch (this.direction) {
+    public void moveBackwardOne(Direction dir){
+        switch (dir) {
             case EAST:
                 if (!this.isTestPlayer && !GameLogic.getInstance().canGo(this, true)) {
                     System.out.println("Player can't go WEST");
@@ -141,18 +141,21 @@ public class Player implements IRobot {
         if(!this.isTestPlayer && GameLogic.getInstance().isHole(this.xPos, this.yPos)){
             killRobot();
         }
+
+        //if(!this.isTestPlayer)
+          //  GameLogic.getInstance().conveyorBelt(this);
     }
 
     @Override
-    public void moveForward(int forwardDistance){
+    public void moveForward(int forwardDistance, Direction dir){
         for (int i = 0; i < forwardDistance; i++){
-            this.moveForwardOne();
+            this.moveForwardOne(dir);
         }
     }
 
     @Override
-    public void moveForwardOne(){
-        switch (this.direction) {
+    public void moveForwardOne(Direction dir){
+        switch (dir) {
             case WEST:
                 if (!this.isTestPlayer && !GameLogic.getInstance().canGo(this, false)) {
                     System.out.println("Player can't go WEST");
@@ -186,6 +189,8 @@ public class Player implements IRobot {
         if(!this.isTestPlayer && GameLogic.getInstance().isHole(this.xPos, this.yPos)){
             killRobot();
         }
+        //if(!this.isTestPlayer)
+          //  GameLogic.getInstance().conveyorBelt(this);
     }
 
     @Override
@@ -226,13 +231,13 @@ public class Player implements IRobot {
 
         switch (action) {
             case MOVE_ONE:
-                this.moveForward(1);
+                this.moveForward(1, this.direction);
                 break;
             case MOVE_TWO:
-                this.moveForward(2);
+                this.moveForward(2,this.direction);
                 break;
             case MOVE_THREE:
-                this.moveForward(3);
+                this.moveForward(3,this.direction);
                 break;
             case TURN_LEFT:
                 this.rotateCounterClockwise();
@@ -241,7 +246,7 @@ public class Player implements IRobot {
                 this.rotateClockwise();
                 break;
             case BACK_UP:
-                this.moveBackward(1);
+                this.moveBackward(1,this.direction);
                 break;
             case U_TURN:
                 this.rotateClockwise();
@@ -261,11 +266,14 @@ public class Player implements IRobot {
             this.previousAction = action;
         }
 
+        /*
         // TODO move this into GameLoop and do after all the robots has moved.
         if (!this.isTestPlayer) {
             GameLogic.getInstance().pickUpFlag(this);
             GameLogic.getInstance().changeDirOnGear(this);
         }
+        */
+
     }
 
     @Override
@@ -389,5 +397,7 @@ public class Player implements IRobot {
 
     public void setToTestPlayer(){this.isTestPlayer = true;}
 
-
+    public boolean getIsTestPlayer() {
+        return this.isTestPlayer;
+    }
 }

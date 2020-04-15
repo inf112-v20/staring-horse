@@ -312,17 +312,17 @@ public class GameScreen extends InputAdapter implements Screen {
             renderRobot(player);
         } else if (Input.Keys.DOWN == code) {
             unrenderRobot(player);
-            player.moveBackward(1);
+            player.moveBackward(1, player.getDirection());
             renderRobot(player);
         } else if (Input.Keys.UP == code) {
             unrenderRobot(player);
-            player.moveForward(1);
+            player.moveForward(1, player.getDirection());
             renderRobot(player);
         } else if (Input.Keys.Q == code) {
             roboRally.setMenuScreen();
         } else if (Input.Keys.SPACE == code) {
             unrenderRobot(ai);
-            ai.moveForward(1);
+            ai.moveForward(1, ai.getDirection());
             renderRobot(ai);
         }
 

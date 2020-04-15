@@ -32,6 +32,14 @@ public class GameLoop {
         }
     }
 
+    /**
+     * this is the order of actions
+     * Conveyorbelts
+     * Gears
+     * Boardlasers
+     * Robotlasers
+     * Checkpoint/Wincheck
+     */
     public void startActivationPhase() {
 
         for(int phase = 0; phase < 5; phase++){
@@ -40,6 +48,9 @@ public class GameLoop {
 
             player.executeCardInHand(phase);
             ai.executeRandomProgramCardAction();
+            // needs one for ai too.
+            GameLogic.getInstance().endOfPhaseCheck(player);
+
         }
 
         gameScreen.makeHandInvisible();
