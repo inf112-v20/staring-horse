@@ -75,6 +75,7 @@ public class GameScreen extends InputAdapter implements Screen {
         player = new Player();
         player.setRespawnPoint(respawnPoints.get(0), respawnPoints.get(1));
 
+        AI.resetRobotID();
         ai = new AI();
         ai.setRespawnPoint(respawnPoints.get(2),respawnPoints.get(3));
 

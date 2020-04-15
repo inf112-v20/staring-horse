@@ -35,7 +35,7 @@ public class AI implements IRobot {
     private TextureRegion robotTexture;
 
     // amount of AI-robots made used for giving robots unique ID/name
-    private static int aiNumber = 2;
+    private static int aiNumber;
 
 
     public AI(){
@@ -52,13 +52,17 @@ public class AI implements IRobot {
 
         this.flags = new ArrayList<>();
 
-        this.id = aiNumber++;
+        this.id = ++aiNumber;
     }
 
     public void executeRandomProgramCardAction(){
         GameScreen.getInstance().unrenderRobot(this);
         this.performProgramCardAction(new ProgramCard());
         GameScreen.getInstance().renderRobot(this);
+    }
+
+    public static void resetRobotID(){
+        aiNumber = 1;
     }
 
     @Override
