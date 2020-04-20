@@ -1,8 +1,14 @@
 # INF112 Robo Rally
-###  How to run the game
+##  How to build the game
+    *   Have java sdk 8 or higher, maven and git installed
+    *   Clone the repository 
+    *   Navigate to it and run mvn clean install (this will run all the unit tests)
+    *   Navigate to the Target folder and run the Roborally0.4.0.jar file.
+     
+##  How to run the game
     *   Run Main.java
 
-###  How to run the tests
+##  How to run the tests
     *   Run CardDeckTest, PlayerTest and ProgramCardTest
 
 Currently throws "WARNING: An illegal reflective access operation has occurred", 
