@@ -9,13 +9,9 @@ public interface IRobot {
 
     void addFlag(String flag);
 
-    void moveBackward(int backWardDistance, Direction dir);
+    void move(int distance, Direction dir);
 
-    void moveBackwardOne(Direction dir);
-
-    void moveForward(int forwardDistance, Direction dir);
-
-    void moveForwardOne(Direction dir);
+    void moveOne(Direction dir);
 
     void killRobot();
 

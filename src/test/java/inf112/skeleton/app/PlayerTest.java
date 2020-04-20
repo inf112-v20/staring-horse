@@ -46,7 +46,7 @@ public class PlayerTest {
     @Test
     public void playerMoveForwardWhileFacingNorthShouldMovePlayerOneUp(){
         testPlayer.setDirection(Direction.NORTH);
-        testPlayer.moveForward(1, testPlayer.getDirection());
+        testPlayer.move(1, testPlayer.getDirection());
 
         assertEquals(testPlayer.getYPos(), startY+1);
     }
@@ -54,7 +54,7 @@ public class PlayerTest {
     @Test
     public void playerMoveForwardWhileFacingEastShouldMovePlayerOneRight(){
         testPlayer.setDirection(Direction.EAST);
-        testPlayer.moveForward(1, testPlayer.getDirection());
+        testPlayer.move(1, testPlayer.getDirection());
 
         assertEquals(testPlayer.getXPos(), startX+1);
     }
@@ -62,7 +62,7 @@ public class PlayerTest {
     @Test
     public void playerMoveForwardWhileFacingSouthShouldMovePlayerOneDown(){
         testPlayer.setDirection(Direction.SOUTH);
-        testPlayer.moveForward(1, testPlayer.getDirection());
+        testPlayer.move(1, testPlayer.getDirection());
 
         assertEquals(testPlayer.getYPos(), startY-1);
     }
@@ -70,7 +70,7 @@ public class PlayerTest {
     @Test
     public void playerMoveForwardWhileFacingWestShouldMovePlayerOneLeft(){
         testPlayer.setDirection(Direction.WEST);
-        testPlayer.moveForward(1, testPlayer.getDirection());
+        testPlayer.move(1, testPlayer.getDirection());
 
         assertEquals(testPlayer.getXPos(), startX-1);
     }

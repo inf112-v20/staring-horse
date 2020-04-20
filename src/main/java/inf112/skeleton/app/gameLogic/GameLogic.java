@@ -2,7 +2,6 @@ package inf112.skeleton.app.gameLogic;
 
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -13,7 +12,6 @@ import inf112.skeleton.app.robot.IRobot;
 import inf112.skeleton.app.screen.GameScreen;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 import static inf112.skeleton.app.enums.Direction.*;
 
@@ -248,24 +246,24 @@ public class GameLogic {
         String objectName = getObjectNameOnXandY(tiledMap, robot.getXPos(), robot.getYPos());
         switch (objectName) {
             case "SingleEast":
-                robot.moveForwardOne(EAST);
+                robot.moveOne(EAST);
                 break;
             case "SingleEtoS":
                 robot.rotateClockwise();
-                robot.moveForwardOne(SOUTH);
+                robot.moveOne(SOUTH);
                 break;
             case "SingleSouth":
-                robot.moveForwardOne(SOUTH);
+                robot.moveOne(SOUTH);
                 break;
             case "DoubleNorth":
-                robot.moveForward(2,NORTH);
+                robot.move(2,NORTH);
                 break;
             case "DoubleNtoE":
                 robot.rotateClockwise();
-                robot.moveForward(2,EAST);
+                robot.move(2,EAST);
                 break;
             case "DoubleEast":
-                robot.moveForward(2,EAST);
+                robot.move(2,EAST);
                 break;
             default:
                 break;

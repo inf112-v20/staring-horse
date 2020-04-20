@@ -43,4 +43,23 @@ public enum Direction {
 
         return dir;
     }
+
+    /**
+     * Get opposite direction of dir
+     * @param dir - direction
+     */
+    public static Direction oppositeOf(Direction dir){
+        switch (dir) {
+            case WEST:
+                return Direction.EAST;
+            case SOUTH:
+                return Direction.NORTH;
+            case EAST:
+                return Direction.WEST;
+            case NORTH:
+                return Direction.SOUTH;
+        }
+
+        return dir;
+    }
 }
