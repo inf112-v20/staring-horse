@@ -292,13 +292,10 @@ public class GameLogic {
     public void pushIfPossible(int x, int y, Direction dir){
         Vector2 vector = Direction.getPosInDirection(new Vector2(x, y), dir);
         IRobot otherRobot = getRobotOnPos((int)vector.x, (int)vector.y);
-        System.out.println("Player: " + x + ", " + y);
 
         if(otherRobot != null){
-            System.out.println(otherRobot.getXPos() + ", " + otherRobot.getYPos());
             otherRobot.moveOne(dir);
             GameScreen.getInstance().renderRobot(otherRobot);
-            System.out.println(otherRobot.getXPos() + ", " + otherRobot.getYPos());
         }
     }
 

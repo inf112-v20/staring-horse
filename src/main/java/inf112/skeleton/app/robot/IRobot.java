@@ -30,14 +30,6 @@ public interface IRobot {
 
     Direction getDirection();
 
-    void moveNorth();
-
-    void moveEast();
-
-    void moveSouth();
-
-    void moveWest();
-
     void loadAssets();
 
     TextureRegion getTexture();

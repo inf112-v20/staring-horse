@@ -2,6 +2,7 @@ package inf112.skeleton.app.robot;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.enums.Direction;
 import inf112.skeleton.app.enums.ProgramCardAction;
 import inf112.skeleton.app.gameLogic.GameLogic;
@@ -107,37 +108,14 @@ public class AI implements IRobot {
 
     @Override
     public void moveOne(Direction dir){
-        switch (dir) {
-            case WEST:
-                if (!this.isTestRobot && !GameLogic.getInstance().canGo(this, true)) {
-                    //System.out.println("Player can't go WEST");
-                    break;
-                }
-                this.moveWest();
-                break;
-            case SOUTH:
-                if (!this.isTestRobot && !GameLogic.getInstance().canGo(this, true)) {
-                    //System.out.println("Player can't go SOUTH");
-                    break;
-                }
-                this.moveSouth();
-                break;
-            case EAST:
-                if (!this.isTestRobot && !GameLogic.getInstance().canGo(this, true)) {
-                    //System.out.println("Player can't go EAST");
-                    break;
-                }
-                this.moveEast();
-                break;
-            case NORTH:
-                if (!this.isTestRobot && !GameLogic.getInstance().canGo(this, true)) {
-                    //System.out.println("Player can't go NORTH");
-                    break;
-                }
-                this.moveNorth();
-                break;
-            default:
-                break;
+        if (!this.isTestRobot && !GameLogic.getInstance().canGo(this, true)) {
+            System.out.println("Player can't go");
+        }else{
+            if(!this.isTestRobot)
+                GameLogic.getInstance().pushIfPossible(getXPos(),getYPos(), dir);
+            Vector2 nextPos = Direction.getPosInDirection(new Vector2(getXPos(),getYPos()), dir);
+            setXPos((int)nextPos.x);
+            setYPos((int)nextPos.y);
         }
 
         if(!this.isTestRobot && GameLogic.getInstance().isHole(this.xPos, this.yPos)){
@@ -229,23 +207,19 @@ public class AI implements IRobot {
         return this.direction;
     }
 
-    @Override
-    public void moveNorth(){
+    private void moveNorth(){
         this.setYPos(this.getYPos()+1);
     }
 
-    @Override
-    public void moveEast(){
+    private void moveEast(){
         this.setXPos(this.getXPos()+1);
     }
 
-    @Override
-    public void moveSouth(){
+    private void moveSouth(){
         this.setYPos(this.getYPos()-1);
     }
 
-    @Override
-    public void moveWest(){
+    private void moveWest(){
         this.setXPos(this.getXPos()-1);
     }
 

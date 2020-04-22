@@ -17,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import inf112.skeleton.app.enums.Direction;
 import inf112.skeleton.app.gameLogic.GameLogic;
 import inf112.skeleton.app.gameLogic.GameLoop;
 import inf112.skeleton.app.robot.Player;
@@ -321,7 +322,7 @@ public class GameScreen extends InputAdapter implements Screen {
             renderRobot(player);
         } else if (Input.Keys.DOWN == code) {
             unrenderRobot(player);
-            player.move(1, player.getDirection());
+            player.move(1, Direction.oppositeOf(player.getDirection()));
             renderRobot(player);
         } else if (Input.Keys.UP == code) {
             unrenderRobot(player);

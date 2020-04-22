@@ -104,38 +104,15 @@ public class Player implements IRobot {
 
     @Override
     public void moveOne(Direction dir){
-        switch (dir) {
-            case WEST:
-                if (!this.isTestPlayer && !GameLogic.getInstance().canGo(this, true)) {
-                    System.out.println("Player can't go WEST");
-                    break;
-                }
-                this.moveWest();
-                break;
-            case SOUTH:
-                if (!this.isTestPlayer && !GameLogic.getInstance().canGo(this, true)) {
-                    System.out.println("Player can't go SOUTH");
-                    break;
-                }
-                this.moveSouth();
-                break;
-            case EAST:
-                if (!this.isTestPlayer && !GameLogic.getInstance().canGo(this, true)) {
-                    System.out.println("Player can't go EAST");
-                    break;
-                }
-                this.moveEast();
-                break;
-            case NORTH:
-                if (!this.isTestPlayer && !GameLogic.getInstance().canGo(this, true)) {
-                    System.out.println("Player can't go NORTH");
-                    break;
-                }
-                if(!this.isTestPlayer)GameLogic.getInstance().pushIfPossible(getXPos(),getYPos(), getDirection());
-                this.moveNorth();
-                break;
-            default:
-                break;
+        if (!this.isTestPlayer && !GameLogic.getInstance().canGo(this, true)) {
+            System.out.println("Player can't go");
+        }else{
+            if(!this.isTestPlayer) {
+                GameLogic.getInstance().pushIfPossible(getXPos(), getYPos(), dir);
+            }
+            Vector2 nextPos = Direction.getPosInDirection(new Vector2(getXPos(),getYPos()), dir);
+            setXPos((int)nextPos.x);
+            setYPos((int)nextPos.y);
         }
 
         if(!this.isTestPlayer && GameLogic.getInstance().isHole(this.xPos, this.yPos)){
@@ -238,26 +215,6 @@ public class Player implements IRobot {
     @Override
     public Direction getDirection() {
         return this.direction;
-    }
-
-    @Override
-    public void moveNorth(){
-        this.setYPos(this.getYPos()+1);
-    }
-
-    @Override
-    public void moveEast(){
-        this.setXPos(this.getXPos()+1);
-    }
-
-    @Override
-    public void moveSouth(){
-        this.setYPos(this.getYPos()-1);
-    }
-
-    @Override
-    public void moveWest(){
-        this.setXPos(this.getXPos()-1);
     }
 
     @Override

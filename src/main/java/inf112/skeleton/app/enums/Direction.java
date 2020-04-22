@@ -53,13 +53,13 @@ public enum Direction {
     public static Direction oppositeOf(Direction dir){
         switch (dir) {
             case WEST:
-                return Direction.EAST;
+                return EAST;
             case SOUTH:
-                return Direction.NORTH;
+                return NORTH;
             case EAST:
-                return Direction.WEST;
+                return WEST;
             case NORTH:
-                return Direction.SOUTH;
+                return SOUTH;
         }
 
         return dir;
