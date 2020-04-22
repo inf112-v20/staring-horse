@@ -342,6 +342,11 @@ public class Player implements IRobot {
     public int getXPos() { return xPos; }
 
     @Override
+    public void takeDamage() {
+        this.healthPoints--;
+    }
+
+    @Override
     public void setRespawnPoint(int x, int y) {
         respawnXPos = x;
         respawnYPos = y;
