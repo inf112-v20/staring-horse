@@ -6,6 +6,7 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.enums.Direction;
 import inf112.skeleton.app.robot.Player;
 import inf112.skeleton.app.robot.IRobot;
@@ -288,5 +289,26 @@ public class GameLogic {
         GameScreen.getInstance().renderRobot(robot);
     }
 
+    public void pushIfPossible(int x, int y, Direction dir){
+        Vector2 vector = Direction.getPosInDirection(new Vector2(x, y), dir);
+        IRobot otherRobot = getRobotOnPos((int)vector.x, (int)vector.y);
+        System.out.println("Player: " + x + ", " + y);
+
+        if(otherRobot != null){
+            System.out.println(otherRobot.getXPos() + ", " + otherRobot.getYPos());
+            otherRobot.moveOne(dir);
+            GameScreen.getInstance().renderRobot(otherRobot);
+            System.out.println(otherRobot.getXPos() + ", " + otherRobot.getYPos());
+        }
+    }
+
+    private IRobot getRobotOnPos(int x, int y){
+        for(IRobot robot:GameScreen.getInstance().getRobots()){
+            if(robot.getXPos() == x && robot.getYPos() == y){
+                return robot;
+            }
+        }
+        return null;
+    }
 
 }

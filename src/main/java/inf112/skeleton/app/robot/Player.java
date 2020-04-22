@@ -2,6 +2,7 @@ package inf112.skeleton.app.robot;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.RoboRally;
 import inf112.skeleton.app.enums.Direction;
 import inf112.skeleton.app.enums.ProgramCardAction;
@@ -130,6 +131,7 @@ public class Player implements IRobot {
                     System.out.println("Player can't go NORTH");
                     break;
                 }
+                if(!this.isTestPlayer)GameLogic.getInstance().pushIfPossible(getXPos(),getYPos(), getDirection());
                 this.moveNorth();
                 break;
             default:

@@ -1,5 +1,7 @@
 package inf112.skeleton.app.enums;
 
+import com.badlogic.gdx.math.Vector2;
+
 public enum Direction {
     NORTH,
     EAST,
@@ -61,5 +63,20 @@ public enum Direction {
         }
 
         return dir;
+    }
+
+    public static Vector2 getPosInDirection(Vector2 pos, Direction dir){
+        switch (dir) {
+            case WEST:
+                return pos.sub(1,0);
+            case SOUTH:
+                return pos.sub(0,1);
+            case EAST:
+                return pos.add(1,0);
+            case NORTH:
+                return pos.add(0,1);
+        }
+
+        return null;
     }
 }

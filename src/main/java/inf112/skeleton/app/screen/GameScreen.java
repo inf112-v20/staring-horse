@@ -339,4 +339,10 @@ public class GameScreen extends InputAdapter implements Screen {
             image.setVisible(false);
         }
     }
+
+    public ArrayList<IRobot> getRobots(){
+        ArrayList<IRobot> robots = (ArrayList<IRobot>) aiList.clone();
+        robots.add(0, player);
+        return robots;
+    }
 }
