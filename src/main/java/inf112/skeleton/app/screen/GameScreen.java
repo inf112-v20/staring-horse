@@ -213,8 +213,8 @@ public class GameScreen extends InputAdapter implements Screen {
     private void addCardToPlayerHand(ProgramCard programCard) {
         player.addCardToHand(programCard);
 
-        handCards.get(player.getNumCardsInHand()-1).setVisible(true);
-        changeImageTexture(handCards.get(player.getNumCardsInHand()-1), programCard.getTexture());
+        handCards.get(player.getNumberOfCardsInHand()-1).setVisible(true);
+        changeImageTexture(handCards.get(player.getNumberOfCardsInHand()-1), programCard.getTexture());
     }
 
     public void changeImageButtonDrawable(ImageButton button, ProgramCard card) {

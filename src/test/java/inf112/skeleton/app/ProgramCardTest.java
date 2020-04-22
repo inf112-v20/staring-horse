@@ -18,7 +18,7 @@ public class ProgramCardTest {
     @Before
     public void before(){
         testPlayer = new Player();
-        testPlayer.setToTestPlayer();
+        testPlayer.setToTestRobot();
         startX = 5;
         startY = 2;
         startDir = Direction.NORTH;

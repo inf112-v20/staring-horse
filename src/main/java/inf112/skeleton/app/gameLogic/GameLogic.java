@@ -358,6 +358,12 @@ public class GameLogic {
         GameScreen.getInstance().renderRobot(robot);
     }
 
+    /**
+     * Check position in direction and push robot in direction if there is a robot there
+     * @param x - pusher-robots original x position
+     * @param y - pusher-robots original y position
+     * @param dir - push direction
+     */
     public void pushIfPossible(int x, int y, Direction dir){
         Vector2 vector = Direction.getPosInDirection(new Vector2(x, y), dir);
         IRobot otherRobot = getRobotOnPos((int)vector.x, (int)vector.y);
@@ -368,6 +374,11 @@ public class GameLogic {
         }
     }
 
+    /**
+     * @param x - x position
+     * @param y - y position
+     * @return IRobot-object on position or null if there is no robot on position
+     */
     private IRobot getRobotOnPos(int x, int y){
         for(IRobot robot:GameScreen.getInstance().getRobots()){
             if(robot.getXPos() == x && robot.getYPos() == y){

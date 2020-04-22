@@ -33,27 +33,22 @@ public class Player implements IRobot {
 
     // bool set to true when using player for tests (solves error when
     // referencing TmxMapLoader in GameScreen while in tests)
-    private boolean isTestPlayer = false;
+    private boolean isTestRobot = false;
 
     private TextureRegion robotTexture;
 
     private CardDeck cardDeck;
     private ProgramCard[] hand;
-    private int numCardsInHand;
+    private int numberOfCardsInHand;
 
 
     public Player() {
-        this.respawnXPos = 0;
-        this.respawnYPos = 0;
         this.respawnDirection = Direction.NORTH;
-
-        this.xPos = respawnXPos;
-        this.yPos = respawnYPos;
         this.direction = respawnDirection;
 
         this.cardDeck = new CardDeck();
         this.hand = new ProgramCard[5];
-        this.numCardsInHand = 0;
+        this.numberOfCardsInHand = 0;
 
         this.healthPoints = 10;
         this.lives = 3;
@@ -104,10 +99,10 @@ public class Player implements IRobot {
 
     @Override
     public void moveOne(Direction dir){
-        if (!this.isTestPlayer && !GameLogic.getInstance().canGo(this, true)) {
+        if (!this.isTestRobot && !GameLogic.getInstance().canGo(this, true)) {
             System.out.println("Player can't go");
         }else{
-            if(!this.isTestPlayer) {
+            if(!this.isTestRobot) {
                 GameLogic.getInstance().pushIfPossible(getXPos(), getYPos(), dir);
             }
             Vector2 nextPos = Direction.getPosInDirection(new Vector2(getXPos(),getYPos()), dir);
@@ -115,7 +110,7 @@ public class Player implements IRobot {
             setYPos((int)nextPos.y);
         }
 
-        if(!this.isTestPlayer && GameLogic.getInstance().isHole(this.xPos, this.yPos)){
+        if(!this.isTestRobot && GameLogic.getInstance().isHole(this.xPos, this.yPos)){
             killRobot();
         }
 
@@ -222,6 +217,9 @@ public class Player implements IRobot {
         this.robotTexture = new TextureRegion(new Texture("Robot1.png"));
     }
 
+    /**
+     * Draw a new deck of programcards that the player can select from
+     */
     public void drawNewDeck(){
         this.cardDeck.drawNineProgramCards();
     }
@@ -231,9 +229,9 @@ public class Player implements IRobot {
      * @param card - ProgramCard to add to player hand
      */
     public void addCardToHand(ProgramCard card) {
-        if (numCardsInHand < 5) {
-            hand[numCardsInHand] = card;
-            numCardsInHand += 1;
+        if (numberOfCardsInHand < 5) {
+            hand[numberOfCardsInHand] = card;
+            numberOfCardsInHand += 1;
             card.setIsInHand(true);
         } else {
             System.out.println("Your hand is full!");
@@ -265,21 +263,24 @@ public class Player implements IRobot {
         return this.robotTexture;
     }
 
+    /**
+     * Remove all cards from players hand
+     */
     private void clearHand() {
         this.hand = new ProgramCard[hand.length];
-        this.numCardsInHand = 0;
+        this.numberOfCardsInHand = 0;
     }
 
     public ProgramCard[] getHand() {
         return this.hand;
     }
 
-    public int getNumCardsInHand(){
-        return this.numCardsInHand;
+    public int getNumberOfCardsInHand(){
+        return this.numberOfCardsInHand;
     }
 
     public boolean isHandFull() {
-        return numCardsInHand >= 5;
+        return numberOfCardsInHand >= 5;
     }
 
     @Override
@@ -316,9 +317,10 @@ public class Player implements IRobot {
         return isDead;
     }
 
-    public void setToTestPlayer(){this.isTestPlayer = true;}
+    @Override
+    public void setToTestRobot(){this.isTestRobot = true;}
 
     public boolean getIsTestPlayer() {
-        return this.isTestPlayer;
+        return this.isTestRobot;
     }
 }

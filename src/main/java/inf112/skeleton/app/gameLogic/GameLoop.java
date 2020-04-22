@@ -36,12 +36,7 @@ public class GameLoop {
     }
 
     /**
-     * this is the order of actions
-     * Conveyorbelts
-     * Gears
-     * Boardlasers
-     * Robotlasers
-     * Checkpoint/Wincheck
+     * Start activation-phase were all robots execute their cards and board-objects are activated
      */
     public void startActivationPhase() {
 
@@ -55,6 +50,15 @@ public class GameLoop {
             }
             // needs one for ai too.
             GameLogic.getInstance().endOfPhaseCheck(player);
+
+            /*
+            this is the order of actions
+                * Conveyorbelts
+                * Gears
+                * Boardlasers
+                * Robotlasers
+                * Checkpoint/Wincheck
+            */
 
         }
 

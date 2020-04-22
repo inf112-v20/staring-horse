@@ -65,6 +65,12 @@ public enum Direction {
         return dir;
     }
 
+    /**
+     * Return position in direction of original position
+     * @param pos - original position
+     * @param dir - direction to go
+     * @return Vector2 position
+     */
     public static Vector2 getPosInDirection(Vector2 pos, Direction dir){
         switch (dir) {
             case WEST:
@@ -77,6 +83,6 @@ public enum Direction {
                 return pos.add(0,1);
         }
 
-        return null;
+        return pos;
     }
 }

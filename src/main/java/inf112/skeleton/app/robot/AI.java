@@ -41,12 +41,7 @@ public class AI implements IRobot {
 
 
     public AI(){
-        this.respawnXPos = 0;
-        this.respawnYPos = 0;
         this.respawnDirection = Direction.NORTH;
-
-        this.xPos = respawnXPos;
-        this.yPos = respawnYPos;
         this.direction = respawnDirection;
 
         this.healthPoints = 10;
@@ -57,6 +52,9 @@ public class AI implements IRobot {
         this.id = ++aiNumber;
     }
 
+    /**
+     * Execute one random ProgramCard
+     */
     public void executeRandomProgramCardAction(){
         GameScreen.getInstance().unrenderRobot(this);
         this.performProgramCardAction(new ProgramCard());
@@ -270,5 +268,6 @@ public class AI implements IRobot {
         return isDead;
     }
 
+    @Override
     public void setToTestRobot(){this.isTestRobot = true;}
 }

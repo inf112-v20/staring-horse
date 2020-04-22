@@ -16,7 +16,7 @@ public class PlayerTest {
     @Before
     public void before(){
         testPlayer = new Player();
-        testPlayer.setToTestPlayer();
+        testPlayer.setToTestRobot();
         testPlayer.setRespawnPoint(13,13);
         startX = testPlayer.getXPos();
         startY = testPlayer.getYPos();
