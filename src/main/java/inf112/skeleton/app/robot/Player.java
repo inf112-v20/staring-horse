@@ -24,6 +24,7 @@ public class Player implements IRobot {
 
     private int healthPoints;
     private int lives;
+    private boolean isDead;
 
     private ProgramCardAction previousAction;
 
@@ -148,6 +149,7 @@ public class Player implements IRobot {
         this.lives--;
         if(this.lives <= 0){
             System.out.println("PLAYER IS OUT OF LIVES!");
+            isDead = true;
             RoboRally.getInstance().setMenuScreen();
         } else {
             System.out.println(lives + " lives left");
@@ -343,6 +345,11 @@ public class Player implements IRobot {
         respawnYPos = y;
         setXPos(respawnXPos);
         setYPos(respawnYPos);
+    }
+
+    @Override
+    public boolean isDead() {
+        return isDead;
     }
 
     public void setToTestPlayer(){this.isTestPlayer = true;}

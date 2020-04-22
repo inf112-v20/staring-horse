@@ -36,6 +36,7 @@ public class AI implements IRobot {
 
     // amount of AI-robots made used for giving robots unique ID/name
     private static int aiNumber;
+    private boolean isDead;
 
 
     public AI(){
@@ -109,28 +110,28 @@ public class AI implements IRobot {
         switch (dir) {
             case WEST:
                 if (!this.isTestRobot && !GameLogic.getInstance().canGo(this, true)) {
-                    System.out.println("Player can't go WEST");
+                    //System.out.println("Player can't go WEST");
                     break;
                 }
                 this.moveWest();
                 break;
             case SOUTH:
                 if (!this.isTestRobot && !GameLogic.getInstance().canGo(this, true)) {
-                    System.out.println("Player can't go SOUTH");
+                    //System.out.println("Player can't go SOUTH");
                     break;
                 }
                 this.moveSouth();
                 break;
             case EAST:
                 if (!this.isTestRobot && !GameLogic.getInstance().canGo(this, true)) {
-                    System.out.println("Player can't go EAST");
+                    //System.out.println("Player can't go EAST");
                     break;
                 }
                 this.moveEast();
                 break;
             case NORTH:
                 if (!this.isTestRobot && !GameLogic.getInstance().canGo(this, true)) {
-                    System.out.println("Player can't go NORTH");
+                    //System.out.println("Player can't go NORTH");
                     break;
                 }
                 this.moveNorth();
@@ -151,7 +152,9 @@ public class AI implements IRobot {
     public void killRobot() {
         this.lives--;
         if(this.lives <= 0){
-            System.out.println("Robot" + this.id + " IS OUT OF LIVES!");
+            if(!isDead)
+                System.out.println("Robot" + this.id + " IS OUT OF LIVES!");
+            isDead = true;
         } else {
             System.out.println("Robot" + this.id + ": " + lives + " lives left");
             respawn();
@@ -180,7 +183,7 @@ public class AI implements IRobot {
     public void performProgramCardAction(ProgramCard programCard) {
         ProgramCardAction action = programCard.getAction();
 
-        System.out.println("Execute: " + programCard.getAction());
+        //System.out.println("Execute: " + programCard.getAction());
 
         switch (action) {
             case MOVE_ONE:
@@ -281,6 +284,11 @@ public class AI implements IRobot {
         respawnYPos = y;
         setXPos(respawnXPos);
         setYPos(respawnYPos);
+    }
+
+    @Override
+    public boolean isDead() {
+        return isDead;
     }
 
     public void setToTestRobot(){this.isTestRobot = true;}

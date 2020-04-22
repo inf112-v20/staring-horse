@@ -44,7 +44,7 @@ public class GameScreen extends InputAdapter implements Screen {
     private Stage stage;
 
     private Player player;
-    private AI ai;
+    private ArrayList<AI> aiList;
 
     private RoboRally roboRally = RoboRally.getInstance();
 
@@ -55,7 +55,6 @@ public class GameScreen extends InputAdapter implements Screen {
     private ArrayList<Image> handCards;
 
     private HashMap<IRobot,TiledMapTileLayer.Cell> robotCellHashMap;
-    private TiledMapTileLayer.Cell aiCell;
 
     private GameScreen(){}
 
@@ -75,10 +74,6 @@ public class GameScreen extends InputAdapter implements Screen {
         player = new Player();
         player.setRespawnPoint(respawnPoints.get(0), respawnPoints.get(1));
 
-        AI.resetRobotID();
-        ai = new AI();
-        ai.setRespawnPoint(respawnPoints.get(2),respawnPoints.get(3));
-
         playerCell = new TiledMapTileLayer.Cell();
 
         playerLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Player");
@@ -86,8 +81,23 @@ public class GameScreen extends InputAdapter implements Screen {
 
         playerCell.setTile(new StaticTiledMapTile(player.getTexture()));
 
-        aiCell = new TiledMapTileLayer.Cell();
-        aiCell.setTile(new StaticTiledMapTile(ai.getTexture()));
+        robotCellHashMap = new HashMap<>();
+        robotCellHashMap.put(player, playerCell);
+
+        aiList = new ArrayList<>();
+        AI.resetRobotID();
+        int aiNumber = 3;
+
+        for(int i = 0; i < aiNumber; i++){
+            AI newAI = new AI();
+            newAI.setRespawnPoint(respawnPoints.get(2+(i*2)),respawnPoints.get(3+(i*2)));
+
+            TiledMapTileLayer.Cell aiCell = new TiledMapTileLayer.Cell();
+            aiCell.setTile(new StaticTiledMapTile(newAI.getTexture()));
+
+            robotCellHashMap.put(newAI, aiCell);
+            aiList.add(newAI);
+        }
 
 
         // create a stage for image buttons.
@@ -109,16 +119,13 @@ public class GameScreen extends InputAdapter implements Screen {
         makeSelectableCards();
         makePlayerHandImages();
 
-        gameLoop = new GameLoop(player, ai, this);
+        gameLoop = new GameLoop(player, aiList, this);
         gameLoop.startNewRound();
 
-        robotCellHashMap = new HashMap<>();
-        robotCellHashMap.put(player, playerCell);
-
         renderRobot(player);
-
-        robotCellHashMap.put(ai, aiCell);
-        renderRobot(ai);
+        for(IRobot ai:aiList){
+            renderRobot(ai);
+        }
     }
 
     @Override
@@ -185,7 +192,7 @@ public class GameScreen extends InputAdapter implements Screen {
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 imageButton.setVisible(false);
-                System.out.println("Pressed: imagebutton " + i);
+                //System.out.println("Pressed: imagebutton " + i);
 
                 gameScreen.addCardToPlayerHand(player.getProgramCard(i));
 
@@ -271,8 +278,10 @@ public class GameScreen extends InputAdapter implements Screen {
     }
 
     public void renderRobot(IRobot robot){
-        updatePlayerRotation();
-        playerLayer.setCell(robot.getXPos(), robot.getYPos(), robotCellHashMap.get(robot));
+        if(!robot.isDead()) {
+            updatePlayerRotation();
+            playerLayer.setCell(robot.getXPos(), robot.getYPos(), robotCellHashMap.get(robot));
+        }
     }
 
     @Override
@@ -320,10 +329,6 @@ public class GameScreen extends InputAdapter implements Screen {
             renderRobot(player);
         } else if (Input.Keys.Q == code) {
             roboRally.setMenuScreen();
-        } else if (Input.Keys.SPACE == code) {
-            unrenderRobot(ai);
-            ai.move(1, ai.getDirection());
-            renderRobot(ai);
         }
 
         return false;

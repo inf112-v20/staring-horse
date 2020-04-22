@@ -51,4 +51,6 @@ public interface IRobot {
     int getXPos();
 
     void setRespawnPoint(int x, int y);
+
+    boolean isDead();
 }
