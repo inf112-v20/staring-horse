@@ -48,6 +48,75 @@ public class GameLogic {
         return "";
     }
 
+    public boolean isRobotOrWallInLaser(IRobot robot) {
+        int robotLaserX = robot.getXPos();
+        int robotLaserY = robot.getYPos();
+        TiledMapTileLayer playerLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Player");
+        TiledMapTileLayer boardLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Board");
+
+        if (robot.getDirection() == EAST) {
+            robotLaserX++;
+            while (boardLayer.getCell(robotLaserX, robotLaserY) == null) {
+                if (playerLayer.getCell(robotLaserX, robotLaserY) != null) {
+                    IRobot victim = getRobotOnPos(robotLaserX, robotLaserY);
+                    victim.takeDamage();
+                    return true;
+                }
+                if (canGo(robot, false)) {
+                    robotLaserX++;
+                    continue;
+                }
+                return true;
+            }
+        }
+        else if (robot.getDirection() == WEST) {
+            robotLaserX--;
+            while (boardLayer.getCell(robotLaserX, robotLaserY) == null) {
+                if (playerLayer.getCell(robotLaserX, robotLaserY) != null) {
+                    IRobot victim = getRobotOnPos(robotLaserX, robotLaserY);
+                    victim.takeDamage();
+                    return true;
+                }
+                if (canGo(robot, false)) {
+                    robotLaserX--;
+                    continue;
+                }
+                return true;
+            }
+        }
+        else if (robot.getDirection() == SOUTH) {
+            robotLaserY--;
+            while (boardLayer.getCell(robotLaserX, robotLaserY) == null) {
+                if (playerLayer.getCell(robotLaserX, robotLaserY) != null) {
+                    IRobot victim = getRobotOnPos(robotLaserX, robotLaserY);
+                    victim.takeDamage();
+                    return true;
+                }
+                if (canGo(robot, false)) {
+                    robotLaserY--;
+                    continue;
+                }
+                return true;
+            }
+        }
+        else if (robot.getDirection() == NORTH) {
+            robotLaserY++;
+            while (boardLayer.getCell(robotLaserX, robotLaserY) == null) {
+                if (playerLayer.getCell(robotLaserX, robotLaserY) != null) {
+                    IRobot victim = getRobotOnPos(robotLaserX, robotLaserY);
+                    victim.takeDamage();
+                    return true;
+                }
+                if (canGo(robot, false)) {
+                    robotLaserY--;
+                    continue;
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * @param x - x-position on screen
      * @param y - y-position on screen

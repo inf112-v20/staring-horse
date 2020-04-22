@@ -13,6 +13,8 @@ public interface IRobot {
 
     void moveOne(Direction dir);
 
+    void takeDamage();
+
     void killRobot();
 
     /**
