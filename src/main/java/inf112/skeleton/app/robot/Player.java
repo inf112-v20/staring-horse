@@ -99,7 +99,7 @@ public class Player implements IRobot {
 
     @Override
     public void moveOne(Direction dir){
-        if (!this.isTestRobot && !GameLogic.getInstance().canGo(this, true)) {
+        if (!this.isTestRobot && !GameLogic.getInstance().canGo(new Vector2(getXPos(),getYPos()), dir)) {
             System.out.println("Player can't go");
         }else{
             if(!this.isTestRobot) {

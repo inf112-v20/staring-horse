@@ -33,14 +33,14 @@ public class GameLogic {
         return SINGLE_INSTANCE;
     }
 
-    public String getObjectNameOnXandY(TiledMap tiledMap, int x, int y) {
+    public String getObjectNameOnXandY(TiledMap tiledMap, Vector2 pos) {
         for (MapLayer layer : tiledMap.getLayers()) {
             for (MapObject obj : tiledMap.getLayers().get(layer.getName()).getObjects()) {
                 Rectangle rect = ((RectangleMapObject) obj).getRectangle();
                 int layer_x = (int) rect.x / GameScreen.TILE_AREA;
                 int layer_y = (int) rect.y / GameScreen.TILE_AREA;
 
-                if (x == layer_x && y == layer_y) {
+                if (pos.x == layer_x && pos.y == layer_y) {
                     return obj.getName();
                 }
             }
@@ -62,7 +62,7 @@ public class GameLogic {
                     victim.takeDamage();
                     return true;
                 }
-                if (canGo(robot, false)) {
+                if (canGo(new Vector2(robot.getXPos(), robot.getYPos()), robot.getDirection())) {
                     robotLaserX++;
                     continue;
                 }
@@ -77,7 +77,7 @@ public class GameLogic {
                     victim.takeDamage();
                     return true;
                 }
-                if (canGo(robot, false)) {
+                if (canGo(new Vector2(robot.getXPos(), robot.getYPos()), robot.getDirection())) {
                     robotLaserX--;
                     continue;
                 }
@@ -92,7 +92,7 @@ public class GameLogic {
                     victim.takeDamage();
                     return true;
                 }
-                if (canGo(robot, false)) {
+                if (canGo(new Vector2(robot.getXPos(), robot.getYPos()), robot.getDirection())) {
                     robotLaserY--;
                     continue;
                 }
@@ -107,7 +107,7 @@ public class GameLogic {
                     victim.takeDamage();
                     return true;
                 }
-                if (canGo(robot, false)) {
+                if (canGo(new Vector2(robot.getXPos(), robot.getYPos()), robot.getDirection())) {
                     robotLaserY--;
                     continue;
                 }
@@ -128,69 +128,30 @@ public class GameLogic {
         return holeLayer.getCell(x,y) != null || boardLayer.getCell(x,y) == null;
     }
 
-    public boolean canGo(IRobot robot, boolean backwards) {
-        String objectName = getObjectNameOnXandY(tiledMap, robot.getXPos(), robot.getYPos());
-        int step = 1;
-        if (canGoCurrentTile(robot, objectName, backwards)) {
-            switch (robot.getDirection()) {
+    public boolean canGo(Vector2 pos, Direction dir) {
+        String objectName = getObjectNameOnXandY(tiledMap, pos);
+        if (canGoCurrentTile(pos, objectName, dir)) {
+            Vector2 nextPos = Direction.getPosInDirection(pos,dir);
+            objectName = getObjectNameOnXandY(tiledMap, nextPos);
+            switch (dir) {
                 case SOUTH:
-                    if (backwards) {
-                        step = -1;
-                        objectName = getObjectNameOnXandY(tiledMap, robot.getXPos(), robot.getYPos() - step);
-                        if (objectName.equals("SouthWall")) {
-                            return false;
-                        }
-                    }
-                    else {
-                        objectName = getObjectNameOnXandY(tiledMap, robot.getXPos(), robot.getYPos() - step);
-                        if (objectName.equals("NorthWall")) {
-                            return false;
-                        }
+                    if (objectName.equals("NorthWall")) {
+                        return false;
                     }
                     break;
                 case WEST:
-                    if (backwards) {
-                        step = -1;
-                        objectName = getObjectNameOnXandY(tiledMap, robot.getXPos() - step, robot.getYPos());
-                        if (objectName.equals("WestWall")) {
-                            return false;
-                        }
-                    }
-                    else {
-                        objectName = getObjectNameOnXandY(tiledMap, robot.getXPos() - step, robot.getYPos());
-                        if (objectName.equals("EastWall")) {
-                            return false;
-                        }
+                    if (objectName.equals("EastWall")) {
+                        return false;
                     }
                     break;
                 case EAST:
-                    if (backwards) {
-                        step = -1;
-                        objectName = getObjectNameOnXandY(tiledMap, robot.getXPos() + step, robot.getYPos());
-                        if (objectName.equals("EastWall")) {
-                            return false;
-                        }
-                    }
-                    else {
-                        objectName = getObjectNameOnXandY(tiledMap, robot.getXPos() + step, robot.getYPos());
-                        if (objectName.equals("WestWall")) {
-                            return false;
-                        }
+                    if (objectName.equals("WestWall")) {
+                        return false;
                     }
                     break;
                 case NORTH:
-                    if (backwards) {
-                        step = -1;
-                        objectName = getObjectNameOnXandY(tiledMap, robot.getXPos(), robot.getYPos() + step);
-                        if (objectName.equals("NorthWall")) {
-                            return false;
-                        }
-                    }
-                    else {
-                        objectName = getObjectNameOnXandY(tiledMap, robot.getXPos(), robot.getYPos() + step);
-                        if (objectName.equals("SouthWall")) {
-                            return false;
-                        }
+                    if (objectName.equals("SouthWall")) {
+                        return false;
                     }
                     break;
             }
@@ -201,51 +162,26 @@ public class GameLogic {
         return true;
     }
 
-    public boolean canGoCurrentTile(IRobot robot, String currentObjectName, boolean backwards) {
+    public boolean canGoCurrentTile(Vector2 pos, String currentObjectName, Direction dir) {
         Direction wallDirection;
         switch (currentObjectName) {
             case "SouthWall":
-                if (backwards) {
-                    wallDirection = Direction.NORTH;
-                }
-                else {
-                    wallDirection = Direction.SOUTH;
-                }
-                if (robot.getDirection() == wallDirection) {
+                if (dir == SOUTH) {
                     return false;
                 }
                 break;
             case "WestWall":
-                if (backwards) {
-                    wallDirection = EAST;
-                }
-                else {
-                    wallDirection = Direction.WEST;
-                }
-                if (robot.getDirection() == wallDirection) {
+                if (dir == WEST) {
                     return false;
                 }
                 break;
             case "EastWall":
-                if (backwards) {
-                    wallDirection = Direction.WEST;
-                }
-                else {
-                    wallDirection = EAST;
-                }
-                if (robot.getDirection() == wallDirection) {
+                if (dir == EAST) {
                     return false;
                 }
                 break;
             case "NorthWall":
-                if (backwards) {
-                    wallDirection = Direction.SOUTH;
-                }
-                else {
-                    wallDirection = Direction.NORTH;
-                }
-                System.out.println(wallDirection);
-                if (robot.getDirection() == wallDirection) {
+                if (dir == NORTH) {
                     return false;
                 }
                 break;
@@ -262,7 +198,7 @@ public class GameLogic {
      */
 
     public void pickUpFlag(IRobot robot) {
-        String objectname = getObjectNameOnXandY(tiledMap, robot.getXPos(), robot.getYPos());
+        String objectname = getObjectNameOnXandY(tiledMap, new Vector2(robot.getXPos(),robot.getYPos()));
         switch(objectname) {
             case "flag1":
                 robot.addFlag("flag1");
@@ -283,16 +219,16 @@ public class GameLogic {
 
     /**
      * Changes the robots direction when on a gear.
-     * @param player robot
+     * @param robot robot
      */
-    public void changeDirOnGear(IRobot player) {
-        String objectName = getObjectNameOnXandY(tiledMap,player.getXPos(), player.getYPos());
+    public void changeDirOnGear(IRobot robot) {
+        String objectName = getObjectNameOnXandY(tiledMap, new Vector2(robot.getXPos(),robot.getYPos()));
         switch (objectName) {
             case "clockwise":
-                player.rotateClockwise();
+                robot.rotateClockwise();
                 break;
             case "counterclockwise":
-                player.rotateCounterClockwise();
+                robot.rotateCounterClockwise();
                 break;
             default:
                 break;
@@ -313,7 +249,7 @@ public class GameLogic {
     }
 
     public void conveyorBelt(IRobot robot) {
-        String objectName = getObjectNameOnXandY(tiledMap, robot.getXPos(), robot.getYPos());
+        String objectName = getObjectNameOnXandY(tiledMap, new Vector2(robot.getXPos(),robot.getYPos()));
         switch (objectName) {
             case "SingleEast":
                 robot.moveOne(EAST);
