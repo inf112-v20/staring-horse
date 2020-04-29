@@ -222,7 +222,10 @@ public class GameScreen extends InputAdapter implements Screen {
     }
 
     public void makePlayerDeckMatchSelectableCards() {
-        for(int i = 0; i < 9; i++) {
+        for(ImageButton card:selectableCardButtons){
+            card.setVisible(false);
+        }
+        for(int i = 0; i < (9-(Math.min(player.getDamageTaken(),4))); i++) {
             selectableCardButtons.get(i).setVisible(true);
             changeImageButtonDrawable(selectableCardButtons.get(i), player.getProgramCard(i));
         }
@@ -336,8 +339,13 @@ public class GameScreen extends InputAdapter implements Screen {
     }
 
     public void makeHandInvisible() {
-        for (Image image:handCards) {
-            image.setVisible(false);
+        int lockedCardsNumber = 0;
+        if(player.getDamageTaken() >= 5){
+            lockedCardsNumber = player.getDamageTaken()-5+1;
+        }
+
+        for (int i = handCards.size()-1; i >= lockedCardsNumber; i--) {
+            handCards.get(i).setVisible(false);
         }
     }
 

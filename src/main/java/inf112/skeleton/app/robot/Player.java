@@ -24,6 +24,7 @@ public class Player implements IRobot {
     private Direction respawnDirection;
 
     private int healthPoints;
+    private int fullHealthPoints;
     private int lives;
     private boolean isDead;
 
@@ -50,11 +51,11 @@ public class Player implements IRobot {
         this.hand = new ProgramCard[5];
         this.numberOfCardsInHand = 0;
 
-        this.healthPoints = 10;
+        this.fullHealthPoints = 10;
+        this.healthPoints = fullHealthPoints;
         this.lives = 3;
 
         this.flags = new ArrayList<>();
-
     }
 
 
@@ -127,6 +128,7 @@ public class Player implements IRobot {
             RoboRally.getInstance().setMenuScreen();
         } else {
             System.out.println(lives + " lives left");
+            this.healthPoints = fullHealthPoints;
             respawn();
         }
     }
@@ -267,8 +269,11 @@ public class Player implements IRobot {
      * Remove all cards from players hand
      */
     private void clearHand() {
-        this.hand = new ProgramCard[hand.length];
-        this.numberOfCardsInHand = 0;
+        if(this.getDamageTaken() > 4){
+            this.numberOfCardsInHand = this.getDamageTaken()-4;
+        }else{
+            this.numberOfCardsInHand = 0;
+        }
     }
 
     public ProgramCard[] getHand() {
@@ -323,4 +328,6 @@ public class Player implements IRobot {
     public boolean getIsTestPlayer() {
         return this.isTestRobot;
     }
+
+    public int getDamageTaken(){return (this.fullHealthPoints-this.healthPoints);}
 }
