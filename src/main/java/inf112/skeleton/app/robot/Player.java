@@ -30,7 +30,7 @@ public class Player implements IRobot {
 
     private ProgramCardAction previousAction;
 
-    private ArrayList<String> flags;
+    private int flag = 0;
 
     // bool set to true when using player for tests (solves error when
     // referencing TmxMapLoader in GameScreen while in tests)
@@ -54,40 +54,22 @@ public class Player implements IRobot {
         this.fullHealthPoints = 10;
         this.healthPoints = fullHealthPoints;
         this.lives = 3;
-
-        this.flags = new ArrayList<>();
     }
 
 
     @Override
     public boolean hasWon() {
-        return (flags.contains("flag1") && flags.contains("flag2") && flags.contains("flag3") && flags.contains("flag4"));
+        return this.flag == GameLogic.getInstance().getFlags().size();
     }
 
     @Override
-    public void addFlag(String flag) {
-        if (flags.contains(flag)) {
-            System.out.println("You already have this flag.");
-        }
-
-        if (flag.equals("flag1") && flags.size() == 0) {
-            flags.add(flag);
-            System.out.println("Picked up flag 1");
-        } else if (flags.size() == 0) {
-            System.out.println("Take Flag 1 first!");
-        } else if (flag.equals("flag2") && flags.get(0).equals("flag1") && flags.size() == 1) {
-            flags.add(flag);
-            System.out.println("Picked up flag 2");
-        } else if (flags.size() == 1) {
-            System.out.println("Take Flag 2 first!");
-        } else if (flag.equals("flag3") && flags.get(1).equals("flag2") && flags.size() == 2) {
-            flags.add(flag);
-            System.out.println("Picked up flag 3");
-        } else if (flags.size() == 2) {
-            System.out.println("Take Flag 3 first!");
-        } else if (flag.equals("flag4") && flags.get(2).equals("flag3") && flags.size() == 3) {
-            flags.add(flag);
-            System.out.println("Picked up flag 4");
+    public void addFlag(String pickupFlag) {
+        int pickupFlagNumber = Character.getNumericValue(pickupFlag.charAt(pickupFlag.length()-1));
+        if( this.flag+1 == pickupFlagNumber){
+            this.flag = pickupFlagNumber;
+            System.out.println("Picked up flag" + this.flag);
+        } else {
+            System.out.println("Get flag" + (this.flag+1) + " first");
         }
     }
 

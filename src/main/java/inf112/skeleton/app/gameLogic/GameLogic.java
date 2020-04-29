@@ -19,6 +19,7 @@ import static inf112.skeleton.app.enums.Direction.*;
 public class GameLogic {
 
     private TiledMap tiledMap;
+    ArrayList<String> flags;
 
     private static GameLogic SINGLE_INSTANCE = null;
 
@@ -199,21 +200,8 @@ public class GameLogic {
 
     public void pickUpFlag(IRobot robot) {
         String objectname = getObjectNameOnXandY(tiledMap, new Vector2(robot.getXPos(),robot.getYPos()));
-        switch(objectname) {
-            case "flag1":
-                robot.addFlag("flag1");
-                break;
-            case "flag2":
-                robot.addFlag("flag2");
-                break;
-            case "flag3":
-                robot.addFlag("flag3");
-                break;
-            case "flag4":
-                robot.addFlag("flag4");
-                break;
-            default:
-                break;
+        if(objectname != null && objectname.contains("flag")){
+            robot.addFlag(objectname);
         }
     }
 
@@ -235,17 +223,32 @@ public class GameLogic {
         }
     }
 
+    public ArrayList<String> getFlags() {
+        if(flags != null)
+            return flags;
+
+        TiledMapTileLayer flagLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Flag");
+        flags = new ArrayList<>();
+
+        for (int x = 0; x < flagLayer.getWidth(); x++)
+            for (int y = 0; y < flagLayer.getHeight(); y++)
+                if (flagLayer.getCell(x, y) != null) {
+                    flags.add(getObjectNameOnXandY(tiledMap,new Vector2(x,y)));
+                }
+        return flags;
+    }
+
     public ArrayList<Integer> getXandYposofRespawnPoint() {
         TiledMapTileLayer respawnObjects = (TiledMapTileLayer) tiledMap.getLayers().get("SpawnPoint");
-        ArrayList<Integer> gamerlist = new ArrayList<>();
+        ArrayList<Integer> spawnpointList = new ArrayList<>();
 
         for (int x = 0; x < respawnObjects.getWidth(); x++)
             for (int y = 0; y < respawnObjects.getHeight(); y++)
                 if (respawnObjects.getCell(x, y) != null) {
-                    gamerlist.add(x);
-                    gamerlist.add(y);
+                    spawnpointList.add(x);
+                    spawnpointList.add(y);
                 }
-        return gamerlist;
+        return spawnpointList;
     }
 
     public void conveyorBelt(IRobot robot) {
