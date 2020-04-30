@@ -49,7 +49,7 @@ public class GameLogic {
         return "";
     }
 
-    public boolean isRobotOrWallInLaser(IRobot robot) {
+    public void activateLasers(IRobot robot) {
         int robotLaserX = robot.getXPos();
         int robotLaserY = robot.getYPos();
         TiledMapTileLayer playerLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Player");
@@ -61,13 +61,11 @@ public class GameLogic {
                 if (playerLayer.getCell(robotLaserX, robotLaserY) != null) {
                     IRobot victim = getRobotOnPos(robotLaserX, robotLaserY);
                     victim.takeDamage();
-                    return true;
                 }
                 if (canGo(new Vector2(robot.getXPos(), robot.getYPos()), robot.getDirection())) {
                     robotLaserX++;
                     continue;
                 }
-                return true;
             }
         }
         else if (robot.getDirection() == WEST) {
@@ -76,13 +74,11 @@ public class GameLogic {
                 if (playerLayer.getCell(robotLaserX, robotLaserY) != null) {
                     IRobot victim = getRobotOnPos(robotLaserX, robotLaserY);
                     victim.takeDamage();
-                    return true;
                 }
                 if (canGo(new Vector2(robot.getXPos(), robot.getYPos()), robot.getDirection())) {
                     robotLaserX--;
                     continue;
                 }
-                return true;
             }
         }
         else if (robot.getDirection() == SOUTH) {
@@ -91,13 +87,11 @@ public class GameLogic {
                 if (playerLayer.getCell(robotLaserX, robotLaserY) != null) {
                     IRobot victim = getRobotOnPos(robotLaserX, robotLaserY);
                     victim.takeDamage();
-                    return true;
                 }
                 if (canGo(new Vector2(robot.getXPos(), robot.getYPos()), robot.getDirection())) {
                     robotLaserY--;
                     continue;
                 }
-                return true;
             }
         }
         else if (robot.getDirection() == NORTH) {
@@ -106,16 +100,13 @@ public class GameLogic {
                 if (playerLayer.getCell(robotLaserX, robotLaserY) != null) {
                     IRobot victim = getRobotOnPos(robotLaserX, robotLaserY);
                     victim.takeDamage();
-                    return true;
                 }
                 if (canGo(new Vector2(robot.getXPos(), robot.getYPos()), robot.getDirection())) {
                     robotLaserY--;
                     continue;
                 }
-                return true;
             }
         }
-        return false;
     }
 
     /**
