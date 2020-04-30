@@ -27,12 +27,6 @@ public class GameLoop {
         System.out.println("Starting round " + roundNumber++);
         this.player.drawNewDeck();
         gameScreen.makePlayerDeckMatchSelectableCards();
-
-
-        if (player.hasWon()) {
-            System.out.println("THE PLAYER HAS WON!");
-            RoboRally.getInstance().setMenuScreen();
-        }
     }
 
     /**
@@ -50,7 +44,8 @@ public class GameLoop {
             for(AI ai:aiList){
                 //ai.executeRandomProgramCardAction();
 
-                ai.executeCardInHand(phase);
+                if(!ai.isDead())
+                    ai.executeCardInHand(phase);
             }
 
             GameLogic.getInstance().endOfPhaseCheck(player);

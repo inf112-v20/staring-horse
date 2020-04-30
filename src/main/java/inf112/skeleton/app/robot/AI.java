@@ -118,12 +118,11 @@ public class AI implements IRobot {
         int pickupFlagNumber = Character.getNumericValue(pickupFlag.charAt(pickupFlag.length()-1));
         if( this.flag+1 == pickupFlagNumber){
             this.flag = pickupFlagNumber;
-            System.out.println("Picked up flag" + this.flag);
-        } else {
-            if(this.flag+1 < pickupFlagNumber)
-                System.out.println("Get flag" + (this.flag+1) + " first");
-            else
-                System.out.println("Robot already has " + pickupFlagNumber + ". Get flag" + (this.flag+1));
+            System.out.println(this.getName() + " picked up flag" + this.flag);
+        }
+
+        if(this.hasWon()){
+            GameScreen.getInstance().robotWin(this);
         }
     }
 
@@ -137,7 +136,7 @@ public class AI implements IRobot {
     @Override
     public void moveOne(Direction dir){
         if (!this.isTestRobot && !GameLogic.getInstance().canGo(new Vector2(getXPos(),getYPos()), dir)) {
-            System.out.println("Robot" + this.id + " can't go");
+            System.out.println(this.getName() + " can't go");
         }else{
             if(!this.isTestRobot)
                 GameLogic.getInstance().pushIfPossible(getXPos(),getYPos(), dir);
@@ -159,10 +158,11 @@ public class AI implements IRobot {
         this.lives--;
         if(this.lives <= 0){
             if(!isDead)
-                System.out.println("Robot" + this.id + " IS OUT OF LIVES!");
+                System.out.println(this.getName() + " IS OUT OF LIVES!");
             isDead = true;
+            GameScreen.getInstance().onlyOneRobotLeftCheck();
         } else {
-            System.out.println("Robot" + this.id + ": " + lives + " lives left");
+            System.out.println(this.getName() + ": " + lives + " lives left");
             respawn();
         }
     }
@@ -293,5 +293,10 @@ public class AI implements IRobot {
     @Override
     public void setCameFromConveyor(boolean bool) {
         cameFromConveyor = bool;
+    }
+
+    @Override
+    public String getName() {
+        return "ROBOT" + this.id;
     }
 }

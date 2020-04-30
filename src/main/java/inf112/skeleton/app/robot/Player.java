@@ -73,7 +73,11 @@ public class Player implements IRobot {
             if(this.flag+1 < pickupFlagNumber)
                 System.out.println("Get flag" + (this.flag+1) + " first");
             else
-                System.out.println("Robot already has " + pickupFlagNumber + ". Get flag" + (this.flag+1));
+                System.out.println("Player already has " + pickupFlagNumber + ". Get flag" + (this.flag+1));
+        }
+
+        if(this.hasWon()){
+            GameScreen.getInstance().robotWin(this);
         }
     }
 
@@ -111,6 +115,7 @@ public class Player implements IRobot {
         if(this.lives <= 0){
             System.out.println("PLAYER IS OUT OF LIVES!");
             isDead = true;
+            GameScreen.getInstance().onlyOneRobotLeftCheck();
             RoboRally.getInstance().setMenuScreen();
         } else {
             System.out.println(lives + " lives left");
@@ -321,6 +326,11 @@ public class Player implements IRobot {
     @Override
     public void setCameFromConveyor(boolean bool) {
         cameFromConveyor = bool;
+    }
+
+    @Override
+    public String getName() {
+        return "PLAYER";
     }
 
     public boolean getIsTestPlayer() {

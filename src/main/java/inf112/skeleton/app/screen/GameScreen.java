@@ -136,13 +136,34 @@ public class GameScreen extends InputAdapter implements Screen {
 
         orthogonalTiledMapRenderer.render();
 
-        if (player.hasWon()) {
-            System.out.println("THE PLAYER HAS WON!");
-            RoboRally.getInstance().setMenuScreen();
-        }
-
         stage.act();
         stage.draw();
+    }
+
+    /**
+     * Finish game when robot wins
+     * @param robot winner
+     */
+    public void robotWin(IRobot robot){
+        System.out.println("THE " + robot.getName() + " HAS WON!");
+        RoboRally.getInstance().setMenuScreen();
+    }
+
+    /**
+     * Check if there is only one robot left and then finish game
+     */
+    public void onlyOneRobotLeftCheck(){
+        ArrayList<IRobot> livingRobots = new ArrayList<>();
+
+        for(IRobot robot:getRobots()){
+            if(!robot.isDead())
+                livingRobots.add(robot);
+        }
+
+        if(livingRobots.size() == 1) {
+            System.out.println("ALL OTHER ROBOTS DEAD!");
+            robotWin(livingRobots.get(0));
+        }
     }
 
     public TiledMap getTiledMap() {

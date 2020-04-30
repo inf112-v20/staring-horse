@@ -100,4 +100,6 @@ public interface IRobot {
      * sets the cameFromConveyor.
      */
     void setCameFromConveyor(boolean bool);
+
+    String getName();
 }
