@@ -9,8 +9,6 @@ import inf112.skeleton.app.gameLogic.GameLogic;
 import inf112.skeleton.app.programCard.ProgramCard;
 import inf112.skeleton.app.screen.GameScreen;
 
-import java.util.ArrayList;
-
 public class AI implements IRobot {
 
     private int id;
@@ -26,14 +24,13 @@ public class AI implements IRobot {
     private int lives;
 
     private ProgramCardAction previousAction;
-
-    private ArrayList<String> flags;
-
     // bool set to true when using Robot for tests (solves error when
     // referencing TmxMapLoader in GameScreen while in tests)
     private boolean isTestRobot = false;
 
     private TextureRegion robotTexture;
+
+    private ProgramCard[] hand;
 
     // amount of AI-robots made used for giving robots unique ID/name
     private static int aiNumber;
@@ -50,9 +47,9 @@ public class AI implements IRobot {
         this.lives = 3;
         this.cameFromConveyor = false;
 
-        this.flags = new ArrayList<>();
-
         this.id = ++aiNumber;
+
+        this.hand = new ProgramCard[5];
     }
 
     /**
@@ -61,6 +58,49 @@ public class AI implements IRobot {
     public void executeRandomProgramCardAction(){
         GameScreen.getInstance().unrenderRobot(this);
         this.performProgramCardAction(new ProgramCard());
+        GameScreen.getInstance().renderRobot(this);
+    }
+
+    /**
+     * Generates slightly smart moves for AI
+     */
+    public void generateSmartMoves(){
+        for(int i = 0; i < hand.length; i++){
+            Vector2 nextFlagPos = GameLogic.getInstance().getFlagPosHashMap().get("flag" + (this.flag+1));
+
+            ProgramCard randomProgramCard;
+            Vector2 nextPos;
+            do {
+                randomProgramCard = new ProgramCard();
+                nextPos = ProgramCardAction.getPositionAfterProgramCardAction(
+                        new Vector2(this.getXPos(),this.getYPos()),
+                        this.getDirection(),
+                        randomProgramCard.getAction());
+            } while(GameLogic.getInstance().isHole((int)nextPos.x,(int)nextPos.y) ||
+                    getDistanceBetweenPositions(new Vector2(this.getXPos(),this.getYPos()), nextFlagPos) <
+                    getDistanceBetweenPositions(nextPos, nextFlagPos));
+
+            hand[i] = randomProgramCard;
+        }
+    }
+
+    /**
+     * Get distance between 2 positions
+     * @param pos1 Vector2 position
+     * @param pos2 Vector2 position
+     * @return int distance between positions
+     */
+    public int getDistanceBetweenPositions(Vector2 pos1, Vector2 pos2){
+        return (int) (Math.abs(pos1.x - pos2.x) + Math.abs(pos1.y - pos2.y));
+    }
+
+    /**
+     * Excecute card in hand corresponding to phase
+     * @param phase current card to activate
+     */
+    public void executeCardInHand(int phase){
+        GameScreen.getInstance().unrenderRobot(this);
+        this.performProgramCardAction(hand[phase]);
         GameScreen.getInstance().renderRobot(this);
     }
 
@@ -80,7 +120,10 @@ public class AI implements IRobot {
             this.flag = pickupFlagNumber;
             System.out.println("Picked up flag" + this.flag);
         } else {
-            System.out.println("Get flag" + (this.flag+1) + " first");
+            if(this.flag+1 < pickupFlagNumber)
+                System.out.println("Get flag" + (this.flag+1) + " first");
+            else
+                System.out.println("Robot already has " + pickupFlagNumber + ". Get flag" + (this.flag+1));
         }
     }
 
@@ -94,7 +137,7 @@ public class AI implements IRobot {
     @Override
     public void moveOne(Direction dir){
         if (!this.isTestRobot && !GameLogic.getInstance().canGo(new Vector2(getXPos(),getYPos()), dir)) {
-            System.out.println("Player can't go");
+            System.out.println("Robot" + this.id + " can't go");
         }else{
             if(!this.isTestRobot)
                 GameLogic.getInstance().pushIfPossible(getXPos(),getYPos(), dir);
@@ -190,22 +233,6 @@ public class AI implements IRobot {
     @Override
     public Direction getDirection() {
         return this.direction;
-    }
-
-    private void moveNorth(){
-        this.setYPos(this.getYPos()+1);
-    }
-
-    private void moveEast(){
-        this.setXPos(this.getXPos()+1);
-    }
-
-    private void moveSouth(){
-        this.setYPos(this.getYPos()-1);
-    }
-
-    private void moveWest(){
-        this.setXPos(this.getXPos()-1);
     }
 
     @Override

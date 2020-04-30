@@ -70,7 +70,10 @@ public class Player implements IRobot {
             this.flag = pickupFlagNumber;
             System.out.println("Picked up flag" + this.flag);
         } else {
-            System.out.println("Get flag" + (this.flag+1) + " first");
+            if(this.flag+1 < pickupFlagNumber)
+                System.out.println("Get flag" + (this.flag+1) + " first");
+            else
+                System.out.println("Robot already has " + pickupFlagNumber + ". Get flag" + (this.flag+1));
         }
     }
 

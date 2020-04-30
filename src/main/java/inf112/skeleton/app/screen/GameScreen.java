@@ -71,7 +71,7 @@ public class GameScreen extends InputAdapter implements Screen {
         tiledMap = new TmxMapLoader().load("Maps/backgroundTest.tmx");
         camera = new OrthographicCamera();
 
-        ArrayList<Integer> respawnPoints = GameLogic.getInstance().getXandYposofRespawnPoint();
+        ArrayList<Integer> respawnPoints = GameLogic.getInstance().getXAndYPosOfRespawnPoint();
         player = new Player();
         player.setRespawnPoint(respawnPoints.get(0), respawnPoints.get(1));
 
@@ -150,21 +150,23 @@ public class GameScreen extends InputAdapter implements Screen {
     }
 
     /**
-     * Update PlayerCell-rotation based on Direction
+     * Update robots Cell-rotation based on Direction
+     * @param robot to update cell
      */
-    public void updatePlayerRotation(){
-        switch (player.getDirection()){
+    public void updateRobotRotation(IRobot robot){
+        TiledMapTileLayer.Cell cell = robotCellHashMap.get(robot);
+        switch (robot.getDirection()){
             case NORTH:
-                playerCell.setRotation(TiledMapTileLayer.Cell.ROTATE_0);
+                cell.setRotation(TiledMapTileLayer.Cell.ROTATE_0);
                 break;
             case WEST:
-                playerCell.setRotation(TiledMapTileLayer.Cell.ROTATE_90);
+                cell.setRotation(TiledMapTileLayer.Cell.ROTATE_90);
                 break;
             case SOUTH:
-                playerCell.setRotation(TiledMapTileLayer.Cell.ROTATE_180);
+                cell.setRotation(TiledMapTileLayer.Cell.ROTATE_180);
                 break;
             case EAST:
-                playerCell.setRotation(TiledMapTileLayer.Cell.ROTATE_270);
+                cell.setRotation(TiledMapTileLayer.Cell.ROTATE_270);
                 break;
         }
     }
@@ -199,7 +201,6 @@ public class GameScreen extends InputAdapter implements Screen {
 
 
                 if(player.isHandFull()) {
-                    //gameScreen.showPlayersHand();
                     gameLoop.startActivationPhase();
                 }
 
@@ -283,7 +284,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
     public void renderRobot(IRobot robot){
         if(!robot.isDead()) {
-            updatePlayerRotation();
+            updateRobotRotation(robot);
             playerLayer.setCell(robot.getXPos(), robot.getYPos(), robotCellHashMap.get(robot));
         }
     }

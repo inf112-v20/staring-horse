@@ -1,5 +1,8 @@
 package inf112.skeleton.app.enums;
 
+import com.badlogic.gdx.math.Vector2;
+import inf112.skeleton.app.programCard.ProgramCard;
+
 import java.util.Random;
 
 public enum ProgramCardAction {
@@ -25,5 +28,35 @@ public enum ProgramCardAction {
      */
     public static ProgramCardAction getRandomProgramCardAction(){
         return ACTIONS[RANDOM.nextInt(ACTIONS.length)];
+    }
+
+    /**
+     * @return random ProgramCardAction that moves robot forward
+     */
+    public static ProgramCardAction getRandomMoveForwardProgramCardAction(){
+        ProgramCardAction[] moveProgramCardActions = {MOVE_ONE, MOVE_TWO, MOVE_THREE};
+        //return moveProgramCardActions[RANDOM.nextInt(moveProgramCardActions.length)];
+        return MOVE_ONE;
+    }
+
+    public static Vector2 getPositionAfterProgramCardAction(Vector2 pos, Direction dir, ProgramCardAction action) {
+        switch (action) {
+            case MOVE_ONE:
+                pos = Direction.getPosInDirection(pos,dir);
+                return pos;
+            case MOVE_TWO:
+                pos = Direction.getPosInDirection(pos,dir);
+                pos = Direction.getPosInDirection(pos,dir);
+                return pos;
+            case MOVE_THREE:
+                pos = Direction.getPosInDirection(pos,dir);
+                pos = Direction.getPosInDirection(pos,dir);
+                pos = Direction.getPosInDirection(pos,dir);
+                return pos;
+            case BACK_UP:
+                pos = Direction.getPosInDirection(pos,Direction.oppositeOf(dir));
+                return pos;
+        }
+        return pos;
     }
 }

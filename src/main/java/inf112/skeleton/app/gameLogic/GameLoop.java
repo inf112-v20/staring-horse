@@ -39,17 +39,24 @@ public class GameLoop {
      * Start activation-phase were all robots execute their cards and board-objects are activated
      */
     public void startActivationPhase() {
-
+        for(AI ai:aiList){
+            ai.generateSmartMoves();
+        }
         for(int phase = 0; phase < 5; phase++){
 
             // check priority for players and execute cards accordingly
 
             player.executeCardInHand(phase);
             for(AI ai:aiList){
-                ai.executeRandomProgramCardAction();
+                //ai.executeRandomProgramCardAction();
+
+                ai.executeCardInHand(phase);
             }
-            // needs one for ai too.
+
             GameLogic.getInstance().endOfPhaseCheck(player);
+            for(AI ai:aiList){
+                GameLogic.getInstance().endOfPhaseCheck(ai);
+            }
 
             /*
             this is the order of actions

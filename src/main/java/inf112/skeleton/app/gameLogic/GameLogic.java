@@ -11,17 +11,18 @@ import inf112.skeleton.app.enums.Direction;
 import inf112.skeleton.app.robot.Player;
 import inf112.skeleton.app.robot.IRobot;
 import inf112.skeleton.app.screen.GameScreen;
-
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static inf112.skeleton.app.enums.Direction.*;
 
 public class GameLogic {
 
     private TiledMap tiledMap;
-    ArrayList<String> flags;
 
     private static GameLogic SINGLE_INSTANCE = null;
+    private HashMap<String, Vector2> flagPosHashMap;
+    private ArrayList<String> flags;
 
     public GameLogic() {
         tiledMap = GameScreen.getInstance().getTiledMap();
@@ -215,31 +216,41 @@ public class GameLogic {
     }
 
     public ArrayList<String> getFlags() {
-        if(flags != null)
-            return flags;
+        //loads flags if not loaded
+        if(flags == null) getFlagPosHashMap();
+        return flags;
+    }
+
+    public HashMap<String,Vector2> getFlagPosHashMap() {
+        if(flagPosHashMap != null)
+            return flagPosHashMap;
 
         TiledMapTileLayer flagLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Flag");
         flags = new ArrayList<>();
+        flagPosHashMap = new HashMap<>();
 
         for (int x = 0; x < flagLayer.getWidth(); x++)
             for (int y = 0; y < flagLayer.getHeight(); y++)
                 if (flagLayer.getCell(x, y) != null) {
-                    flags.add(getObjectNameOnXandY(tiledMap,new Vector2(x,y)));
+                    Vector2 pos = new Vector2(x,y);
+                    String flagName = getObjectNameOnXandY(tiledMap,pos);
+                    flagPosHashMap.put(flagName,pos);
+                    flags.add(flagName);
                 }
-        return flags;
+        return flagPosHashMap;
     }
 
-    public ArrayList<Integer> getXandYposofRespawnPoint() {
+    public ArrayList<Integer> getXAndYPosOfRespawnPoint() {
         TiledMapTileLayer respawnObjects = (TiledMapTileLayer) tiledMap.getLayers().get("SpawnPoint");
-        ArrayList<Integer> spawnpointList = new ArrayList<>();
+        ArrayList<Integer> spawnPointList = new ArrayList<>();
 
         for (int x = 0; x < respawnObjects.getWidth(); x++)
             for (int y = 0; y < respawnObjects.getHeight(); y++)
                 if (respawnObjects.getCell(x, y) != null) {
-                    spawnpointList.add(x);
-                    spawnpointList.add(y);
+                    spawnPointList.add(x);
+                    spawnPointList.add(y);
                 }
-        return spawnpointList;
+        return spawnPointList;
     }
 
     public void conveyorBelts(IRobot robot) {
