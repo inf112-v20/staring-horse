@@ -315,19 +315,33 @@ public class GameScreen extends InputAdapter implements Screen {
 
     @Override
     public boolean keyUp(int code) {
+
         if (Input.Keys.LEFT == code) {
+            for (IRobot robot : getRobots()) {
+                GameLogic.getInstance().endOfPhaseCheck(robot);
+            }
             unrenderRobot(player);
             player.rotateCounterClockwise();
             renderRobot(player);
         } else if (Input.Keys.RIGHT == code) {
+            for (IRobot robot : getRobots()) {
+                GameLogic.getInstance().endOfPhaseCheck(robot);
+            }
             unrenderRobot(player);
             player.rotateClockwise();
             renderRobot(player);
         } else if (Input.Keys.DOWN == code) {
+            for (IRobot robot : getRobots()) {
+                GameLogic.getInstance().endOfPhaseCheck(robot);
+            }
             unrenderRobot(player);
             player.move(1, Direction.oppositeOf(player.getDirection()));
             renderRobot(player);
         } else if (Input.Keys.UP == code) {
+            for (IRobot robot : getRobots()) {
+                GameLogic.getInstance().endOfPhaseCheck(robot);
+            }
+
             unrenderRobot(player);
             player.move(1, player.getDirection());
             renderRobot(player);
@@ -350,6 +364,7 @@ public class GameScreen extends InputAdapter implements Screen {
     }
 
     public ArrayList<IRobot> getRobots(){
+        // check this cast maybe idk ok bye :)
         ArrayList<IRobot> robots = (ArrayList<IRobot>) aiList.clone();
         robots.add(0, player);
         return robots;

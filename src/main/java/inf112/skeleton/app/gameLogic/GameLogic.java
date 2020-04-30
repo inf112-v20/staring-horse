@@ -242,31 +242,96 @@ public class GameLogic {
         return spawnpointList;
     }
 
-    public void conveyorBelt(IRobot robot) {
-        String objectName = getObjectNameOnXandY(tiledMap, new Vector2(robot.getXPos(),robot.getYPos()));
-        switch (objectName) {
-            case "SingleEast":
-                robot.moveOne(EAST);
-                break;
-            case "SingleEtoS":
+    public void conveyorBelts(IRobot robot) {
+        String conveyor = getObjectNameOnXandY(tiledMap, new Vector2(robot.getXPos(),robot.getYPos()));
+        if (conveyor.contains("Conveyor")) {
+            Direction dir = getConveyorDir(conveyor);
+            moveConveyor(robot,conveyor,dir);
+            robot.setCameFromConveyor(true);
+
+            String endConveyor = getObjectNameOnXandY(tiledMap, new Vector2(robot.getXPos(),robot.getYPos()));
+            // check if the tile you end up on is a corner conveyor.
+            if (endConveyor.contains("Rotate") || getConveyorDir(endConveyor) != dir) {
+                rotateConveyor(robot,endConveyor);
+            }
+        } else {
+            robot.setCameFromConveyor(false);
+        }
+    }
+
+    /**
+     *
+     * @param conveyor name of object tile.
+     * @return direction of the conveyor.
+     */
+    public Direction getConveyorDir(String conveyor) {
+        Direction dir = null;
+        // get direction from conveyor.
+        if (conveyor.contains("To_North")){
+            dir = NORTH;
+        } else if (conveyor.contains("To_West")) {
+            dir = WEST;
+        } else if (conveyor.contains("To_South")) {
+            dir = SOUTH;
+        } else if (conveyor.contains("To_East")) {
+            dir = EAST;
+        }
+        return dir;
+    }
+
+    /**
+     * Moves the robot in the direction of the conveyor the robot is standing on.
+     * OBS!
+     * If a conveyor belt would move a
+     * robot into a non-conveyor belt space where another robot sits,
+     * the robot in motion must stop on the last space of the conveyor belt.
+     * It does not push the robot in its way.
+     * OBS!!
+     * Both robots would end their move on the same conveyor belt space.
+     * In this rare instance, both robots stay where they are.
+     * @param robot IRobot
+     * @param conveyor name of object tile
+     * @param dir Direction
+     */
+    public void moveConveyor(IRobot robot, String conveyor, Direction dir) {
+        if (conveyor.contains("Express_Conveyor")) {
+            robot.moveOne(dir);
+            String currentExpressConveyor = getObjectNameOnXandY(tiledMap, new Vector2(robot.getXPos(), robot.getYPos()));
+            if (currentExpressConveyor.contains("Conveyor")) {
+                robot.setCameFromConveyor(true); // should probably be replaced with something more robust.
+                // check if the next tile is a corner.
+                if (currentExpressConveyor.contains("Rotate")) {
+                    rotateConveyor(robot,currentExpressConveyor);
+                    robot.moveOne(getConveyorDir(currentExpressConveyor));
+                } else {
+                    robot.moveOne(dir);
+                }
+            }
+            // technically not needed since only conveyors get sent to this method.
+        } else if (conveyor.contains("Conveyor")) {
+            robot.moveOne(dir);
+        }
+    }
+
+    /**
+     * when a robot lands on a rotate conveyor and should rotate. it rotates before it does anything else.
+     * so at the end of a phase after a conveyor has pushed the robot onto the rotate conveyor it should
+     * rotate the robot. --|
+     * Rotates the robot clockwise or counterclockwise depending on the
+     * corresponding conveyor.
+     * @param robot IRobot
+     * @param conveyor name of object tile
+     */
+    public void rotateConveyor(IRobot robot, String conveyor) {
+        // robot should only rotate when coming from a conveyor.
+        if (robot.getCameFromConveyor()) {
+            if (conveyor.contains("CounterClockwise")) {
+                robot.rotateCounterClockwise();
+            } else if (conveyor.contains("Clockwise")) {
                 robot.rotateClockwise();
-                robot.moveOne(SOUTH);
-                break;
-            case "SingleSouth":
-                robot.moveOne(SOUTH);
-                break;
-            case "DoubleNorth":
-                robot.move(2,NORTH);
-                break;
-            case "DoubleNtoE":
-                robot.rotateClockwise();
-                robot.move(2,EAST);
-                break;
-            case "DoubleEast":
-                robot.move(2,EAST);
-                break;
-            default:
-                break;
+            }
+        } else {
+            System.out.println("Cannot rotate on conveyor!");
         }
     }
 
@@ -277,13 +342,13 @@ public class GameLogic {
             if (!player.getIsTestPlayer()) {
                 pickUpFlag(player);
                 changeDirOnGear(player);
-                conveyorBelt(player);
+                conveyorBelts(player);
             }
         } else {
             GameScreen.getInstance().unrenderRobot(robot);
             pickUpFlag(robot);
             changeDirOnGear(robot);
-            conveyorBelt(robot);
+            conveyorBelts(robot);
         }
         GameScreen.getInstance().renderRobot(robot);
     }

@@ -39,6 +39,7 @@ public class AI implements IRobot {
     private static int aiNumber;
     private boolean isDead;
     private int flag;
+    private boolean cameFromConveyor;
 
 
     public AI(){
@@ -47,6 +48,7 @@ public class AI implements IRobot {
 
         this.healthPoints = 10;
         this.lives = 3;
+        this.cameFromConveyor = false;
 
         this.flags = new ArrayList<>();
 
@@ -255,4 +257,14 @@ public class AI implements IRobot {
 
     @Override
     public void setToTestRobot(){this.isTestRobot = true;}
+
+    @Override
+    public boolean getCameFromConveyor() {
+        return cameFromConveyor;
+    }
+
+    @Override
+    public void setCameFromConveyor(boolean bool) {
+        cameFromConveyor = bool;
+    }
 }

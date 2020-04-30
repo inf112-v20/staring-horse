@@ -11,8 +11,6 @@ import inf112.skeleton.app.programCard.CardDeck;
 import inf112.skeleton.app.programCard.ProgramCard;
 import inf112.skeleton.app.screen.GameScreen;
 
-import java.util.ArrayList;
-
 public class Player implements IRobot {
 
     private int xPos;
@@ -42,6 +40,8 @@ public class Player implements IRobot {
     private ProgramCard[] hand;
     private int numberOfCardsInHand;
 
+    private boolean cameFromConveyor;
+
 
     public Player() {
         this.respawnDirection = Direction.NORTH;
@@ -54,6 +54,7 @@ public class Player implements IRobot {
         this.fullHealthPoints = 10;
         this.healthPoints = fullHealthPoints;
         this.lives = 3;
+        this.cameFromConveyor = false;
     }
 
 
@@ -226,6 +227,7 @@ public class Player implements IRobot {
      * Execute all programcards in hand
      */
     public void executeCardInHand(int phase){
+
         GameScreen gameScreen = GameScreen.getInstance();
 
         gameScreen.unrenderRobot(this);
@@ -233,6 +235,7 @@ public class Player implements IRobot {
         gameScreen.renderRobot(this);
 
         if(phase == 4) clearHand();
+
     }
 
     public ProgramCard getProgramCard(int index){
@@ -306,6 +309,16 @@ public class Player implements IRobot {
 
     @Override
     public void setToTestRobot(){this.isTestRobot = true;}
+
+    @Override
+    public boolean getCameFromConveyor() {
+        return cameFromConveyor;
+    }
+
+    @Override
+    public void setCameFromConveyor(boolean bool) {
+        cameFromConveyor = bool;
+    }
 
     public boolean getIsTestPlayer() {
         return this.isTestRobot;

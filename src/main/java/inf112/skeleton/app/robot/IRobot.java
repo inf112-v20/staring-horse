@@ -90,4 +90,14 @@ public interface IRobot {
     boolean isDead();
 
     void setToTestRobot();
+
+    /**
+     * @return true if a robot last moved from a conveyor
+     */
+    boolean getCameFromConveyor();
+
+    /**
+     * sets the cameFromConveyor.
+     */
+    void setCameFromConveyor(boolean bool);
 }
