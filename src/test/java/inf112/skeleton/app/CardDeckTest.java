@@ -26,6 +26,5 @@ public class CardDeckTest {
         cardDeck.addCardToDeck(programCard);
         assertEquals(cardDeck.getCard(0), programCard);
     }
-
 }
 

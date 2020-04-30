@@ -308,6 +308,7 @@ public class GameLogic {
         IRobot otherRobot = getRobotOnPos((int)vector.x, (int)vector.y);
 
         if(otherRobot != null){
+            GameScreen.getInstance().unrenderRobot(otherRobot);
             otherRobot.moveOne(dir);
             GameScreen.getInstance().renderRobot(otherRobot);
         }
