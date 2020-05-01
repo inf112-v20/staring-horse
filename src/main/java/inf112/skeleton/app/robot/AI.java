@@ -18,6 +18,7 @@ public class AI implements IRobot {
     private Vector2 respawnPos;
     private Direction respawnDirection;
 
+    private int fullHealthPoints;
     private int healthPoints;
     private int lives;
 
@@ -41,7 +42,8 @@ public class AI implements IRobot {
         this.respawnDirection = Direction.NORTH;
         this.direction = respawnDirection;
 
-        this.healthPoints = 10;
+        this.fullHealthPoints = 10;
+        this.healthPoints = fullHealthPoints;
         this.lives = 3;
         this.cameFromConveyor = false;
 
@@ -163,15 +165,18 @@ public class AI implements IRobot {
             GameScreen.getInstance().onlyOneRobotLeftCheck();
         } else {
             System.out.println(this.getName() + ": " + lives + " lives left");
+            this.healthPoints = fullHealthPoints;
             respawn();
         }
     }
 
     @Override
     public void respawn(){
+        GameScreen.getInstance().unrenderRobot(this);
         System.out.println("Respawning robot");
         this.direction = respawnDirection;
         this.pos = respawnPos;
+        GameScreen.getInstance().renderRobot(this);
     }
 
     @Override
@@ -278,6 +283,8 @@ public class AI implements IRobot {
     @Override
     public void takeDamage() {
         this.healthPoints--;
+        if (this.healthPoints <= 0)
+            killRobot();
     }
 
     @Override

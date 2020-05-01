@@ -51,61 +51,18 @@ public class GameLogic {
     }
 
     public void activateLasers(IRobot robot) {
-        int robotLaserX = (int) robot.getPos().x;
-        int robotLaserY = (int) robot.getPos().y;
-        TiledMapTileLayer playerLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Player");
+        Vector2 nextPos = getPosInDirection(robot.getPos(), robot.getDirection());
+
         TiledMapTileLayer boardLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Board");
 
-        if (robot.getDirection() == EAST) {
-            robotLaserX++;
-            while (boardLayer.getCell(robotLaserX, robotLaserY) == null) {
-                if (playerLayer.getCell(robotLaserX, robotLaserY) != null) {
-                    IRobot victim = getRobotOnPos(new Vector2(robotLaserX, robotLaserY));
-                    if(victim != null)
-                        victim.takeDamage();
-                }
-                if (canGo(robot.getPos(), robot.getDirection())) {
-                    robotLaserX++;
-                }
+        while (boardLayer.getCell((int) nextPos.x, (int) nextPos.y) != null) {
+            IRobot victim = getRobotOnPos(nextPos);
+            if(victim != null) {
+                System.out.println(victim.getName() + " has taken damage!");
+                victim.takeDamage();
             }
-        }
-        else if (robot.getDirection() == WEST) {
-            robotLaserX--;
-            while (boardLayer.getCell(robotLaserX, robotLaserY) == null) {
-                if (playerLayer.getCell(robotLaserX, robotLaserY) != null) {
-                    IRobot victim = getRobotOnPos(new Vector2(robotLaserX, robotLaserY));
-                    if(victim != null)
-                        victim.takeDamage();
-                }
-                if (canGo(robot.getPos(), robot.getDirection())) {
-                    robotLaserX--;
-                }
-            }
-        }
-        else if (robot.getDirection() == SOUTH) {
-            robotLaserY--;
-            while (boardLayer.getCell(robotLaserX, robotLaserY) == null) {
-                if (playerLayer.getCell(robotLaserX, robotLaserY) != null) {
-                    IRobot victim = getRobotOnPos(new Vector2(robotLaserX, robotLaserY));
-                    if(victim != null)
-                        victim.takeDamage();
-                }
-                if (canGo(robot.getPos(), robot.getDirection())) {
-                    robotLaserY--;
-                }
-            }
-        }
-        else if (robot.getDirection() == NORTH) {
-            robotLaserY++;
-            while (boardLayer.getCell(robotLaserX, robotLaserY) == null) {
-                if (playerLayer.getCell(robotLaserX, robotLaserY) != null) {
-                    IRobot victim = getRobotOnPos(new Vector2(robotLaserX, robotLaserY));
-                    if(victim != null)
-                        victim.takeDamage();
-                }
-                if (canGo(robot.getPos(), robot.getDirection())) {
-                    robotLaserY--;
-                }
+            if (canGo(nextPos, robot.getDirection())) {
+                nextPos = getPosInDirection(nextPos, robot.getDirection());
             }
         }
     }
@@ -353,12 +310,14 @@ public class GameLogic {
                 pickUpFlag(player);
                 changeDirOnGear(player);
                 conveyorBelts(player);
+                activateLasers(robot);
             }
         } else {
             GameScreen.getInstance().unrenderRobot(robot);
             pickUpFlag(robot);
             changeDirOnGear(robot);
             conveyorBelts(robot);
+            activateLasers(robot);
         }
         GameScreen.getInstance().renderRobot(robot);
     }

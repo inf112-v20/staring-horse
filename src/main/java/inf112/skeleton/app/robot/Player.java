@@ -125,9 +125,11 @@ public class Player implements IRobot {
 
     @Override
     public void respawn(){
+        GameScreen.getInstance().unrenderRobot(this);
         System.out.println("Respawning player");
         this.direction = respawnDirection;
         this.pos = respawnPos;
+        GameScreen.getInstance().renderRobot(this);
     }
 
     @Override
@@ -310,6 +312,8 @@ public class Player implements IRobot {
     @Override
     public void takeDamage() {
         this.healthPoints--;
+        if (this.healthPoints <= 0)
+            killRobot();
     }
 
     @Override
