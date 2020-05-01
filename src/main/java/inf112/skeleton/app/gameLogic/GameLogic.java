@@ -50,8 +50,8 @@ public class GameLogic {
         return "";
     }
 
-    public void activateLasers(IRobot robot) {
-        Vector2 nextPos = getPosInDirection(robot.getPos(), robot.getDirection());
+    public void activateLasersFromPos(Vector2 pos, Direction dir) {
+        Vector2 nextPos = getPosInDirection(pos, dir);
 
         TiledMapTileLayer boardLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Board");
 
@@ -61,8 +61,8 @@ public class GameLogic {
                 System.out.println(victim.getName() + " has taken damage!");
                 victim.takeDamage();
             }
-            if (canGo(nextPos, robot.getDirection())) {
-                nextPos = getPosInDirection(nextPos, robot.getDirection());
+            if (canGo(nextPos, dir)) {
+                nextPos = getPosInDirection(nextPos, dir);
             }
         }
     }
@@ -310,14 +310,14 @@ public class GameLogic {
                 pickUpFlag(player);
                 changeDirOnGear(player);
                 conveyorBelts(player);
-                activateLasers(robot);
+                activateLasersFromPos(robot.getPos(), robot.getDirection());
             }
         } else {
             GameScreen.getInstance().unrenderRobot(robot);
             pickUpFlag(robot);
             changeDirOnGear(robot);
             conveyorBelts(robot);
-            activateLasers(robot);
+            activateLasersFromPos(robot.getPos(), robot.getDirection());
         }
         GameScreen.getInstance().renderRobot(robot);
     }
