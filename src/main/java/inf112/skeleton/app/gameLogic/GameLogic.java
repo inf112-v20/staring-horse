@@ -35,7 +35,7 @@ public class GameLogic {
         return SINGLE_INSTANCE;
     }
 
-    public String getObjectNameOnXandY(TiledMap tiledMap, Vector2 pos) {
+    public String getObjectNameOnPos(TiledMap tiledMap, Vector2 pos) {
         for (MapLayer layer : tiledMap.getLayers()) {
             for (MapObject obj : tiledMap.getLayers().get(layer.getName()).getObjects()) {
                 Rectangle rect = ((RectangleMapObject) obj).getRectangle();
@@ -64,6 +64,9 @@ public class GameLogic {
             if (canGo(nextPos, dir)) {
                 nextPos = getPosInDirection(nextPos, dir);
             }
+            else {
+                break;
+            }
         }
     }
 
@@ -80,31 +83,13 @@ public class GameLogic {
     }
 
     public boolean canGo(Vector2 pos, Direction dir) {
-        String objectName = getObjectNameOnXandY(tiledMap, pos);
-        if (canGoCurrentTile(pos, objectName, dir)) {
+        String objectName = getObjectNameOnPos(tiledMap, pos);
+        if (canGoCurrentTile(objectName, dir)) {
             Vector2 nextPos = Direction.getPosInDirection(pos,dir);
-            objectName = getObjectNameOnXandY(tiledMap, nextPos);
-            switch (dir) {
-                case SOUTH:
-                    if (objectName.equals("NorthWall")) {
-                        return false;
-                    }
-                    break;
-                case WEST:
-                    if (objectName.equals("EastWall")) {
-                        return false;
-                    }
-                    break;
-                case EAST:
-                    if (objectName.equals("WestWall")) {
-                        return false;
-                    }
-                    break;
-                case NORTH:
-                    if (objectName.equals("SouthWall")) {
-                        return false;
-                    }
-                    break;
+            objectName = getObjectNameOnPos(tiledMap, nextPos);
+
+            if (objectName.contains("Wall")) {
+                return !objectName.toUpperCase().contains(Direction.oppositeOf(dir).toString().toUpperCase());
             }
         }
         else {
@@ -113,28 +98,9 @@ public class GameLogic {
         return true;
     }
 
-    public boolean canGoCurrentTile(Vector2 pos, String currentObjectName, Direction dir) {
-        switch (currentObjectName) {
-            case "SouthWall":
-                if (dir == SOUTH) {
-                    return false;
-                }
-                break;
-            case "WestWall":
-                if (dir == WEST) {
-                    return false;
-                }
-                break;
-            case "EastWall":
-                if (dir == EAST) {
-                    return false;
-                }
-                break;
-            case "NorthWall":
-                if (dir == NORTH) {
-                    return false;
-                }
-                break;
+    public boolean canGoCurrentTile(String currentObjectName, Direction dir) {
+        if (currentObjectName.contains("Wall")) {
+            return !currentObjectName.toUpperCase().contains(dir.toString().toUpperCase());
         }
         return true;
     }
@@ -148,7 +114,7 @@ public class GameLogic {
      */
 
     public void pickUpFlag(IRobot robot) {
-        String objectName = getObjectNameOnXandY(tiledMap, robot.getPos());
+        String objectName = getObjectNameOnPos(tiledMap, robot.getPos());
         if(objectName != null && objectName.contains("flag")){
             robot.addFlag(objectName);
         }
@@ -159,7 +125,7 @@ public class GameLogic {
      * @param robot robot
      */
     public void changeDirOnGear(IRobot robot) {
-        String objectName = getObjectNameOnXandY(tiledMap, robot.getPos());
+        String objectName = getObjectNameOnPos(tiledMap, robot.getPos());
         switch (objectName) {
             case "clockwise":
                 robot.rotateClockwise();
@@ -190,7 +156,7 @@ public class GameLogic {
             for (int y = 0; y < flagLayer.getHeight(); y++)
                 if (flagLayer.getCell(x, y) != null) {
                     Vector2 pos = new Vector2(x,y);
-                    String flagName = getObjectNameOnXandY(tiledMap,pos);
+                    String flagName = getObjectNameOnPos(tiledMap,pos);
                     flagPosHashMap.put(flagName,pos);
                     flags.add(flagName);
                 }
@@ -210,13 +176,13 @@ public class GameLogic {
     }
 
     public void conveyorBelts(IRobot robot) {
-        String conveyor = getObjectNameOnXandY(tiledMap, robot.getPos());
+        String conveyor = getObjectNameOnPos(tiledMap, robot.getPos());
         if (conveyor.contains("Conveyor")) {
             Direction dir = getConveyorDir(conveyor);
             moveConveyor(robot,conveyor,dir);
             robot.setCameFromConveyor(true);
 
-            String endConveyor = getObjectNameOnXandY(tiledMap, robot.getPos());
+            String endConveyor = getObjectNameOnPos(tiledMap, robot.getPos());
             // check if the tile you end up on is a corner conveyor.
             if (endConveyor.contains("Rotate") || getConveyorDir(endConveyor) != dir) {
                 rotateConveyor(robot,endConveyor);
@@ -263,7 +229,7 @@ public class GameLogic {
     public void moveConveyor(IRobot robot, String conveyor, Direction dir) {
         if (conveyor.contains("Express_Conveyor")) {
             robot.moveOne(dir);
-            String currentExpressConveyor = getObjectNameOnXandY(tiledMap, robot.getPos());
+            String currentExpressConveyor = getObjectNameOnPos(tiledMap, robot.getPos());
             if (currentExpressConveyor.contains("Conveyor")) {
                 robot.setCameFromConveyor(true); // should probably be replaced with something more robust.
                 // check if the next tile is a corner.
