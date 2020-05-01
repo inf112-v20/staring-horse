@@ -57,6 +57,23 @@ public class GameLogic {
         return "";
     }
 
+    public void activateWallLasers(ArrayList<Vector2> wallLaserList) {
+        for (Vector2 pos : wallLaserList) {
+            String wallName = getObjectNameOnPos(tiledMap, pos);
+            Vector2 newPos = pos;
+            if (wallName.contains("West")) {
+                newPos.sub(1,0);
+                activateLasersFromPos(newPos, Direction.oppositeOf(WEST));
+                continue;
+            }
+            else if (wallName.contains("South")) {
+                newPos.add(0,1);
+                activateLasersFromPos(newPos, Direction.oppositeOf(NORTH));
+                continue;
+            }
+        }
+    }
+
     public void activateLasersFromPos(Vector2 pos, Direction dir) {
         Vector2 nextPos = getPosInDirection(pos, dir);
 
@@ -64,7 +81,7 @@ public class GameLogic {
 
         while (boardLayer.getCell((int) nextPos.x, (int) nextPos.y) != null) {
             IRobot victim = getRobotOnPos(nextPos);
-            if(victim != null) {
+            if(victim != null && victim.isAlive()) {
                 System.out.println(victim.getName() + " has taken damage!");
                 victim.takeDamage();
             }
@@ -173,16 +190,18 @@ public class GameLogic {
     /**
      * @return an ArrayList<Vector2> containing all SpawnPoints.
      */
-    public ArrayList<Vector2> getAllRespawnPointPositions() {
-        TiledMapTileLayer respawnObjects = (TiledMapTileLayer) tiledMap.getLayers().get("SpawnPoint");
-        ArrayList<Vector2> spawnPointList = new ArrayList<>();
+    public ArrayList<Vector2> getAllPositionsFromObjectName(String layerName) {
+        TiledMapTileLayer layers = (TiledMapTileLayer) tiledMap.getLayers().get(layerName);
+        ArrayList<Vector2> posList = new ArrayList<>();
 
-        for (int x = 0; x < respawnObjects.getWidth(); x++)
-            for (int y = 0; y < respawnObjects.getHeight(); y++)
-                if (respawnObjects.getCell(x, y) != null) {
-                    spawnPointList.add(new Vector2(x,y));
+        for (int x = 0; x < layers.getWidth(); x++) {
+            for (int y = 0; y < layers.getHeight(); y++) {
+                if (layers.getCell(x, y) != null) {
+                    posList.add(new Vector2(x, y));
                 }
-        return spawnPointList;
+            }
+        }
+        return posList;
     }
 
     /**
