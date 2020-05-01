@@ -35,6 +35,13 @@ public class GameLogic {
         return SINGLE_INSTANCE;
     }
 
+    /**
+     * Checks each layer on the given pos and returns the first objectName it finds.
+     * Maybe change it so it collects all objectNames on the map and returns an list of them.
+     * @param tiledMap Tiledmap
+     * @param pos Vector2
+     * @return the objectName on the pos
+     */
     public String getObjectNameOnPos(TiledMap tiledMap, Vector2 pos) {
         for (MapLayer layer : tiledMap.getLayers()) {
             for (MapObject obj : tiledMap.getLayers().get(layer.getName()).getObjects()) {
@@ -163,6 +170,9 @@ public class GameLogic {
         return flagPosHashMap;
     }
 
+    /**
+     * @return an ArrayList<Vector2> containing all SpawnPoints.
+     */
     public ArrayList<Vector2> getAllRespawnPointPositions() {
         TiledMapTileLayer respawnObjects = (TiledMapTileLayer) tiledMap.getLayers().get("SpawnPoint");
         ArrayList<Vector2> spawnPointList = new ArrayList<>();
@@ -175,6 +185,10 @@ public class GameLogic {
         return spawnPointList;
     }
 
+    /**
+     * Moves and rotates the input robot if it's on a conveyor.
+     * @param robot IRobot
+     */
     public void conveyorBelts(IRobot robot) {
         String conveyor = getObjectNameOnPos(tiledMap, robot.getPos());
         if (conveyor.contains("Conveyor")) {
@@ -193,7 +207,6 @@ public class GameLogic {
     }
 
     /**
-     *
      * @param conveyor name of object tile.
      * @return direction of the conveyor.
      */
@@ -214,14 +227,6 @@ public class GameLogic {
 
     /**
      * Moves the robot in the direction of the conveyor the robot is standing on.
-     * OBS!
-     * If a conveyor belt would move a
-     * robot into a non-conveyor belt space where another robot sits,
-     * the robot in motion must stop on the last space of the conveyor belt.
-     * It does not push the robot in its way.
-     * OBS!!
-     * Both robots would end their move on the same conveyor belt space.
-     * In this rare instance, both robots stay where they are.
      * @param robot IRobot
      * @param conveyor name of object tile
      * @param dir Direction
@@ -247,9 +252,6 @@ public class GameLogic {
     }
 
     /**
-     * when a robot lands on a rotate conveyor and should rotate. it rotates before it does anything else.
-     * so at the end of a phase after a conveyor has pushed the robot onto the rotate conveyor it should
-     * rotate the robot. --|
      * Rotates the robot clockwise or counterclockwise depending on the
      * corresponding conveyor.
      * @param robot IRobot
@@ -268,6 +270,12 @@ public class GameLogic {
         }
     }
 
+    /**
+     * Executes the events that happens at the end of a phase
+     * for the given robot.
+     * Should probably just do it for all robots from the get go
+     * @param robot IRobot
+     */
     public void endOfPhaseCheck(IRobot robot) {
         if (robot instanceof Player) {
             GameScreen.getInstance().unrenderRobot(robot);
