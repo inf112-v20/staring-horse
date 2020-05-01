@@ -1,6 +1,6 @@
 # INF112 Robo Rally
 ##  How to build the game
-    *   Have java sdk 8 or higher, maven and git installed
+    *   Have java jdk 8 or higher, maven and git installed
     *   Clone the repository 
     *   Navigate to it and run mvn clean install (this will run all the unit tests)
     *   Navigate to the Target folder and run the Roborally0.4.0.jar file.
