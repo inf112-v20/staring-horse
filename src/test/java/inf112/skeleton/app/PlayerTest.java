@@ -1,5 +1,6 @@
 package inf112.skeleton.app;
 
+import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.enums.Direction;
 import inf112.skeleton.app.robot.Player;
 import org.junit.Before;
@@ -17,13 +18,12 @@ public class PlayerTest {
     public void before(){
         testPlayer = new Player();
         testPlayer.setToTestRobot();
-        testPlayer.setRespawnPoint(13,13);
-        startX = testPlayer.getXPos();
-        startY = testPlayer.getYPos();
+        testPlayer.setRespawnPoint(new Vector2(13,13));
+        startX = (int) testPlayer.getPos().x;
+        startY = (int) testPlayer.getPos().y;
         startDirection = Direction.NORTH;
 
-        testPlayer.setYPos(startY);
-        testPlayer.setXPos(startX);
+        testPlayer.setPos(new Vector2(startX,startY));
         testPlayer.setDirection(startDirection);
     }
 

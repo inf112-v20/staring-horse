@@ -72,15 +72,17 @@ public enum Direction {
      * @return Vector2 position
      */
     public static Vector2 getPosInDirection(Vector2 pos, Direction dir){
+        // copy of pos so that it does not change the original position's value
+        Vector2 posCopy = pos.cpy();
         switch (dir) {
             case WEST:
-                return pos.sub(1,0);
+                return posCopy.sub(1,0);
             case SOUTH:
-                return pos.sub(0,1);
+                return posCopy.sub(0,1);
             case EAST:
-                return pos.add(1,0);
+                return posCopy.add(1,0);
             case NORTH:
-                return pos.add(0,1);
+                return posCopy.add(0,1);
         }
 
         return pos;

@@ -1,6 +1,8 @@
 package inf112.skeleton.app.robot;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.math.Vector;
+import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.enums.Direction;
 import inf112.skeleton.app.programCard.ProgramCard;
 
@@ -74,20 +76,24 @@ public interface IRobot {
      */
     TextureRegion getTexture();
 
+    void setPos(Vector2 pos);
+
+    Vector2 getPos();
+
+    int getXPos();
+
+    int getYPos();
+
     void setXPos(int x);
 
     void setYPos(int y);
 
-    int getYPos();
-
-    int getXPos();
-
-    void setRespawnPoint(int x, int y);
+    void setRespawnPoint(Vector2 pos);
 
     /**
      * @return true if robot is out of lives and false otherwise
      */
-    boolean isDead();
+    boolean isAlive();
 
     void setToTestRobot();
 

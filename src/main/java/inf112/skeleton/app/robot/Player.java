@@ -13,18 +13,16 @@ import inf112.skeleton.app.screen.GameScreen;
 
 public class Player implements IRobot {
 
-    private int xPos;
-    private int yPos;
+    private Vector2 pos;
     private Direction direction;
 
-    private int respawnXPos;
-    private int respawnYPos;
+    private Vector2 respawnPos;
     private Direction respawnDirection;
 
     private int healthPoints;
     private int fullHealthPoints;
     private int lives;
-    private boolean isDead;
+    private boolean isAlive;
 
     private ProgramCardAction previousAction;
 
@@ -55,6 +53,8 @@ public class Player implements IRobot {
         this.healthPoints = fullHealthPoints;
         this.lives = 3;
         this.cameFromConveyor = false;
+
+        this.isAlive = true;
     }
 
 
@@ -90,18 +90,17 @@ public class Player implements IRobot {
 
     @Override
     public void moveOne(Direction dir){
-        if (!this.isTestRobot && !GameLogic.getInstance().canGo(new Vector2(getXPos(),getYPos()), dir)) {
+        if (!this.isTestRobot && !GameLogic.getInstance().canGo(pos, dir)) {
             System.out.println("Player can't go");
         }else{
             if(!this.isTestRobot) {
-                GameLogic.getInstance().pushIfPossible(getXPos(), getYPos(), dir);
+                GameLogic.getInstance().pushIfPossible(this.pos, dir);
             }
-            Vector2 nextPos = Direction.getPosInDirection(new Vector2(getXPos(),getYPos()), dir);
-            setXPos((int)nextPos.x);
-            setYPos((int)nextPos.y);
+            Vector2 nextPos = Direction.getPosInDirection(this.pos, dir);
+            setPos(nextPos);
         }
 
-        if(!this.isTestRobot && GameLogic.getInstance().isHole(this.xPos, this.yPos)){
+        if(!this.isTestRobot && GameLogic.getInstance().isHole(this.pos)){
             killRobot();
         }
 
@@ -114,7 +113,7 @@ public class Player implements IRobot {
         this.lives--;
         if(this.lives <= 0){
             System.out.println("PLAYER IS OUT OF LIVES!");
-            isDead = true;
+            isAlive = false;
             GameScreen.getInstance().onlyOneRobotLeftCheck();
             RoboRally.getInstance().setMenuScreen();
         } else {
@@ -126,10 +125,9 @@ public class Player implements IRobot {
 
     @Override
     public void respawn(){
-        System.out.println("Respawning robot");
+        System.out.println("Respawning player");
         this.direction = respawnDirection;
-        this.xPos = respawnXPos;
-        this.yPos = respawnYPos;
+        this.pos = respawnPos;
     }
 
     @Override
@@ -282,20 +280,32 @@ public class Player implements IRobot {
     }
 
     @Override
+    public void setPos(Vector2 pos){
+        this.pos = pos;
+    }
+
+    @Override
+    public Vector2 getPos() { return pos; }
+
+    @Override
+    public int getXPos() {
+        return (int) pos.x;
+    }
+
+    @Override
+    public int getYPos() {
+        return (int) pos.y;
+    }
+
+    @Override
     public void setXPos(int x) {
-        this.xPos = x;
+        this.setPos(new Vector2(x, this.getYPos()));
     }
 
     @Override
     public void setYPos(int y) {
-        this.yPos = y;
+        this.setPos(new Vector2(this.getXPos(), y));
     }
-
-    @Override
-    public int getYPos() { return yPos; }
-
-    @Override
-    public int getXPos() { return xPos; }
 
     @Override
     public void takeDamage() {
@@ -303,16 +313,14 @@ public class Player implements IRobot {
     }
 
     @Override
-    public void setRespawnPoint(int x, int y) {
-        respawnXPos = x;
-        respawnYPos = y;
-        setXPos(respawnXPos);
-        setYPos(respawnYPos);
+    public void setRespawnPoint(Vector2 pos) {
+        this.respawnPos = pos;
+        setPos(respawnPos);
     }
 
     @Override
-    public boolean isDead() {
-        return isDead;
+    public boolean isAlive() {
+        return this.isAlive;
     }
 
     @Override

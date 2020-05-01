@@ -35,8 +35,7 @@ public enum ProgramCardAction {
      */
     public static ProgramCardAction getRandomMoveForwardProgramCardAction(){
         ProgramCardAction[] moveProgramCardActions = {MOVE_ONE, MOVE_TWO, MOVE_THREE};
-        //return moveProgramCardActions[RANDOM.nextInt(moveProgramCardActions.length)];
-        return MOVE_ONE;
+        return moveProgramCardActions[RANDOM.nextInt(moveProgramCardActions.length)];
     }
 
     public static Vector2 getPositionAfterProgramCardAction(Vector2 pos, Direction dir, ProgramCardAction action) {

@@ -12,12 +12,10 @@ import inf112.skeleton.app.screen.GameScreen;
 public class AI implements IRobot {
 
     private int id;
-    private int xPos;
-    private int yPos;
+    private Vector2 pos;
     private Direction direction;
 
-    private int respawnXPos;
-    private int respawnYPos;
+    private Vector2 respawnPos;
     private Direction respawnDirection;
 
     private int healthPoints;
@@ -34,7 +32,7 @@ public class AI implements IRobot {
 
     // amount of AI-robots made used for giving robots unique ID/name
     private static int aiNumber;
-    private boolean isDead;
+    private boolean isAlive;
     private int flag;
     private boolean cameFromConveyor;
 
@@ -50,6 +48,8 @@ public class AI implements IRobot {
         this.id = ++aiNumber;
 
         this.hand = new ProgramCard[5];
+
+        this.isAlive = true;
     }
 
     /**
@@ -71,13 +71,13 @@ public class AI implements IRobot {
             ProgramCard randomProgramCard;
             Vector2 nextPos;
             do {
+
                 randomProgramCard = new ProgramCard();
-                nextPos = ProgramCardAction.getPositionAfterProgramCardAction(
-                        new Vector2(this.getXPos(),this.getYPos()),
-                        this.getDirection(),
+                nextPos = ProgramCardAction.getPositionAfterProgramCardAction(this.pos, this.getDirection(),
                         randomProgramCard.getAction());
-            } while(GameLogic.getInstance().isHole((int)nextPos.x,(int)nextPos.y) ||
-                    getDistanceBetweenPositions(new Vector2(this.getXPos(),this.getYPos()), nextFlagPos) <
+
+            } while(GameLogic.getInstance().isHole(nextPos) ||
+                    getDistanceBetweenPositions(this.pos, nextFlagPos) <
                     getDistanceBetweenPositions(nextPos, nextFlagPos));
 
             hand[i] = randomProgramCard;
@@ -135,17 +135,17 @@ public class AI implements IRobot {
 
     @Override
     public void moveOne(Direction dir){
-        if (!this.isTestRobot && !GameLogic.getInstance().canGo(new Vector2(getXPos(),getYPos()), dir)) {
+        if (!this.isTestRobot && !GameLogic.getInstance().canGo(pos, dir)) {
             System.out.println(this.getName() + " can't go");
         }else{
-            if(!this.isTestRobot)
-                GameLogic.getInstance().pushIfPossible(getXPos(),getYPos(), dir);
-            Vector2 nextPos = Direction.getPosInDirection(new Vector2(getXPos(),getYPos()), dir);
-            setXPos((int)nextPos.x);
-            setYPos((int)nextPos.y);
+            if(!this.isTestRobot) {
+                GameLogic.getInstance().pushIfPossible(this.pos, dir);
+            }
+            Vector2 nextPos = Direction.getPosInDirection(this.pos, dir);
+            setPos(nextPos);
         }
 
-        if(!this.isTestRobot && GameLogic.getInstance().isHole(this.xPos, this.yPos)){
+        if(!this.isTestRobot && GameLogic.getInstance().isHole(this.pos)){
             killRobot();
         }
 
@@ -157,9 +157,9 @@ public class AI implements IRobot {
     public void killRobot() {
         this.lives--;
         if(this.lives <= 0){
-            if(!isDead)
+            if(isAlive)
                 System.out.println(this.getName() + " IS OUT OF LIVES!");
-            isDead = true;
+            isAlive = false;
             GameScreen.getInstance().onlyOneRobotLeftCheck();
         } else {
             System.out.println(this.getName() + ": " + lives + " lives left");
@@ -169,10 +169,9 @@ public class AI implements IRobot {
 
     @Override
     public void respawn(){
-        System.out.println("Respawning robot...");
+        System.out.println("Respawning robot");
         this.direction = respawnDirection;
-        this.xPos = respawnXPos;
-        this.yPos = respawnYPos;
+        this.pos = respawnPos;
     }
 
     @Override
@@ -249,20 +248,32 @@ public class AI implements IRobot {
     }
 
     @Override
+    public void setPos(Vector2 pos) {
+        this.pos = pos;
+    }
+
+    @Override
+    public Vector2 getPos() { return pos; }
+
+    @Override
+    public int getXPos() {
+        return (int) pos.x;
+    }
+
+    @Override
+    public int getYPos() {
+        return (int) pos.y;
+    }
+
+    @Override
     public void setXPos(int x) {
-        this.xPos = x;
+        this.setPos(new Vector2(x, this.getYPos()));
     }
 
     @Override
     public void setYPos(int y) {
-        this.yPos = y;
+        this.setPos(new Vector2(this.getXPos(), y));
     }
-
-    @Override
-    public int getYPos() { return yPos; }
-
-    @Override
-    public int getXPos() { return xPos; }
 
     @Override
     public void takeDamage() {
@@ -270,16 +281,14 @@ public class AI implements IRobot {
     }
 
     @Override
-    public void setRespawnPoint(int x, int y) {
-        respawnXPos = x;
-        respawnYPos = y;
-        setXPos(respawnXPos);
-        setYPos(respawnYPos);
+    public void setRespawnPoint(Vector2 pos) {
+        this.respawnPos = pos;
+        setPos(respawnPos);
     }
 
     @Override
-    public boolean isDead() {
-        return isDead;
+    public boolean isAlive() {
+        return isAlive;
     }
 
     @Override

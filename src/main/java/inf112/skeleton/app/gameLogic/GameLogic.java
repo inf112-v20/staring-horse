@@ -51,8 +51,8 @@ public class GameLogic {
     }
 
     public void activateLasers(IRobot robot) {
-        int robotLaserX = robot.getXPos();
-        int robotLaserY = robot.getYPos();
+        int robotLaserX = (int) robot.getPos().x;
+        int robotLaserY = (int) robot.getPos().y;
         TiledMapTileLayer playerLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Player");
         TiledMapTileLayer boardLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Board");
 
@@ -60,12 +60,12 @@ public class GameLogic {
             robotLaserX++;
             while (boardLayer.getCell(robotLaserX, robotLaserY) == null) {
                 if (playerLayer.getCell(robotLaserX, robotLaserY) != null) {
-                    IRobot victim = getRobotOnPos(robotLaserX, robotLaserY);
-                    victim.takeDamage();
+                    IRobot victim = getRobotOnPos(new Vector2(robotLaserX, robotLaserY));
+                    if(victim != null)
+                        victim.takeDamage();
                 }
-                if (canGo(new Vector2(robot.getXPos(), robot.getYPos()), robot.getDirection())) {
+                if (canGo(robot.getPos(), robot.getDirection())) {
                     robotLaserX++;
-                    continue;
                 }
             }
         }
@@ -73,12 +73,12 @@ public class GameLogic {
             robotLaserX--;
             while (boardLayer.getCell(robotLaserX, robotLaserY) == null) {
                 if (playerLayer.getCell(robotLaserX, robotLaserY) != null) {
-                    IRobot victim = getRobotOnPos(robotLaserX, robotLaserY);
-                    victim.takeDamage();
+                    IRobot victim = getRobotOnPos(new Vector2(robotLaserX, robotLaserY));
+                    if(victim != null)
+                        victim.takeDamage();
                 }
-                if (canGo(new Vector2(robot.getXPos(), robot.getYPos()), robot.getDirection())) {
+                if (canGo(robot.getPos(), robot.getDirection())) {
                     robotLaserX--;
-                    continue;
                 }
             }
         }
@@ -86,12 +86,12 @@ public class GameLogic {
             robotLaserY--;
             while (boardLayer.getCell(robotLaserX, robotLaserY) == null) {
                 if (playerLayer.getCell(robotLaserX, robotLaserY) != null) {
-                    IRobot victim = getRobotOnPos(robotLaserX, robotLaserY);
-                    victim.takeDamage();
+                    IRobot victim = getRobotOnPos(new Vector2(robotLaserX, robotLaserY));
+                    if(victim != null)
+                        victim.takeDamage();
                 }
-                if (canGo(new Vector2(robot.getXPos(), robot.getYPos()), robot.getDirection())) {
+                if (canGo(robot.getPos(), robot.getDirection())) {
                     robotLaserY--;
-                    continue;
                 }
             }
         }
@@ -99,25 +99,26 @@ public class GameLogic {
             robotLaserY++;
             while (boardLayer.getCell(robotLaserX, robotLaserY) == null) {
                 if (playerLayer.getCell(robotLaserX, robotLaserY) != null) {
-                    IRobot victim = getRobotOnPos(robotLaserX, robotLaserY);
-                    victim.takeDamage();
+                    IRobot victim = getRobotOnPos(new Vector2(robotLaserX, robotLaserY));
+                    if(victim != null)
+                        victim.takeDamage();
                 }
-                if (canGo(new Vector2(robot.getXPos(), robot.getYPos()), robot.getDirection())) {
+                if (canGo(robot.getPos(), robot.getDirection())) {
                     robotLaserY--;
-                    continue;
                 }
             }
         }
     }
 
     /**
-     * @param x - x-position on screen
-     * @param y - y-position on screen
+     * @param pos - position on screen
      * @return true if position is a hole or is off the map
      */
-    public boolean isHole(int x, int y) {
+    public boolean isHole(Vector2 pos) {
         TiledMapTileLayer holeLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Hole");
         TiledMapTileLayer boardLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Board");
+        int x = (int) pos.x;
+        int y = (int) pos.y;
         return holeLayer.getCell(x,y) != null || boardLayer.getCell(x,y) == null;
     }
 
@@ -156,7 +157,6 @@ public class GameLogic {
     }
 
     public boolean canGoCurrentTile(Vector2 pos, String currentObjectName, Direction dir) {
-        Direction wallDirection;
         switch (currentObjectName) {
             case "SouthWall":
                 if (dir == SOUTH) {
@@ -191,9 +191,9 @@ public class GameLogic {
      */
 
     public void pickUpFlag(IRobot robot) {
-        String objectname = getObjectNameOnXandY(tiledMap, new Vector2(robot.getXPos(),robot.getYPos()));
-        if(objectname != null && objectname.contains("flag")){
-            robot.addFlag(objectname);
+        String objectName = getObjectNameOnXandY(tiledMap, robot.getPos());
+        if(objectName != null && objectName.contains("flag")){
+            robot.addFlag(objectName);
         }
     }
 
@@ -202,7 +202,7 @@ public class GameLogic {
      * @param robot robot
      */
     public void changeDirOnGear(IRobot robot) {
-        String objectName = getObjectNameOnXandY(tiledMap, new Vector2(robot.getXPos(),robot.getYPos()));
+        String objectName = getObjectNameOnXandY(tiledMap, robot.getPos());
         switch (objectName) {
             case "clockwise":
                 robot.rotateClockwise();
@@ -240,27 +240,26 @@ public class GameLogic {
         return flagPosHashMap;
     }
 
-    public ArrayList<Integer> getXAndYPosOfRespawnPoint() {
+    public ArrayList<Vector2> getAllRespawnPointPositions() {
         TiledMapTileLayer respawnObjects = (TiledMapTileLayer) tiledMap.getLayers().get("SpawnPoint");
-        ArrayList<Integer> spawnPointList = new ArrayList<>();
+        ArrayList<Vector2> spawnPointList = new ArrayList<>();
 
         for (int x = 0; x < respawnObjects.getWidth(); x++)
             for (int y = 0; y < respawnObjects.getHeight(); y++)
                 if (respawnObjects.getCell(x, y) != null) {
-                    spawnPointList.add(x);
-                    spawnPointList.add(y);
+                    spawnPointList.add(new Vector2(x,y));
                 }
         return spawnPointList;
     }
 
     public void conveyorBelts(IRobot robot) {
-        String conveyor = getObjectNameOnXandY(tiledMap, new Vector2(robot.getXPos(),robot.getYPos()));
+        String conveyor = getObjectNameOnXandY(tiledMap, robot.getPos());
         if (conveyor.contains("Conveyor")) {
             Direction dir = getConveyorDir(conveyor);
             moveConveyor(robot,conveyor,dir);
             robot.setCameFromConveyor(true);
 
-            String endConveyor = getObjectNameOnXandY(tiledMap, new Vector2(robot.getXPos(),robot.getYPos()));
+            String endConveyor = getObjectNameOnXandY(tiledMap, robot.getPos());
             // check if the tile you end up on is a corner conveyor.
             if (endConveyor.contains("Rotate") || getConveyorDir(endConveyor) != dir) {
                 rotateConveyor(robot,endConveyor);
@@ -307,7 +306,7 @@ public class GameLogic {
     public void moveConveyor(IRobot robot, String conveyor, Direction dir) {
         if (conveyor.contains("Express_Conveyor")) {
             robot.moveOne(dir);
-            String currentExpressConveyor = getObjectNameOnXandY(tiledMap, new Vector2(robot.getXPos(), robot.getYPos()));
+            String currentExpressConveyor = getObjectNameOnXandY(tiledMap, robot.getPos());
             if (currentExpressConveyor.contains("Conveyor")) {
                 robot.setCameFromConveyor(true); // should probably be replaced with something more robust.
                 // check if the next tile is a corner.
@@ -366,13 +365,12 @@ public class GameLogic {
 
     /**
      * Check position in direction and push robot in direction if there is a robot there
-     * @param x - pusher-robots original x position
-     * @param y - pusher-robots original y position
+     * @param pos - pusher-robots original Vector2 position
      * @param dir - push direction
      */
-    public void pushIfPossible(int x, int y, Direction dir){
-        Vector2 vector = Direction.getPosInDirection(new Vector2(x, y), dir);
-        IRobot otherRobot = getRobotOnPos((int)vector.x, (int)vector.y);
+    public void pushIfPossible(Vector2 pos, Direction dir){
+        Vector2 vector = Direction.getPosInDirection(pos, dir);
+        IRobot otherRobot = getRobotOnPos(vector);
 
         if(otherRobot != null){
             GameScreen.getInstance().unrenderRobot(otherRobot);
@@ -382,13 +380,12 @@ public class GameLogic {
     }
 
     /**
-     * @param x - x position
-     * @param y - y position
+     * @param pos - Vector2 position
      * @return IRobot-object on position or null if there is no robot on position
      */
-    private IRobot getRobotOnPos(int x, int y){
+    private IRobot getRobotOnPos(Vector2 pos){
         for(IRobot robot:GameScreen.getInstance().getRobots()){
-            if(robot.getXPos() == x && robot.getYPos() == y){
+            if(robot.getPos().equals(pos)){
                 return robot;
             }
         }

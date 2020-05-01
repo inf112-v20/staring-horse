@@ -1,5 +1,6 @@
 package inf112.skeleton.app;
 
+import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.enums.Direction;
 import inf112.skeleton.app.enums.ProgramCardAction;
 import inf112.skeleton.app.robot.Player;
@@ -23,8 +24,7 @@ public class ProgramCardTest {
         startY = 2;
         startDir = Direction.NORTH;
 
-        testPlayer.setXPos(startX);
-        testPlayer.setYPos(startY);
+        testPlayer.setPos(new Vector2(startX,startY));
         testPlayer.setDirection(startDir);
     }
 

@@ -9,6 +9,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -71,9 +72,8 @@ public class GameScreen extends InputAdapter implements Screen {
         tiledMap = new TmxMapLoader().load("Maps/backgroundTest.tmx");
         camera = new OrthographicCamera();
 
-        ArrayList<Integer> respawnPoints = GameLogic.getInstance().getXAndYPosOfRespawnPoint();
+        ArrayList<Vector2> respawnPoints = GameLogic.getInstance().getAllRespawnPointPositions();
         player = new Player();
-        player.setRespawnPoint(respawnPoints.get(0), respawnPoints.get(1));
 
         playerCell = new TiledMapTileLayer.Cell();
 
@@ -91,7 +91,6 @@ public class GameScreen extends InputAdapter implements Screen {
 
         for(int i = 0; i < aiNumber; i++){
             AI newAI = new AI();
-            newAI.setRespawnPoint(respawnPoints.get(2+(i*2)),respawnPoints.get(3+(i*2)));
 
             TiledMapTileLayer.Cell aiCell = new TiledMapTileLayer.Cell();
             aiCell.setTile(new StaticTiledMapTile(newAI.getTexture()));
@@ -99,7 +98,6 @@ public class GameScreen extends InputAdapter implements Screen {
             robotCellHashMap.put(newAI, aiCell);
             aiList.add(newAI);
         }
-
 
         // create a stage for image buttons.
         stage = new Stage(new FitViewport(900,900, camera));
@@ -123,9 +121,17 @@ public class GameScreen extends InputAdapter implements Screen {
         gameLoop = new GameLoop(player, aiList, this);
         gameLoop.startNewRound();
 
+        setAllRespawnPoints(respawnPoints);
+
         renderRobot(player);
         for(IRobot ai:aiList){
             renderRobot(ai);
+        }
+    }
+
+    private void setAllRespawnPoints(ArrayList<Vector2> respawnPoints) {
+        for (int i = 0; i < getRobots().size(); i++) {
+            getRobots().get(i).setRespawnPoint(respawnPoints.get(i));
         }
     }
 
@@ -156,7 +162,7 @@ public class GameScreen extends InputAdapter implements Screen {
         ArrayList<IRobot> livingRobots = new ArrayList<>();
 
         for(IRobot robot:getRobots()){
-            if(!robot.isDead())
+            if(robot.isAlive())
                 livingRobots.add(robot);
         }
 
@@ -300,13 +306,13 @@ public class GameScreen extends InputAdapter implements Screen {
     }
 
     public void unrenderRobot(IRobot robot) {
-        playerLayer.setCell(robot.getXPos(), robot.getYPos(), null);
+        playerLayer.setCell((int) robot.getPos().x, (int) robot.getPos().y, null);
     }
 
     public void renderRobot(IRobot robot){
-        if(!robot.isDead()) {
+        if(robot.isAlive()) {
             updateRobotRotation(robot);
-            playerLayer.setCell(robot.getXPos(), robot.getYPos(), robotCellHashMap.get(robot));
+            playerLayer.setCell((int) robot.getPos().x, (int) robot.getPos().y, robotCellHashMap.get(robot));
         }
     }
 
@@ -386,9 +392,11 @@ public class GameScreen extends InputAdapter implements Screen {
     }
 
     public ArrayList<IRobot> getRobots(){
-        // check this cast maybe idk ok bye :)
-        ArrayList<IRobot> robots = (ArrayList<IRobot>) aiList.clone();
-        robots.add(0, player);
+        ArrayList<IRobot> robots = new ArrayList<>();
+
+        robots.add(player);
+        robots.addAll(aiList);
+
         return robots;
     }
 }

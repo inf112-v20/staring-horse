@@ -1,8 +1,6 @@
 package inf112.skeleton.app.gameLogic;
 
-import inf112.skeleton.app.RoboRally;
 import inf112.skeleton.app.robot.AI;
-import inf112.skeleton.app.robot.IRobot;
 import inf112.skeleton.app.robot.Player;
 import inf112.skeleton.app.screen.GameScreen;
 
@@ -44,7 +42,7 @@ public class GameLoop {
             for(AI ai:aiList){
                 //ai.executeRandomProgramCardAction();
 
-                if(!ai.isDead())
+                if(ai.isAlive())
                     ai.executeCardInHand(phase);
             }
 
