@@ -30,7 +30,7 @@ public class MainMenuScreen implements Screen {
         table.setDebug(true);
         stage.addActor(table);
 
-        Skin skin = new Skin(Gdx.files.internal("assets/skin/star-soldier-ui.json"));
+        Skin skin = new Skin(Gdx.files.classpath("skin/star-soldier-ui.json"));
 
         TextButton newGame = new TextButton("New Game", skin);
         TextButton exit = new TextButton("Exit", skin);
