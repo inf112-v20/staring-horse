@@ -184,15 +184,6 @@ public class Player implements IRobot {
         if (action != ProgramCardAction.AGAIN) {
             this.previousAction = action;
         }
-
-        /*
-        // TODO move this into GameLoop and do after all the robots has moved.
-        if (!this.isTestPlayer) {
-            GameLogic.getInstance().pickUpFlag(this);
-            GameLogic.getInstance().changeDirOnGear(this);
-        }
-        */
-
     }
 
     @Override
