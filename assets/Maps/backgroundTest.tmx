@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.4" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="25" height="25" tilewidth="300" tileheight="300" infinite="0" nextlayerid="22" nextobjectid="106">
+<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="25" height="25" tilewidth="300" tileheight="300" infinite="0" nextlayerid="22" nextobjectid="106">
  <tileset firstgid="1" source="tiles.tsx"/>
  <tileset firstgid="137" source="Background.tsx"/>
  <layer id="5" name="Background" width="25" height="25">
@@ -321,7 +321,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="17" name="ConveyorObjects" visible="0">
+ <objectgroup id="17" name="ConveyorObjects">
   <object id="48" name="Express_Conveyor_To_North" x="4800" y="2400" width="300" height="300"/>
   <object id="50" name="Express_Conveyor_To_North" x="4800" y="2100" width="300" height="300"/>
   <object id="51" name="Express_Conveyor_To_North" x="4800" y="1800" width="300" height="300"/>
@@ -355,10 +355,10 @@
   <object id="101" name="Conveyor_To_West" x="3000" y="3300" width="300" height="300"/>
  </objectgroup>
  <objectgroup id="15" name="gearObjects">
-  <object id="38" name="counterclockwise" x="3900" y="1200" width="300" height="300"/>
-  <object id="39" name="clockwise" x="3000" y="900" width="300" height="300"/>
-  <object id="40" name="counterclockwise" x="3300" y="3900" width="300" height="300"/>
-  <object id="41" name="clockwise" x="5100" y="3600" width="300" height="300"/>
+  <object id="38" name="Counter_Clockwise" x="3900" y="1200" width="300" height="300"/>
+  <object id="39" name="Clockwise" x="3000" y="900" width="300" height="300"/>
+  <object id="40" name="Counter_Clockwise" x="3300" y="3900" width="300" height="300"/>
+  <object id="41" name="Clockwise" x="5100" y="3600" width="300" height="300"/>
  </objectgroup>
  <objectgroup id="16" name="respawnObjects">
   <object id="43" name="respawn1" x="3000" y="2400" width="300" height="300"/>

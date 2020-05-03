@@ -85,10 +85,10 @@ public class GameLogic {
                 System.out.println(victim.getName() + " has taken damage!");
                 victim.takeDamage();
             }
+
             if (canGo(nextPos, dir)) {
                 nextPos = getPosInDirection(nextPos, dir);
-            }
-            else {
+            } else {
                 break;
             }
         }
@@ -139,7 +139,7 @@ public class GameLogic {
 
     public void pickUpFlag(IRobot robot) {
         String objectName = getObjectNameOnPos(tiledMap, robot.getPos());
-        if(objectName != null && objectName.contains("flag")){
+        if(objectName != null && objectName.contains("Flag")){
             robot.addFlag(objectName);
         }
     }
@@ -150,15 +150,10 @@ public class GameLogic {
      */
     public void changeDirOnGear(IRobot robot) {
         String objectName = getObjectNameOnPos(tiledMap, robot.getPos());
-        switch (objectName) {
-            case "clockwise":
-                robot.rotateClockwise();
-                break;
-            case "counterclockwise":
-                robot.rotateCounterClockwise();
-                break;
-            default:
-                break;
+        if (objectName.equals("Counter_Clockwise")) {
+            robot.rotateCounterClockwise();
+        } else if (objectName.equals("Clockwise")) {
+            robot.rotateClockwise();
         }
     }
 
