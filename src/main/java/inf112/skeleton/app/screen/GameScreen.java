@@ -65,6 +65,8 @@ public class GameScreen extends InputAdapter implements Screen {
     private BitmapFont font;
     private Vector2 windowedScreenSize;
 
+    private Image playerIcon;
+
     private GameScreen(){}
 
     public static GameScreen getInstance() {
@@ -76,7 +78,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
     @Override
     public void show() {
-        tiledMap = new TmxMapLoader().load("Maps/backgroundTest.tmx");
+        tiledMap = new TmxMapLoader().load("Maps/High_Octane.tmx");
         camera = new OrthographicCamera();
 
         ArrayList<Vector2> respawnPoints = GameLogic.getInstance().getAllPositionsFromObjectName("SpawnPoint");
@@ -140,10 +142,10 @@ public class GameScreen extends InputAdapter implements Screen {
         font.getData().setScale((float) 1.2);
         font.setColor(Color.WHITE);
 
-        Image playerIcon = new Image();
+        playerIcon = new Image();
         playerIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(player.getTexture())));
 
-        playerIcon.setSize(100, 100);
+        playerIcon.setSize(50, 50);
         playerIcon.setPosition(30, 50);
 
         stage.addActor(playerIcon);
@@ -177,7 +179,7 @@ public class GameScreen extends InputAdapter implements Screen {
                 "Position: " + player.getPos().toString();
         batch.begin();
         // Player Info
-        font.draw(batch, playerInfoText, 30, 300);
+        font.draw(batch, playerInfoText, playerIcon.getX(), playerIcon.getY() + 200);
         // Button-pressing Info
         font.draw(batch, "'Q': Main Menu \n" +
                 "'F': enter/exit Fullscreen", stage.getWidth()-75, 100);
