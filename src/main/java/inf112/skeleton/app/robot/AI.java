@@ -70,10 +70,14 @@ public class AI implements IRobot {
         for(int i = 0; i < hand.length; i++){
             Vector2 nextFlagPos = GameLogic.getInstance().getFlagPosHashMap().get("flag" + (this.flag+1));
 
+            if (nextFlagPos == null) {
+                hand[i] = new ProgramCard();
+                continue;
+            }
+
             ProgramCard randomProgramCard;
             Vector2 nextPos;
             do {
-
                 randomProgramCard = new ProgramCard();
                 nextPos = ProgramCardAction.getPositionAfterProgramCardAction(this.pos, this.getDirection(),
                         randomProgramCard.getAction());
@@ -176,7 +180,6 @@ public class AI implements IRobot {
         System.out.println("Respawning robot");
         this.direction = respawnDirection;
         this.pos = respawnPos;
-        GameScreen.getInstance().renderRobot(this);
     }
 
     @Override
@@ -241,7 +244,7 @@ public class AI implements IRobot {
 
     @Override
     public void loadAssets() {
-        this.robotTexture = new TextureRegion(new Texture("Robot" + this.id + ".png"));
+        this.robotTexture = new TextureRegion(new Texture("Robot" + (((this.id + 1) % 3) + 2)  + ".png"));
     }
 
     @Override
