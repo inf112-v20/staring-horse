@@ -129,7 +129,6 @@ public class Player implements IRobot {
         System.out.println("Respawning player");
         this.direction = respawnDirection;
         this.pos = respawnPos;
-        GameScreen.getInstance().renderRobot(this);
     }
 
     @Override
