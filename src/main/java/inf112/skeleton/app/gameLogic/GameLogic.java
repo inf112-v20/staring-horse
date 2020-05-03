@@ -84,6 +84,7 @@ public class GameLogic {
             if(victim != null && victim.isAlive()) {
                 System.out.println(victim.getName() + " has taken damage!");
                 victim.takeDamage();
+                break;
             }
 
             if (canGo(nextPos, dir)) {
