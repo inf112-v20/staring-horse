@@ -74,6 +74,7 @@ public class GameLogic {
         }
     }
 
+    // TODO lasers shot through walls.
     public void activateLasersFromPos(Vector2 pos, Direction dir) {
         Vector2 nextPos = getPosInDirection(pos, dir);
 
@@ -107,6 +108,7 @@ public class GameLogic {
         return holeLayer.getCell(x,y) != null || boardLayer.getCell(x,y) == null;
     }
 
+    // TODO fix bug where player can move onto a robot when pushed against a wall.
     public boolean canGo(Vector2 pos, Direction dir) {
         String objectName = getObjectNameOnPos(tiledMap, pos);
         if (canGoCurrentTile(objectName, dir)) {
