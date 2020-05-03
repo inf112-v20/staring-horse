@@ -199,7 +199,7 @@
   <object id="51" name="Express_Conveyor_To_East" x="2700" y="600" width="300" height="300"/>
   <object id="52" name="Express_Conveyor_To_East" x="3000" y="600" width="300" height="300"/>
   <object id="53" name="Express_Conveyor_To_East" x="3300" y="600" width="300" height="300"/>
-  <object id="56" name="Express_Conveyor_Join_To_North_From_South_And_West_Clockwise" x="3600" y="600" width="300" height="300"/>
+  <object id="56" name="Express_Conveyor_Join_To_North_From_South_And_West_Rotate_CounterClockwise" x="3600" y="600" width="300" height="300"/>
   <object id="57" name="Express_Conveyor_To_North" x="3600" y="300" width="300" height="300"/>
   <object id="58" name="Express_Conveyor_To_North" x="3600" y="900" width="300" height="300"/>
   <object id="59" name="Express_Conveyor_To_North" x="3600" y="1200" width="300" height="300"/>
@@ -210,7 +210,7 @@
   <object id="64" name="Express_Conveyor_To_West" x="2400" y="2700" width="300" height="300"/>
   <object id="66" name="Express_Conveyor_To_West" x="2100" y="2700" width="300" height="300"/>
   <object id="67" name="Express_Conveyor_To_West" x="1800" y="2700" width="300" height="300"/>
-  <object id="68" name="Express_Conveyor_Join_To_South_From_North_And_East_Clockwise" x="1500" y="2700" width="300" height="300"/>
+  <object id="68" name="Express_Conveyor_Join_To_South_From_North_And_East_Rotate_Clockwise" x="1500" y="2700" width="300" height="300"/>
   <object id="70" name="Express_Conveyor_To_South" x="1500" y="3000" width="300" height="300"/>
   <object id="71" name="Express_Conveyor_To_South" x="1500" y="2400" width="300" height="300"/>
   <object id="72" name="Express_Conveyor_To_South" x="1500" y="2100" width="300" height="300"/>
