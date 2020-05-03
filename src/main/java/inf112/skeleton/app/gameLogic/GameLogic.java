@@ -64,12 +64,10 @@ public class GameLogic {
             if (wallName.contains("West")) {
                 newPos.sub(1,0);
                 activateLasersFromPos(newPos, Direction.oppositeOf(WEST));
-                continue;
             }
             else if (wallName.contains("South")) {
                 newPos.add(0,1);
                 activateLasersFromPos(newPos, Direction.oppositeOf(NORTH));
-                continue;
             }
         }
     }
