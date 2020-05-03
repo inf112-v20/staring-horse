@@ -67,6 +67,11 @@ public class GameScreen extends InputAdapter implements Screen {
 
     private Image playerIcon;
 
+    // delay testing
+    private float time;
+    private boolean isWaiting;
+    private int phase;
+
     private GameScreen(){}
 
     public static GameScreen getInstance() {
@@ -78,6 +83,9 @@ public class GameScreen extends InputAdapter implements Screen {
 
     @Override
     public void show() {
+        time = 0f;
+        this.isWaiting = false;
+        this.phase = 0;
         tiledMap = new TmxMapLoader().load("Maps/High_Octane.tmx");
         camera = new OrthographicCamera();
 
@@ -165,9 +173,40 @@ public class GameScreen extends InputAdapter implements Screen {
         orthogonalTiledMapRenderer.render();
 
         drawPlayerInfoText();
+        if (phaseIsWaiting()) {
+            phaseWait(Gdx.graphics.getDeltaTime(), gameLoop, this.phase);
+
+        }
 
         stage.act();
         stage.draw();
+    }
+
+    /**
+     * waits until time has exceeded speed and then startsactivationphase.
+     */
+    private void phaseWait(float deltaTime, GameLoop gameLoop, int phase) {
+        time += deltaTime;
+        double speed = 0.02;
+        System.out.println(time);
+        if (time >= speed) {
+            if (phase != 6) {
+                gameLoop.startActivationPhase(phase);
+                this.phase += 1;
+            } else {
+                this.isWaiting = false;
+                this.phase = 0;
+            }
+            time = 0;
+        }
+    }
+
+    /**
+     * only true if not in an activationphase
+     * @return boolean
+     */
+    private boolean phaseIsWaiting() {
+        return this.isWaiting;
     }
 
     private void drawPlayerInfoText() {
@@ -268,7 +307,8 @@ public class GameScreen extends InputAdapter implements Screen {
 
 
                 if(player.isHandFull()) {
-                    gameLoop.startActivationPhase();
+                    isWaiting = true;
+                    //gameLoop.startActivationPhase();
                 }
 
                 return true;

@@ -30,11 +30,12 @@ public class GameLoop {
     /**
      * Start activation-phase were all robots execute their cards and board-objects are activated
      */
-    public void startActivationPhase() {
+    public void startActivationPhase(int phase) {
         for(AI ai:aiList){
             ai.generateSmartMoves();
         }
-        for(int phase = 0; phase < 5; phase++){
+        if (phase < 5) {
+
 
             // check priority for players and execute cards accordingly
 
@@ -59,7 +60,7 @@ public class GameLoop {
                 * Robotlasers
                 * Checkpoint/Wincheck
             */
-
+            return;
         }
 
         gameScreen.makeHandInvisible();
