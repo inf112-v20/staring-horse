@@ -63,6 +63,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
     private SpriteBatch batch;
     private BitmapFont font;
+    private Vector2 windowedScreenSize;
 
     private GameScreen(){}
 
@@ -143,7 +144,7 @@ public class GameScreen extends InputAdapter implements Screen {
         playerIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(player.getTexture())));
 
         playerIcon.setSize(100, 100);
-        playerIcon.setPosition(25, 50);
+        playerIcon.setPosition(30, 50);
 
         stage.addActor(playerIcon);
     }
@@ -175,7 +176,11 @@ public class GameScreen extends InputAdapter implements Screen {
                 "Direction: " + player.getDirection() + "\n" +
                 "Position: " + player.getPos().toString();
         batch.begin();
-        font.draw(batch, playerInfoText, 25, 300);
+        // Player Info
+        font.draw(batch, playerInfoText, 30, 300);
+        // Button-pressing Info
+        font.draw(batch, "'Q': Main Menu \n" +
+                "'F': enter/exit Fullscreen", stage.getWidth()-75, 100);
         batch.end();
     }
 
@@ -305,8 +310,13 @@ public class GameScreen extends InputAdapter implements Screen {
 
             ImageButton cardButton = makeCardImageButton(player, this, i);
             selectableCardButtons.add(cardButton);
-            cardButton.setPosition((((cardButton.getWidth() + 10)*i)+(camera.viewportWidth+150)), (float) (30));
+
+            float cardSizeDivisor = 3.8f;
+            cardButton.setSize((float) card.getTexture().getWidth() / cardSizeDivisor, (float) card.getTexture().getHeight() / cardSizeDivisor);
+            cardButton.setPosition(stage.getWidth()/2 + (int)((i-4.5) * (cardButton.getWidth() + 5)), 30);
+
             changeImageButtonDrawable(cardButton, card);
+
             stage.addActor(cardButton);
         }
     }
@@ -329,7 +339,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
             int cardSizeDivisor = 4;
             image.setSize((float) card.getTexture().getWidth() / cardSizeDivisor, (float) card.getTexture().getHeight() / cardSizeDivisor);
-            image.setPosition(300 + (i*((float) card.getTexture().getWidth() / cardSizeDivisor)), 150);
+            image.setPosition(stage.getWidth()/2 + (int)((i-2.5) * (image.getWidth() + 5)), 150);
 
             handCards.add(image);
             stage.addActor(image);
@@ -408,6 +418,15 @@ public class GameScreen extends InputAdapter implements Screen {
             renderRobot(player);
         } else if (Input.Keys.Q == code) {
             roboRally.setMenuScreen();
+        } else if (Input.Keys.F == code) {
+            boolean fullScreen = Gdx.graphics.isFullscreen();
+            if (fullScreen){
+                Gdx.graphics.setWindowedMode((int) windowedScreenSize.x, (int) windowedScreenSize.y);
+            }
+            else {
+                windowedScreenSize = new Vector2(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+                Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
+            }
         }
 
         return false;
