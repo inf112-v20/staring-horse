@@ -1,8 +1,11 @@
 package inf112.skeleton.app.screen;
 import com.badlogic.gdx.*;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -57,6 +60,9 @@ public class GameScreen extends InputAdapter implements Screen {
     private ArrayList<Image> handCards;
 
     private HashMap<IRobot,TiledMapTileLayer.Cell> robotCellHashMap;
+
+    private SpriteBatch batch;
+    private BitmapFont font;
 
     private GameScreen(){}
 
@@ -127,6 +133,19 @@ public class GameScreen extends InputAdapter implements Screen {
         for(IRobot ai:aiList){
             renderRobot(ai);
         }
+
+        batch = new SpriteBatch();
+        font = new BitmapFont();
+        font.getData().setScale((float) 1.2);
+        font.setColor(Color.WHITE);
+
+        Image playerIcon = new Image();
+        playerIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(player.getTexture())));
+
+        playerIcon.setSize(100, 100);
+        playerIcon.setPosition(25, 50);
+
+        stage.addActor(playerIcon);
     }
 
     private void setAllRespawnPoints(ArrayList<Vector2> respawnPoints) {
@@ -142,8 +161,22 @@ public class GameScreen extends InputAdapter implements Screen {
 
         orthogonalTiledMapRenderer.render();
 
+        drawPlayerInfoText();
+
         stage.act();
         stage.draw();
+    }
+
+    private void drawPlayerInfoText() {
+        String playerInfoText = player.getName() + "\n" +
+                "Lives: " + player.getLives() + "\n" +
+                "Health: " + player.getHealthPoints() + "\n" +
+                "Flags taken: " + player.getFlagsTaken() + "\n" +
+                "Direction: " + player.getDirection() + "\n" +
+                "Position: " + player.getPos().toString();
+        batch.begin();
+        font.draw(batch, playerInfoText, 25, 300);
+        batch.end();
     }
 
     /**

@@ -315,4 +315,19 @@ public class AI implements IRobot {
     public String getName() {
         return "ROBOT" + this.id;
     }
+
+    @Override
+    public int getHealthPoints() {
+        return this.healthPoints;
+    }
+
+    @Override
+    public int getLives() {
+        return this.lives;
+    }
+
+    @Override
+    public int getFlagsTaken() {
+        return this.flag;
+    }
 }

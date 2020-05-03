@@ -341,4 +341,19 @@ public class Player implements IRobot {
     }
 
     public int getDamageTaken(){return (this.fullHealthPoints-this.healthPoints);}
+
+    @Override
+    public int getHealthPoints() {
+        return this.healthPoints;
+    }
+
+    @Override
+    public int getLives() {
+        return this.lives;
+    }
+
+    @Override
+    public int getFlagsTaken() {
+        return this.flag;
+    }
 }

@@ -1,7 +1,6 @@
 package inf112.skeleton.app.robot;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector;
 import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.enums.Direction;
 import inf112.skeleton.app.programCard.ProgramCard;
@@ -108,4 +107,10 @@ public interface IRobot {
     void setCameFromConveyor(boolean bool);
 
     String getName();
+
+    int getHealthPoints();
+
+    int getLives();
+
+    int getFlagsTaken();
 }
