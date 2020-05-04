@@ -184,13 +184,14 @@ public class GameScreen extends InputAdapter implements Screen {
 
     /**
      * waits until time has exceeded speed and then startsactivationphase.
+     * Maybe chuck this into gamelogic or something else entirely.
      */
     private void phaseWait(float deltaTime, GameLoop gameLoop, int phase) {
         time += deltaTime;
-        double speed = 0.02;
-        System.out.println(time);
+        double speed = 1; // be able to change this on the fly or in the main menu
+        //System.out.println(time);
         if (time >= speed) {
-            if (phase != 6) {
+            if (phase < 6) {
                 gameLoop.startActivationPhase(phase);
                 this.phase += 1;
             } else {
