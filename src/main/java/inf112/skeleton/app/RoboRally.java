@@ -6,6 +6,7 @@ import inf112.skeleton.app.screen.MainMenuScreen;
 
 public class RoboRally extends Game {
     private static RoboRally SINGLE_INSTANCE = null;
+    private String map;
 
     private RoboRally() {}
 
@@ -31,5 +32,13 @@ public class RoboRally extends Game {
 
     public void render() {
         super.render();
+    }
+
+    public void setGameMap(String map){
+        this.map = map;
+    }
+
+    public String getGameMap(){
+        return this.map;
     }
 }
