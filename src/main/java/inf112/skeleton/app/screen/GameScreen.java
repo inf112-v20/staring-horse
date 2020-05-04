@@ -104,7 +104,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
         aiList = new ArrayList<>();
         AI.resetRobotID();
-        int aiNumber = 3;
+        int aiNumber = respawnPoints.size()-1;
 
         for(int i = 0; i < aiNumber; i++){
             AI newAI = new AI();
@@ -167,7 +167,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
     @Override
     public void render(float v) {
-        Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClearColor(44/255f, 44/255f, 44/255f, 44/255f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         orthogonalTiledMapRenderer.render();
