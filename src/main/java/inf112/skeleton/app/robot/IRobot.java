@@ -113,4 +113,8 @@ public interface IRobot {
     int getLives();
 
     int getFlagsTaken();
+
+    boolean getShouldNotMove();
+
+    void setShouldNotMove(boolean bool);
 }

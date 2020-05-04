@@ -39,6 +39,7 @@ public class Player implements IRobot {
     private int numberOfCardsInHand;
 
     private boolean cameFromConveyor;
+    private boolean shouldNotMove;
 
 
     public Player() {
@@ -92,6 +93,8 @@ public class Player implements IRobot {
 
     @Override
     public void moveOne(Direction dir){
+        if(shouldNotMove)
+            return;
         if (!this.isTestRobot && !gameScreen.getGameLogic().canGo(pos, dir)) {
             System.out.println("Player can't go");
         }else{
@@ -123,6 +126,7 @@ public class Player implements IRobot {
             this.healthPoints = fullHealthPoints;
             respawn();
         }
+        this.shouldNotMove = true;
     }
 
     @Override
@@ -250,7 +254,7 @@ public class Player implements IRobot {
     /**
      * Remove all cards from players hand
      */
-    private void clearHand() {
+    public void clearHand() {
         if(this.getDamageTaken() > 4){
             this.numberOfCardsInHand = this.getDamageTaken()-4;
         }else{
@@ -353,5 +357,15 @@ public class Player implements IRobot {
     @Override
     public int getFlagsTaken() {
         return this.flag;
+    }
+
+    @Override
+    public boolean getShouldNotMove() {
+        return this.shouldNotMove;
+    }
+
+    @Override
+    public void setShouldNotMove(boolean bool) {
+        this.shouldNotMove = bool;
     }
 }

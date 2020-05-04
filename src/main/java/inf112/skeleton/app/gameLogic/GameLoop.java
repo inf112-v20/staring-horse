@@ -36,14 +36,14 @@ public class GameLoop {
         }
         if (phase < 5) {
 
-
             // check priority for players and execute cards accordingly
 
-            player.executeCardInHand(phase);
+            if(!player.getShouldNotMove())
+                player.executeCardInHand(phase);
             for(AI ai:aiList){
                 //ai.executeRandomProgramCardAction();
 
-                if(ai.isAlive())
+                if(ai.isAlive() && !ai.getShouldNotMove())
                     ai.executeCardInHand(phase);
             }
 
@@ -63,6 +63,11 @@ public class GameLoop {
             return;
         }
 
+        player.setShouldNotMove(false);
+        player.clearHand();
+        for(AI ai:aiList){
+            ai.setShouldNotMove(false);
+        }
         gameScreen.makeHandInvisible();
         startNewRound();
     }

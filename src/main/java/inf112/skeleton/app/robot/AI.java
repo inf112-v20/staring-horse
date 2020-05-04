@@ -36,6 +36,7 @@ public class AI implements IRobot {
     private int flag;
     private boolean cameFromConveyor;
     private GameScreen gameScreen;
+    private boolean shouldNotMove;
 
 
     public AI(){
@@ -174,6 +175,7 @@ public class AI implements IRobot {
             this.healthPoints = fullHealthPoints;
             respawn();
         }
+        this.shouldNotMove = true;
     }
 
     @Override
@@ -334,5 +336,15 @@ public class AI implements IRobot {
     @Override
     public int getFlagsTaken() {
         return this.flag;
+    }
+
+    @Override
+    public boolean getShouldNotMove() {
+        return shouldNotMove;
+    }
+
+    @Override
+    public void setShouldNotMove(boolean bool) {
+        this.shouldNotMove = bool;
     }
 }

@@ -432,6 +432,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
     @Override
     public boolean keyUp(int code) {
+        player.setShouldNotMove(false);
 
         if (Input.Keys.LEFT == code) {
             for (IRobot robot : getRobots()) {
