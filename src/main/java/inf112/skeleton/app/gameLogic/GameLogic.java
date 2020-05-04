@@ -67,7 +67,7 @@ public class GameLogic {
     /**
      * Generate a horisontal or vertical laser on the board
      * @param pos - position on screen
-     * @param dir - direction of laser
+     * @param dir - direction of lasers
      */
     public void activateLasersFromPos(Vector2 pos, Direction dir) {
         Vector2 nextPos = getPosInDirection(pos, dir);
