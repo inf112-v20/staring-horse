@@ -82,7 +82,7 @@ public class GameLogic {
                 break;
             }
 
-            if (canGo(pos, dir)) {
+            if (canGo(pos, dir) && canGo(nextPos, dir)) {
                 nextPos = getPosInDirection(nextPos, dir);
             } else {
                 break;
