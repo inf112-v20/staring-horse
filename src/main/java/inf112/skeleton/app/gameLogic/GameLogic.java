@@ -64,7 +64,11 @@ public class GameLogic {
         }
     }
 
-    // TODO lasers shot through walls.
+    /**
+     * Generate a horisontal or vertical laser on the board
+     * @param pos - position on screen
+     * @param dir - direction of laser
+     */
     public void activateLasersFromPos(Vector2 pos, Direction dir) {
         Vector2 nextPos = getPosInDirection(pos, dir);
 
@@ -78,7 +82,7 @@ public class GameLogic {
                 break;
             }
 
-            if (canGo(nextPos, dir)) {
+            if (canGo(pos, dir)) {
                 nextPos = getPosInDirection(nextPos, dir);
             } else {
                 break;
