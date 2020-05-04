@@ -6,13 +6,13 @@ import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.RoboRally;
 import inf112.skeleton.app.enums.Direction;
 import inf112.skeleton.app.enums.ProgramCardAction;
-import inf112.skeleton.app.gameLogic.GameLogic;
 import inf112.skeleton.app.programCard.CardDeck;
 import inf112.skeleton.app.programCard.ProgramCard;
 import inf112.skeleton.app.screen.GameScreen;
 
 public class Player implements IRobot {
 
+    private GameScreen gameScreen;
     private Vector2 pos;
     private Direction direction;
 
@@ -42,7 +42,7 @@ public class Player implements IRobot {
 
 
     public Player() {
-        this.respawnDirection = Direction.NORTH;
+        this.respawnDirection = Direction.EAST;
         this.direction = respawnDirection;
 
         this.cardDeck = new CardDeck();
@@ -55,12 +55,14 @@ public class Player implements IRobot {
         this.cameFromConveyor = false;
 
         this.isAlive = true;
+
+        this.gameScreen = GameScreen.getInstance();
     }
 
 
     @Override
     public boolean hasWon() {
-        return this.flag == GameLogic.getInstance().getFlags().size();
+        return this.flag == gameScreen.getGameLogic().getFlags().size();
     }
 
     @Override
@@ -77,7 +79,7 @@ public class Player implements IRobot {
         }
 
         if(this.hasWon()){
-            GameScreen.getInstance().robotWin(this);
+            gameScreen.robotWin(this);
         }
     }
 
@@ -90,17 +92,17 @@ public class Player implements IRobot {
 
     @Override
     public void moveOne(Direction dir){
-        if (!this.isTestRobot && !GameLogic.getInstance().canGo(pos, dir)) {
+        if (!this.isTestRobot && !gameScreen.getGameLogic().canGo(pos, dir)) {
             System.out.println("Player can't go");
         }else{
             if(!this.isTestRobot) {
-                GameLogic.getInstance().pushIfPossible(this.pos, dir);
+                gameScreen.getGameLogic().pushIfPossible(this.pos, dir);
             }
             Vector2 nextPos = Direction.getPosInDirection(this.pos, dir);
             setPos(nextPos);
         }
 
-        if(!this.isTestRobot && GameLogic.getInstance().isHole(this.pos)){
+        if(!this.isTestRobot && gameScreen.getGameLogic().isHole(this.pos)){
             killRobot();
         }
 
@@ -114,7 +116,7 @@ public class Player implements IRobot {
         if(this.lives <= 0){
             System.out.println("PLAYER IS OUT OF LIVES!");
             isAlive = false;
-            GameScreen.getInstance().onlyOneRobotLeftCheck();
+            gameScreen.onlyOneRobotLeftCheck();
             RoboRally.getInstance().setMenuScreen();
         } else {
             System.out.println(lives + " lives left");
@@ -125,7 +127,7 @@ public class Player implements IRobot {
 
     @Override
     public void respawn(){
-        GameScreen.getInstance().unrenderRobot(this);
+        gameScreen.unrenderRobot(this);
         System.out.println("Respawning player");
         this.direction = respawnDirection;
         this.pos = respawnPos;
@@ -225,9 +227,6 @@ public class Player implements IRobot {
      * Execute all programcards in hand
      */
     public void executeCardInHand(int phase){
-
-        GameScreen gameScreen = GameScreen.getInstance();
-
         gameScreen.unrenderRobot(this);
         performProgramCardAction(this.hand[phase]);
         gameScreen.renderRobot(this);

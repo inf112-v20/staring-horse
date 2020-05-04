@@ -20,19 +20,11 @@ public class GameLogic {
 
     private TiledMap tiledMap;
 
-    private static GameLogic SINGLE_INSTANCE = null;
     private HashMap<String, Vector2> flagPosHashMap;
     private ArrayList<String> flags;
 
     public GameLogic() {
         tiledMap = GameScreen.getInstance().getTiledMap();
-    }
-
-    public static GameLogic getInstance() {
-        if (SINGLE_INSTANCE == null)
-            SINGLE_INSTANCE = new GameLogic();
-
-        return SINGLE_INSTANCE;
     }
 
     /**

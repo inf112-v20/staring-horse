@@ -47,9 +47,9 @@ public class GameLoop {
                     ai.executeCardInHand(phase);
             }
 
-            GameLogic.getInstance().endOfPhaseCheck(player);
+            GameScreen.getInstance().getGameLogic().endOfPhaseCheck(player);
             for(AI ai:aiList){
-                GameLogic.getInstance().endOfPhaseCheck(ai);
+                GameScreen.getInstance().getGameLogic().endOfPhaseCheck(ai);
             }
 
             /*

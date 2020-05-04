@@ -55,6 +55,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
     private static GameScreen SINGLE_INSTANCE = null;
     private GameLoop gameLoop;
+    private GameLogic gameLogic;
 
     private ArrayList<ImageButton> selectableCardButtons;
     private ArrayList<Image> handCards;
@@ -86,10 +87,12 @@ public class GameScreen extends InputAdapter implements Screen {
         time = 0f;
         this.isWaiting = false;
         this.phase = 0;
-        tiledMap = new TmxMapLoader().load("Maps/High_Octane.tmx");
+        tiledMap = new TmxMapLoader().load("Maps/" + roboRally.getGameMap());
         camera = new OrthographicCamera();
 
-        ArrayList<Vector2> respawnPoints = GameLogic.getInstance().getAllPositionsFromObjectName("SpawnPoint");
+        this.gameLogic = new GameLogic();
+
+        ArrayList<Vector2> respawnPoints = gameLogic.getAllPositionsFromObjectName("SpawnPoint");
         player = new Player();
 
         playerCell = new TiledMapTileLayer.Cell();
@@ -167,7 +170,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
     @Override
     public void render(float v) {
-        Gdx.gl.glClearColor(44/255f, 44/255f, 44/255f, 44/255f);
+        Gdx.gl.glClearColor(45/255f, 45/255f, 47/255f, 44/255f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         orthogonalTiledMapRenderer.render();
@@ -247,7 +250,7 @@ public class GameScreen extends InputAdapter implements Screen {
         }
 
         if(livingRobots.size() == 1) {
-            System.out.println("ALL OTHER ROBOTS DEAD!");
+            System.out.println("ALL OTHER ROBOTS ARE DEAD!");
             robotWin(livingRobots.get(0));
         }
     }
@@ -432,28 +435,28 @@ public class GameScreen extends InputAdapter implements Screen {
 
         if (Input.Keys.LEFT == code) {
             for (IRobot robot : getRobots()) {
-                GameLogic.getInstance().endOfPhaseCheck(robot);
+                gameLogic.endOfPhaseCheck(robot);
             }
             unrenderRobot(player);
             player.rotateCounterClockwise();
             renderRobot(player);
         } else if (Input.Keys.RIGHT == code) {
             for (IRobot robot : getRobots()) {
-                GameLogic.getInstance().endOfPhaseCheck(robot);
+                gameLogic.endOfPhaseCheck(robot);
             }
             unrenderRobot(player);
             player.rotateClockwise();
             renderRobot(player);
         } else if (Input.Keys.DOWN == code) {
             for (IRobot robot : getRobots()) {
-                GameLogic.getInstance().endOfPhaseCheck(robot);
+                gameLogic.endOfPhaseCheck(robot);
             }
             unrenderRobot(player);
             player.move(1, Direction.oppositeOf(player.getDirection()));
             renderRobot(player);
         } else if (Input.Keys.UP == code) {
             for (IRobot robot : getRobots()) {
-                GameLogic.getInstance().endOfPhaseCheck(robot);
+                gameLogic.endOfPhaseCheck(robot);
             }
 
             unrenderRobot(player);
@@ -493,5 +496,9 @@ public class GameScreen extends InputAdapter implements Screen {
         robots.addAll(aiList);
 
         return robots;
+    }
+
+    public GameLogic getGameLogic(){
+        return this.gameLogic;
     }
 }

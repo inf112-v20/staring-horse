@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.enums.Direction;
 import inf112.skeleton.app.enums.ProgramCardAction;
-import inf112.skeleton.app.gameLogic.GameLogic;
 import inf112.skeleton.app.programCard.ProgramCard;
 import inf112.skeleton.app.screen.GameScreen;
 
@@ -36,10 +35,11 @@ public class AI implements IRobot {
     private boolean isAlive;
     private int flag;
     private boolean cameFromConveyor;
+    private GameScreen gameScreen;
 
 
     public AI(){
-        this.respawnDirection = Direction.NORTH;
+        this.respawnDirection = Direction.EAST;
         this.direction = respawnDirection;
 
         this.fullHealthPoints = 10;
@@ -52,15 +52,17 @@ public class AI implements IRobot {
         this.hand = new ProgramCard[5];
 
         this.isAlive = true;
+
+        this.gameScreen = GameScreen.getInstance();
     }
 
     /**
      * Execute one random ProgramCard
      */
     public void executeRandomProgramCardAction(){
-        GameScreen.getInstance().unrenderRobot(this);
+        gameScreen.unrenderRobot(this);
         this.performProgramCardAction(new ProgramCard());
-        GameScreen.getInstance().renderRobot(this);
+        gameScreen.renderRobot(this);
     }
 
     /**
@@ -68,7 +70,7 @@ public class AI implements IRobot {
      */
     public void generateSmartMoves(){
         for(int i = 0; i < hand.length; i++){
-            Vector2 nextFlagPos = GameLogic.getInstance().getFlagPosHashMap().get("flag" + (this.flag+1));
+            Vector2 nextFlagPos = gameScreen.getGameLogic().getFlagPosHashMap().get("flag" + (this.flag+1));
 
             if (nextFlagPos == null) {
                 hand[i] = new ProgramCard();
@@ -82,7 +84,7 @@ public class AI implements IRobot {
                 nextPos = ProgramCardAction.getPositionAfterProgramCardAction(this.pos, this.getDirection(),
                         randomProgramCard.getAction());
 
-            } while(GameLogic.getInstance().isHole(nextPos) ||
+            } while(gameScreen.getGameLogic().isHole(nextPos) ||
                     getDistanceBetweenPositions(this.pos, nextFlagPos) <
                     getDistanceBetweenPositions(nextPos, nextFlagPos));
 
@@ -105,9 +107,9 @@ public class AI implements IRobot {
      * @param phase current card to activate
      */
     public void executeCardInHand(int phase){
-        GameScreen.getInstance().unrenderRobot(this);
+        gameScreen.unrenderRobot(this);
         this.performProgramCardAction(hand[phase]);
-        GameScreen.getInstance().renderRobot(this);
+        gameScreen.renderRobot(this);
     }
 
     public static void resetRobotID(){
@@ -116,7 +118,7 @@ public class AI implements IRobot {
 
     @Override
     public boolean hasWon() {
-        return this.flag == GameLogic.getInstance().getFlags().size();
+        return this.flag == gameScreen.getGameLogic().getFlags().size();
     }
 
     @Override
@@ -128,7 +130,7 @@ public class AI implements IRobot {
         }
 
         if(this.hasWon()){
-            GameScreen.getInstance().robotWin(this);
+            gameScreen.robotWin(this);
         }
     }
 
@@ -141,17 +143,17 @@ public class AI implements IRobot {
 
     @Override
     public void moveOne(Direction dir){
-        if (!this.isTestRobot && !GameLogic.getInstance().canGo(pos, dir)) {
+        if (!this.isTestRobot && !gameScreen.getGameLogic().canGo(pos, dir)) {
             System.out.println(this.getName() + " can't go");
         }else{
             if(!this.isTestRobot) {
-                GameLogic.getInstance().pushIfPossible(this.pos, dir);
+                gameScreen.getGameLogic().pushIfPossible(this.pos, dir);
             }
             Vector2 nextPos = Direction.getPosInDirection(this.pos, dir);
             setPos(nextPos);
         }
 
-        if(!this.isTestRobot && GameLogic.getInstance().isHole(this.pos)){
+        if(!this.isTestRobot && gameScreen.getGameLogic().isHole(this.pos)){
             killRobot();
         }
 
@@ -166,7 +168,7 @@ public class AI implements IRobot {
             if(isAlive)
                 System.out.println(this.getName() + " IS OUT OF LIVES!");
             isAlive = false;
-            GameScreen.getInstance().onlyOneRobotLeftCheck();
+            gameScreen.onlyOneRobotLeftCheck();
         } else {
             System.out.println(this.getName() + ": " + lives + " lives left");
             this.healthPoints = fullHealthPoints;
@@ -176,7 +178,7 @@ public class AI implements IRobot {
 
     @Override
     public void respawn(){
-        GameScreen.getInstance().unrenderRobot(this);
+        gameScreen.unrenderRobot(this);
         System.out.println("Respawning robot");
         this.direction = respawnDirection;
         this.pos = respawnPos;
