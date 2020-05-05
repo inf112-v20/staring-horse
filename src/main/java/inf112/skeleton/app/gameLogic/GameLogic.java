@@ -209,7 +209,7 @@ public class GameLogic {
             String endConveyor = getObjectNameOnPos(tiledMap, robot.getPos());
             // check if the tile you end up on is a corner conveyor.
             if (endConveyor.contains("Rotate") && getConveyorDir(endConveyor) != dir) {
-                rotateConveyor(robot,endConveyor);
+                rotateConveyor(robot,endConveyor, dir);
             }
         } else {
             robot.setCameFromConveyor(false);
@@ -249,7 +249,7 @@ public class GameLogic {
                 robot.setCameFromConveyor(true); // should probably be replaced with something more robust.
                 // check if the next tile is a corner.
                 if (currentExpressConveyor.contains("Rotate") && getConveyorDir(currentExpressConveyor) != dir) {
-                    rotateConveyor(robot,currentExpressConveyor);
+                    rotateConveyor(robot,currentExpressConveyor, dir);
                     robot.moveOne(getConveyorDir(currentExpressConveyor));
                 } else {
                     robot.moveOne(dir);
@@ -267,17 +267,46 @@ public class GameLogic {
      * @param robot IRobot
      * @param conveyor name of object tile
      */
-    public void rotateConveyor(IRobot robot, String conveyor) {
+    public void rotateConveyor(IRobot robot, String conveyor, Direction dir) {
         // robot should only rotate when coming from a conveyor.
         if (robot.getCameFromConveyor()) {
             if (conveyor.contains("CounterClockwise")) {
                 robot.rotateCounterClockwise();
             } else if (conveyor.contains("Clockwise")) {
                 robot.rotateClockwise();
+            } else {
+                rotateConveyorJunction(robot, conveyor, dir);
             }
         } else {
             System.out.println("Cannot rotate on conveyor!");
         }
+    }
+
+    public void rotateConveyorJunction(IRobot robot, String conveyor, Direction dir) {
+        Direction junctionConveyorDir = getConveyorDir(conveyor);
+
+        switch (junctionConveyorDir) {
+            case NORTH:
+                if (dir.equals(EAST)) robot.rotateCounterClockwise();
+                else if (dir.equals(WEST)) robot.rotateClockwise();
+                break;
+            case SOUTH:
+                if (dir.equals(EAST)) robot.rotateClockwise();
+                else if (dir.equals(WEST)) robot.rotateCounterClockwise();
+                break;
+            case WEST:
+                if (dir.equals(NORTH)) robot.rotateCounterClockwise();
+                else if (dir.equals(SOUTH)) robot.rotateClockwise();
+                break;
+            case EAST:
+                if (dir.equals(NORTH)) robot.rotateClockwise();
+                else if (dir.equals(SOUTH)) robot.rotateCounterClockwise();
+                break;
+            default:
+                break;
+        }
+
+
     }
 
     /**
