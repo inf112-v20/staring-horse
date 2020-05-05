@@ -315,13 +315,17 @@ public class GameScreen extends InputAdapter implements Screen {
 
             @Override
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                imageButton.setVisible(false);
-                //System.out.println("Pressed: imagebutton " + i);
 
-                gameScreen.addCardToPlayerHand(player.getProgramCard(i));
+                if (!player.isHandFull()) {
+                    imageButton.setVisible(false);
+                    //System.out.println("Pressed: imagebutton " + i);
+                    gameScreen.addCardToPlayerHand(player.getProgramCard(i));
+                } else {
+                    System.out.println("Hand is full");
+                }
 
 
-                if(player.isHandFull()) {
+                if(player.isHandFull() && !phaseIsWaiting()) {
                     isWaiting = true;
                     //gameLoop.startActivationPhase();
                 }
