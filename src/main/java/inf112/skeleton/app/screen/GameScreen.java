@@ -111,7 +111,8 @@ public class GameScreen extends InputAdapter implements Screen {
 
         aiList = new ArrayList<>();
         AI.resetRobotID();
-        int aiNumber = respawnPoints.size()-1;
+        //int aiNumber = respawnPoints.size()-1;
+        int aiNumber = roboRally.getAiNumber();
 
         for(int i = 0; i < aiNumber; i++){
             AI newAI = new AI();

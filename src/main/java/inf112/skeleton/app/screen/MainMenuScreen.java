@@ -2,10 +2,7 @@ package inf112.skeleton.app.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -25,12 +22,19 @@ public class MainMenuScreen implements Screen {
 
     private ArrayList<String> mapList;
     private int currentMapNumber;
+    private int aiNumber;
+    private int maxAiNumber;
+    private Skin skin;
+    private Table table;
 
     public MainMenuScreen(){
         this.roboRally = RoboRally.getInstance();
+        this.maxAiNumber = 5;
 
-        stage = new Stage(new ScreenViewport());
+        this.stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
+
+        this.skin = new Skin(Gdx.files.classpath("skin/star-soldier-ui.json"));
 
         this.mapList = new ArrayList<>();
         this.mapList.add("High_Octane.tmx");
@@ -39,70 +43,16 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void show() {
-        Table table = new Table();
+        table = new Table();
         table.setFillParent(true);
         table.setDebug(true);
+        table.setSize(400,500);
         stage.addActor(table);
 
-        Skin skin = new Skin(Gdx.files.classpath("skin/star-soldier-ui.json"));
-
-        TextButton newGame = new TextButton("New Game", skin);
-        TextButton mapSelectionPrev = new TextButton("Prev map", skin);
-        TextButton mapSelectionNext = new TextButton("Next map", skin);
-        TextButton exit = new TextButton("Exit", skin);
-
-
-        final Label mapName = new Label(mapList.get(currentMapNumber), skin);
-        mapName.setAlignment(Align.center);
-        table.add(mapName).fillX().uniformX().colspan(2).height(50);
-
-        table.row().pad(10, 0, 10, 0);
-        table.add(mapSelectionPrev, mapSelectionNext);
-
-        table.row().pad(50, 0, 10, 0);
-        table.add(newGame).fillX().uniformX().colspan(2);
-
-        table.row().pad(10, 0, 10, 0);
-        table.add(exit).fillX().uniformX().colspan(2);
-
-        exit.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                Gdx.app.exit();
-            }
-        });
-
-        mapSelectionNext.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                if(currentMapNumber >= mapList.size()-1){
-                    currentMapNumber = 0;
-                } else {
-                    currentMapNumber++;
-                }
-                mapName.setText(mapList.get(currentMapNumber));
-            }
-        });
-        mapSelectionPrev.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                if(currentMapNumber <= 0){
-                    currentMapNumber = mapList.size()-1;
-                } else {
-                    currentMapNumber--;
-                }
-                mapName.setText(mapList.get(currentMapNumber));
-            }
-        });
-
-        newGame.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                roboRally.setGameMap(mapList.get(currentMapNumber));
-                roboRally.setGameScreen();
-            }
-        });
-
+        makeMapSelector();
+        makeAiNumberSelector();
+        makeNewGameButton();
+        makeExitButton();
     }
 
     @Override
@@ -134,6 +84,111 @@ public class MainMenuScreen implements Screen {
     @Override
     public void dispose() {
         stage.dispose();
+    }
+
+    private void makeMapSelector(){
+        final Label mapName = new Label(mapList.get(currentMapNumber), skin);
+        mapName.setAlignment(Align.center);
+        table.add(mapName).fillX().uniformX().colspan(4).minHeight(50);
+
+        TextButton mapSelectionPrev = new TextButton("Prev map", skin);
+        TextButton mapSelectionNext = new TextButton("Next map", skin);
+
+        table.row().pad(10, 0, 10, 0);
+        table.add(mapSelectionPrev).uniformX().fillX().colspan(2);
+        table.add(mapSelectionNext).uniformX().fillX().colspan(2);
+
+        mapSelectionNext.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                if(currentMapNumber >= mapList.size()-1){
+                    currentMapNumber = 0;
+                } else {
+                    currentMapNumber++;
+                }
+                mapName.setText(mapList.get(currentMapNumber));
+            }
+        });
+
+        mapSelectionPrev.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                if(currentMapNumber <= 0){
+                    currentMapNumber = mapList.size()-1;
+                } else {
+                    currentMapNumber--;
+                }
+                mapName.setText(mapList.get(currentMapNumber));
+            }
+        });
+    }
+
+    private void makeAiNumberSelector(){
+        aiNumber = maxAiNumber;
+        final Label numberOfAILabel = new Label("Number of AI: \n" + aiNumber, skin);
+        numberOfAILabel.setAlignment(Align.center);
+
+        TextButton moreAI = new TextButton("+", skin);
+        TextButton fewerAI = new TextButton("-", skin);
+
+        table.row().pad(10, 0, 10, 0);
+        table.add(fewerAI).fillX().uniformX();
+        table.add(numberOfAILabel).fillX().minWidth(250).colspan(2).fillY();
+        table.add(moreAI).fillX().uniformX();
+
+        fewerAI.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                if(aiNumber <= 0){
+                    aiNumber = maxAiNumber;
+                } else {
+                    aiNumber--;
+                }
+                numberOfAILabel.setText("Number of AI: \n" + aiNumber);
+            }
+        });
+
+        moreAI.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                if(aiNumber >= maxAiNumber){
+                    aiNumber = 0;
+                } else {
+                    aiNumber++;
+                }
+                numberOfAILabel.setText("Number of AI: \n" + aiNumber);
+            }
+        });
+    }
+
+    private void makeNewGameButton(){
+        TextButton newGame = new TextButton("New Game", skin);
+
+        table.row().pad(50, 0, 10, 0);
+        table.add(newGame).fillX().uniformX().colspan(4);
+
+        newGame.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                roboRally.setGameMap(mapList.get(currentMapNumber));
+                roboRally.setAiNumber(aiNumber);
+                roboRally.setGameScreen();
+            }
+        });
+    }
+
+    private void makeExitButton(){
+        TextButton exit = new TextButton("Exit", skin);
+
+        table.row().pad(10, 0, 10, 0);
+        table.add(exit).fillX().uniformX().colspan(4);
+
+        exit.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                Gdx.app.exit();
+            }
+        });
     }
 
 }

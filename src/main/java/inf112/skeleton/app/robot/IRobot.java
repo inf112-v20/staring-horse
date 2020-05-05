@@ -55,7 +55,7 @@ public interface IRobot {
     void rotateCounterClockwise();
 
     /**
-     * Execute programcard-action from programCard on robot
+     * Execute ProgramCardAction from programCard on robot
      * @param programCard - ProgramCard
      */
     void performProgramCardAction(ProgramCard programCard);
@@ -121,7 +121,7 @@ public interface IRobot {
     ProgramCard[] getHand();
 
     /**
-     * Excecute card in hand corresponding to phase
+     * Execute card in hand corresponding to phase
      * @param phase current card to activate
      */
     void executeCardInHand(int phase);

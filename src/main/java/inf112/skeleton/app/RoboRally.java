@@ -8,6 +8,8 @@ public class RoboRally extends Game {
     private static RoboRally SINGLE_INSTANCE = null;
     private String map;
 
+    private int aiNumber;
+
     private RoboRally() {}
 
     public static RoboRally getInstance() {
@@ -40,5 +42,13 @@ public class RoboRally extends Game {
 
     public String getGameMap(){
         return this.map;
+    }
+
+    public int getAiNumber() {
+        return aiNumber;
+    }
+
+    public void setAiNumber(int aiNumber) {
+        this.aiNumber = aiNumber;
     }
 }
