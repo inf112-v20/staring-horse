@@ -235,6 +235,12 @@ public class Player implements IRobot {
 
     }
 
+    @Override
+    public void heal() {
+        if (healthPoints < fullHealthPoints)
+            this.healthPoints++;
+    }
+
     public ProgramCard getProgramCard(int index){
         return this.cardDeck.getCard(index);
     }

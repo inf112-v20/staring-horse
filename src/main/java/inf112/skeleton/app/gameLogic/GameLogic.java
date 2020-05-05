@@ -320,6 +320,7 @@ public class GameLogic {
             GameScreen.getInstance().unrenderRobot(robot);
             Player player = (Player) robot;
             if (!player.getIsTestPlayer()) {
+                repairOnWrench(player);
                 pickUpFlag(player);
                 changeDirOnGear(player);
                 conveyorBelts(player);
@@ -327,6 +328,7 @@ public class GameLogic {
             }
         } else {
             GameScreen.getInstance().unrenderRobot(robot);
+            repairOnWrench(robot);
             pickUpFlag(robot);
             changeDirOnGear(robot);
             conveyorBelts(robot);
@@ -362,6 +364,18 @@ public class GameLogic {
             }
         }
         return null;
+    }
+
+    /**
+     * Heals a robot for every phase they are standing on the wrench
+     * @param robot IRobot
+     */
+    public void repairOnWrench(IRobot robot) {
+        TiledMapTileLayer wrenchLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Wrench");
+
+        if (wrenchLayer.getCell((int) robot.getPos().x, (int) robot.getPos().y) != null) {
+            robot.heal();
+        }
     }
 
 }

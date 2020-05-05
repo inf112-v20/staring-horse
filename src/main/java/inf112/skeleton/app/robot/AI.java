@@ -110,6 +110,12 @@ public class AI implements IRobot {
         gameScreen.renderRobot(this);
     }
 
+    @Override
+    public void heal() {
+        if (healthPoints < fullHealthPoints)
+            this.healthPoints++;
+    }
+
     public static void resetRobotID(){
         aiNumber = 1;
     }

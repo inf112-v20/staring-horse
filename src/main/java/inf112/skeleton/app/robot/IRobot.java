@@ -125,4 +125,9 @@ public interface IRobot {
      * @param phase current card to activate
      */
     void executeCardInHand(int phase);
+
+    /**
+     * Heals a player by one unless the robot has max health.
+     */
+    void heal();
 }
