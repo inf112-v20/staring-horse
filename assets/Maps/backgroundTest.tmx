@@ -321,7 +321,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="17" name="ConveyorObjects">
+ <objectgroup id="17" name="conveyorObjects">
   <object id="48" name="Express_Conveyor_To_North" x="4800" y="2400" width="300" height="300"/>
   <object id="50" name="Express_Conveyor_To_North" x="4800" y="2100" width="300" height="300"/>
   <object id="51" name="Express_Conveyor_To_North" x="4800" y="1800" width="300" height="300"/>
