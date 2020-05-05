@@ -16,7 +16,6 @@ public class ProgramCard {
         this.action = ProgramCardAction.getRandomProgramCardAction();
         generatePriority();
         this.isInHand = false;
-        this.texture = getTexture();
     }
 
     /**
@@ -27,7 +26,6 @@ public class ProgramCard {
         this.action = action;
         generatePriority();
         this.isInHand = false;
-        this.texture = getTexture();
     }
 
     /**
