@@ -534,6 +534,8 @@ public class GameScreen extends InputAdapter implements Screen {
                 windowedScreenSize = new Vector2(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
                 Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
             }
+        } else if (Input.Keys.SPACE == code) {
+            gameLogic.endOfPhaseCheck(player);
         }
 
         return false;
