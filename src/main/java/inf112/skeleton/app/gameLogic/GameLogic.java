@@ -52,14 +52,13 @@ public class GameLogic {
     public void activateWallLasers(ArrayList<Vector2> wallLaserList) {
         for (Vector2 pos : wallLaserList) {
             String wallName = getObjectNameOnPos(tiledMap, pos);
-            Vector2 newPos = pos;
             if (wallName.contains("West")) {
-                newPos.sub(1,0);
-                activateLasersFromPos(newPos, Direction.oppositeOf(WEST));
+                pos.sub(1,0);
+                activateLasersFromPos(pos, Direction.oppositeOf(WEST));
             }
             else if (wallName.contains("South")) {
-                newPos.add(0,1);
-                activateLasersFromPos(newPos, Direction.oppositeOf(NORTH));
+                pos.add(0,1);
+                activateLasersFromPos(pos, Direction.oppositeOf(NORTH));
             }
         }
     }
@@ -209,7 +208,7 @@ public class GameLogic {
 
             String endConveyor = getObjectNameOnPos(tiledMap, robot.getPos());
             // check if the tile you end up on is a corner conveyor.
-            if (endConveyor.contains("Rotate") || getConveyorDir(endConveyor) != dir) {
+            if (endConveyor.contains("Rotate") && getConveyorDir(endConveyor) != dir) {
                 rotateConveyor(robot,endConveyor);
             }
         } else {
@@ -249,7 +248,7 @@ public class GameLogic {
             if (currentExpressConveyor.contains("Conveyor")) {
                 robot.setCameFromConveyor(true); // should probably be replaced with something more robust.
                 // check if the next tile is a corner.
-                if (currentExpressConveyor.contains("Rotate")) {
+                if (currentExpressConveyor.contains("Rotate") && getConveyorDir(currentExpressConveyor) != dir) {
                     rotateConveyor(robot,currentExpressConveyor);
                     robot.moveOne(getConveyorDir(currentExpressConveyor));
                 } else {
