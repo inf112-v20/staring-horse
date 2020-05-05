@@ -30,6 +30,7 @@ public class MainMenuScreen implements Screen {
     public MainMenuScreen(){
         this.roboRally = RoboRally.getInstance();
         this.maxAiNumber = 5;
+        this.aiNumber = maxAiNumber;
 
         this.stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
@@ -48,6 +49,12 @@ public class MainMenuScreen implements Screen {
         table.setDebug(true);
         table.setSize(400,500);
         stage.addActor(table);
+
+        // makes settings same as before when going back to main menu
+        if(roboRally.getGameMap() != null){
+            currentMapNumber = mapList.indexOf(roboRally.getGameMap());
+            aiNumber = roboRally.getAiNumber();
+        }
 
         makeMapSelector();
         makeAiNumberSelector();
@@ -124,7 +131,6 @@ public class MainMenuScreen implements Screen {
     }
 
     private void makeAiNumberSelector(){
-        aiNumber = maxAiNumber;
         final Label numberOfAILabel = new Label("Number of AI: \n" + aiNumber, skin);
         numberOfAILabel.setAlignment(Align.center);
 
