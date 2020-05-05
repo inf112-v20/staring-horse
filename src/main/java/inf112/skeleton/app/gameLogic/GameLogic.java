@@ -305,8 +305,18 @@ public class GameLogic {
             default:
                 break;
         }
+    }
 
-
+    /**
+     * Heal and set respawn-point if robot is on flag
+     * @param robot IRobot
+     */
+    private void onFlagCheck(IRobot robot){
+        TiledMapTileLayer flagLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Flag");
+        if(flagLayer.getCell(robot.getXPos(),robot.getYPos()) != null){
+            robot.heal();
+            robot.setRespawnPoint(robot.getPos());
+        }
     }
 
     /**
@@ -317,24 +327,27 @@ public class GameLogic {
      */
     public void endOfPhaseCheck(IRobot robot) {
         if (robot instanceof Player) {
-            GameScreen.getInstance().unrenderRobot(robot);
             Player player = (Player) robot;
             if (!player.getIsTestPlayer()) {
+                GameScreen.getInstance().unrenderRobot(player);
                 repairOnWrench(player);
                 pickUpFlag(player);
+                onFlagCheck(player);
                 changeDirOnGear(player);
                 conveyorBelts(player);
                 activateLasersFromPos(robot.getPos(), robot.getDirection());
+                GameScreen.getInstance().renderRobot(player);
             }
         } else {
             GameScreen.getInstance().unrenderRobot(robot);
             repairOnWrench(robot);
             pickUpFlag(robot);
+            onFlagCheck(robot);
             changeDirOnGear(robot);
             conveyorBelts(robot);
             activateLasersFromPos(robot.getPos(), robot.getDirection());
+            GameScreen.getInstance().renderRobot(robot);
         }
-        GameScreen.getInstance().renderRobot(robot);
     }
 
     /**
