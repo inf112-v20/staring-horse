@@ -1,6 +1,7 @@
 package inf112.skeleton.app.gameLogic;
 
 import inf112.skeleton.app.robot.AI;
+import inf112.skeleton.app.robot.IRobot;
 import inf112.skeleton.app.robot.Player;
 import inf112.skeleton.app.screen.GameScreen;
 
@@ -37,19 +38,11 @@ public class GameLoop {
         if (phase < 5) {
 
             // check priority for players and execute cards accordingly
-
-            if(!player.getShouldNotMove())
-                player.executeCardInHand(phase);
-            for(AI ai:aiList){
-                //ai.executeRandomProgramCardAction();
-
-                if(ai.isAlive() && !ai.getShouldNotMove())
-                    ai.executeCardInHand(phase);
-            }
-
-            GameScreen.getInstance().getGameLogic().endOfPhaseCheck(player);
-            for(AI ai:aiList){
-                GameScreen.getInstance().getGameLogic().endOfPhaseCheck(ai);
+            for (IRobot robot : sortRobotsByPriorityInPhase(phase)) {
+                if (robot.isAlive() && !robot.getShouldNotMove()) {
+                    System.out.println(robot.getName() + " executed " + robot.getHand()[phase].getAction().toString() + " with priority " +robot.getHand()[phase].getPriority() );
+                    robot.executeCardInHand(phase);
+                }
             }
 
             /*
@@ -60,16 +53,49 @@ public class GameLoop {
                 * Robotlasers
                 * Checkpoint/Wincheck
             */
+            for (IRobot robot : gameScreen.getRobots()) {
+                gameScreen.getGameLogic().endOfPhaseCheck(robot);
+            }
+
             return;
         }
 
-        player.setShouldNotMove(false);
-        player.clearHand();
-        for(AI ai:aiList){
-            ai.setShouldNotMove(false);
+        for (IRobot robot: gameScreen.getRobots()) {
+            if (robot instanceof Player) {
+                ((Player) robot).clearHand();
+            }
+            robot.setShouldNotMove(false);
         }
+
         gameScreen.makeHandInvisible();
         startNewRound();
+    }
+
+    private ArrayList<IRobot> sortRobotsByPriorityInPhase(int phase) {
+        ArrayList<IRobot> sortedPhaseRobots = gameScreen.getRobots();
+        ArrayList<Integer> priorityList = new ArrayList<>();
+
+        // add each priority into a list
+        for (IRobot robot : gameScreen.getRobots()) {
+            int priority = robot.getHand()[phase].getPriority();
+            priorityList.add(priority);
+        }
+
+        // sorts priorityList and sortedPhaseRobots
+        for (int i = 0; i < priorityList.size() - 1; i++) {
+            for (int j = i + 1; j < priorityList.size(); j++) {
+                if (priorityList.get(i) < priorityList.get(j)) {
+
+                    int temp = priorityList.get(j);
+                    IRobot robotTemp = sortedPhaseRobots.get(j);
+                    priorityList.set(j, priorityList.get(i));
+                    priorityList.set(i, temp);
+                    sortedPhaseRobots.set(j, sortedPhaseRobots.get(i));
+                    sortedPhaseRobots.set(i, robotTemp);
+                }
+            }
+        }
+        return sortedPhaseRobots;
     }
 
 }
