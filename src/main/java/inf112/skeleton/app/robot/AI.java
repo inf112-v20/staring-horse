@@ -131,7 +131,7 @@ public class AI implements IRobot {
         }
 
         if(this.hasWon()){
-            gameScreen.robotWin(this);
+            gameScreen.playerLose();
         }
     }
 

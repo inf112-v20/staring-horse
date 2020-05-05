@@ -13,13 +13,15 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import inf112.skeleton.app.enums.Direction;
 import inf112.skeleton.app.gameLogic.GameLogic;
@@ -72,6 +74,8 @@ public class GameScreen extends InputAdapter implements Screen {
     private float time;
     private boolean isWaiting;
     private int phase;
+    private Table finishGamePopUp;
+    private Label winOrLoseText;
 
     private GameScreen(){}
 
@@ -160,6 +164,8 @@ public class GameScreen extends InputAdapter implements Screen {
         playerIcon.setPosition(30, 50);
 
         stage.addActor(playerIcon);
+
+        createFinishGamePopUp();
     }
 
     private void setAllRespawnPoints(ArrayList<Vector2> respawnPoints) {
@@ -230,12 +236,17 @@ public class GameScreen extends InputAdapter implements Screen {
     }
 
     /**
-     * Finish game when robot wins
-     * @param robot winner
+     * Finish game when player wins
      */
-    public void robotWin(IRobot robot){
-        System.out.println("THE " + robot.getName() + " HAS WON!");
-        RoboRally.getInstance().setMenuScreen();
+    public void playerWin(){
+        showFinishGamePopUp("You win!");
+    }
+
+    /**
+     * Finish game when player loses
+     */
+    public void playerLose(){
+        showFinishGamePopUp("You lose!");
     }
 
     /**
@@ -251,7 +262,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
         if(livingRobots.size() == 1) {
             System.out.println("ALL OTHER ROBOTS ARE DEAD!");
-            robotWin(livingRobots.get(0));
+            playerWin();
         }
     }
 
@@ -428,6 +439,51 @@ public class GameScreen extends InputAdapter implements Screen {
     @Override
     public void dispose() {
         // dispose
+    }
+
+    private void showFinishGamePopUp(String text){
+        winOrLoseText.setText(text);
+        finishGamePopUp.setVisible(true);
+    }
+
+    private void createFinishGamePopUp() {
+        Skin skin = new Skin(Gdx.files.classpath("skin/star-soldier-ui.json"));
+        finishGamePopUp = new Table();
+        stage.addActor(finishGamePopUp);
+
+        TextButton backToMenu = new TextButton("Main menu", skin);
+        backToMenu.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                roboRally.setMenuScreen();
+            }
+        });
+
+        TextButton newGameAgain = new TextButton("New game with same settings", skin);
+        newGameAgain.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                roboRally.setGameScreen();
+            }
+        });
+
+        winOrLoseText = new Label("You win!", skin);
+        winOrLoseText.setFontScale(2);
+        winOrLoseText.setAlignment(Align.center);
+
+        finishGamePopUp.add(winOrLoseText).expandX();
+        finishGamePopUp.row();
+
+        finishGamePopUp.add(newGameAgain).expandX();
+        finishGamePopUp.row();
+
+        finishGamePopUp.add(backToMenu).expandX();
+
+        finishGamePopUp.setSize(450,300);
+        finishGamePopUp.setPosition((stage.getWidth()/2) - (finishGamePopUp.getWidth()/2),(stage.getHeight()/2) - (finishGamePopUp.getHeight()/2));
+        finishGamePopUp.setBackground( new TextureRegionDrawable(new TextureRegion(new Texture("Maps/Background.png"))).tint(new Color(0.5f,0.5f,0.5f,0.5f)));
+
+        finishGamePopUp.setVisible(false);
     }
 
     @Override

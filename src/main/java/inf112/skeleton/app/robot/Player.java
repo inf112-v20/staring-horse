@@ -3,7 +3,6 @@ package inf112.skeleton.app.robot;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import inf112.skeleton.app.RoboRally;
 import inf112.skeleton.app.enums.Direction;
 import inf112.skeleton.app.enums.ProgramCardAction;
 import inf112.skeleton.app.programCard.CardDeck;
@@ -80,7 +79,7 @@ public class Player implements IRobot {
         }
 
         if(this.hasWon()){
-            gameScreen.robotWin(this);
+            gameScreen.playerWin();
         }
     }
 
@@ -119,8 +118,7 @@ public class Player implements IRobot {
         if(this.lives <= 0){
             System.out.println("PLAYER IS OUT OF LIVES!");
             isAlive = false;
-            gameScreen.onlyOneRobotLeftCheck();
-            RoboRally.getInstance().setMenuScreen();
+            gameScreen.playerLose();
         } else {
             System.out.println(lives + " lives left");
             this.healthPoints = fullHealthPoints;
