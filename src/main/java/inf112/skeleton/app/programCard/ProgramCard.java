@@ -7,16 +7,14 @@ import inf112.skeleton.app.enums.ProgramCardAction;
 import java.util.Random;
 
 public class ProgramCard {
-    private int maxPriority = 500;
-    private int minPriority = 50;
     private ProgramCardAction action;
-    private int priority; // will be used in the near future.
+    private int priority;
     private Texture texture;
     private boolean isInHand;
 
     public ProgramCard(){
         this.action = ProgramCardAction.getRandomProgramCardAction();
-        this.priority = new Random().nextInt(this.maxPriority - this.minPriority) + this.minPriority;
+        generatePriority();
         this.isInHand = false;
     }
 
@@ -26,7 +24,7 @@ public class ProgramCard {
      */
     public ProgramCard(ProgramCardAction action){
         this.action = action;
-        this.priority = new Random().nextInt(this.maxPriority - this.minPriority) + this.minPriority;
+        generatePriority();
         this.isInHand = false;
     }
 
@@ -77,5 +75,48 @@ public class ProgramCard {
 
     public boolean isInHand() {
         return this.isInHand;
+    }
+
+    /**
+     * Generate priority corresponding to the ProgramCard's action
+     */
+    private void generatePriority(){
+        int p;
+
+        switch (this.action) {
+            case MOVE_THREE:
+                p = 800;
+                break;
+            case MOVE_TWO:
+                p = 700;
+                break;
+            case MOVE_ONE:
+                p = 600;
+                break;
+            case BACK_UP:
+                p = 400;
+                break;
+            case TURN_LEFT:
+            case TURN_RIGHT:
+                p = 200;
+                break;
+            case U_TURN:
+                p = 100;
+                break;
+            case AGAIN:
+                p = 0;
+                break;
+            default:
+                p = -1;
+                break;
+        }
+
+        p += (new Random().nextInt(100))-50;
+
+        this.priority = p;
+    }
+
+    public int getPriority(){
+        return this.priority;
     }
 }

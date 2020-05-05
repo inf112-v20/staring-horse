@@ -117,4 +117,12 @@ public interface IRobot {
     boolean getShouldNotMove();
 
     void setShouldNotMove(boolean bool);
+
+    ProgramCard[] getHand();
+
+    /**
+     * Excecute card in hand corresponding to phase
+     * @param phase current card to activate
+     */
+    void executeCardInHand(int phase);
 }

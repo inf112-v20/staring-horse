@@ -103,10 +103,7 @@ public class AI implements IRobot {
         return (int) (Math.abs(pos1.x - pos2.x) + Math.abs(pos1.y - pos2.y));
     }
 
-    /**
-     * Excecute card in hand corresponding to phase
-     * @param phase current card to activate
-     */
+    @Override
     public void executeCardInHand(int phase){
         gameScreen.unrenderRobot(this);
         this.performProgramCardAction(hand[phase]);
@@ -346,5 +343,10 @@ public class AI implements IRobot {
     @Override
     public void setShouldNotMove(boolean bool) {
         this.shouldNotMove = bool;
+    }
+
+    @Override
+    public ProgramCard[] getHand() {
+        return this.hand;
     }
 }

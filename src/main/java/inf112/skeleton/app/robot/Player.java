@@ -225,9 +225,7 @@ public class Player implements IRobot {
         }
     }
 
-    /**
-     * Execute all programcards in hand
-     */
+    @Override
     public void executeCardInHand(int phase){
         gameScreen.unrenderRobot(this);
         performProgramCardAction(this.hand[phase]);
@@ -260,6 +258,7 @@ public class Player implements IRobot {
         }
     }
 
+    @Override
     public ProgramCard[] getHand() {
         return this.hand;
     }
