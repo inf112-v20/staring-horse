@@ -40,6 +40,7 @@ public class MainMenuScreen implements Screen {
         this.mapList = new ArrayList<>();
         this.mapList.add("High_Octane.tmx");
         this.mapList.add("backgroundTest.tmx");
+        this.mapList.add("ChopShop.tmx");
     }
 
     @Override
