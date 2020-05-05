@@ -1,0 +1,51 @@
+wallObjects :
+	North_Wall
+	South_Wall
+	East_Wall
+	West_Wall
+	South_West_Wall
+	South_East_Wall
+	North_West_Wall
+	North_East_Wall
+	
+flagObjects :
+	Flag <number>
+	e.g. Flag 1
+	
+respawnObjects : (Subject to change)
+	respawn <number>
+	
+gearObjects : 
+	Counter_Clockwise
+	Clockwise
+	
+conveyorObjects : (same for express but just with Express_ at the start)
+	Straights :
+		Conveyor_To_North
+		Conveyor_To_South
+		Conveyor_To_East
+		Conveyor_To_West
+	
+	Corners : (same for clockwise except clockwise at the end)
+		Conveyor_From_East_To_North_Rotate_CounterClockwise
+		Conveyor_From_North_To_East_Rotate_CounterClockwise
+		Conveyor_From_South_To_West_Rotate_CounterClockwise
+		Conveyor_From_West_To_South_Rotate_CounterClockwise
+	
+	Junctions : 
+		Conveyor_Join_To_South_From_North_And_East_Rotate_Clockwise
+		Conveyor_Join_To_South_From_North_And_West_Rotate_CounterClockwise
+		Conveyor_Join_To_North_From_South_And_East_Rotate_CounterClockwise
+		Conveyor_Join_To_North_From_South_And_West_Rotate_Clockwise
+		Conveyor_Join_To_East_From_South_And_East_Rotate_Clockwise
+		Conveyor_Join_To_East_From_North_And_East_Rotate_CounterClockwise
+		Conveyor_Join_To_West_From_South_And_West_Rotate_CounterClockwise
+		Conveyor_Join_To_West_From_North_And_West_Rotate_Clockwise
+		
+		(where both inputs need to rotate the robot) 
+		Conveyor_Join_To_East_From_North_And_South_Rotate
+		Conveyor_Join_To_North_From_East_And_West_Rotate
+		Conveyor_Join_To_West_From_North_And_South_Rotate
+		Conveyor_Join_To_South_From_East_And_West_Rotate
+		
+		
