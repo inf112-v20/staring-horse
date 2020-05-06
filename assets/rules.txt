@@ -25,7 +25,7 @@ After all players' programming cards have been performed, board elements and rob
 After the fifth program card have been performed for all robots playing, the activation phase ends and a new programming phase starts. 
 
 [RED]
-How to win and loose:[WHITE]
+How to win and lose:[WHITE]
 To win the game, your robot must be the first to pick up all 4 flags in the correct order.
 
 You lose when one of your opponents gets to all 4 flags before you, or if you lose all 3 of your lives first. 
