@@ -9,7 +9,6 @@ import java.util.Random;
 public class ProgramCard {
     private ProgramCardAction action;
     private int priority;
-    private Texture texture;
 
     public ProgramCard(){
         this.action = ProgramCardAction.getRandomProgramCardAction();
@@ -30,36 +29,37 @@ public class ProgramCard {
      * @return a card texture with the corresponding move.
      */
     public Texture getTexture(){
+        Texture texture;
         switch (this.action){
             case MOVE_ONE:
-                this.texture = new Texture(Gdx.files.internal("ProgramCards/ProgramCardMove1.png"));
+                texture = new Texture(Gdx.files.internal("ProgramCards/ProgramCardMove1.png"));
                 break;
             case MOVE_TWO:
-                this.texture = new Texture(Gdx.files.internal("ProgramCards/ProgramCardMove2.png"));
+                texture = new Texture(Gdx.files.internal("ProgramCards/ProgramCardMove2.png"));
                 break;
             case MOVE_THREE:
-                this.texture = new Texture(Gdx.files.internal("ProgramCards/ProgramCardMove3.png"));
+                texture = new Texture(Gdx.files.internal("ProgramCards/ProgramCardMove3.png"));
                 break;
             case TURN_LEFT:
-                this.texture = new Texture(Gdx.files.internal("ProgramCards/ProgramCardTurnLeft.png"));
+                texture = new Texture(Gdx.files.internal("ProgramCards/ProgramCardTurnLeft.png"));
                 break;
             case TURN_RIGHT:
-                this.texture = new Texture(Gdx.files.internal("ProgramCards/ProgramCardTurnRight.png"));
+                texture = new Texture(Gdx.files.internal("ProgramCards/ProgramCardTurnRight.png"));
                 break;
             case U_TURN:
-                this.texture = new Texture(Gdx.files.internal("ProgramCards/ProgramCardUTurn.png"));
+                texture = new Texture(Gdx.files.internal("ProgramCards/ProgramCardUTurn.png"));
                 break;
             case BACK_UP:
-                this.texture = new Texture(Gdx.files.internal("ProgramCards/ProgramCardBackUp.png"));
+                texture = new Texture(Gdx.files.internal("ProgramCards/ProgramCardBackUp.png"));
                 break;
             case AGAIN:
-                this.texture = new Texture(Gdx.files.internal("ProgramCards/ProgramCardAgain.png"));
+                texture = new Texture(Gdx.files.internal("ProgramCards/ProgramCardAgain.png"));
                 break;
             default:
-                this.texture = new Texture("ProgramCards/ProgramCardMove1Pressed.png");
+                texture = new Texture("ProgramCards/ProgramCardMove1Pressed.png");
                 break;
         }
-        return this.texture;
+        return texture;
     }
 
     public ProgramCardAction getAction() {
