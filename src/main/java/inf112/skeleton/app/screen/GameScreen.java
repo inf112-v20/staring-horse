@@ -84,7 +84,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
     // labels for Priority.
     private Label priorityLabel;
-    private Skin mySkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
+    private Skin mySkin;
     private ArrayList<Label> priorityLabelList = new ArrayList<>();
     private ArrayList<Label> handPriorityLabelList;
 
@@ -510,6 +510,7 @@ public class GameScreen extends InputAdapter implements Screen {
             stage.addActor(image);
 
             // make priorityLabel for each card
+            mySkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
             Label handPriorityLabel = new Label(null, mySkin);
             handPriorityLabel.setPosition(image.getX() + 8 ,image.getY() - 4 );
             handPriorityLabel.setSize(image.getWidth(), image.getY());
