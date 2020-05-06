@@ -62,6 +62,7 @@ public class MainMenuScreen implements Screen {
         makeMapSelector();
         makeAiNumberSelector();
         makeNewGameButton();
+        makeRulesButton();
         makeExitButton();
     }
 
@@ -104,7 +105,7 @@ public class MainMenuScreen implements Screen {
         TextButton mapSelectionPrev = new TextButton("Prev map", skin);
         TextButton mapSelectionNext = new TextButton("Next map", skin);
 
-        table.row().pad(10, 0, 10, 0);
+        table.row().pad(5, 0, 5, 0);
         table.add(mapSelectionPrev).uniformX().fillX().colspan(2);
         table.add(mapSelectionNext).uniformX().fillX().colspan(2);
 
@@ -140,7 +141,7 @@ public class MainMenuScreen implements Screen {
         TextButton moreAI = new TextButton("+", skin);
         TextButton fewerAI = new TextButton("-", skin);
 
-        table.row().pad(10, 0, 10, 0);
+        table.row().pad(5, 0, 5, 0);
         table.add(fewerAI).fillX().uniformX();
         table.add(numberOfAILabel).fillX().minWidth(250).colspan(2).fillY();
         table.add(moreAI).fillX().uniformX();
@@ -173,7 +174,7 @@ public class MainMenuScreen implements Screen {
     private void makeNewGameButton(){
         TextButton newGame = new TextButton("New Game", skin);
 
-        table.row().pad(50, 0, 10, 0);
+        table.row().pad(50, 0, 5, 0);
         table.add(newGame).fillX().uniformX().colspan(4);
 
         newGame.addListener(new ChangeListener() {
@@ -186,10 +187,24 @@ public class MainMenuScreen implements Screen {
         });
     }
 
+    private void makeRulesButton(){
+        TextButton rules = new TextButton("Rules", skin);
+
+        table.row().pad(5, 0, 5, 0);
+        table.add(rules).fillX().uniformX().colspan(4);
+
+        rules.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                roboRally.setRulesScreen();
+            }
+        });
+    }
+
     private void makeExitButton(){
         TextButton exit = new TextButton("Exit", skin);
 
-        table.row().pad(10, 0, 10, 0);
+        table.row().pad(5, 0, 0, 0);
         table.add(exit).fillX().uniformX().colspan(4);
 
         exit.addListener(new ChangeListener() {
