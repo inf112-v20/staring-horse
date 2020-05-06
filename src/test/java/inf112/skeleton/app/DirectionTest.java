@@ -9,145 +9,117 @@ import java.util.WeakHashMap;
 import static org.junit.Assert.assertEquals;
 import static inf112.skeleton.app.enums.Direction.*;
 
-public class directionTest {
+public class DirectionTest {
 
     @Test
     public void shouldRotateClockwiseWestToNorth() {
 
-        Direction direction = WEST;
-
-        assertEquals(rotateClockwise(direction), NORTH);
+        assertEquals(rotateClockwise(WEST), NORTH);
     }
 
     @Test
     public void shouldRotateClockwiseNorthToEast() {
 
-        Direction direction = NORTH;
-
-        assertEquals(rotateClockwise(direction), EAST);
+        assertEquals(rotateClockwise(NORTH), EAST);
     }
 
     @Test
     public void shouldRotateClockwiseEastToSouth() {
 
-        Direction direction = EAST;
-
-        assertEquals(rotateClockwise(direction), SOUTH);
+        assertEquals(rotateClockwise(EAST), SOUTH);
     }
 
     @Test
     public void shouldRotateClockwiseSouthToWest() {
 
-        Direction direction = SOUTH;
-
-        assertEquals(rotateClockwise(direction), WEST);
+        assertEquals(rotateClockwise(SOUTH), WEST);
     }
 
     @Test
     public void shouldRotateCounterClockwiseWestToSouth() {
 
-        Direction direction = WEST;
-
-        assertEquals(rotateCounterClockwise(direction), SOUTH);
+        assertEquals(rotateCounterClockwise(WEST), SOUTH);
     }
 
     @Test
     public void shouldRotateCounterClockwiseSouthToEast() {
 
-        Direction direction = SOUTH;
-
-        assertEquals(rotateCounterClockwise(direction), EAST);
+        assertEquals(rotateCounterClockwise(SOUTH), EAST);
     }
 
     @Test
     public void shouldRotateCounterClockwiseEastToNorth() {
 
-        Direction direction = EAST;
-
-        assertEquals(rotateCounterClockwise(direction), NORTH);
+        assertEquals(rotateCounterClockwise(EAST), NORTH);
     }
 
     @Test
     public void shouldRotateCounterClockwiseNorthToWest() {
 
-        Direction direction = NORTH;
-
-        assertEquals(rotateCounterClockwise(direction), WEST);
+        assertEquals(rotateCounterClockwise(NORTH), WEST);
     }
 
     @Test
     public void shouldGiveOppositeDirectionOfNorth() {
 
-        Direction direction = NORTH;
-
-        assertEquals(oppositeOf(direction), SOUTH);
+        assertEquals(oppositeOf(NORTH), SOUTH);
     }
 
     @Test
     public void shouldGiveOppositeDirectionOfSouth() {
 
-        Direction direction = SOUTH;
-
-        assertEquals(oppositeOf(direction), NORTH);
+        assertEquals(oppositeOf(SOUTH), NORTH);
     }
 
     @Test
     public void shouldGiveOppositeDirectionOfEast() {
 
-        Direction direction = EAST;
-
-        assertEquals(oppositeOf(direction), WEST);
+        assertEquals(oppositeOf(EAST), WEST);
     }
 
     @Test
     public void shouldGiveOppositeDirectionOfWest() {
 
-        Direction direction = WEST;
-
-        assertEquals(oppositeOf(direction), EAST);
+        assertEquals(oppositeOf(WEST), EAST);
     }
 
     @Test
     public void shouldGetCorrectPositionForMoveInDirectionNorth() {
         Vector2 position = new Vector2(0,0);
-        Direction direction = NORTH;
 
         Vector2 correctNextPosition = new Vector2(0,1);
 
-        assertEquals(getPosInDirection(position, direction), correctNextPosition);
+        assertEquals(getPosInDirection(position, NORTH), correctNextPosition);
 
     }
 
     @Test
     public void shouldGetCorrectPositionForMoveInDirectionSouth() {
         Vector2 position = new Vector2(0,0);
-        Direction direction = SOUTH;
 
         Vector2 correctNextPosition = new Vector2(0,-1);
 
-        assertEquals(getPosInDirection(position, direction), correctNextPosition);
+        assertEquals(getPosInDirection(position, SOUTH), correctNextPosition);
 
     }
 
     @Test
     public void shouldGetCorrectPositionForMoveInDirectionEast() {
         Vector2 position = new Vector2(0,0);
-        Direction direction = EAST;
 
         Vector2 correctNextPosition = new Vector2(1,0);
 
-        assertEquals(getPosInDirection(position, direction), correctNextPosition);
+        assertEquals(getPosInDirection(position, EAST), correctNextPosition);
 
     }
 
     @Test
     public void shouldGetCorrectPositionForMoveInDirectionWest() {
         Vector2 position = new Vector2(0,0);
-        Direction direction = WEST;
 
         Vector2 correctNextPosition = new Vector2(-1,0);
 
-        assertEquals(getPosInDirection(position, direction), correctNextPosition);
+        assertEquals(getPosInDirection(position, WEST), correctNextPosition);
 
     }
 
