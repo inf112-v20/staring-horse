@@ -10,10 +10,10 @@ import static org.junit.Assert.assertEquals;
 
 public class AiTest {
 
-    AI testAI;
-    int startX;
-    int startY;
-    Direction startDirection;
+    private AI testAI;
+    private int startX;
+    private int startY;
+    private Direction startDirection;
 
     @Before
     public void before(){

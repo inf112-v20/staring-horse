@@ -1,4 +1,4 @@
-package inf112.skeleton.app.gameLogic;
+package inf112.skeleton.app.gamelogic;
 
 import inf112.skeleton.app.robot.AI;
 import inf112.skeleton.app.robot.IRobot;
@@ -36,7 +36,7 @@ public class GameLoop {
             ai.generateSmartMoves();
         }
         if (phase < 5) {
-            gameScreen.getInstance().unrenderLasers();
+            gameScreen.unrenderLasers();
 
             // check priority for players and execute cards accordingly
             for (IRobot robot : sortRobotsByPriorityInPhase(phase)) {
@@ -71,7 +71,7 @@ public class GameLoop {
         }
 
         gameScreen.makeHandInvisible();
-        gameScreen.getInstance().unrenderLasers();
+        gameScreen.unrenderLasers();
         startNewRound();
     }
 

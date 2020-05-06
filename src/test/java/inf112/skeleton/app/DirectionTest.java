@@ -1,11 +1,7 @@
 package inf112.skeleton.app;
 
 import com.badlogic.gdx.math.Vector2;
-import inf112.skeleton.app.enums.Direction;
 import org.junit.Test;
-
-import java.util.WeakHashMap;
-
 import static org.junit.Assert.assertEquals;
 import static inf112.skeleton.app.enums.Direction.*;
 

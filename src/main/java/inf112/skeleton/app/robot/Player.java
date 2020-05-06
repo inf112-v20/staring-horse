@@ -5,8 +5,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.enums.Direction;
 import inf112.skeleton.app.enums.ProgramCardAction;
-import inf112.skeleton.app.programCard.CardDeck;
-import inf112.skeleton.app.programCard.ProgramCard;
+import inf112.skeleton.app.programcard.CardDeck;
+import inf112.skeleton.app.programcard.ProgramCard;
 import inf112.skeleton.app.screen.GameScreen;
 
 public class Player implements IRobot {

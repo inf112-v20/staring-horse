@@ -1,4 +1,4 @@
-package inf112.skeleton.app.gameLogic;
+package inf112.skeleton.app.gamelogic;
 
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
@@ -13,7 +13,6 @@ import inf112.skeleton.app.robot.IRobot;
 import inf112.skeleton.app.screen.GameScreen;
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import static inf112.skeleton.app.enums.Direction.*;
 
 public class GameLogic {
@@ -124,11 +123,11 @@ public class GameLogic {
     public boolean canGo(Vector2 pos, Direction dir) {
         String objectName = getObjectNameOnPos(tiledMap, pos);
         if (canGoCurrentTile(objectName, dir)) {
-            Vector2 nextPos = Direction.getPosInDirection(pos,dir);
+            Vector2 nextPos = getPosInDirection(pos,dir);
             objectName = getObjectNameOnPos(tiledMap, nextPos);
 
             if (objectName.contains("Wall")) {
-                return !objectName.toUpperCase().contains(Direction.oppositeOf(dir).toString().toUpperCase());
+                return !objectName.toUpperCase().contains(oppositeOf(dir).toString().toUpperCase());
             }
         }
         else {
@@ -165,9 +164,9 @@ public class GameLogic {
      */
     public void changeDirOnGear(IRobot robot) {
         String objectName = getObjectNameOnPos(tiledMap, robot.getPos());
-        if (objectName.equals("Counter_Clockwise")) {
+        if ("Counter_Clockwise".equals(objectName)) {
             robot.rotateCounterClockwise();
-        } else if (objectName.equals("Clockwise")) {
+        } else if ("Clockwise".equals(objectName)) {
             robot.rotateClockwise();
         }
     }
@@ -375,7 +374,7 @@ public class GameLogic {
      * @param dir - push direction
      */
     public void pushIfPossible(Vector2 pos, Direction dir){
-        Vector2 vector = Direction.getPosInDirection(pos, dir);
+        Vector2 vector = getPosInDirection(pos, dir);
         IRobot otherRobot = getRobotOnPos(vector);
 
         if(otherRobot != null){

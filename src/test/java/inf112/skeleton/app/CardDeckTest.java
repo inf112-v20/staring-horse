@@ -1,14 +1,14 @@
 package inf112.skeleton.app;
 
-import inf112.skeleton.app.programCard.CardDeck;
-import inf112.skeleton.app.programCard.ProgramCard;
+import inf112.skeleton.app.programcard.CardDeck;
+import inf112.skeleton.app.programcard.ProgramCard;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class CardDeckTest {
 
-    CardDeck cardDeck;
+    private CardDeck cardDeck;
 
     @Before
     public void before() {

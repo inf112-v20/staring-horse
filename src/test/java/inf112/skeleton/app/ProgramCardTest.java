@@ -4,17 +4,17 @@ import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.enums.Direction;
 import inf112.skeleton.app.enums.ProgramCardAction;
 import inf112.skeleton.app.robot.Player;
-import inf112.skeleton.app.programCard.ProgramCard;
+import inf112.skeleton.app.programcard.ProgramCard;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 public class ProgramCardTest {
-    Player testPlayer;
-    ProgramCard playerCard;
-    int startX;
-    int startY;
-    Direction startDir;
+    private Player testPlayer;
+    private ProgramCard playerCard;
+    private int startX;
+    private int startY;
+    private Direction startDir;
 
     @Before
     public void before(){

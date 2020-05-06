@@ -1,8 +1,6 @@
 package inf112.skeleton.app.enums;
 
 import com.badlogic.gdx.math.Vector2;
-import inf112.skeleton.app.programCard.ProgramCard;
-
 import java.util.Random;
 
 public enum ProgramCardAction {
@@ -55,6 +53,8 @@ public enum ProgramCardAction {
             case BACK_UP:
                 pos = Direction.getPosInDirection(pos,Direction.oppositeOf(dir));
                 return pos;
+            default:
+                break;
         }
         return pos;
     }

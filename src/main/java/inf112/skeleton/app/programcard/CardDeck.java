@@ -1,4 +1,4 @@
-package inf112.skeleton.app.programCard;
+package inf112.skeleton.app.programcard;
 
 import inf112.skeleton.app.enums.ProgramCardAction;
 
@@ -14,7 +14,7 @@ public class CardDeck {
 
     /**
      * Adds a ProgramCard to the deck
-     * @param card
+     * @param card ProgramCard
      */
     public void addCardToDeck(ProgramCard card) {
         deck.add(card);
@@ -41,7 +41,7 @@ public class CardDeck {
 
     /**
      * Get ProgramCard in index from deck
-     * @param index
+     * @param index int
      * @return ProgramCard
      */
     public ProgramCard getCard(int index){

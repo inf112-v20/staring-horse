@@ -9,10 +9,10 @@ import static org.junit.Assert.assertEquals;
 
 public class PlayerTest {
 
-    Player testPlayer;
-    int startX;
-    int startY;
-    Direction startDirection;
+    private Player testPlayer;
+    private int startX;
+    private int startY;
+    private Direction startDirection;
 
     @Before
     public void before(){

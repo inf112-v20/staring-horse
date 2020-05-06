@@ -22,8 +22,9 @@ public enum Direction {
                 return Direction.SOUTH;
             case NORTH:
                 return Direction.EAST;
+            default:
+                break;
         }
-
         return dir;
     }
 
@@ -41,8 +42,9 @@ public enum Direction {
                 return Direction.NORTH;
             case NORTH:
                 return Direction.WEST;
+            default:
+                break;
         }
-
         return dir;
     }
 
@@ -60,8 +62,9 @@ public enum Direction {
                 return WEST;
             case NORTH:
                 return SOUTH;
+            default:
+                break;
         }
-
         return dir;
     }
 
@@ -83,8 +86,9 @@ public enum Direction {
                 return posCopy.add(1,0);
             case NORTH:
                 return posCopy.add(0,1);
+            default:
+                break;
         }
-
         return pos;
     }
 }

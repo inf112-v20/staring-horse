@@ -24,17 +24,15 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import inf112.skeleton.app.enums.Direction;
-import inf112.skeleton.app.gameLogic.GameLogic;
-import inf112.skeleton.app.gameLogic.GameLoop;
+import inf112.skeleton.app.gamelogic.GameLogic;
+import inf112.skeleton.app.gamelogic.GameLoop;
 import inf112.skeleton.app.robot.Player;
-import inf112.skeleton.app.programCard.ProgramCard;
+import inf112.skeleton.app.programcard.ProgramCard;
 import inf112.skeleton.app.RoboRally;
 import inf112.skeleton.app.robot.AI;
 import inf112.skeleton.app.robot.IRobot;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-
 
 public class GameScreen extends InputAdapter implements Screen {
 
@@ -339,6 +337,8 @@ public class GameScreen extends InputAdapter implements Screen {
                 break;
             case EAST:
                 cell.setRotation(TiledMapTileLayer.Cell.ROTATE_270);
+                break;
+            default:
                 break;
         }
     }
