@@ -42,11 +42,13 @@ public class GameScreen extends InputAdapter implements Screen {
     private TiledMap tiledMap;
     private TiledMapTileLayer boardLayer;
     private TiledMapTileLayer playerLayer;
+    private TiledMapTileLayer laserLayer;
 
     private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
     private OrthographicCamera camera;
 
     private TiledMapTileLayer.Cell playerCell;
+    private TiledMapTileLayer.Cell laserCell;
 
     private Stage stage;
 
@@ -100,11 +102,14 @@ public class GameScreen extends InputAdapter implements Screen {
         player = new Player();
 
         playerCell = new TiledMapTileLayer.Cell();
+        laserCell = new TiledMapTileLayer.Cell();
 
         playerLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Player");
         boardLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Board");
+        laserLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Laser");
 
         playerCell.setTile(new StaticTiledMapTile(player.getTexture()));
+        laserCell.setTile(new StaticTiledMapTile(new TextureRegion(new Texture("laser.png"))));
 
         robotCellHashMap = new HashMap<>();
         robotCellHashMap.put(player, playerCell);
@@ -290,6 +295,20 @@ public class GameScreen extends InputAdapter implements Screen {
                 cell.setRotation(TiledMapTileLayer.Cell.ROTATE_270);
                 break;
         }
+    }
+
+    public void drawLaserOnPos(Vector2 pos, Direction dir) {
+        if (dir == Direction.NORTH || dir == Direction.SOUTH) {
+            laserCell.setRotation(TiledMapTileLayer.Cell.ROTATE_0);
+        }
+        else {
+            laserCell.setRotation(TiledMapTileLayer.Cell.ROTATE_90);
+        }
+        laserLayer.setCell((int) pos.x, (int) pos.y, laserCell);
+    }
+
+    public void unrenderLaser(Vector2 pos) {
+        laserLayer.setCell((int) pos.x, (int) pos.y, null);
     }
 
     /**

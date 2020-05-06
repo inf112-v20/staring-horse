@@ -56,6 +56,7 @@ public class GameLoop {
             for (IRobot robot : gameScreen.getRobots()) {
                 gameScreen.getGameLogic().endOfPhaseCheck(robot);
             }
+            gameScreen.getGameLogic().activateWallLasers(gameScreen.getGameLogic().getAllPositionsFromObjectName("WallLaser"));
 
             return;
         }
