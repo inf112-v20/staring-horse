@@ -82,6 +82,12 @@ public class GameScreen extends InputAdapter implements Screen {
     private Label winOrLoseText;
     private TextButton activateCardsButton;
 
+    // labels for Priority.
+    private Label priorityLabel;
+    private Skin mySkin = new Skin(Gdx.files.internal("skin/uiskin.json"));
+    private ArrayList<Label> priorityLabelList = new ArrayList<>();
+    private ArrayList<Label> handPriorityLabelList;
+
     private GameScreen(){}
 
     public static GameScreen getInstance() {
@@ -395,9 +401,22 @@ public class GameScreen extends InputAdapter implements Screen {
 
     private void addCardToPlayerHand(ProgramCard programCard) {
         player.addCardToHand(programCard);
+        Image image = handCards.get(player.getNumberOfCardsInHand()-1);
+        image.setVisible(true);
+        changeImageTexture(image, programCard.getTexture());
 
-        handCards.get(player.getNumberOfCardsInHand()-1).setVisible(true);
-        changeImageTexture(handCards.get(player.getNumberOfCardsInHand()-1), programCard.getTexture());
+        // add label to the new image
+        Label label = handPriorityLabelList.get(player.getNumberOfCardsInHand()-1);
+        label.setText("" + programCard.getPriority());
+        label.setVisible(true);
+
+        // remove the same label from the selectable cards.
+        for (Label l : priorityLabelList) {
+            if (l.getText().equals(label.getText())) {
+                l.remove();
+            }
+        }
+
     }
 
     public void changeImageButtonDrawable(ImageButton button, ProgramCard card) {
@@ -405,13 +424,41 @@ public class GameScreen extends InputAdapter implements Screen {
     }
 
     public void makePlayerDeckMatchSelectableCards() {
+        // remove all priority labels for the previous cards.
+        removePriorityOnCard();
         for(ImageButton card:selectableCardButtons){
             card.setVisible(false);
         }
         for(int i = 0; i < (9-(Math.min(player.getDamageTaken(),4))); i++) {
             selectableCardButtons.get(i).setVisible(true);
             changeImageButtonDrawable(selectableCardButtons.get(i), player.getProgramCard(i));
+            drawPriorityOnCard(i); // add priority label
         }
+    }
+
+    /**
+     * Remove all labels and clear the Arraylist of labels.
+     * Only the card deck for hand it removes itself in
+     */
+    private void removePriorityOnCard() {
+        for (Label label : priorityLabelList) {
+            label.remove();
+        }
+        priorityLabelList.clear();
+    }
+
+    private void drawPriorityOnCard(int i) {
+
+        ImageButton card = selectableCardButtons.get(i);
+        int priority = player.getProgramCard(i).getPriority();
+
+        // add new label on correct position.
+        priorityLabel = new Label("" + priority, mySkin);
+        priorityLabel.setSize(card.getWidth(), card.getY());
+        priorityLabel.setPosition(card.getX(), card.getY() + card.getHeight() - priorityLabel.getHeight());
+        priorityLabel.setAlignment(Align.center);
+        priorityLabelList.add(priorityLabel);
+        stage.addActor(priorityLabel);
     }
 
     /**
@@ -445,6 +492,7 @@ public class GameScreen extends InputAdapter implements Screen {
     private void makePlayerHandImages(){
 
         handCards = new ArrayList<>();
+        handPriorityLabelList = new ArrayList<>();
 
         for (int i = 0; i < 5; i++) {
 
@@ -461,6 +509,15 @@ public class GameScreen extends InputAdapter implements Screen {
             handCards.add(image);
             stage.addActor(image);
 
+            // make priorityLabel for each card
+            Label handPriorityLabel = new Label(null, mySkin);
+            handPriorityLabel.setPosition(image.getX() + 8 ,image.getY() - 4 );
+            handPriorityLabel.setSize(image.getWidth(), image.getY());
+
+            handPriorityLabelList.add(handPriorityLabel);
+            stage.addActor(handPriorityLabel);
+
+            handPriorityLabel.setVisible(false);
             image.setVisible(false);
         }
     }
@@ -605,6 +662,8 @@ public class GameScreen extends InputAdapter implements Screen {
 
         for (int i = handCards.size()-1; i >= lockedCardsNumber; i--) {
             handCards.get(i).setVisible(false);
+            handPriorityLabelList.get(i).setVisible(false);
+            // remove priority label and remove it from the list
         }
     }
 
