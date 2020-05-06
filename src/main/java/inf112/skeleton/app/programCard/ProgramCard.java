@@ -10,12 +10,10 @@ public class ProgramCard {
     private ProgramCardAction action;
     private int priority;
     private Texture texture;
-    private boolean isInHand;
 
     public ProgramCard(){
         this.action = ProgramCardAction.getRandomProgramCardAction();
         generatePriority();
-        this.isInHand = false;
     }
 
     /**
@@ -25,7 +23,6 @@ public class ProgramCard {
     public ProgramCard(ProgramCardAction action){
         this.action = action;
         generatePriority();
-        this.isInHand = false;
     }
 
     /**
@@ -67,14 +64,6 @@ public class ProgramCard {
 
     public ProgramCardAction getAction() {
         return this.action;
-    }
-
-    public void setIsInHand(boolean bool) {
-        this.isInHand = bool;
-    }
-
-    public boolean isInHand() {
-        return this.isInHand;
     }
 
     /**

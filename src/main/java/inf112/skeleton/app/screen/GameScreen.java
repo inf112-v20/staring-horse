@@ -49,7 +49,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
     private TiledMapTileLayer.Cell playerCell;
     private TiledMapTileLayer.Cell laserVerticalCell;
-    private TiledMapTileLayer.Cell laserHorisontalCell;
+    private TiledMapTileLayer.Cell laserHorizontalCell;
     private TiledMapTileLayer.Cell laserCrossCell;
 
     private Stage stage;
@@ -80,6 +80,7 @@ public class GameScreen extends InputAdapter implements Screen {
     private int phase;
     private Table finishGamePopUp;
     private Label winOrLoseText;
+    private TextButton activateCardsButton;
 
     private GameScreen(){}
 
@@ -105,7 +106,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
         playerCell = new TiledMapTileLayer.Cell();
         laserVerticalCell = new TiledMapTileLayer.Cell();
-        laserHorisontalCell = new TiledMapTileLayer.Cell();
+        laserHorizontalCell = new TiledMapTileLayer.Cell();
         laserCrossCell = new TiledMapTileLayer.Cell();
 
         playerLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Player");
@@ -114,7 +115,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
         playerCell.setTile(new StaticTiledMapTile(player.getTexture()));
         laserVerticalCell.setTile(new StaticTiledMapTile(new TextureRegion(new Texture("laser.png"))));
-        laserHorisontalCell.setTile(laserVerticalCell.getTile());
+        laserHorizontalCell.setTile(laserVerticalCell.getTile());
         laserCrossCell.setTile(new StaticTiledMapTile(new TextureRegion(new Texture("laserCross.png"))));
 
         robotCellHashMap = new HashMap<>();
@@ -177,6 +178,22 @@ public class GameScreen extends InputAdapter implements Screen {
         stage.addActor(playerIcon);
 
         createFinishGamePopUp();
+
+        activateCardsButton = new TextButton("Activate\ncards", new Skin(Gdx.files.classpath("skin/star-soldier-ui.json")));
+        stage.addActor(activateCardsButton);
+
+        activateCardsButton.setPosition(stage.getWidth() - 175,150);
+        activateCardsButton.setVisible(false);
+
+        activateCardsButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                if (player.isHandFull()){
+                    isWaiting = true;
+                    activateCardsButton.setVisible(false);
+                }
+            }
+        });
     }
 
     private void setAllRespawnPoints(ArrayList<Vector2> respawnPoints) {
@@ -305,7 +322,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
     public void drawLaserOnPos(Vector2 pos, Direction dir) {
         if (laserLayer.getCell((int) pos.x, (int) pos.y) != null) {
-            if (laserLayer.getCell((int) pos.x, (int) pos.y) == laserHorisontalCell && (dir == Direction.EAST || dir == Direction.WEST)) {
+            if (laserLayer.getCell((int) pos.x, (int) pos.y) == laserHorizontalCell && (dir == Direction.EAST || dir == Direction.WEST)) {
                 return;
             }
             else if (laserLayer.getCell((int) pos.x, (int) pos.y) == laserVerticalCell && (dir == Direction.NORTH || dir == Direction.SOUTH)) {
@@ -317,8 +334,8 @@ public class GameScreen extends InputAdapter implements Screen {
             }
         }
         if (dir == Direction.EAST || dir == Direction.WEST) {
-            laserHorisontalCell.setRotation(TiledMapTileLayer.Cell.ROTATE_90);
-            laserLayer.setCell((int) pos.x, (int) pos.y, laserHorisontalCell);
+            laserHorizontalCell.setRotation(TiledMapTileLayer.Cell.ROTATE_90);
+            laserLayer.setCell((int) pos.x, (int) pos.y, laserHorizontalCell);
         }
         else if (dir == Direction.NORTH || dir == Direction.SOUTH) {
             laserLayer.setCell((int) pos.x, (int) pos.y, laserVerticalCell);
@@ -366,8 +383,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
 
                 if(player.isHandFull() && !phaseIsWaiting()) {
-                    isWaiting = true;
-                    //gameLoop.startActivationPhase();
+                    activateCardsButton.setVisible(true);
                 }
 
                 return true;

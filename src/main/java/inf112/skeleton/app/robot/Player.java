@@ -219,7 +219,6 @@ public class Player implements IRobot {
         if (numberOfCardsInHand < 5) {
             hand[numberOfCardsInHand] = card;
             numberOfCardsInHand += 1;
-            card.setIsInHand(true);
         } else {
             System.out.println("Your hand is full!");
         }
