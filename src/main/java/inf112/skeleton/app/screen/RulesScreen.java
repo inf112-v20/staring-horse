@@ -21,6 +21,7 @@ public class RulesScreen implements Screen {
     private Skin skin;
     private RoboRally roboRally;
     private Stage stage;
+    private ScrollPane scrollPane;
 
     public RulesScreen(){
         this.roboRally = RoboRally.getInstance();
@@ -48,7 +49,9 @@ public class RulesScreen implements Screen {
 
     @Override
     public void resize(int i, int i1) {
-
+        stage.getViewport().update(i,i1, true);
+        scrollPane.setPosition(200,200);
+        scrollPane.setSize(stage.getWidth()-400,stage.getHeight()-400);
     }
 
     @Override
@@ -98,7 +101,7 @@ public class RulesScreen implements Screen {
         Label rulesText = new Label(text.toString(), style);
         rulesText.setFontScale(1.5f);
 
-        ScrollPane scrollPane = new ScrollPane(rulesText, skin);
+        scrollPane = new ScrollPane(rulesText, skin);
 
         scrollPane.setPosition(200,200);
         scrollPane.setSize(stage.getWidth()-400,stage.getHeight()-400);
