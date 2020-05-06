@@ -38,9 +38,11 @@ public class MainMenuScreen implements Screen {
         this.skin = new Skin(Gdx.files.classpath("skin/star-soldier-ui.json"));
 
         this.mapList = new ArrayList<>();
-        this.mapList.add("High_Octane.tmx");
+        this.mapList.add("HighOctane.tmx");
         this.mapList.add("backgroundTest.tmx");
         this.mapList.add("ChopShop.tmx");
+        this.mapList.add("EazyBreezy.tmx");
+        this.mapList.add("ConveyorChaos.tmx");
     }
 
     @Override
