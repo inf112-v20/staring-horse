@@ -173,6 +173,25 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
+ <layer id="8" name="Wall" width="15" height="15">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,24,0,0,0,0,0,0,0,0,0,24,0,16,0,
+0,0,0,0,0,8,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,32,0,8,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,23,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,8,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,32,0,0,0,0,0,0,0,0,0,0,0,8,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
  <layer id="17" name="WallLaser" width="15" height="15">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -186,25 +205,6 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-</data>
- </layer>
- <layer id="8" name="Wall" width="15" height="15">
-  <data encoding="csv">
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,24,0,0,0,0,0,0,0,0,0,24,0,16,0,
-0,0,0,0,0,8,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,32,0,8,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,46,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,8,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,32,0,0,0,0,0,0,0,0,0,0,0,8,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -230,7 +230,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="11" name="ConveyorObjects">
+ <objectgroup id="11" name="conveyorObjects" visible="0">
   <object id="21" name="Conveyor_To_East" x="1500" y="1200" width="300" height="300"/>
   <object id="22" name="Conveyor_To_East" x="1800" y="1200" width="300" height="300"/>
   <object id="23" name="Conveyor_To_East" x="2100" y="1200" width="300" height="300"/>
@@ -248,11 +248,11 @@
   <object id="37" name="Express_Conveyor_To_South" x="3000" y="1500" width="300" height="300"/>
   <object id="38" name="Express_Conveyor_To_South" x="3000" y="1800" width="300" height="300"/>
  </objectgroup>
- <objectgroup id="12" name="gearObjects">
+ <objectgroup id="12" name="gearObjects" visible="0">
   <object id="44" name="Counter_Clockwise" x="600" y="2700" width="300" height="300"/>
   <object id="45" name="Clockwise" x="600" y="600" width="300" height="300"/>
  </objectgroup>
- <objectgroup id="13" name="respawnObjects">
+ <objectgroup id="13" name="respawnObjects" visible="0">
   <object id="20" name="respawn1" x="600" y="900" width="300" height="300"/>
   <object id="39" name="respawn2" x="600" y="1200" width="300" height="300"/>
   <object id="40" name="respawn3" x="600" y="1500" width="300" height="300"/>
@@ -260,13 +260,13 @@
   <object id="42" name="respawn5" x="600" y="2100" width="300" height="300"/>
   <object id="43" name="respawn6" x="600" y="2400" width="300" height="300"/>
  </objectgroup>
- <objectgroup id="14" name="flagObjects">
+ <objectgroup id="14" name="flagObjects" visible="0">
   <object id="46" name="Flag3" x="1500" y="600" width="300" height="300"/>
   <object id="47" name="Flag1" x="3600" y="600" width="300" height="300"/>
   <object id="48" name="Flag4" x="3600" y="2400" width="300" height="300"/>
   <object id="49" name="Flag2" x="1500" y="2700" width="300" height="300"/>
  </objectgroup>
- <objectgroup id="15" name="wallObjects">
+ <objectgroup id="15" name="wallObjects" visible="0">
   <object id="50" name="North_West_Wall" x="300" y="300" width="300" height="300"/>
   <object id="51" name="South_East_Wall" x="1500" y="600" width="300" height="300"/>
   <object id="52" name="North_West_Wall" x="3300" y="300" width="300" height="300"/>
