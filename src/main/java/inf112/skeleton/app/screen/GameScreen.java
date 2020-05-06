@@ -40,14 +40,11 @@ public class GameScreen extends InputAdapter implements Screen {
 
     public static final int TILE_AREA = 300;
     private TiledMap tiledMap;
-    private TiledMapTileLayer boardLayer;
     private TiledMapTileLayer playerLayer;
     private TiledMapTileLayer laserLayer;
 
     private OrthogonalTiledMapRenderer orthogonalTiledMapRenderer;
-    private OrthographicCamera camera;
 
-    private TiledMapTileLayer.Cell playerCell;
     private TiledMapTileLayer.Cell laserVerticalCell;
     private TiledMapTileLayer.Cell laserHorizontalCell;
     private TiledMapTileLayer.Cell laserCrossCell;
@@ -82,11 +79,10 @@ public class GameScreen extends InputAdapter implements Screen {
     private Label winOrLoseText;
     private TextButton activateCardsButton;
 
-    // labels for Priority.
-    private Label priorityLabel;
     private Skin mySkin;
     private ArrayList<Label> priorityLabelList = new ArrayList<>();
     private ArrayList<Label> handPriorityLabelList;
+    private ArrayList<Vector2> respawnPoints;
 
     private GameScreen(){}
 
@@ -99,58 +95,33 @@ public class GameScreen extends InputAdapter implements Screen {
 
     @Override
     public void show() {
+        // remove when overhauling delay.
         time = 0f;
         this.isWaiting = false;
         this.phase = 0;
         tiledMap = new TmxMapLoader().load("Maps/" + roboRally.getGameMap());
-        camera = new OrthographicCamera();
+        OrthographicCamera camera = new OrthographicCamera();
 
         this.gameLogic = new GameLogic();
 
-        ArrayList<Vector2> respawnPoints = gameLogic.getAllPositionsFromObjectName("SpawnPoint");
+        respawnPoints = gameLogic.getAllPositionsFromObjectName("SpawnPoint");
         player = new Player();
 
-        playerCell = new TiledMapTileLayer.Cell();
-        laserVerticalCell = new TiledMapTileLayer.Cell();
-        laserHorizontalCell = new TiledMapTileLayer.Cell();
-        laserCrossCell = new TiledMapTileLayer.Cell();
+        initializeLaserLayer();
 
+        TiledMapTileLayer.Cell playerCell = new TiledMapTileLayer.Cell();
         playerLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Player");
-        boardLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Board");
-        laserLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Laser");
-
+        TiledMapTileLayer boardLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Board");
         playerCell.setTile(new StaticTiledMapTile(player.getTexture()));
-        laserVerticalCell.setTile(new StaticTiledMapTile(new TextureRegion(new Texture("laser.png"))));
-        laserHorizontalCell.setTile(laserVerticalCell.getTile());
-        laserCrossCell.setTile(new StaticTiledMapTile(new TextureRegion(new Texture("laserCross.png"))));
 
         robotCellHashMap = new HashMap<>();
         robotCellHashMap.put(player, playerCell);
-
-        aiList = new ArrayList<>();
-        AI.resetRobotID();
-        int aiNumber = Math.min(roboRally.getAiNumber(),respawnPoints.size()-1);
-
-        for(int i = 0; i < aiNumber; i++){
-            AI newAI = new AI();
-
-            TiledMapTileLayer.Cell aiCell = new TiledMapTileLayer.Cell();
-            aiCell.setTile(new StaticTiledMapTile(newAI.getTexture()));
-
-            robotCellHashMap.put(newAI, aiCell);
-            aiList.add(newAI);
-        }
+        createAIs();
 
         // create a stage for image buttons.
         stage = new Stage(new FitViewport(900,900, camera));
 
-        // temporary, should be removed when we no longer need movement with the arrow keys
-        InputProcessor inputProcessorOne = stage;
-        InputProcessor inputProcessorTwo = this;
-        InputMultiplexer inputMultiplexer = new InputMultiplexer();
-        inputMultiplexer.addProcessor(inputProcessorOne);
-        inputMultiplexer.addProcessor(inputProcessorTwo);
-        Gdx.input.setInputProcessor(inputMultiplexer);
+        createInputMultiplexer();
 
         orthogonalTiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, (float) 1/TILE_AREA);
         camera.setToOrtho(false, boardLayer.getWidth(), boardLayer.getHeight());
@@ -164,27 +135,14 @@ public class GameScreen extends InputAdapter implements Screen {
         gameLoop.startNewRound();
 
         setAllRespawnPoints(respawnPoints);
-
-        renderRobot(player);
-        for(IRobot ai:aiList){
-            renderRobot(ai);
-        }
-
-        batch = new SpriteBatch();
-        font = new BitmapFont();
-        font.getData().setScale((float) 1.2);
-        font.setColor(Color.WHITE);
-
-        playerIcon = new Image();
-        playerIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(player.getTexture())));
-
-        playerIcon.setSize(50, 50);
-        playerIcon.setPosition(30, 50);
-
-        stage.addActor(playerIcon);
-
+        renderRobots(getRobots());
+        createBatchFontAndPlayerIcon();
         createFinishGamePopUp();
+        createActivateCardsButton();
 
+    }
+
+    private void createActivateCardsButton() {
         activateCardsButton = new TextButton("Activate\ncards", new Skin(Gdx.files.classpath("skin/star-soldier-ui.json")));
         stage.addActor(activateCardsButton);
 
@@ -200,6 +158,65 @@ public class GameScreen extends InputAdapter implements Screen {
                 }
             }
         });
+    }
+
+
+    private void initializeLaserLayer() {
+        laserVerticalCell = new TiledMapTileLayer.Cell();
+        laserHorizontalCell = new TiledMapTileLayer.Cell();
+        laserCrossCell = new TiledMapTileLayer.Cell();
+
+        laserLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Laser");
+        laserVerticalCell.setTile(new StaticTiledMapTile(new TextureRegion(new Texture("laser.png"))));
+        laserHorizontalCell.setTile(laserVerticalCell.getTile());
+        laserCrossCell.setTile(new StaticTiledMapTile(new TextureRegion(new Texture("laserCross.png"))));
+
+    }
+
+    private void createAIs() {
+        aiList = new ArrayList<>();
+        AI.resetRobotID();
+        int aiNumber = Math.min(roboRally.getAiNumber(),respawnPoints.size()-1);
+
+        for(int i = 0; i < aiNumber; i++){
+            AI newAI = new AI();
+
+            TiledMapTileLayer.Cell aiCell = new TiledMapTileLayer.Cell();
+            aiCell.setTile(new StaticTiledMapTile(newAI.getTexture()));
+
+            robotCellHashMap.put(newAI, aiCell);
+            aiList.add(newAI);
+        }
+    }
+
+    private void createBatchFontAndPlayerIcon() {
+        batch = new SpriteBatch();
+        font = new BitmapFont();
+        font.getData().setScale((float) 1.2);
+        font.setColor(Color.WHITE);
+
+        playerIcon = new Image();
+        playerIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(player.getTexture())));
+        playerIcon.setSize(50, 50);
+        playerIcon.setPosition(30, 50);
+
+        stage.addActor(playerIcon);
+    }
+
+    private void renderRobots(ArrayList<IRobot> robots) {
+        for (IRobot robot : robots)
+            renderRobot(robot);
+    }
+
+    private void createInputMultiplexer() {
+        // creates input processors for both clicking on cards and keyboard.
+        InputProcessor inputProcessorOne = stage;
+        InputProcessor inputProcessorTwo = this;
+        InputMultiplexer inputMultiplexer = new InputMultiplexer();
+        inputMultiplexer.addProcessor(inputProcessorOne);
+        inputMultiplexer.addProcessor(inputProcessorTwo);
+        Gdx.input.setInputProcessor(inputMultiplexer);
+
     }
 
     private void setAllRespawnPoints(ArrayList<Vector2> respawnPoints) {
@@ -453,7 +470,8 @@ public class GameScreen extends InputAdapter implements Screen {
         int priority = player.getProgramCard(i).getPriority();
 
         // add new label on correct position.
-        priorityLabel = new Label("" + priority, mySkin);
+        // labels for Priority.
+        Label priorityLabel = new Label("" + priority, mySkin);
         priorityLabel.setSize(card.getWidth(), card.getY());
         priorityLabel.setPosition(card.getX(), card.getY() + card.getHeight() - priorityLabel.getHeight());
         priorityLabel.setAlignment(Align.center);
