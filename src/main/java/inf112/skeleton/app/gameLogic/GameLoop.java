@@ -36,6 +36,7 @@ public class GameLoop {
             ai.generateSmartMoves();
         }
         if (phase < 5) {
+            gameScreen.getInstance().unrenderLasers();
 
             // check priority for players and execute cards accordingly
             for (IRobot robot : sortRobotsByPriorityInPhase(phase)) {
@@ -54,7 +55,8 @@ public class GameLoop {
                 * Checkpoint/Wincheck
             */
             for (IRobot robot : gameScreen.getRobots()) {
-                gameScreen.getGameLogic().endOfPhaseCheck(robot);
+                if (robot.isAlive())
+                    gameScreen.getGameLogic().endOfPhaseCheck(robot);
             }
             gameScreen.getGameLogic().activateWallLasers(gameScreen.getGameLogic().getAllPositionsFromObjectName("WallLaser"));
 
@@ -69,6 +71,7 @@ public class GameLoop {
         }
 
         gameScreen.makeHandInvisible();
+        gameScreen.getInstance().unrenderLasers();
         startNewRound();
     }
 

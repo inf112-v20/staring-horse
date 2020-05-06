@@ -48,7 +48,9 @@ public class GameScreen extends InputAdapter implements Screen {
     private OrthographicCamera camera;
 
     private TiledMapTileLayer.Cell playerCell;
-    private TiledMapTileLayer.Cell laserCell;
+    private TiledMapTileLayer.Cell laserVerticalCell;
+    private TiledMapTileLayer.Cell laserHorisontalCell;
+    private TiledMapTileLayer.Cell laserCrossCell;
 
     private Stage stage;
 
@@ -102,14 +104,18 @@ public class GameScreen extends InputAdapter implements Screen {
         player = new Player();
 
         playerCell = new TiledMapTileLayer.Cell();
-        laserCell = new TiledMapTileLayer.Cell();
+        laserVerticalCell = new TiledMapTileLayer.Cell();
+        laserHorisontalCell = new TiledMapTileLayer.Cell();
+        laserCrossCell = new TiledMapTileLayer.Cell();
 
         playerLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Player");
         boardLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Board");
         laserLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Laser");
 
         playerCell.setTile(new StaticTiledMapTile(player.getTexture()));
-        laserCell.setTile(new StaticTiledMapTile(new TextureRegion(new Texture("laser.png"))));
+        laserVerticalCell.setTile(new StaticTiledMapTile(new TextureRegion(new Texture("laser.png"))));
+        laserHorisontalCell.setTile(laserVerticalCell.getTile());
+        laserCrossCell.setTile(new StaticTiledMapTile(new TextureRegion(new Texture("laserCross.png"))));
 
         robotCellHashMap = new HashMap<>();
         robotCellHashMap.put(player, playerCell);
@@ -298,17 +304,32 @@ public class GameScreen extends InputAdapter implements Screen {
     }
 
     public void drawLaserOnPos(Vector2 pos, Direction dir) {
-        if (dir == Direction.NORTH || dir == Direction.SOUTH) {
-            laserCell.setRotation(TiledMapTileLayer.Cell.ROTATE_0);
+        if (laserLayer.getCell((int) pos.x, (int) pos.y) != null) {
+            if (laserLayer.getCell((int) pos.x, (int) pos.y) == laserHorisontalCell && (dir == Direction.EAST || dir == Direction.WEST)) {
+                return;
+            }
+            else if (laserLayer.getCell((int) pos.x, (int) pos.y) == laserVerticalCell && (dir == Direction.NORTH || dir == Direction.SOUTH)) {
+                return;
+            }
+            else {
+                laserLayer.setCell((int) pos.x, (int) pos.y, laserCrossCell);
+                return;
+            }
         }
-        else {
-            laserCell.setRotation(TiledMapTileLayer.Cell.ROTATE_90);
+        if (dir == Direction.EAST || dir == Direction.WEST) {
+            laserHorisontalCell.setRotation(TiledMapTileLayer.Cell.ROTATE_90);
+            laserLayer.setCell((int) pos.x, (int) pos.y, laserHorisontalCell);
         }
-        laserLayer.setCell((int) pos.x, (int) pos.y, laserCell);
+        else if (dir == Direction.NORTH || dir == Direction.SOUTH) {
+            laserLayer.setCell((int) pos.x, (int) pos.y, laserVerticalCell);
+        }
     }
 
-    public void unrenderLaser(Vector2 pos) {
-        laserLayer.setCell((int) pos.x, (int) pos.y, null);
+    public void unrenderLasers() {
+        ArrayList<Vector2> laserPositions = gameLogic.getAllPositionsFromObjectName("Laser");
+        for (Vector2 laserPos : laserPositions) {
+            laserLayer.setCell((int) laserPos.x, (int) laserPos.y, null);
+        }
     }
 
     /**

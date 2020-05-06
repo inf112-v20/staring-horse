@@ -53,10 +53,12 @@ public class GameLogic {
         for (Vector2 pos : wallLaserList) {
             String wallName = getObjectNameOnPos(tiledMap, pos);
             if (wallName.contains("West")) {
-                activateLasersFromPos(pos, EAST);
+                pos.sub(1,0);
+                activateLasersFromPos(pos, EAST, true);
             }
             else if (wallName.contains("South")) {
-                activateLasersFromPos(pos, NORTH);
+                pos.sub(0,1);
+                activateLasersFromPos(pos, NORTH, true);
             }
         }
     }
@@ -66,7 +68,7 @@ public class GameLogic {
      * @param pos - position on screen
      * @param dir - direction of lasers
      */
-    public void activateLasersFromPos(Vector2 pos, Direction dir) {
+    public void activateLasersFromPos(Vector2 pos, Direction dir, boolean isWall) {
         Vector2 nextPos = getPosInDirection(pos, dir);
 
         TiledMapTileLayer boardLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Board");
@@ -78,11 +80,30 @@ public class GameLogic {
                 victim.takeDamage();
                 break;
             }
-
-            if (canGo(pos, dir) && canGo(nextPos, dir)) {
-                nextPos = getPosInDirection(nextPos, dir);
-            } else {
-                break;
+            if (!isWall) {
+                if (canGo(pos, dir)) {
+                    GameScreen.getInstance().drawLaserOnPos(nextPos, dir);
+                    if (canGo(nextPos, dir)) {
+                        GameScreen.getInstance().drawLaserOnPos(nextPos, dir);
+                        nextPos = getPosInDirection(nextPos, dir);
+                    }
+                    else {
+                        break;
+                    }
+                }
+                else {
+                    break;
+                }
+            }
+            else {
+                GameScreen.getInstance().drawLaserOnPos(nextPos, dir);
+                if (canGo(nextPos, dir)) {
+                    GameScreen.getInstance().drawLaserOnPos(nextPos, dir);
+                    nextPos = getPosInDirection(nextPos, dir);
+                }
+                else {
+                    break;
+                }
             }
         }
     }
@@ -333,7 +354,7 @@ public class GameLogic {
                 onFlagCheck(player);
                 changeDirOnGear(player);
                 conveyorBelts(player);
-                activateLasersFromPos(robot.getPos(), robot.getDirection());
+                activateLasersFromPos(robot.getPos(), robot.getDirection(), false);
                 GameScreen.getInstance().renderRobot(player);
             }
         } else {
@@ -343,7 +364,7 @@ public class GameLogic {
             onFlagCheck(robot);
             changeDirOnGear(robot);
             conveyorBelts(robot);
-            activateLasersFromPos(robot.getPos(), robot.getDirection());
+            activateLasersFromPos(robot.getPos(), robot.getDirection(), false);
             GameScreen.getInstance().renderRobot(robot);
         }
     }
