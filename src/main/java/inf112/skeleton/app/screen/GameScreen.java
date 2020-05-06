@@ -564,7 +564,7 @@ public class GameScreen extends InputAdapter implements Screen {
     }
 
     private void createFinishGamePopUp() {
-        Skin skin = new Skin(Gdx.files.classpath("skin/star-soldier-ui.json"));
+        Skin skin = new Skin(Gdx.files.classpath("skin/uiskin.json"));
         finishGamePopUp = new Table();
         stage.addActor(finishGamePopUp);
 
