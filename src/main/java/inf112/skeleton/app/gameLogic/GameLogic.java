@@ -53,12 +53,10 @@ public class GameLogic {
         for (Vector2 pos : wallLaserList) {
             String wallName = getObjectNameOnPos(tiledMap, pos);
             if (wallName.contains("West")) {
-                pos.sub(1,0);
-                activateLasersFromPos(pos, Direction.oppositeOf(WEST));
+                activateLasersFromPos(pos, EAST);
             }
             else if (wallName.contains("South")) {
-                pos.add(0,1);
-                activateLasersFromPos(pos, Direction.oppositeOf(NORTH));
+                activateLasersFromPos(pos, NORTH);
             }
         }
     }
