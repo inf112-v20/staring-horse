@@ -1,0 +1,65 @@
+[RED]
+Basic rules:[WHITE]
+To play the game start by choosing the racing course you want to play from the main menu screen.
+
+The game consists of 2 phases; the Programming Phase and the Activation Phase, which make up one round.
+A robot has 3 lives, and for each life, there are 10 health points.
+
+[RED]
+The programming phase:[WHITE]
+The programming phase is where you choose programming cards to make your robot move around the course. Choose 5 programming cards from the nine available.
+
+[RED]
+Getting damaged:[WHITE]
+For the first 4 health points lost, the robots get one less program card to choose from in the next Programming Phase.
+If more than 4 health points are lost, one program card will be locked in the hand of the player until the robot again gets more than 6 health points.
+Example:
+7 health points left will leave you with 7 program cards to choose from - one lost for every hp lost.
+4 health points left will lock one program card in hand until the robot again has 6 or more health points.
+
+[RED]
+The activation phase:[WHITE]
+During the activation phase, the chosen programming cards activate one by one.
+After all players' programming cards have been performed, board elements and robot lasers activate before the next programming cards are performed etc.
+
+After the fifth program card have been performed for all robots playing, the activation phase ends and a new programming phase starts. 
+
+[RED]
+How to win and loose:[WHITE]
+To win the game, your robot must be the first to pick up all 4 flags in the correct order.
+
+You lose when one of your opponents gets to all 4 flags before you, or if you lose all 3 of your lives first. 
+
+[RED]
+Game and board elements:[WHITE]
+Board elements trigger in the order shown under and affect all robots on them at the same time.
+
+- [BLUE]Blue conveyor belts[WHITE] move any robot resting on them two spaces in the direction of the arrows and activate before single-arrowed conveyor belts Once a robot has moved off a belt, the belt no longer affects that robot.
+
+- [GREEN]Green conveyor belts[WHITE] move any robot resting on them one space in the direction of the arrows.
+
+NB! Rotating Conveyor Belts
+Some conveyor belts have a curved arrow indicating a rotating section of the belt. Robots rotate 90 degrees in the direction of the curved arrow as they move onto the curved section of the belt. If a robot moves onto the curved section of a conveyor belt by means other than the conveyor belt itself, the robot does not turn 90 degrees.
+
+- Gears rotate robots resting on them 90 degrees in the direction of the arrows. Red gears rotate left, green gears rotate right.
+
+- Board lasers fire, hitting any robots in their line of sight. Board lasers cannot fire through walls or hit more than one robot. One hp lost for every hit.
+
+- Robot lasers fire in the direction a robot is facing. Their range has no limit. Any robot in the line of sight is shot. Robot lasers cannot fire through walls or shoot more than one robot. One hp lost for every hit.
+
+[RED]
+Additional elements:[WHITE]
+
+- Wrench: If a robot lands on a wrench its HP increases by 1.
+
+- Flags: You must reach the flags in numerical order. In order to reach a flag, your robot must be on it at the end of a program card action. You may enter a flag from any side. A flag also works as a wrench (increases HP by 1)  and a reboot point. 
+
+- Pits: If a robot lands on a pit, it immediately falls in and must reboot. This will lose you 1 life. 
+
+- Walls: Robots cannot move through walls, and robot and board lasers cannot shoot through walls. 
+
+- Pushing: If a robot enters a space occupied by another robot, the robot in motion will push the other robot in the direction the pushing robot is moving until it ends its move. Robots do not change the direction they are facing when they are pushed. Robots can be pushed almost anywhere on the board, including into a pit. They can even be pushed off the side of the board! Robots cannot be pushed through walls. If a robot pushes another robot into a wall, both robots immediately end their movement.
+
+- Falling off the board: If you move off or are pushed off of the board, you must reboot your robot immediately, just as you would if you fell into a pit. This will lose you one life.
+
+- Board elements only activate if your robot ends a program card action on them. For example, if you move through a laser’s path when performing a program card action but do not end your move on the laser, you will not be hit.

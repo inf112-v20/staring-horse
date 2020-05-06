@@ -3,6 +3,7 @@ package inf112.skeleton.app;
 import com.badlogic.gdx.Game;
 import inf112.skeleton.app.screen.GameScreen;
 import inf112.skeleton.app.screen.MainMenuScreen;
+import inf112.skeleton.app.screen.RulesScreen;
 
 public class RoboRally extends Game {
     private static RoboRally SINGLE_INSTANCE = null;
@@ -30,6 +31,10 @@ public class RoboRally extends Game {
 
     public void setGameScreen(){
         setScreen(GameScreen.getInstance());
+    }
+
+    public void setRulesScreen() {
+        setScreen(new RulesScreen());
     }
 
     public void render() {
