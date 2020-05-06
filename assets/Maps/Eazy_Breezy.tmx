@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="15" height="15" tilewidth="300" tileheight="300" infinite="0" nextlayerid="18" nextobjectid="61">
+<map version="1.2" tiledversion="1.3.4" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="15" height="15" tilewidth="300" tileheight="300" infinite="0" nextlayerid="18" nextobjectid="63">
  <tileset firstgid="1" source="tiles.tsx"/>
  <tileset firstgid="137" source="Background.tsx"/>
  <layer id="2" name="Background" width="15" height="15">
@@ -82,13 +82,13 @@
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,71,0,0,0,0,0,0,55,0,0,
+0,0,0,0,71,0,0,0,0,0,0,0,55,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,79,0,0,
+0,0,0,0,0,0,0,0,0,0,0,79,0,0,0,
 0,0,0,0,0,63,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -201,7 +201,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,46,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,23,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,8,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,32,0,0,0,0,0,0,0,0,0,0,0,8,0,
@@ -260,13 +260,13 @@
   <object id="42" name="respawn5" x="600" y="2100" width="300" height="300"/>
   <object id="43" name="respawn6" x="600" y="2400" width="300" height="300"/>
  </objectgroup>
- <objectgroup id="14" name="flagObjects" visible="0">
-  <object id="46" name="Flag3" x="1500" y="600" width="300" height="300"/>
+ <objectgroup id="14" name="flagObjects">
   <object id="47" name="Flag1" x="3600" y="600" width="300" height="300"/>
-  <object id="48" name="Flag4" x="3600" y="2400" width="300" height="300"/>
   <object id="49" name="Flag2" x="1500" y="2700" width="300" height="300"/>
+  <object id="61" name="Flag4" x="3300" y="2400" width="300" height="300"/>
+  <object id="62" name="Flag3" x="1200" y="600" width="300" height="300"/>
  </objectgroup>
- <objectgroup id="15" name="wallObjects">
+ <objectgroup id="15" name="wallObjects" visible="0">
   <object id="50" name="North_West_Wall" x="300" y="300" width="300" height="300"/>
   <object id="51" name="South_East_Wall" x="1500" y="600" width="300" height="300"/>
   <object id="52" name="North_West_Wall" x="3300" y="300" width="300" height="300"/>

@@ -230,7 +230,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="11" name="ConveyorObjects">
+ <objectgroup id="11" name="ConveyorObjects" visible="0">
   <object id="40" name="Express_Conveyor_From_West_To_North_Rotate_Clockwise" x="600" y="2400" width="300" height="300"/>
   <object id="44" name="Express_Conveyor_From_South_To_East_Rotate_Clockwise" x="600" y="600" width="300" height="300"/>
   <object id="47" name="Express_Conveyor_From_West_To_South_Rotate_Clockwise" x="3600" y="600" width="300" height="300"/>
@@ -269,8 +269,8 @@
   <object id="80" name="Conveyor_To_South" x="2700" y="2100" width="300" height="300"/>
   <object id="81" name="Conveyor_To_South" x="3300" y="2100" width="300" height="300"/>
  </objectgroup>
- <objectgroup id="12" name="gearObjects"/>
- <objectgroup id="13" name="respawnObjects">
+ <objectgroup id="12" name="gearObjects" visible="0"/>
+ <objectgroup id="13" name="respawnObjects" visible="0">
   <object id="20" name="respawn1" x="1500" y="1500" width="300" height="300"/>
   <object id="34" name="respawn2" x="2100" y="1500" width="300" height="300"/>
   <object id="35" name="respawn3" x="2700" y="1500" width="300" height="300"/>
@@ -278,7 +278,7 @@
   <object id="37" name="respawn5" x="2400" y="2400" width="300" height="300"/>
   <object id="38" name="respawn6" x="2100" y="3000" width="300" height="300"/>
  </objectgroup>
- <objectgroup id="14" name="flagObjects">
+ <objectgroup id="14" name="flagObjects" visible="0">
   <object id="22" name="Flag1" x="3900" y="300" width="300" height="300"/>
   <object id="24" name="Flag2" x="600" y="2700" width="300" height="300"/>
   <object id="27" name="Flag4" x="3300" y="2700" width="300" height="300"/>
