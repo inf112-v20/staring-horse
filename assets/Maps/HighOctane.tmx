@@ -49,7 +49,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,6,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,6,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -274,7 +274,7 @@
   <object id="36" name="Flag3" x="2700" y="1500" width="300" height="300"/>
   <object id="37" name="Flag2" x="1800" y="2100" width="300" height="300"/>
  </objectgroup>
- <objectgroup id="15" name="wallObjects">
+ <objectgroup id="15" name="wallObjects" visible="0">
   <object id="21" name="South_Wall" x="1500" y="300" width="300" height="300"/>
   <object id="22" name="South_Wall" x="1800" y="300" width="300" height="300"/>
   <object id="23" name="South_Wall" x="2100" y="300" width="300" height="300"/>
