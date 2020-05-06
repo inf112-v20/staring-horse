@@ -12,7 +12,6 @@ public class PlayerTest {
     private Player testPlayer;
     private int startX;
     private int startY;
-    private Direction startDirection;
 
     @Before
     public void before(){
@@ -21,7 +20,7 @@ public class PlayerTest {
         testPlayer.setRespawnPoint(new Vector2(13,13));
         startX = (int) testPlayer.getPos().x;
         startY = (int) testPlayer.getPos().y;
-        startDirection = Direction.NORTH;
+        Direction startDirection = Direction.NORTH;
 
         testPlayer.setPos(new Vector2(startX,startY));
         testPlayer.setDirection(startDirection);

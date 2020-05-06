@@ -14,7 +14,6 @@ public class ProgramCardTest {
     private ProgramCard playerCard;
     private int startX;
     private int startY;
-    private Direction startDir;
 
     @Before
     public void before(){
@@ -22,7 +21,7 @@ public class ProgramCardTest {
         testPlayer.setToTestRobot();
         startX = 5;
         startY = 2;
-        startDir = Direction.NORTH;
+        Direction startDir = Direction.NORTH;
 
         testPlayer.setPos(new Vector2(startX,startY));
         testPlayer.setDirection(startDir);

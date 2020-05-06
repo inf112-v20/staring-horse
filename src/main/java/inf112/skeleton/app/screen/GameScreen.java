@@ -101,12 +101,10 @@ public class GameScreen extends InputAdapter implements Screen {
         OrthographicCamera camera = new OrthographicCamera();
 
         this.gameLogic = new GameLogic();
-
         respawnPoints = gameLogic.getAllPositionsFromObjectName("SpawnPoint");
         player = new Player();
 
         initializeLaserLayer();
-
         TiledMapTileLayer.Cell playerCell = new TiledMapTileLayer.Cell();
         playerLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Player");
         TiledMapTileLayer boardLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Board");
@@ -118,7 +116,6 @@ public class GameScreen extends InputAdapter implements Screen {
 
         // create a stage for image buttons.
         stage = new Stage(new FitViewport(900,900, camera));
-
         createInputMultiplexer();
 
         orthogonalTiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap, (float) 1/TILE_AREA);
@@ -137,7 +134,6 @@ public class GameScreen extends InputAdapter implements Screen {
         createBatchFontAndPlayerIcon();
         createFinishGamePopUp();
         createActivateCardsButton();
-
     }
 
     private void createActivateCardsButton() {

@@ -13,7 +13,6 @@ public class AiTest {
     private AI testAI;
     private int startX;
     private int startY;
-    private Direction startDirection;
 
     @Before
     public void before(){
@@ -22,7 +21,7 @@ public class AiTest {
         testAI.setRespawnPoint(new Vector2(13,13));
         startX = (int) testAI.getPos().x;
         startY = (int) testAI.getPos().y;
-        startDirection = Direction.NORTH;
+        Direction startDirection = Direction.NORTH;
 
         testAI.setPos(new Vector2(startX,startY));
         testAI.setDirection(startDirection);
