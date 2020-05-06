@@ -3,14 +3,15 @@ package inf112.skeleton.app.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import inf112.skeleton.app.RoboRally;
 
@@ -26,6 +27,7 @@ public class MainMenuScreen implements Screen {
     private int maxAiNumber;
     private Skin skin;
     private Table table;
+    private Image mapPreview;
 
     public MainMenuScreen(){
         this.roboRally = RoboRally.getInstance();
@@ -49,9 +51,9 @@ public class MainMenuScreen implements Screen {
     @Override
     public void show() {
         table = new Table();
-        table.setFillParent(true);
         table.setDebug(true);
-        table.setSize(400,500);
+        table.setHeight(stage.getHeight()-200);
+        table.setPosition( stage.getWidth() / 2f - table.getWidth() / 2f, stage.getHeight() / 2f - table.getHeight() / 2f );
         stage.addActor(table);
 
         // makes settings same as before when going back to main menu
@@ -79,6 +81,8 @@ public class MainMenuScreen implements Screen {
     @Override
     public void resize(int width, int height) {
         stage.getViewport().update(width, height, true);
+        table.setPosition( stage.getWidth() / 2f - table.getWidth() / 2f, stage.getHeight() / 2f - table.getHeight() / 2f );
+        table.setHeight(stage.getHeight()-200);
     }
 
     @Override
@@ -98,10 +102,32 @@ public class MainMenuScreen implements Screen {
         stage.dispose();
     }
 
+    private void setMapPreviewToCurrentMap(){
+        Texture texture;
+
+        try{
+             texture = new Texture("MapImages/" + mapList.get(currentMapNumber).substring(0,mapList.get(currentMapNumber).length()-3) + "png");
+        } catch (GdxRuntimeException e){
+            System.out.println(mapList.get(currentMapNumber) + " does not have a MapPreview image");
+            // set mapPreview to first mapImage if not
+            String placeHolderPreview = mapList.get(0);
+            texture = new Texture("MapImages/" + placeHolderPreview.substring(0, placeHolderPreview.length()-3) + "png");
+        }
+
+        mapPreview.setDrawable(new TextureRegionDrawable(new TextureRegion(texture)));
+    }
+
     private void makeMapSelector(){
+        mapPreview = new Image();
+        table.add(mapPreview).colspan(4).fillX();
+
+        table.row().pad(5, 0, 5, 0);
+
         final Label mapName = new Label(mapList.get(currentMapNumber), skin);
         mapName.setAlignment(Align.center);
         table.add(mapName).fillX().uniformX().colspan(4).minHeight(50);
+
+        setMapPreviewToCurrentMap();
 
         TextButton mapSelectionPrev = new TextButton("Prev map", skin);
         TextButton mapSelectionNext = new TextButton("Next map", skin);
@@ -119,6 +145,7 @@ public class MainMenuScreen implements Screen {
                     currentMapNumber++;
                 }
                 mapName.setText(mapList.get(currentMapNumber));
+                setMapPreviewToCurrentMap();
             }
         });
 
@@ -131,6 +158,7 @@ public class MainMenuScreen implements Screen {
                     currentMapNumber--;
                 }
                 mapName.setText(mapList.get(currentMapNumber));
+                setMapPreviewToCurrentMap();
             }
         });
     }
