@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="15" height="15" tilewidth="300" tileheight="300" infinite="0" nextlayerid="18" nextobjectid="82">
+<map version="1.2" tiledversion="1.3.4" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="15" height="15" tilewidth="300" tileheight="300" infinite="0" nextlayerid="18" nextobjectid="85">
  <tileset firstgid="1" source="tiles.tsx"/>
  <tileset firstgid="137" source="Background.tsx"/>
  <layer id="2" name="Background" width="15" height="15">
@@ -197,11 +197,11 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,24,0,16,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,23,0,0,0,30,0,8,0,
+0,0,0,0,0,0,0,0,0,30,0,30,0,8,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,23,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,30,0,0,0,0,0,
 0,0,0,0,31,0,0,0,0,0,31,0,0,0,0,
 0,0,0,0,0,0,0,31,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -259,9 +259,8 @@
   <object id="26" name="Flag2" x="3600" y="2400" width="300" height="300"/>
   <object id="27" name="Flag4" x="3600" y="600" width="300" height="300"/>
  </objectgroup>
- <objectgroup id="15" name="wallObjects" visible="0">
+ <objectgroup id="15" name="wallObjects">
   <object id="51" name="West_Wall_Laser" x="2100" y="900" width="300" height="300"/>
-  <object id="52" name="East_Wall" x="2100" y="900" width="300" height="300"/>
   <object id="53" name="North_West_Wall" x="3300" y="300" width="300" height="300"/>
   <object id="54" name="North_East_Wall" x="3900" y="300" width="300" height="300"/>
   <object id="55" name="South_East_Wall" x="3900" y="900" width="300" height="300"/>
@@ -272,5 +271,8 @@
   <object id="62" name="South_Wall_Laser" x="2100" y="3000" width="300" height="300"/>
   <object id="63" name="North_Wall" x="1200" y="2400" width="300" height="300"/>
   <object id="64" name="South_Wall_Laser" x="1200" y="3000" width="300" height="300"/>
+  <object id="82" name="West_Wall_Laser" x="2100" y="2100" width="300" height="300"/>
+  <object id="83" name="West_Wall" x="2700" y="2100" width="300" height="300"/>
+  <object id="84" name="West_Wall" x="2700" y="900" width="300" height="300"/>
  </objectgroup>
 </map>
