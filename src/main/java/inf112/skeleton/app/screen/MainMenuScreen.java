@@ -271,6 +271,7 @@ public class MainMenuScreen extends InputAdapter implements Screen {
         newGame.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                System.out.println("Starting " + mapList.get(currentMapNumber) + " with " + aiNumber + " " + difficultyAI + " AI.");
                 roboRally.setGameMap(mapList.get(currentMapNumber));
                 roboRally.setAiNumber(aiNumber);
                 roboRally.setDifficultyAI(difficultyAI);

@@ -126,13 +126,14 @@ public class GameScreen extends InputAdapter implements Screen {
         makePlayerHandImages();
 
         gameLoop = new GameLoop(player, aiList, this);
-        gameLoop.startNewRound();
 
         setAllRespawnPoints(respawnPoints);
         renderRobots(getRobots());
         createBatchFontAndPlayerIcon();
         createFinishGamePopUp();
         createActivateCardsButton();
+
+        gameLoop.startNewRound();
     }
 
     private void createActivateCardsButton() {
@@ -603,10 +604,10 @@ public class GameScreen extends InputAdapter implements Screen {
         winOrLoseText.setFontScale(2);
         winOrLoseText.setAlignment(Align.center);
 
-        finishGamePopUp.add(winOrLoseText).expandX();
+        finishGamePopUp.add(winOrLoseText).expandX().padBottom(10);
         finishGamePopUp.row();
 
-        finishGamePopUp.add(newGameAgain).expandX();
+        finishGamePopUp.add(newGameAgain).expandX().padBottom(5);
         finishGamePopUp.row();
 
         finishGamePopUp.add(backToMenu).expandX();
@@ -639,6 +640,12 @@ public class GameScreen extends InputAdapter implements Screen {
                 unrenderRobot(player);
                 player.move(1, player.getDirection());
                 renderRobot(player);
+            } else if (Input.Keys.SPACE == code) {
+                for (IRobot robot : getRobots()) {
+                    gameLogic.endOfPhaseCheck(robot);
+                }
+                delay();
+                unrenderLasers();
             }
         }
 
@@ -646,12 +653,6 @@ public class GameScreen extends InputAdapter implements Screen {
             roboRally.setMenuScreen();
         } else if (Input.Keys.F == code) {
             roboRally.toggleFullscreen();
-        } else if (Input.Keys.SPACE == code) {
-            for (IRobot robot : getRobots()) {
-                gameLogic.endOfPhaseCheck(robot);
-            }
-            delay();
-            unrenderLasers();
         }
 
         return false;
