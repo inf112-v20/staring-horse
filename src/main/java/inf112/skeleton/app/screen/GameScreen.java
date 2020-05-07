@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -191,18 +190,15 @@ public class GameScreen extends InputAdapter implements Screen {
     }
 
     private void createLabelsAndPlayerIcon() {
-        BitmapFont font = new BitmapFont();
-        font.setColor(Color.WHITE);
+        Skin uiSkin = new Skin(Gdx.files.classpath("skin/uiskin.json"));
 
-        Label.LabelStyle style = new Label.LabelStyle(font, Color.WHITE);
-
-        playerInfo = new Label("", style);
+        playerInfo = new Label("", uiSkin);
         updatePlayerInfo();
 
         stage.addActor(playerInfo);
 
 
-        Label keyPressInfo = new Label("", style);
+        Label keyPressInfo = new Label("", uiSkin);
         keyPressInfo.setPosition(stage.getWidth()-175, 100);
         keyPressInfo.setText("'Q': Main Menu \n" +
                 "'F': enter/exit Fullscreen");
