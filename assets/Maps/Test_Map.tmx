@@ -284,6 +284,6 @@
   <object id="48" name="South_West_Wall" x="3300" y="2400" width="300" height="300"/>
   <object id="49" name="West_Wall" x="3300" y="2100" width="300" height="300"/>
   <object id="76" name="East_Wall_Laser" x="2700" y="900" width="300" height="300"/>
-  <object id="77" name="East_Wall_Laser" x="2700" y="2400" width="300" height="300"/>
+  <object id="77" name="West_Wall_Laser" x="2700" y="2400" width="300" height="300"/>
  </objectgroup>
 </map>
