@@ -419,4 +419,39 @@ public class GameLogic {
         }
     }
 
+    /**
+     * @param pos position you want to check
+     * @return true if there is a robot on the pos
+     */
+    public boolean posIsOccupied(Vector2 pos) {
+        return getRobotOnPos(pos) != null;
+    }
+
+    /**
+     * Will push a robot to the first valid direction
+     * @param pos Position you want a robot to be pushed from.
+     */
+    public void pushOccupyingRobot(Vector2 pos) {
+        IRobot robot = getRobotOnPos(pos);
+        Direction dir = getValidDir(pos);
+
+        if (dir != null && robot != null) {
+            //System.out.println(robot.getName());
+            //System.out.println(dir.toString());
+            GameScreen.getInstance().unrenderRobot(robot);
+            robot.moveOne(dir);
+            GameScreen.getInstance().renderRobot(robot);
+        }
+    }
+
+    private Direction getValidDir(Vector2 pos) {
+        for (Direction dir : Direction.values()) {
+            if (canGo(pos,dir) && pushIfPossible(pos,dir)) {
+                return dir;
+            }
+        }
+        return null;
+    }
+
+
 }

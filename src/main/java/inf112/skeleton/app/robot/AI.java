@@ -245,6 +245,9 @@ public class AI implements IRobot {
     public void respawn(){
         gameScreen.unrenderRobot(this);
         System.out.println("Respawning robot");
+        if (gameScreen.getGameLogic().posIsOccupied(respawnPos)) {
+            gameScreen.getGameLogic().pushOccupyingRobot(respawnPos);
+        }
         this.direction = respawnDirection;
         this.pos = respawnPos;
     }
