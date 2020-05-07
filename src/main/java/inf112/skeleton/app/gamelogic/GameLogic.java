@@ -352,25 +352,23 @@ public class GameLogic {
         if (robot instanceof Player) {
             Player player = (Player) robot;
             if (!player.getIsTestPlayer()) {
-                GameScreen.getInstance().unrenderRobot(player);
-                repairOnWrench(player);
-                pickUpFlag(player);
-                onFlagCheck(player);
-                changeDirOnGear(player);
-                conveyorBelts(player);
-                activateLasersFromPos(robot.getPos(), robot.getDirection(), false);
-                GameScreen.getInstance().renderRobot(player);
+                endOfPhaseCheckHelper(player);
             }
         } else {
-            GameScreen.getInstance().unrenderRobot(robot);
-            repairOnWrench(robot);
-            pickUpFlag(robot);
-            onFlagCheck(robot);
-            changeDirOnGear(robot);
-            conveyorBelts(robot);
-            activateLasersFromPos(robot.getPos(), robot.getDirection(), false);
-            GameScreen.getInstance().renderRobot(robot);
+            endOfPhaseCheckHelper(robot);
         }
+    }
+
+    // Actually calls each method.
+    private void endOfPhaseCheckHelper(IRobot robot) {
+        GameScreen.getInstance().unrenderRobot(robot);
+        repairOnWrench(robot);
+        pickUpFlag(robot);
+        onFlagCheck(robot);
+        changeDirOnGear(robot);
+        conveyorBelts(robot);
+        activateLasersFromPos(robot.getPos(), robot.getDirection(), false);
+        GameScreen.getInstance().renderRobot(robot);
     }
 
     /**
