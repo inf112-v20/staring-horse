@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="15" height="15" tilewidth="300" tileheight="300" infinite="0" nextlayerid="18" nextobjectid="78">
+<map version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="15" height="15" tilewidth="300" tileheight="300" infinite="0" nextlayerid="18" nextobjectid="83">
  <tileset firstgid="1" source="tiles.tsx"/>
  <tileset firstgid="137" source="Background.tsx"/>
  <layer id="2" name="Background" width="15" height="15">
@@ -100,14 +100,14 @@
  <layer id="10" name="Conveyor" width="15" height="15">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,21,0,0,0,0,0,0,0,
 0,0,17,22,22,22,22,83,0,0,0,0,0,0,0,
+0,0,21,0,0,0,0,13,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,13,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,50,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,50,0,0,0,0,49,0,0,0,0,0,0,0,
 0,0,58,52,52,52,52,42,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
@@ -230,7 +230,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="11" name="ConveyorObjects">
+ <objectgroup id="11" name="ConveyorObjects" visible="0">
   <object id="61" name="Conveyor_To_South" x="600" y="2400" width="300" height="300"/>
   <object id="62" name="Conveyor_Join_To_East_From_North_And_West_Rotate_Clockwise" x="600" y="2700" width="300" height="300"/>
   <object id="63" name="Conveyor_To_East" x="900" y="2700" width="300" height="300"/>
@@ -244,16 +244,21 @@
   <object id="73" name="Express_Conveyor_To_West" x="1500" y="600" width="300" height="300"/>
   <object id="74" name="Express_Conveyor_To_West" x="1800" y="600" width="300" height="300"/>
   <object id="75" name="Express_Conveyor_Join_To_West_From_North_And_South_Rotate" x="2100" y="600" width="300" height="300"/>
+  <object id="78" name="Express_Conveyor_To_South" x="2100" y="300" width="300" height="300"/>
+  <object id="79" name="Express_Conveyor_To_North" x="2100" y="900" width="300" height="300"/>
+  <object id="80" name="Express_Conveyor_To_North" x="2100" y="1200" width="300" height="300"/>
+  <object id="81" name="Conveyor_To_North" x="2100" y="2400" width="300" height="300"/>
+  <object id="82" name="Express_Conveyor_To_South" x="600" y="900" width="300" height="300"/>
  </objectgroup>
- <objectgroup id="12" name="gearObjects">
+ <objectgroup id="12" name="gearObjects" visible="0">
   <object id="53" name="Counter_Clockwise" x="1200" y="1200" width="300" height="300"/>
   <object id="54" name="Clockwise" x="1200" y="2100" width="300" height="300"/>
  </objectgroup>
- <objectgroup id="14" name="flagObjects">
+ <objectgroup id="14" name="flagObjects" visible="0">
   <object id="51" name="Flag1" x="3600" y="1200" width="300" height="300"/>
   <object id="52" name="Flag2" x="3600" y="2100" width="300" height="300"/>
  </objectgroup>
- <objectgroup id="15" name="wallObjects">
+ <objectgroup id="15" name="wallObjects" visible="0">
   <object id="21" name="North_West_Wall" x="300" y="300" width="300" height="300"/>
   <object id="22" name="North_Wall" x="600" y="300" width="300" height="300"/>
   <object id="23" name="West_Wall" x="300" y="600" width="300" height="300"/>

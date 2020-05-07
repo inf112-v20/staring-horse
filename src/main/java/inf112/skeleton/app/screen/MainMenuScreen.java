@@ -50,6 +50,7 @@ public class MainMenuScreen extends InputAdapter implements Screen {
         this.mapList.add("Eazy_Breezy.tmx");
         this.mapList.add("Conveyor_Chaos.tmx");
         this.mapList.add("Laser_Trap.tmx");
+        this.mapList.add("Test_Map.tmx");
     }
 
     @Override
