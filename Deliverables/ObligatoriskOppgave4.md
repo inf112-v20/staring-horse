@@ -162,11 +162,12 @@ I denne iterasjonen har vi løst mange flere brukerhistorier og krav enn de forr
 
 Se hvordan prosjektet bygges og kjøres i ReadMe-filen
 
-Manuelle tester finnes på egen wiki-side
+#### Manuelle tester 
+Finnes på denne wiki siden: **[Wiki for manual tests](https://github.com/inf112-v20/staring-horse/wiki/Manual-Testing---RoboRally,-Staring-Horse-version)**
 
-Klassediagram
+#### Klassediagram
 
-### Møtereferat fra iterasjonen
+## Møtereferat fra iterasjonen
 
 **[Møtereferat 1. april](https://github.com/inf112-v20/staring-horse/wiki/M%C3%B8te-20,-1.-April)**
 
