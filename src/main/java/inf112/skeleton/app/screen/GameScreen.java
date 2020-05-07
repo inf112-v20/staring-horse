@@ -48,7 +48,6 @@ public class GameScreen extends InputAdapter implements Screen {
     private TiledMapTileLayer.Cell laserCrossCell;
 
     private Stage stage;
-
     private Player player;
     private ArrayList<AI> aiList;
 
@@ -73,6 +72,7 @@ public class GameScreen extends InputAdapter implements Screen {
     private float time;
     private boolean isWaiting;
     private int phase;
+
     private Table finishGamePopUp;
     private Label winOrLoseText;
     private TextButton activateCardsButton;
@@ -623,31 +623,18 @@ public class GameScreen extends InputAdapter implements Screen {
         player.setShouldNotMove(false);
 
         if (Input.Keys.LEFT == code) {
-            for (IRobot robot : getRobots()) {
-                gameLogic.endOfPhaseCheck(robot);
-            }
             unrenderRobot(player);
             player.rotateCounterClockwise();
             renderRobot(player);
         } else if (Input.Keys.RIGHT == code) {
-            for (IRobot robot : getRobots()) {
-                gameLogic.endOfPhaseCheck(robot);
-            }
             unrenderRobot(player);
             player.rotateClockwise();
             renderRobot(player);
         } else if (Input.Keys.DOWN == code) {
-            for (IRobot robot : getRobots()) {
-                gameLogic.endOfPhaseCheck(robot);
-            }
             unrenderRobot(player);
             player.move(1, Direction.oppositeOf(player.getDirection()));
             renderRobot(player);
         } else if (Input.Keys.UP == code) {
-            for (IRobot robot : getRobots()) {
-                gameLogic.endOfPhaseCheck(robot);
-            }
-
             unrenderRobot(player);
             player.move(1, player.getDirection());
             renderRobot(player);
@@ -663,10 +650,18 @@ public class GameScreen extends InputAdapter implements Screen {
                 Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
             }
         } else if (Input.Keys.SPACE == code) {
-            gameLogic.endOfPhaseCheck(player);
+            for (IRobot robot : getRobots()) {
+                gameLogic.endOfPhaseCheck(robot);
+            }
+            delay();
+            unrenderLasers();
         }
 
         return false;
+    }
+
+    private void delay() {
+        // Todo add generic delay
     }
 
     public void makeHandInvisible() {
