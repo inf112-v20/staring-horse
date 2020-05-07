@@ -45,19 +45,13 @@ public class GameLoop {
                 }
             }
 
-            /*
-            this is the order of actions
-                * Conveyorbelts
-                * Gears
-                * Boardlasers
-                * Robotlasers
-                * Checkpoint/Wincheck
-            */
             for (IRobot robot : gameScreen.getRobots()) {
                 if (robot.isAlive())
                     gameScreen.getGameLogic().endOfPhaseCheck(robot);
             }
+
             gameScreen.getGameLogic().activateWallLasers(gameScreen.getGameLogic().getAllPositionsFromObjectName("WallLaser"));
+            gameScreen.updatePlayerInfo();
 
             return;
         }

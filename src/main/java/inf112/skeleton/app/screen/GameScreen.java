@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -62,9 +61,6 @@ public class GameScreen extends InputAdapter implements Screen {
 
     private HashMap<IRobot,TiledMapTileLayer.Cell> robotCellHashMap;
 
-    private SpriteBatch batch;
-    private BitmapFont font;
-
     private Image playerIcon;
 
     // delay testing
@@ -80,6 +76,7 @@ public class GameScreen extends InputAdapter implements Screen {
     private ArrayList<Label> priorityLabelList = new ArrayList<>();
     private ArrayList<Label> handPriorityLabelList;
     private ArrayList<Vector2> respawnPoints;
+    private Label playerInfo;
 
     private GameScreen(){}
 
@@ -129,7 +126,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
         setAllRespawnPoints(respawnPoints);
         renderRobots(getRobots());
-        createBatchFontAndPlayerIcon();
+        createLabelsAndPlayerIcon();
         createFinishGamePopUp();
         createActivateCardsButton();
 
@@ -184,11 +181,34 @@ public class GameScreen extends InputAdapter implements Screen {
         }
     }
 
-    private void createBatchFontAndPlayerIcon() {
-        batch = new SpriteBatch();
-        font = new BitmapFont();
-        font.getData().setScale((float) 1.2);
+    public void updatePlayerInfo(){
+        playerInfo.setText(player.getName() + "\n" +
+                "Lives: " + player.getLives() + "\n" +
+                "Health: " + player.getHealthPoints() + "\n" +
+                "Flags taken: " + player.getFlagsTaken() + "\n" +
+                "Direction: " + player.getDirection() + "\n" +
+                "Position: " + player.getPos().toString());
+    }
+
+    private void createLabelsAndPlayerIcon() {
+        BitmapFont font = new BitmapFont();
         font.setColor(Color.WHITE);
+
+        Label.LabelStyle style = new Label.LabelStyle(font, Color.WHITE);
+
+        playerInfo = new Label("", style);
+        updatePlayerInfo();
+
+        stage.addActor(playerInfo);
+
+
+        Label keyPressInfo = new Label("", style);
+        keyPressInfo.setPosition(stage.getWidth()-175, 100);
+        keyPressInfo.setText("'Q': Main Menu \n" +
+                "'F': enter/exit Fullscreen");
+
+        stage.addActor(keyPressInfo);
+
 
         playerIcon = new Image();
         playerIcon.setDrawable(new TextureRegionDrawable(new TextureRegion(player.getTexture())));
@@ -196,6 +216,8 @@ public class GameScreen extends InputAdapter implements Screen {
         playerIcon.setPosition(30, 50);
 
         stage.addActor(playerIcon);
+
+        playerInfo.setPosition(playerIcon.getX(), playerIcon.getY() + 120);
     }
 
     private void renderRobots(ArrayList<IRobot> robots) {
@@ -227,10 +249,8 @@ public class GameScreen extends InputAdapter implements Screen {
 
         orthogonalTiledMapRenderer.render();
 
-        drawPlayerInfoText();
         if (phaseIsWaiting()) {
             phaseWait(Gdx.graphics.getDeltaTime(), gameLoop, this.phase);
-
         }
 
         stage.act();
@@ -263,22 +283,6 @@ public class GameScreen extends InputAdapter implements Screen {
      */
     private boolean phaseIsWaiting() {
         return this.isWaiting;
-    }
-
-    private void drawPlayerInfoText() {
-        String playerInfoText = player.getName() + "\n" +
-                "Lives: " + player.getLives() + "\n" +
-                "Health: " + player.getHealthPoints() + "\n" +
-                "Flags taken: " + player.getFlagsTaken() + "\n" +
-                "Direction: " + player.getDirection() + "\n" +
-                "Position: " + player.getPos().toString();
-        batch.begin();
-        // Player Info
-        font.draw(batch, playerInfoText, playerIcon.getX(), playerIcon.getY() + 200);
-        // Button-pressing Info
-        font.draw(batch, "'Q': Main Menu \n" +
-                "'F': enter/exit Fullscreen", stage.getWidth()-75, 100);
-        batch.end();
     }
 
     /**
@@ -654,6 +658,8 @@ public class GameScreen extends InputAdapter implements Screen {
         } else if (Input.Keys.F == code) {
             roboRally.toggleFullscreen();
         }
+
+        updatePlayerInfo();
 
         return false;
     }
