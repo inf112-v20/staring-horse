@@ -7,7 +7,8 @@
 Fortsatt fungerer gruppen bra i forhold til rollefordeling og arbeidsfordeling, og vi sitter igjen med følelsen av at vi har løst team-arbeidet så godt vi kunne etter evnene til teammedlemmene og i forhold til hva som fungerer best for oss. Den største utfordringen har vært å kombinere arbeidet med andre fag, og fordele arbeidet helt jevnt, da noen har en travlere timeplan enn andre og noen har bedre kodeevner enn andre. Men vi har hatt god kommunikasjon rundt dette fra start, og sikret at alle er enige om fordelingen og ingenting føles urettferdig, vi har prøvd å basere oss på styrkene til de ulike medlemmene slik at opplevelsen med prosjektarbeidet skulle bli en bra erfaring for alle. Kommunikasjonen mellom oss har vært fin fra start, men har etter hvert blitt mer og mer lettbent og vi har allerede en del «inside-jokes» som vi har det morro med på møtene. Dette hjelper på idémyldring, gode diskusjoner og ved at vi rett og slett koser oss mer med arbeidet, noe som vi føler i sin tur definitivt har gitt mer arbeidslyst og dermed bedre resultater. En utfordring i forhold til kommunikasjon har vært å nå hverandre utenfor avtalte tidspunkt siden vi har kommunisert via Slack, og man gjerne ikke sjekker det like ofte og til samme tidspunkt som hverandre slik man for eksempel ville gjort i en jobbsituasjon der alle har arbeidsdagen sin i løpet av samme tidsrom. 
 Det å ha prøvd ut prosjektmetodikk og teknikker (spesifikt Scrum og Kanban i vårt tilfelle) i praksis i et programvareutviklings-prosjekt har vært veldig lærerikt, og som Siv lærte oss i forelesning, skjønner vi i mye større grad hvorfor det har blitt utviklet egne metodikker rettet mot programvarebransjen. Måten å jobbe på er mye mer frem og tilbake, og innebærer mye mer endringer underveis enn gruppemedlemmene har erfart i andre prosjekter, så det er viktig med godt organisert arbeid.
 
-Det viktigste vi har lært
+#### Det viktigste vi har lært
+
 Noe av det viktigste vi har lært er hvordan å organisere arbeidet og jobbe sammen i et nytt team i et større prosjekt. Hvordan man best kommuniserer - over hvilke kanaler, det å være tydelig, og å sikre at man bruker samme ord for å beskrive samme konsept osv, - og å finne styrkene til team-medlemmene og bruke de, for å sikre en effektiv og god gjennomføring av oppgavene. 
 Vi har lært mye mer enn vi kunne om tekniske aspekter som Git, GitHub, Codacy, Travis og spillutvikling med libGDX. Vi føler at vi har fått god forståelse for brukerhistorier, project-board og verdien det har, og det å ha en prosjektmetodikk å arbeide etter generelt for å ha struktur og oversikt.
 Og ikke minst, vi har lært å spille Robo-Rally! 
@@ -28,7 +29,6 @@ Men, alt i alt har prosjektarbeidet fungert veldig bra, samarbeid og innsatsen f
 #### Prosjektboard mid-iteration
 
 ![projectBoardOblig4](https://github.com/inf112-v20/staring-horse/blob/master/Deliverables/Images/Staring-horse-mid-iteration-projectboard-oblig4.png)
-
 
 
 ## Deloppgave 2: Krav
