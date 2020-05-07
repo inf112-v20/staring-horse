@@ -160,12 +160,15 @@ I denne iterasjonen har vi løst mange flere brukerhistorier og krav enn de forr
 
 ## Deloppgave 3
 
-Se hvordan prosjektet bygges og kjøres i ReadMe-filen
+Se hvordan prosjektet bygges og kjøres i ReadMe-filen.
 
 #### Manuelle tester 
 Finnes på denne wiki siden: **[Wiki for manual tests](https://github.com/inf112-v20/staring-horse/wiki/Manual-Testing---RoboRally,-Staring-Horse-version)**
 
 #### Klassediagram
+
+![Oblig4-uml](https://github.com/inf112-v20/staring-horse/blob/master/Deliverables/Images/oblig4_uml.PNG)
+
 
 ## Møtereferat fra iterasjonen
 
