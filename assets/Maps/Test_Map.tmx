@@ -230,9 +230,9 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup id="11" name="ConveyorObjects" visible="0">
+ <objectgroup id="11" name="ConveyorObjects">
   <object id="61" name="Conveyor_To_South" x="600" y="2400" width="300" height="300"/>
-  <object id="62" name="Conveyor_Join_To_East_From_North_And_West_Rotate_Clockwise" x="600" y="2700" width="300" height="300"/>
+  <object id="62" name="Conveyor_Join_To_East_From_North_And_West_Rotate_CounterClockwise" x="600" y="2700" width="300" height="300"/>
   <object id="63" name="Conveyor_To_East" x="900" y="2700" width="300" height="300"/>
   <object id="64" name="Conveyor_To_East" x="1200" y="2700" width="300" height="300"/>
   <object id="65" name="Conveyor_To_East" x="1500" y="2700" width="300" height="300"/>
@@ -250,15 +250,15 @@
   <object id="81" name="Conveyor_To_North" x="2100" y="2400" width="300" height="300"/>
   <object id="82" name="Express_Conveyor_To_South" x="600" y="900" width="300" height="300"/>
  </objectgroup>
- <objectgroup id="12" name="gearObjects" visible="0">
+ <objectgroup id="12" name="gearObjects">
   <object id="53" name="Counter_Clockwise" x="1200" y="1200" width="300" height="300"/>
   <object id="54" name="Clockwise" x="1200" y="2100" width="300" height="300"/>
  </objectgroup>
- <objectgroup id="14" name="flagObjects" visible="0">
+ <objectgroup id="14" name="flagObjects">
   <object id="51" name="Flag1" x="3600" y="1200" width="300" height="300"/>
   <object id="52" name="Flag2" x="3600" y="2100" width="300" height="300"/>
  </objectgroup>
- <objectgroup id="15" name="wallObjects" visible="0">
+ <objectgroup id="15" name="wallObjects">
   <object id="21" name="North_West_Wall" x="300" y="300" width="300" height="300"/>
   <object id="22" name="North_Wall" x="600" y="300" width="300" height="300"/>
   <object id="23" name="West_Wall" x="300" y="600" width="300" height="300"/>

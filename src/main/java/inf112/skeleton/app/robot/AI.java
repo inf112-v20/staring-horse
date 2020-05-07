@@ -56,6 +56,7 @@ public class AI implements IRobot {
         this.isAlive = true;
 
         this.gameScreen = GameScreen.getInstance();
+
     }
 
     /**
@@ -89,22 +90,27 @@ public class AI implements IRobot {
      */
     public void generateMediumMoves(){
         for(int i = 0; i < hand.length; i++){
-            Vector2 nextFlagPos = gameScreen.getGameLogic().getFlagPosHashMap().get("flag" + (this.flag+1));
+            Vector2 nextFlagPos = gameScreen.getGameLogic().getFlagPosHashMap().get("Flag" + (this.flag+1));
 
             if (nextFlagPos == null) {
                 hand[i] = new ProgramCard();
                 continue;
             }
 
+            Vector2 currentPosAfterCards = getPos();
+            if(i != 0){
+                currentPosAfterCards =  ProgramCardAction.getPositionAfterProgramCardAction(pos,getDirection(),hand[i-1].getAction());
+            }
+
             ProgramCard randomProgramCard;
             Vector2 nextPos;
             do {
                 randomProgramCard = new ProgramCard();
-                nextPos = ProgramCardAction.getPositionAfterProgramCardAction(this.pos, this.getDirection(),
+                nextPos = ProgramCardAction.getPositionAfterProgramCardAction(currentPosAfterCards, this.getDirection(),
                         randomProgramCard.getAction());
 
             } while(gameScreen.getGameLogic().isHole(nextPos) ||
-                    getDistanceBetweenPositions(this.pos, nextFlagPos) <
+                    getDistanceBetweenPositions(currentPosAfterCards, nextFlagPos) <
                     getDistanceBetweenPositions(nextPos, nextFlagPos));
 
             hand[i] = randomProgramCard;
@@ -115,9 +121,42 @@ public class AI implements IRobot {
      * Generates AI moves with hard difficulty
      */
     private void generateHardMoves() {
-        // TODO
+        for(int i = 0; i < hand.length; i++){
+            Vector2 nextFlagPos = gameScreen.getGameLogic().getFlagPosHashMap().get("Flag" + (this.flag+1));
+
+            if (nextFlagPos == null) {
+                hand[i] = new ProgramCard();
+                continue;
+            }
+
+            Vector2 currentPosAfterCards = getPos();
+            if(i != 0){
+                currentPosAfterCards =  ProgramCardAction.getPositionAfterProgramCardAction(pos,getDirection(),hand[i-1].getAction());
+            }
+
+            ProgramCard programCard = new ProgramCard(ProgramCardAction.getRandomMoveForwardProgramCardAction());
+            Vector2 nextPos = ProgramCardAction.getPositionAfterProgramCardAction(currentPosAfterCards,getDirection(),programCard.getAction());
 
 
+            while(gameScreen.getGameLogic().isHole(nextPos) ||
+                    getDistanceBetweenPositions(currentPosAfterCards, nextFlagPos) <
+                            getDistanceBetweenPositions(nextPos, nextFlagPos) ||
+                    !gameScreen.getGameLogic().canGo(nextPos, getDirection())) {
+
+                programCard = new ProgramCard();
+                nextPos = ProgramCardAction.getPositionAfterProgramCardAction(currentPosAfterCards, this.getDirection(),
+                        programCard.getAction());
+
+            }
+
+            if(!gameScreen.getGameLogic().canGo(nextPos, getDirection()) ||
+               gameScreen.getGameLogic().isHole(nextPos)){
+                rotateClockwise();
+                programCard = new ProgramCard();
+            }
+
+            hand[i] = programCard;
+        }
     }
 
     /**

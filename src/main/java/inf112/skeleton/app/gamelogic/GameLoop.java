@@ -25,6 +25,9 @@ public class GameLoop {
     public void startNewRound() {
         System.out.println("Starting round " + roundNumber++);
         this.player.drawNewDeck();
+        for(AI ai:aiList){
+            ai.generateMoves();
+        }
         gameScreen.makePlayerDeckMatchSelectableCards();
     }
 
@@ -32,9 +35,6 @@ public class GameLoop {
      * Start activation-phase were all robots execute their cards and board-objects are activated
      */
     public void startActivationPhase(int phase) {
-        for(AI ai:aiList){
-            ai.generateMoves();
-        }
         if (phase < 5) {
             gameScreen.unrenderLasers();
 
