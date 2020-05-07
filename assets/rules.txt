@@ -3,32 +3,38 @@ Basic rules:[WHITE]
 To play the game start by choosing the racing course you want to play from the main menu screen.
 
 The game consists of 2 phases; the Programming Phase and the Activation Phase, which make up one round.
+
 A robot has 3 lives, and for each life, there are 10 health points.
 
 [RED]
 The programming phase:[WHITE]
-The programming phase is where you choose programming cards to make your robot move around the course. Choose 5 programming cards from the nine available.
+The programming phase is where you choose program cards to make your robot move around the course. Choose 5 program cards from the 9 available.
+
+[RED]
+The activation phase:[WHITE]
+During the activation phase, the chosen program cards activate one by one for each robot playing.
+
+After all players' program cards have been performed, board elements and robot lasers activate before the next program cards are performed etc.
+
+The order of program card-activation between the robots are decided by the cards priority (number on top of card).
+
+After the fifth program card have been performed for all robots playing, the activation phase ends and a new programming phase starts.
+
+[RED]
+How to win and lose:[WHITE]
+To win the game, your robot must be the first to pick up all flags in the correct order.
+
+You lose when one of your opponents collect all flags before you, or if you lose all 3 of your lives first.
 
 [RED]
 Getting damaged:[WHITE]
 For the first 4 health points lost, the robots get one less program card to choose from in the next Programming Phase.
+
 If more than 4 health points are lost, one program card will be locked in the hand of the player until the robot again gets more than 6 health points.
+
 Example:
-7 health points left will leave you with 7 program cards to choose from - one lost for every hp lost.
-4 health points left will lock one program card in hand until the robot again has 6 or more health points.
-
-[RED]
-The activation phase:[WHITE]
-During the activation phase, the chosen programming cards activate one by one.
-After all players' programming cards have been performed, board elements and robot lasers activate before the next programming cards are performed etc.
-
-After the fifth program card have been performed for all robots playing, the activation phase ends and a new programming phase starts. 
-
-[RED]
-How to win and lose:[WHITE]
-To win the game, your robot must be the first to pick up all 4 flags in the correct order.
-
-You lose when one of your opponents gets to all 4 flags before you, or if you lose all 3 of your lives first. 
+7 health points left will leave you with 6 program cards to choose from - one lost for every hp lost.
+4 health points left will lock 2 program card in hand until the robot again has 6 or more health points.
 
 [RED]
 Game and board elements:[WHITE]

@@ -1,7 +1,6 @@
 package inf112.skeleton.app.screen;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -17,7 +16,7 @@ import inf112.skeleton.app.RoboRally;
 
 import java.util.ArrayList;
 
-public class MainMenuScreen implements Screen {
+public class MainMenuScreen extends InputAdapter implements Screen {
     private RoboRally roboRally;
     private Stage stage;
 
@@ -61,6 +60,8 @@ public class MainMenuScreen implements Screen {
             currentMapNumber = mapList.indexOf(roboRally.getGameMap());
             aiNumber = roboRally.getAiNumber();
         }
+
+        createInputMultiplexer();
 
         makeMapSelector();
         makeAiNumberSelector();
@@ -247,4 +248,22 @@ public class MainMenuScreen implements Screen {
         });
     }
 
+    private void createInputMultiplexer() {
+        // creates input processors for both menu-buttons with mouse and keyboard-presses
+        InputProcessor inputProcessorOne = stage;
+        InputProcessor inputProcessorTwo = this;
+        InputMultiplexer inputMultiplexer = new InputMultiplexer();
+        inputMultiplexer.addProcessor(inputProcessorOne);
+        inputMultiplexer.addProcessor(inputProcessorTwo);
+        Gdx.input.setInputProcessor(inputMultiplexer);
+    }
+
+    @Override
+    public boolean keyUp(int code) {
+        if (Input.Keys.F == code) {
+            roboRally.toggleFullscreen();
+        }
+
+        return false;
+    }
 }

@@ -1,7 +1,6 @@
 package inf112.skeleton.app.screen;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -17,7 +16,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-public class RulesScreen implements Screen {
+public class RulesScreen extends InputAdapter implements Screen {
     private Skin skin;
     private RoboRally roboRally;
     private Stage stage;
@@ -34,6 +33,8 @@ public class RulesScreen implements Screen {
 
     @Override
     public void show() {
+        createInputMultiplexer();
+
         makeRulesText();
         makeMenuButton();
     }
@@ -127,5 +128,32 @@ public class RulesScreen implements Screen {
                 roboRally.setMenuScreen();
             }
         });
+    }
+
+    private void createInputMultiplexer() {
+        // creates input processors for both menu-buttons with mouse and keyboard-presses
+        InputProcessor inputProcessorOne = stage;
+        InputProcessor inputProcessorTwo = this;
+        InputMultiplexer inputMultiplexer = new InputMultiplexer();
+        inputMultiplexer.addProcessor(inputProcessorOne);
+        inputMultiplexer.addProcessor(inputProcessorTwo);
+        Gdx.input.setInputProcessor(inputMultiplexer);
+    }
+
+    @Override
+    public boolean keyUp(int code) {
+        float flingTime = 1;
+        float flingVelocity = 300;
+        if (Input.Keys.DOWN == code) {
+            scrollPane.fling(flingTime,0,-flingVelocity);
+        } else if (Input.Keys.UP == code) {
+            scrollPane.fling(flingTime,0,flingVelocity);
+        } else if (Input.Keys.F == code) {
+            roboRally.toggleFullscreen();
+        }else if (Input.Keys.Q == code) {
+            roboRally.setMenuScreen();
+        }
+
+        return false;
     }
 }

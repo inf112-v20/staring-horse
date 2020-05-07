@@ -65,7 +65,6 @@ public class GameScreen extends InputAdapter implements Screen {
 
     private SpriteBatch batch;
     private BitmapFont font;
-    private Vector2 windowedScreenSize;
 
     private Image playerIcon;
 
@@ -654,14 +653,7 @@ public class GameScreen extends InputAdapter implements Screen {
         } else if (Input.Keys.Q == code) {
             roboRally.setMenuScreen();
         } else if (Input.Keys.F == code) {
-            boolean fullScreen = Gdx.graphics.isFullscreen();
-            if (fullScreen){
-                Gdx.graphics.setWindowedMode((int) windowedScreenSize.x, (int) windowedScreenSize.y);
-            }
-            else {
-                windowedScreenSize = new Vector2(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-                Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
-            }
+            roboRally.toggleFullscreen();
         } else if (Input.Keys.SPACE == code) {
             gameLogic.endOfPhaseCheck(player);
         }

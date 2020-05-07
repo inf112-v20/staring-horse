@@ -1,15 +1,19 @@
 package inf112.skeleton.app;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.screen.GameScreen;
 import inf112.skeleton.app.screen.MainMenuScreen;
 import inf112.skeleton.app.screen.RulesScreen;
 
 public class RoboRally extends Game {
     private static RoboRally SINGLE_INSTANCE = null;
-    private String map;
 
+    private String map;
     private int aiNumber;
+
+    private Vector2 windowedScreenSize;
 
     private RoboRally() {}
 
@@ -55,5 +59,16 @@ public class RoboRally extends Game {
 
     public void setAiNumber(int aiNumber) {
         this.aiNumber = aiNumber;
+    }
+
+    public void toggleFullscreen(){
+        boolean fullScreen = Gdx.graphics.isFullscreen();
+        if (fullScreen){
+            Gdx.graphics.setWindowedMode((int) windowedScreenSize.x, (int) windowedScreenSize.y);
+        }
+        else {
+            windowedScreenSize = new Vector2(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
+        }
     }
 }
