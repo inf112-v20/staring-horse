@@ -126,7 +126,6 @@ public class GameScreen extends InputAdapter implements Screen {
         setAllRespawnPoints(respawnPoints);
         renderRobots(getRobots());
         createLabelsAndPlayerIcon();
-        createFinishGamePopUp();
         createActivateCardsButton();
 
         gameLoop.startNewRound();
@@ -284,14 +283,19 @@ public class GameScreen extends InputAdapter implements Screen {
     /**
      * Finish game when player wins
      */
+
     public void playerWin(){
-        showFinishGamePopUp("You win!");
+        stage.clear();
+        createFinishGamePopUp();
+        showFinishGamePopUp("You Win!");
     }
 
     /**
      * Finish game when player loses
      */
     public void playerLose(){
+        stage.clear();
+        createFinishGamePopUp();
         showFinishGamePopUp("You lose!");
     }
 
