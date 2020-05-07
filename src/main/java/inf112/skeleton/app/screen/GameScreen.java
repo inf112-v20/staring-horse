@@ -173,6 +173,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
         for(int i = 0; i < aiNumber; i++){
             AI newAI = new AI();
+            newAI.setDifficulty(roboRally.getDifficultyAI());
 
             TiledMapTileLayer.Cell aiCell = new TiledMapTileLayer.Cell();
             aiCell.setTile(new StaticTiledMapTile(newAI.getTexture()));

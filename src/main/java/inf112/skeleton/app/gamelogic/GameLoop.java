@@ -33,7 +33,7 @@ public class GameLoop {
      */
     public void startActivationPhase(int phase) {
         for(AI ai:aiList){
-            ai.generateSmartMoves();
+            ai.generateMoves();
         }
         if (phase < 5) {
             gameScreen.unrenderLasers();

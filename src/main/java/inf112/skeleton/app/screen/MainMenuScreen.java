@@ -5,9 +5,11 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.GdxRuntimeException;
@@ -24,6 +26,8 @@ public class MainMenuScreen extends InputAdapter implements Screen {
     private int currentMapNumber;
     private int aiNumber;
     private int maxAiNumber;
+    private String difficultyAI;
+
     private Skin skin;
     private Table table;
     private Image mapPreview;
@@ -51,7 +55,7 @@ public class MainMenuScreen extends InputAdapter implements Screen {
     public void show() {
         table = new Table();
         table.setDebug(true);
-        table.setHeight(stage.getHeight()-200);
+        table.setHeight(stage.getHeight()-100);
         table.setPosition( stage.getWidth() / 2f - table.getWidth() / 2f, stage.getHeight() / 2f - table.getHeight() / 2f );
         stage.addActor(table);
 
@@ -65,6 +69,7 @@ public class MainMenuScreen extends InputAdapter implements Screen {
 
         makeMapSelector();
         makeAiNumberSelector();
+        makeAiDifficultySelector();
         makeNewGameButton();
         makeRulesButton();
         makeExitButton();
@@ -83,7 +88,7 @@ public class MainMenuScreen extends InputAdapter implements Screen {
     public void resize(int width, int height) {
         stage.getViewport().update(width, height, true);
         table.setPosition( stage.getWidth() / 2f - table.getWidth() / 2f, stage.getHeight() / 2f - table.getHeight() / 2f );
-        table.setHeight(stage.getHeight()-200);
+        table.setHeight(stage.getHeight()-100);
     }
 
     @Override
@@ -125,7 +130,7 @@ public class MainMenuScreen extends InputAdapter implements Screen {
         mapPreview = new Image();
         table.add(mapPreview).colspan(4).fillX();
 
-        table.row().pad(5, 0, 5, 0);
+        table.row();
 
         final Label mapName = new Label(mapList.get(currentMapNumber), skin);
         mapName.setAlignment(Align.center);
@@ -136,7 +141,7 @@ public class MainMenuScreen extends InputAdapter implements Screen {
         TextButton mapSelectionPrev = new TextButton("Prev map", skin);
         TextButton mapSelectionNext = new TextButton("Next map", skin);
 
-        table.row().pad(5, 0, 5, 0);
+        table.row().pad(0, 0, 5, 0);
         table.add(mapSelectionPrev).uniformX().fillX().colspan(2);
         table.add(mapSelectionNext).uniformX().fillX().colspan(2);
 
@@ -174,7 +179,7 @@ public class MainMenuScreen extends InputAdapter implements Screen {
         TextButton moreAI = new TextButton("+", skin);
         TextButton fewerAI = new TextButton("-", skin);
 
-        table.row().pad(5, 0, 5, 0);
+        table.row().pad(5, 0, 0, 0);
         table.add(fewerAI).fillX().uniformX();
         table.add(numberOfAILabel).fillX().minWidth(250).colspan(2).fillY();
         table.add(moreAI).fillX().uniformX();
@@ -204,6 +209,48 @@ public class MainMenuScreen extends InputAdapter implements Screen {
         });
     }
 
+    private void makeAiDifficultySelector() {
+        final CheckBox easyButton = new CheckBox("EASY", skin);
+        final CheckBox mediumButton = new CheckBox("MEDIUM", skin);
+        final CheckBox hardButton = new CheckBox("HARD", skin);
+
+        table.row().pad(0, 0, 5, 0).height(50);
+        table.add(easyButton).colspan(1).uniformX().fillX().expand();
+        table.add(mediumButton).colspan(1).uniformX().fillX().expand();
+        table.add(hardButton).colspan(1).uniformX().fillX().expand();
+
+        easyButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                mediumButton.setChecked(false);
+                hardButton.setChecked(false);
+
+                difficultyAI = "EASY";
+            }
+        });
+
+        mediumButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                easyButton.setChecked(false);
+                hardButton.setChecked(false);
+
+                difficultyAI = "MEDIUM";
+            }
+
+        });
+
+        hardButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                easyButton.setChecked(false);
+                mediumButton.setChecked(false);
+
+                difficultyAI = "HARD";
+            }
+        });
+    }
+
     private void makeNewGameButton(){
         TextButton newGame = new TextButton("New Game", skin);
 
@@ -215,6 +262,7 @@ public class MainMenuScreen extends InputAdapter implements Screen {
             public void changed(ChangeEvent event, Actor actor) {
                 roboRally.setGameMap(mapList.get(currentMapNumber));
                 roboRally.setAiNumber(aiNumber);
+                roboRally.setDifficultyAI(difficultyAI);
                 roboRally.setGameScreen();
             }
         });

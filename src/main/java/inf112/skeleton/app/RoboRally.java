@@ -13,6 +13,8 @@ public class RoboRally extends Game {
     private String map;
     private int aiNumber;
 
+    private String difficultyAI;
+
     private Vector2 windowedScreenSize;
 
     private RoboRally() {}
@@ -59,6 +61,14 @@ public class RoboRally extends Game {
 
     public void setAiNumber(int aiNumber) {
         this.aiNumber = aiNumber;
+    }
+
+    public String getDifficultyAI() {
+        return difficultyAI;
+    }
+
+    public void setDifficultyAI(String difficultyAI) {
+        this.difficultyAI = difficultyAI;
     }
 
     public void toggleFullscreen(){

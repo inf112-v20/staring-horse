@@ -37,6 +37,7 @@ public class AI implements IRobot {
     private boolean cameFromConveyor;
     private GameScreen gameScreen;
     private boolean shouldNotMove;
+    private String difficulty;
 
 
     public AI(){
@@ -58,18 +59,29 @@ public class AI implements IRobot {
     }
 
     /**
-     * Execute one random ProgramCard
+     * Generate AI moves based on chosen difficulty
      */
-    public void executeRandomProgramCardAction(){
-        gameScreen.unrenderRobot(this);
-        this.performProgramCardAction(new ProgramCard());
-        gameScreen.renderRobot(this);
+    public void generateMoves(){
+        if(this.difficulty.equals("EASY")){
+            generateEasyMoves();
+        } else if(this.difficulty.equals("MEDIUM")){
+            generateMediumMoves();
+        }
     }
 
     /**
-     * Generates slightly smart moves for AI
+     * Generates AI moves with easy difficulty
      */
-    public void generateSmartMoves(){
+    public void generateEasyMoves(){
+        for(int i = 0; i < hand.length; i++){
+            hand[i] = new ProgramCard();
+        }
+    }
+
+    /**
+     * Generates AI moves with medium difficulty
+     */
+    public void generateMediumMoves(){
         for(int i = 0; i < hand.length; i++){
             Vector2 nextFlagPos = gameScreen.getGameLogic().getFlagPosHashMap().get("flag" + (this.flag+1));
 
@@ -354,5 +366,9 @@ public class AI implements IRobot {
     @Override
     public ProgramCard[] getHand() {
         return this.hand;
+    }
+
+    public void setDifficulty(String difficultyAI) {
+        this.difficulty = difficultyAI;
     }
 }
