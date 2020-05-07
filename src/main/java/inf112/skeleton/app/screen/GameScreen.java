@@ -621,24 +621,28 @@ public class GameScreen extends InputAdapter implements Screen {
     @Override
     public boolean keyUp(int code) {
         player.setShouldNotMove(false);
+        boolean debugMode = roboRally.isDebugMode();
+        if(debugMode) {
+            if (Input.Keys.LEFT == code) {
+                unrenderRobot(player);
+                player.rotateCounterClockwise();
+                renderRobot(player);
+            } else if (Input.Keys.RIGHT == code) {
+                unrenderRobot(player);
+                player.rotateClockwise();
+                renderRobot(player);
+            } else if (Input.Keys.DOWN == code) {
+                unrenderRobot(player);
+                player.move(1, Direction.oppositeOf(player.getDirection()));
+                renderRobot(player);
+            } else if (Input.Keys.UP == code) {
+                unrenderRobot(player);
+                player.move(1, player.getDirection());
+                renderRobot(player);
+            }
+        }
 
-        if (Input.Keys.LEFT == code) {
-            unrenderRobot(player);
-            player.rotateCounterClockwise();
-            renderRobot(player);
-        } else if (Input.Keys.RIGHT == code) {
-            unrenderRobot(player);
-            player.rotateClockwise();
-            renderRobot(player);
-        } else if (Input.Keys.DOWN == code) {
-            unrenderRobot(player);
-            player.move(1, Direction.oppositeOf(player.getDirection()));
-            renderRobot(player);
-        } else if (Input.Keys.UP == code) {
-            unrenderRobot(player);
-            player.move(1, player.getDirection());
-            renderRobot(player);
-        } else if (Input.Keys.Q == code) {
+        if (Input.Keys.Q == code) {
             roboRally.setMenuScreen();
         } else if (Input.Keys.F == code) {
             roboRally.toggleFullscreen();

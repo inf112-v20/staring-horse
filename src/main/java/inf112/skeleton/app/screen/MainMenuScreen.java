@@ -31,6 +31,7 @@ public class MainMenuScreen extends InputAdapter implements Screen {
     private Skin skin;
     private Table table;
     private Image mapPreview;
+    private CheckBox debugModeButton;
 
     public MainMenuScreen(){
         this.roboRally = RoboRally.getInstance();
@@ -54,10 +55,12 @@ public class MainMenuScreen extends InputAdapter implements Screen {
     @Override
     public void show() {
         table = new Table();
-        table.setDebug(true);
+        //table.setDebug(true);
         table.setHeight(stage.getHeight()-100);
+        table.setWidth(600);
         table.setPosition( stage.getWidth() / 2f - table.getWidth() / 2f, stage.getHeight() / 2f - table.getHeight() / 2f );
         stage.addActor(table);
+        table.setBackground( new TextureRegionDrawable(new TextureRegion(new Texture("Maps/Background.png"))));
 
         // makes settings same as before when going back to main menu
         if(roboRally.getGameMap() != null){
@@ -87,8 +90,8 @@ public class MainMenuScreen extends InputAdapter implements Screen {
     @Override
     public void resize(int width, int height) {
         stage.getViewport().update(width, height, true);
-        table.setPosition( stage.getWidth() / 2f - table.getWidth() / 2f, stage.getHeight() / 2f - table.getHeight() / 2f );
         table.setHeight(stage.getHeight()-100);
+        table.setPosition( stage.getWidth() / 2f - table.getWidth() / 2f, stage.getHeight() / 2f - table.getHeight() / 2f );
     }
 
     @Override
@@ -214,10 +217,14 @@ public class MainMenuScreen extends InputAdapter implements Screen {
         final CheckBox mediumButton = new CheckBox("MEDIUM", skin);
         final CheckBox hardButton = new CheckBox("HARD", skin);
 
+        debugModeButton = new CheckBox("DEBUG", skin);
+
         table.row().pad(0, 0, 5, 0).height(50);
-        table.add(easyButton).colspan(1).uniformX().fillX().expand();
-        table.add(mediumButton).colspan(1).uniformX().fillX().expand();
-        table.add(hardButton).colspan(1).uniformX().fillX().expand();
+        table.add(easyButton).colspan(1).uniformX().fillX();
+        table.add(mediumButton).colspan(1).uniformX().fillX();
+        table.add(hardButton).colspan(1).uniformX().fillX();
+
+        table.add(debugModeButton).colspan(1).uniformX().fillX();
 
         easyButton.setChecked(true);
         difficultyAI = "EASY";
@@ -266,6 +273,7 @@ public class MainMenuScreen extends InputAdapter implements Screen {
                 roboRally.setGameMap(mapList.get(currentMapNumber));
                 roboRally.setAiNumber(aiNumber);
                 roboRally.setDifficultyAI(difficultyAI);
+                roboRally.setDebugMode(debugModeButton.isChecked());
                 roboRally.setGameScreen();
             }
         });

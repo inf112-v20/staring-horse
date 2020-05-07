@@ -15,6 +15,8 @@ public class RoboRally extends Game {
 
     private String difficultyAI;
 
+    private boolean debugMode;
+
     private Vector2 windowedScreenSize;
 
     private RoboRally() {}
@@ -69,6 +71,14 @@ public class RoboRally extends Game {
 
     public void setDifficultyAI(String difficultyAI) {
         this.difficultyAI = difficultyAI;
+    }
+
+    public boolean isDebugMode() {
+        return debugMode;
+    }
+
+    public void setDebugMode(boolean debugMode) {
+        this.debugMode = debugMode;
     }
 
     public void toggleFullscreen(){
