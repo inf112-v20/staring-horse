@@ -45,7 +45,6 @@ public class MainMenuScreen extends InputAdapter implements Screen {
 
         this.mapList = new ArrayList<>();
         this.mapList.add("High_Octane.tmx");
-        this.mapList.add("backgroundTest.tmx");
         this.mapList.add("Chop_Shop.tmx");
         this.mapList.add("Eazy_Breezy.tmx");
         this.mapList.add("Conveyor_Chaos.tmx");
