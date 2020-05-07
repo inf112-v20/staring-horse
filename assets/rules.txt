@@ -42,7 +42,7 @@ Board elements trigger in the order shown under and affect all robots on them at
 
 - [BLUE]Blue conveyor belts[WHITE] move any robot resting on them two spaces in the direction of the arrows and activate before single-arrowed conveyor belts Once a robot has moved off a belt, the belt no longer affects that robot.
 
-- [GREEN]Green conveyor belts[WHITE] move any robot resting on them one space in the direction of the arrows.
+- [YELLOW]Yellow conveyor belts[WHITE] move any robot resting on them one space in the direction of the arrows.
 
 NB! Rotating Conveyor Belts
 Some conveyor belts have a curved arrow indicating a rotating section of the belt. Robots rotate 90 degrees in the direction of the curved arrow as they move onto the curved section of the belt. If a robot moves onto the curved section of a conveyor belt by means other than the conveyor belt itself, the robot does not turn 90 degrees.
@@ -60,7 +60,7 @@ Additional elements:[WHITE]
 
 - Flags: You must reach the flags in numerical order. In order to reach a flag, your robot must be on it at the end of a program card action. You may enter a flag from any side. A flag also works as a wrench (increases HP by 1)  and a reboot point. 
 
-- Pits: If a robot lands on a pit, it immediately falls in and must reboot. This will lose you 1 life. 
+- Hole: If a robot lands on a hole, it immediately falls in and must reboot. This will lose you 1 life.
 
 - Walls: Robots cannot move through walls, and robot and board lasers cannot shoot through walls. 
 
