@@ -29,7 +29,7 @@ public class GameLogic {
     /**
      * Checks each layer on the given pos and returns the first objectName it finds.
      * Maybe change it so it collects all objectNames on the map and returns an list of them.
-     * @param tiledMap Tiledmap
+     * @param tiledMap TiledMap
      * @param pos Vector2
      * @return the objectName on the pos
      */
@@ -63,7 +63,7 @@ public class GameLogic {
     }
 
     /**
-     * Generate a horisontal or vertical laser on the board
+     * Generate a horizontal or vertical laser on the board
      * @param pos - position on screen
      * @param dir - direction of lasers
      */
@@ -119,7 +119,12 @@ public class GameLogic {
         return holeLayer.getCell(x,y) != null || boardLayer.getCell(x,y) == null;
     }
 
-    // TODO fix bug where player can move onto a robot when pushed against a wall.
+    /**
+     *
+     * @param pos Vector2 position
+     * @param dir Direction
+     * @return true if robot canGo on position
+     */
     public boolean canGo(Vector2 pos, Direction dir) {
         String objectName = getObjectNameOnPos(tiledMap, pos);
         if (canGoCurrentTile(objectName, dir)) {
@@ -372,16 +377,23 @@ public class GameLogic {
      * Check position in direction and push robot in direction if there is a robot there
      * @param pos - pusher-robots original Vector2 position
      * @param dir - push direction
+     * @return true if robot can push
      */
-    public void pushIfPossible(Vector2 pos, Direction dir){
+    public boolean pushIfPossible(Vector2 pos, Direction dir){
         Vector2 vector = getPosInDirection(pos, dir);
         IRobot otherRobot = getRobotOnPos(vector);
 
         if(otherRobot != null){
+            if(!canGo(otherRobot.getPos(), dir) || !canGo(pos,dir) || !pushIfPossible(otherRobot.getPos(),dir)){
+                return false;
+            }
+
             GameScreen.getInstance().unrenderRobot(otherRobot);
             otherRobot.moveOne(dir);
             GameScreen.getInstance().renderRobot(otherRobot);
         }
+
+        return true;
     }
 
     /**
@@ -390,7 +402,7 @@ public class GameLogic {
      */
     private IRobot getRobotOnPos(Vector2 pos){
         for(IRobot robot:GameScreen.getInstance().getRobots()){
-            if(robot.getPos().equals(pos)){
+            if(robot.getPos().equals(pos) && robot.isAlive()){
                 return robot;
             }
         }

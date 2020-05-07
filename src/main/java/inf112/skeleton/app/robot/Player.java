@@ -1,5 +1,6 @@
 package inf112.skeleton.app.robot;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -94,12 +95,9 @@ public class Player implements IRobot {
     public void moveOne(Direction dir){
         if(shouldNotMove)
             return;
-        if (!this.isTestRobot && !gameScreen.getGameLogic().canGo(pos, dir)) {
+        if (!this.isTestRobot && !(gameScreen.getGameLogic().canGo(pos, dir) && gameScreen.getGameLogic().pushIfPossible(pos,dir))) {
             System.out.println("Player can't go");
         }else{
-            if(!this.isTestRobot) {
-                gameScreen.getGameLogic().pushIfPossible(this.pos, dir);
-            }
             Vector2 nextPos = Direction.getPosInDirection(this.pos, dir);
             setPos(nextPos);
         }
@@ -107,9 +105,6 @@ public class Player implements IRobot {
         if(!this.isTestRobot && gameScreen.getGameLogic().isHole(this.pos)){
             killRobot();
         }
-
-        //if(!this.isTestPlayer)
-          //  GameLogic.getInstance().conveyorBelt(this);
     }
 
     @Override

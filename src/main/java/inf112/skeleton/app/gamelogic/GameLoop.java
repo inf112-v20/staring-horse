@@ -41,7 +41,6 @@ public class GameLoop {
             // check priority for players and execute cards accordingly
             for (IRobot robot : sortRobotsByPriorityInPhase(phase)) {
                 if (robot.isAlive() && !robot.getShouldNotMove()) {
-                    System.out.println(robot.getName() + " executed " + robot.getHand()[phase].getAction().toString() + " with priority " +robot.getHand()[phase].getPriority() );
                     robot.executeCardInHand(phase);
                 }
             }

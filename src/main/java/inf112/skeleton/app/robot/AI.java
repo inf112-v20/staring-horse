@@ -62,10 +62,16 @@ public class AI implements IRobot {
      * Generate AI moves based on chosen difficulty
      */
     public void generateMoves(){
-        if(this.difficulty.equals("EASY")){
-            generateEasyMoves();
-        } else if(this.difficulty.equals("MEDIUM")){
-            generateMediumMoves();
+        switch (this.difficulty) {
+            case "EASY":
+                generateEasyMoves();
+                break;
+            case "MEDIUM":
+                generateMediumMoves();
+                break;
+            case "HARD":
+                generateHardMoves();
+                break;
         }
     }
 
@@ -103,6 +109,15 @@ public class AI implements IRobot {
 
             hand[i] = randomProgramCard;
         }
+    }
+
+    /**
+     * Generates AI moves with hard difficulty
+     */
+    private void generateHardMoves() {
+        // TODO
+
+
     }
 
     /**
@@ -159,12 +174,9 @@ public class AI implements IRobot {
 
     @Override
     public void moveOne(Direction dir){
-        if (!this.isTestRobot && !gameScreen.getGameLogic().canGo(pos, dir)) {
+        if (!this.isTestRobot && !(gameScreen.getGameLogic().canGo(pos, dir) && gameScreen.getGameLogic().pushIfPossible(pos,dir))) {
             System.out.println(this.getName() + " can't go");
         }else{
-            if(!this.isTestRobot) {
-                gameScreen.getGameLogic().pushIfPossible(this.pos, dir);
-            }
             Vector2 nextPos = Direction.getPosInDirection(this.pos, dir);
             setPos(nextPos);
         }
@@ -172,9 +184,6 @@ public class AI implements IRobot {
         if(!this.isTestRobot && gameScreen.getGameLogic().isHole(this.pos)){
             killRobot();
         }
-
-        //if(!this.isTestRobot)
-        //  GameLogic.getInstance().conveyorBelt(this);
     }
 
     @Override
@@ -215,8 +224,6 @@ public class AI implements IRobot {
     public void performProgramCardAction(ProgramCard programCard) {
         ProgramCardAction action = programCard.getAction();
 
-        //System.out.println("Execute: " + programCard.getAction());
-
         switch (action) {
             case MOVE_ONE:
                 this.move(1, this.direction);
@@ -248,6 +255,9 @@ public class AI implements IRobot {
             default:
                 System.out.println("ProgramCardAction not implemented: " + action);
                 break;
+        }
+        if (action != ProgramCardAction.AGAIN) {
+            this.previousAction = action;
         }
     }
 

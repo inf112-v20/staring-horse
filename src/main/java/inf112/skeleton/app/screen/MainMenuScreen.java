@@ -219,6 +219,9 @@ public class MainMenuScreen extends InputAdapter implements Screen {
         table.add(mediumButton).colspan(1).uniformX().fillX().expand();
         table.add(hardButton).colspan(1).uniformX().fillX().expand();
 
+        easyButton.setChecked(true);
+        difficultyAI = "EASY";
+
         easyButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
