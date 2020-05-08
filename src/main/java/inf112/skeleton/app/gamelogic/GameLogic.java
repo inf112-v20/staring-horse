@@ -8,7 +8,6 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.enums.Direction;
-import inf112.skeleton.app.robot.Player;
 import inf112.skeleton.app.robot.IRobot;
 import inf112.skeleton.app.screen.GameScreen;
 import java.util.ArrayList;
@@ -48,6 +47,10 @@ public class GameLogic {
         return "";
     }
 
+    /**
+     * Activates all wall lasers from the wallLaserList
+     * @param wallLaserList a List of all wall lasers
+     */
     public void activateWallLasers(ArrayList<Vector2> wallLaserList) {
         for (Vector2 pos : wallLaserList) {
             String wallName = getObjectNameOnPos(tiledMap, pos);
@@ -120,7 +123,7 @@ public class GameLogic {
     }
 
     /**
-     *
+     * Checks if the next position in the given direction is a valid move.
      * @param pos Vector2 position
      * @param dir Direction
      * @return true if robot canGo on position
@@ -141,6 +144,12 @@ public class GameLogic {
         return true;
     }
 
+    /**
+     * Checks if the current tile is a wall in the given direction
+     * @param currentObjectName object name
+     * @param dir Direction
+     * @return true if there is no wall in the current direction.
+     */
     public boolean canGoCurrentTile(String currentObjectName, Direction dir) {
         if (currentObjectName.contains("Wall")) {
             return !currentObjectName.toUpperCase().contains(dir.toString().toUpperCase());
@@ -155,7 +164,6 @@ public class GameLogic {
      * identifies the current flag the robot is standing on and calling addFlag.
      * @param robot robot
      */
-
     public void pickUpFlag(IRobot robot) {
         String objectName = getObjectNameOnPos(tiledMap, robot.getPos());
         if(objectName != null && objectName.contains("Flag")){
@@ -176,12 +184,18 @@ public class GameLogic {
         }
     }
 
+    /**
+     * @return the names of all the flags
+     */
     public ArrayList<String> getFlags() {
         //loads flags if not loaded
         if(flags == null) getFlagPosHashMap();
         return flags;
     }
 
+    /**
+     * @return a map of flags the position of those flags.
+     */
     public HashMap<String,Vector2> getFlagPosHashMap() {
         if(flagPosHashMap != null)
             return flagPosHashMap;
@@ -202,7 +216,8 @@ public class GameLogic {
     }
 
     /**
-     * @return an ArrayList<Vector2> containing all SpawnPoints.
+     * @param layerName Name of layer you want the positions from. (NOT AN OBJECT LAYER)
+     * @return an ArrayList<Vector2> containing all positions of that objects on the map.
      */
     public ArrayList<Vector2> getAllPositionsFromObjectName(String layerName) {
         TiledMapTileLayer layers = (TiledMapTileLayer) tiledMap.getLayers().get(layerName);
@@ -220,7 +235,7 @@ public class GameLogic {
 
     /**
      * Moves and rotates the input robot if it's on a conveyor.
-     * @param robot IRobot
+     * @param robot IRobot to be moved and rotated
      */
     public void conveyorBelts(IRobot robot) {
         String conveyor = getObjectNameOnPos(tiledMap, robot.getPos());
@@ -240,7 +255,7 @@ public class GameLogic {
     }
 
     /**
-     * @param conveyor name of object tile.
+     * @param conveyor name of conveyor.
      * @return direction of the conveyor.
      */
     public Direction getConveyorDir(String conveyor) {
@@ -260,9 +275,9 @@ public class GameLogic {
 
     /**
      * Moves the robot in the direction of the conveyor the robot is standing on.
-     * @param robot IRobot
-     * @param conveyor name of object tile
-     * @param dir Direction
+     * @param robot IRobot to be moved
+     * @param conveyor name of conveyor
+     * @param dir Direction the conveyor is pointing
      */
     public void moveConveyor(IRobot robot, String conveyor, Direction dir) {
         if (conveyor.contains("Express_Conveyor")) {
@@ -287,8 +302,8 @@ public class GameLogic {
     /**
      * Rotates the robot clockwise or counterclockwise depending on the
      * corresponding conveyor.
-     * @param robot IRobot
-     * @param conveyor name of object tile
+     * @param robot IRobot to be rotated
+     * @param conveyor name of conveyor.
      */
     public void rotateConveyor(IRobot robot, String conveyor, Direction dir) {
         // robot should only rotate when coming from a conveyor.
@@ -305,6 +320,12 @@ public class GameLogic {
         }
     }
 
+    /**
+     * Rotates on a junction where both inputs should rotate the robot.
+     * @param robot IRobot to be rotated
+     * @param conveyor Conveyor which is a junction
+     * @param dir Direction of the previous conveyor.
+     */
     public void rotateConveyorJunction(IRobot robot, String conveyor, Direction dir) {
         Direction junctionConveyorDir = getConveyorDir(conveyor);
 
@@ -334,7 +355,7 @@ public class GameLogic {
      * Heal and set respawn-point if robot is on flag
      * @param robot IRobot
      */
-    private void onFlagCheck(IRobot robot){
+    public void onFlagCheck(IRobot robot){
         TiledMapTileLayer flagLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Flag");
         if(flagLayer.getCell(robot.getXPos(),robot.getYPos()) != null){
             robot.heal();
@@ -342,40 +363,13 @@ public class GameLogic {
         }
     }
 
-    /**
-     * Executes the events that happens at the end of a phase
-     * for the given robot.
-     * Should probably just do it for all robots from the get go
-     * @param robot IRobot
-     */
-    public void endOfPhaseCheck(IRobot robot) {
-        if (robot instanceof Player) {
-            Player player = (Player) robot;
-            if (!player.getIsTestPlayer()) {
-                endOfPhaseCheckHelper(player);
-            }
-        } else {
-            endOfPhaseCheckHelper(robot);
-        }
-    }
 
-    // Actually calls each method.
-    private void endOfPhaseCheckHelper(IRobot robot) {
-        GameScreen.getInstance().unrenderRobot(robot);
-        repairOnWrench(robot);
-        pickUpFlag(robot);
-        onFlagCheck(robot);
-        changeDirOnGear(robot);
-        conveyorBelts(robot);
-        activateLasersFromPos(robot.getPos(), robot.getDirection(), false);
-        GameScreen.getInstance().renderRobot(robot);
-    }
 
     /**
      * Check position in direction and push robot in direction if there is a robot there
      * @param pos - pusher-robots original Vector2 position
      * @param dir - push direction
-     * @return true if robot can push
+     * @return true if robot can push in direction
      */
     public boolean pushIfPossible(Vector2 pos, Direction dir){
         Vector2 vector = getPosInDirection(pos, dir);
@@ -413,7 +407,6 @@ public class GameLogic {
      */
     public void repairOnWrench(IRobot robot) {
         TiledMapTileLayer wrenchLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Wrench");
-
         if (wrenchLayer.getCell((int) robot.getPos().x, (int) robot.getPos().y) != null) {
             robot.heal();
         }
