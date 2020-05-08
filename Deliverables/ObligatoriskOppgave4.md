@@ -158,6 +158,11 @@ I denne iterasjonen har vi løst mange flere brukerhistorier og krav enn de forr
 
 #### Bugs i koden
 
+•	Robot respawner ikke om den dør etter siste utførte programkort, den respawner først etter neste programmeringsfase (valg av kort) er gjort (sjelden bug).
+•	Aktiveringsfasen fortsetter runden etter Win/Lose pop-up’en – de resterende program kortene utføres alikevel.
+•	Hvis du kjører jar-filen utenfor target-mappen vil ikke regelboken vises. Dette er fordi den finner ikke rules.txt i assets når den er utenfor target, den har ikke absolute path.
+•	Noen scaling bugs, f.eks. i forhold til bytte fra og til fullscreen    
+
 ## Deloppgave 3
 
 Se hvordan prosjektet bygges og kjøres i ReadMe-filen.
