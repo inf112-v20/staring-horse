@@ -114,6 +114,9 @@ public class MainMenuScreen extends InputAdapter implements Screen {
         stage.dispose();
     }
 
+    /**
+     * Set MapPreview-image to fit current map
+     */
     private void setMapPreviewToCurrentMap(){
         Texture texture;
 
@@ -129,6 +132,9 @@ public class MainMenuScreen extends InputAdapter implements Screen {
         mapPreview.setDrawable(new TextureRegionDrawable(new TextureRegion(texture)));
     }
 
+    /**
+     * Make selector of map with next map-button, previous map-button, map preview and label with current map-name
+     */
     private void makeMapSelector(){
         mapPreview = new Image();
         table.add(mapPreview).colspan(4).fillX();
@@ -175,6 +181,9 @@ public class MainMenuScreen extends InputAdapter implements Screen {
         });
     }
 
+    /**
+     * Make selector of number of AIs with more AI-button, less AI-button and label with current number of AIs
+     */
     private void makeAiNumberSelector(){
         final Label numberOfAILabel = new Label("Number of AI: \n" + aiNumber, skin);
         numberOfAILabel.setAlignment(Align.center);
@@ -212,6 +221,10 @@ public class MainMenuScreen extends InputAdapter implements Screen {
         });
     }
 
+    /**
+     * Make selector for difficulty of AI with checkboxes
+     * (Also add Debug-checkbox)
+     */
     private void makeAiDifficultySelector() {
         final CheckBox easyButton = new CheckBox("EASY", skin);
         final CheckBox mediumButton = new CheckBox("MEDIUM", skin);
@@ -261,6 +274,9 @@ public class MainMenuScreen extends InputAdapter implements Screen {
         });
     }
 
+    /**
+     * Make button to start new game with the chosen settings
+     */
     private void makeNewGameButton(){
         TextButton newGame = new TextButton("New Game", skin);
 
@@ -280,6 +296,9 @@ public class MainMenuScreen extends InputAdapter implements Screen {
         });
     }
 
+    /**
+     * Make button for going to RulesScreen
+     */
     private void makeRulesButton(){
         TextButton rules = new TextButton("Rules", skin);
 
@@ -294,6 +313,9 @@ public class MainMenuScreen extends InputAdapter implements Screen {
         });
     }
 
+    /**
+     * Make button for exiting and closing game
+     */
     private void makeExitButton(){
         TextButton exit = new TextButton("Exit", skin);
 
@@ -308,6 +330,9 @@ public class MainMenuScreen extends InputAdapter implements Screen {
         });
     }
 
+    /**
+     * Create input processors for both clicking on buttons and keyboard
+     */
     private void createInputMultiplexer() {
         // creates input processors for both menu-buttons with mouse and keyboard-presses
         InputProcessor inputProcessorOne = stage;
