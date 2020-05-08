@@ -145,16 +145,13 @@ _Akseptansekriterier:_ Fullført når alle typer programkort har fått riktig pr
 
 I tillegg til disse konkrete brukerhistoriene dukket det opp flere «små-oppgaver» som vi løste parallelt med brukerhistoriene.
 
-•	Forbedret designet på meny skjerm, la til mulighet for å lese regelbok.
+* Forbedret designet på meny skjerm, la til mulighet for å lese regelbok.
 
+*	La til «activate-cards» knapp for å gjøre det tydeligere når programmeringsfasen er over og aktiveringsfasen starter.
 
-•	La til «activate-cards» knapp for å gjøre det tydeligere når programmeringsfasen er over og aktiveringsfasen starter.
+* Fikset visuelle bugs i forhold til resolution, utseende på og plassering av elementer som kort, tekst osv.
 
-
-•	Fikset visuelle bugs i forhold til resolution, utseende på og plassering av elementer som kort, tekst osv.
-
-
-•	Generell refaktorering underveis for å forbedre koden, i tillegg til å ha enda større fokus på å skrive tester.
+* Generell refaktorering underveis for å forbedre koden, i tillegg til å ha enda større fokus på å skrive tester.
 
 
 I denne iterasjonen har vi løst mange flere brukerhistorier og krav enn de forrige. Dette var mulig både fordi vi alle hadde bedre tid siden andre fag i stor grad var ferdig med undervisning og oppgaveinnleveringer, og fordi det ble enklere og enklere å legge til nye features når kodebasen vår ble større.
