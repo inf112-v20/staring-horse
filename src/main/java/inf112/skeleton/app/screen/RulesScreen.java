@@ -75,6 +75,9 @@ public class RulesScreen extends InputAdapter implements Screen {
         // dispose
     }
 
+    /**
+     * Make label and scroll pane with text taken from file with rules
+     */
     private void makeRulesText(){
         StringBuilder text = new StringBuilder();
 
@@ -116,6 +119,9 @@ public class RulesScreen extends InputAdapter implements Screen {
         stage.addActor(scrollPane);
     }
 
+    /**
+     * Make button for going back to MainMenuScreen
+     */
     private void makeMenuButton(){
         TextButton backToMenu = new TextButton("Main menu", skin);
         stage.addActor(backToMenu);
@@ -130,6 +136,9 @@ public class RulesScreen extends InputAdapter implements Screen {
         });
     }
 
+    /**
+     * Create input processors for both clicking on buttons and keyboard presses
+     */
     private void createInputMultiplexer() {
         // creates input processors for both menu-buttons with mouse and keyboard-presses
         InputProcessor inputProcessorOne = stage;

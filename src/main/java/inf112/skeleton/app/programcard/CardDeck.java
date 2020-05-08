@@ -26,6 +26,7 @@ public class CardDeck {
 
     /**
      * Draw 9 new random ProgramCards
+     * @return a list of 9 new random ProgramCards
      */
     public ArrayList<ProgramCard> drawNineProgramCards(){
         this.deck.clear();
