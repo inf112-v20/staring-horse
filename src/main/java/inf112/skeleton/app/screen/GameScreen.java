@@ -283,7 +283,6 @@ public class GameScreen extends InputAdapter implements Screen {
     /**
      * Finish game when player wins
      */
-
     public void playerWin(){
         stage.clear();
         createFinishGamePopUp();
@@ -375,7 +374,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
     /**
      * Creates a new ImageButton of a input card
-     * @return a ImageButton.
+     * @return an ImageButton.
      */
     public ImageButton makeCardImageButton(final Player player, final GameScreen gameScreen, final int i) {
 
@@ -646,7 +645,7 @@ public class GameScreen extends InputAdapter implements Screen {
                 renderRobot(player);
             } else if (Input.Keys.SPACE == code) {
                 for (IRobot robot : getRobots()) {
-                    gameLogic.endOfPhaseCheck(robot);
+                    gameLoop.endOfPhaseCheck(robot);
                 }
                 delay();
                 unrenderLasers();

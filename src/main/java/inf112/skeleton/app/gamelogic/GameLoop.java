@@ -22,6 +22,9 @@ public class GameLoop {
         this.roundNumber = 1;
     }
 
+    /**
+     * Starts a new round
+     */
     public void startNewRound() {
         System.out.println("Starting round " + roundNumber++);
         this.player.drawNewDeck();
@@ -33,6 +36,7 @@ public class GameLoop {
 
     /**
      * Start activation-phase were all robots execute their cards and board-objects are activated
+     * @param phase the phase number
      */
     public void startActivationPhase(int phase) {
         if (phase < 5) {
@@ -47,7 +51,7 @@ public class GameLoop {
 
             for (IRobot robot : gameScreen.getRobots()) {
                 if (robot.isAlive())
-                    gameScreen.getGameLogic().endOfPhaseCheck(robot);
+                    endOfPhaseCheck(robot);
             }
 
             gameScreen.getGameLogic().activateWallLasers(gameScreen.getGameLogic().getAllPositionsFromObjectName("WallLaser"));
@@ -68,6 +72,44 @@ public class GameLoop {
         startNewRound();
     }
 
+    /**
+     * Executes the events that happens at the end of a phase
+     * for the given robot.
+     * Should probably just do it for all robots from the get go
+     * @param robot IRobot
+     */
+    public void endOfPhaseCheck(IRobot robot) {
+        if (robot instanceof Player) {
+            Player player = (Player) robot;
+            if (!player.getIsTestPlayer()) {
+                endOfPhaseCheckHelper(player);
+            }
+        } else {
+            endOfPhaseCheckHelper(robot);
+        }
+    }
+
+    /**
+     * Calls the methods in the correct order. for each robot.
+     * @param robot IRobot
+     */
+    private void endOfPhaseCheckHelper(IRobot robot) {
+        gameScreen.unrenderRobot(robot);
+        gameScreen.getGameLogic().repairOnWrench(robot);
+        gameScreen.getGameLogic().pickUpFlag(robot);
+        gameScreen.getGameLogic().onFlagCheck(robot);
+        gameScreen.getGameLogic().changeDirOnGear(robot);
+        gameScreen.getGameLogic().conveyorBelts(robot);
+        gameScreen.getGameLogic().activateLasersFromPos(robot.getPos(), robot.getDirection(), false);
+        gameScreen.renderRobot(robot);
+    }
+
+    /**
+     * will sort the robots in a list where the robot with the
+     * largest priority card in a phase is first.
+     * @param phase The current phase
+     * @return A list of sorted robots.
+     */
     private ArrayList<IRobot> sortRobotsByPriorityInPhase(int phase) {
         ArrayList<IRobot> sortedPhaseRobots = gameScreen.getRobots();
         ArrayList<Integer> priorityList = new ArrayList<>();
