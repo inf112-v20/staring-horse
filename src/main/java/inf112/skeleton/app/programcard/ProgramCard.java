@@ -63,8 +63,8 @@ public class ProgramCard {
     }
 
     /**
-     * Get the action of a programcard
-     * @return an programcardaction
+     * Get the action of a ProgramCard
+     * @return an Programcardaction
      */
     public ProgramCardAction getAction() {
         return this.action;
@@ -110,7 +110,7 @@ public class ProgramCard {
     }
 
     /**
-     * Get programcard priority
+     * Get ProgramCard priority
      * @return an int with the priority of the ProgramCard
      */
     public int getPriority(){
