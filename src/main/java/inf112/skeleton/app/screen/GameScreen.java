@@ -131,6 +131,9 @@ public class GameScreen extends InputAdapter implements Screen {
         gameLoop.startNewRound();
     }
 
+    /**
+     * Create button that starts activation phase with chosen cards
+     */
     private void createActivateCardsButton() {
         activateCardsButton = new TextButton("Activate\ncards", new Skin(Gdx.files.classpath("skin/star-soldier-ui.json")));
         stage.addActor(activateCardsButton);
@@ -149,7 +152,9 @@ public class GameScreen extends InputAdapter implements Screen {
         });
     }
 
-
+    /**
+     * Initialize laser-layer
+     */
     private void initializeLaserLayer() {
         laserVerticalCell = new TiledMapTileLayer.Cell();
         laserHorizontalCell = new TiledMapTileLayer.Cell();
@@ -162,6 +167,9 @@ public class GameScreen extends InputAdapter implements Screen {
 
     }
 
+    /**
+     * Create a chosen amount of AIs (and Cells) with chosen difficulty
+     */
     private void createAIs() {
         aiList = new ArrayList<>();
         AI.resetRobotID();
@@ -179,6 +187,9 @@ public class GameScreen extends InputAdapter implements Screen {
         }
     }
 
+    /**
+     * Update text in PlayerInfo-label to fit the state of the player's robot
+     */
     public void updatePlayerInfo(){
         playerInfo.setText(player.getName() + "\n" +
                 "Lives: " + player.getLives() + "\n" +
@@ -188,6 +199,9 @@ public class GameScreen extends InputAdapter implements Screen {
                 "Position: " + player.getPos().toString());
     }
 
+    /**
+     * Create PlayerInfo-label, KeyPressInfo-label and PlayerIcon
+     */
     private void createLabelsAndPlayerIcon() {
         Skin uiSkin = new Skin(Gdx.files.classpath("skin/uiskin.json"));
 
@@ -215,13 +229,19 @@ public class GameScreen extends InputAdapter implements Screen {
         playerInfo.setPosition(playerIcon.getX(), playerIcon.getY() + 120);
     }
 
+    /**
+     * Render all IRobots in robots-list
+     * @param robots - list of robots to render
+     */
     private void renderRobots(ArrayList<IRobot> robots) {
         for (IRobot robot : robots)
             renderRobot(robot);
     }
 
+    /**
+     * Create input processors for both clicking on cards and keyboard
+     */
     private void createInputMultiplexer() {
-        // creates input processors for both clicking on cards and keyboard.
         InputProcessor inputProcessorOne = stage;
         InputProcessor inputProcessorTwo = this;
         InputMultiplexer inputMultiplexer = new InputMultiplexer();
@@ -231,6 +251,10 @@ public class GameScreen extends InputAdapter implements Screen {
 
     }
 
+    /**
+     * Set all robots respawn-points
+     * @param respawnPoints - respawn-points to set robots to
+     */
     private void setAllRespawnPoints(ArrayList<Vector2> respawnPoints) {
         for (int i = 0; i < getRobots().size(); i++) {
             getRobots().get(i).setRespawnPoint(respawnPoints.get(i));
@@ -315,6 +339,10 @@ public class GameScreen extends InputAdapter implements Screen {
         }
     }
 
+    /**
+     * Get TiledMap for current map
+     * @return tiledMap
+     */
     public TiledMap getTiledMap() {
         return tiledMap;
     }
@@ -343,6 +371,11 @@ public class GameScreen extends InputAdapter implements Screen {
         }
     }
 
+    /**
+     * Draw a laser-texture on a position in correct direction
+     * @param pos - Vector2 position of laser
+     * @param dir - Direction of laser
+     */
     public void drawLaserOnPos(Vector2 pos, Direction dir) {
         if (laserLayer.getCell((int) pos.x, (int) pos.y) != null) {
             if (laserLayer.getCell((int) pos.x, (int) pos.y) == laserHorizontalCell && (dir == Direction.EAST || dir == Direction.WEST)) {
@@ -365,6 +398,9 @@ public class GameScreen extends InputAdapter implements Screen {
         }
     }
 
+    /**
+     * Un-render all laser texture
+     */
     public void unrenderLasers() {
         ArrayList<Vector2> laserPositions = gameLogic.getAllPositionsFromObjectName("Laser");
         for (Vector2 laserPos : laserPositions) {
@@ -416,6 +452,10 @@ public class GameScreen extends InputAdapter implements Screen {
         return imageButton;
     }
 
+    /**
+     * Add selected card to player's hand
+     * @param programCard - ProgramCard to be added
+     */
     private void addCardToPlayerHand(ProgramCard programCard) {
         player.addCardToHand(programCard);
         Image image = handCards.get(player.getNumberOfCardsInHand()-1);
@@ -436,10 +476,19 @@ public class GameScreen extends InputAdapter implements Screen {
 
     }
 
+    /**
+     * Change Drawable on given ImageButton to fit the texture from given ProgramCard
+     * @param button - ImageButton to change Drawable
+     * @param card - ProgramCard to get Drawable Texture from
+     */
     public void changeImageButtonDrawable(ImageButton button, ProgramCard card) {
         button.getStyle() .imageUp = new TextureRegionDrawable(new TextureRegion(card.getTexture()));
     }
 
+    /**
+     * Make the Texture and priority on the selectable cards match the players deck
+     * (Also adjusts amount of selectable cards by the player's health)
+     */
     public void makePlayerDeckMatchSelectableCards() {
         // remove all priority labels for the previous cards.
         removePriorityOnCard();
@@ -464,6 +513,10 @@ public class GameScreen extends InputAdapter implements Screen {
         priorityLabelList.clear();
     }
 
+    /**
+     * Draw priority on card
+     * @param i - index of ImageButton and priority in their lists
+     */
     private void drawPriorityOnCard(int i) {
 
         ImageButton card = selectableCardButtons.get(i);
@@ -480,7 +533,7 @@ public class GameScreen extends InputAdapter implements Screen {
     }
 
     /**
-     * make each card in a deck into an imageButton
+     * Make each card in a deck into an imageButton
      */
     private void makeSelectableCards(){
         this.player.drawNewDeck();
@@ -503,10 +556,18 @@ public class GameScreen extends InputAdapter implements Screen {
         }
     }
 
+    /**
+     * Change the Texture of an Image
+     * @param image - Image to have drawable texture changed
+     * @param texture - Texture to change to
+     */
     public void changeImageTexture(Image image, Texture texture){
         image.setDrawable(new TextureRegionDrawable(new TextureRegion(texture)));
     }
 
+    /**
+     * Make Images for player hand
+     */
     private void makePlayerHandImages(){
 
         handCards = new ArrayList<>();
@@ -541,10 +602,18 @@ public class GameScreen extends InputAdapter implements Screen {
         }
     }
 
+    /**
+     * Un-render given robot
+     * @param robot - IRobot to be un-render
+     */
     public void unrenderRobot(IRobot robot) {
         playerLayer.setCell((int) robot.getPos().x, (int) robot.getPos().y, null);
     }
 
+    /**
+     * Render given robot with the robot's texture
+     * @param robot - IRobot to be rendered
+     */
     public void renderRobot(IRobot robot){
         if(robot.isAlive()) {
             updateRobotRotation(robot);
@@ -577,11 +646,18 @@ public class GameScreen extends InputAdapter implements Screen {
         // dispose
     }
 
+    /**
+     * Set FinishGamePopUp's text and make it visible
+     * @param text - String to show to player when game is over
+     */
     private void showFinishGamePopUp(String text){
         winOrLoseText.setText(text);
         finishGamePopUp.setVisible(true);
     }
 
+    /**
+     * Create popup-menu to be shown when game is over
+     */
     private void createFinishGamePopUp() {
         Skin skin = new Skin(Gdx.files.classpath("skin/uiskin.json"));
         finishGamePopUp = new Table();
@@ -647,7 +723,6 @@ public class GameScreen extends InputAdapter implements Screen {
                 for (IRobot robot : getRobots()) {
                     gameLoop.endOfPhaseCheck(robot);
                 }
-                delay();
                 unrenderLasers();
             }
         }
@@ -663,10 +738,9 @@ public class GameScreen extends InputAdapter implements Screen {
         return false;
     }
 
-    private void delay() {
-        // Todo add generic delay
-    }
-
+    /**
+     * Set all cards in player hand to be invisible
+     */
     public void makeHandInvisible() {
         int lockedCardsNumber = 0;
         if(player.getDamageTaken() >= 5){
@@ -680,6 +754,10 @@ public class GameScreen extends InputAdapter implements Screen {
         }
     }
 
+    /**
+     * Get all IRobots in game
+     * @return all IRobots
+     */
     public ArrayList<IRobot> getRobots(){
         ArrayList<IRobot> robots = new ArrayList<>();
 
@@ -689,6 +767,9 @@ public class GameScreen extends InputAdapter implements Screen {
         return robots;
     }
 
+    /**
+     * @return this game's GameLogic
+     */
     public GameLogic getGameLogic(){
         return this.gameLogic;
     }
