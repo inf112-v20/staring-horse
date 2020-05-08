@@ -147,9 +147,12 @@ I tillegg til disse konkrete brukerhistoriene dukket det opp flere «små-oppgav
 
 •	Forbedret designet på meny skjerm, la til mulighet for å lese regelbok.
 
+
 •	La til «activate-cards» knapp for å gjøre det tydeligere når programmeringsfasen er over og aktiveringsfasen starter.
 
+
 •	Fikset visuelle bugs i forhold til resolution, utseende på og plassering av elementer som kort, tekst osv.
+
 
 •	Generell refaktorering underveis for å forbedre koden, i tillegg til å ha enda større fokus på å skrive tester.
 
