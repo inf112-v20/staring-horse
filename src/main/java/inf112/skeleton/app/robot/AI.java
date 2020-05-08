@@ -98,17 +98,22 @@ public class AI implements IRobot {
             }
 
             Vector2 currentPosAfterCards = getPos();
+            Direction currentDirectionAfterCards = getDirection();
             if(i != 0){
-                currentPosAfterCards =  ProgramCardAction.getPositionAfterProgramCardAction(pos,getDirection(),hand[i-1].getAction());
+                currentDirectionAfterCards = ProgramCardAction.getDirectionAfterProgramCardAction(getDirection(),hand[i-1].getAction());
+                currentPosAfterCards =  ProgramCardAction.getPositionAfterProgramCardAction(pos,currentDirectionAfterCards,hand[i-1].getAction());
             }
 
             ProgramCard randomProgramCard;
             Vector2 nextPos;
+            int counter = 0;
             do {
                 randomProgramCard = new ProgramCard();
-                nextPos = ProgramCardAction.getPositionAfterProgramCardAction(currentPosAfterCards, this.getDirection(),
+                nextPos = ProgramCardAction.getPositionAfterProgramCardAction(currentPosAfterCards, currentDirectionAfterCards,
                         randomProgramCard.getAction());
-
+                if(++counter >= 20){
+                    break;
+                }
             } while(gameScreen.getGameLogic().isHole(nextPos) ||
                     getDistanceBetweenPositions(currentPosAfterCards, nextFlagPos) <
                     getDistanceBetweenPositions(nextPos, nextFlagPos));
@@ -130,26 +135,32 @@ public class AI implements IRobot {
             }
 
             Vector2 currentPosAfterCards = getPos();
+            Direction currentDirectionAfterCards = getDirection();
             if(i != 0){
-                currentPosAfterCards =  ProgramCardAction.getPositionAfterProgramCardAction(pos,getDirection(),hand[i-1].getAction());
+                currentDirectionAfterCards = ProgramCardAction.getDirectionAfterProgramCardAction(getDirection(),hand[i-1].getAction());
+                currentPosAfterCards =  ProgramCardAction.getPositionAfterProgramCardAction(pos,currentDirectionAfterCards,hand[i-1].getAction());
             }
 
             ProgramCard programCard = new ProgramCard(ProgramCardAction.getRandomMoveForwardProgramCardAction());
-            Vector2 nextPos = ProgramCardAction.getPositionAfterProgramCardAction(currentPosAfterCards,getDirection(),programCard.getAction());
+            Vector2 nextPos = ProgramCardAction.getPositionAfterProgramCardAction(currentPosAfterCards,currentDirectionAfterCards,programCard.getAction());
 
+            int counter = 0;
 
             while(gameScreen.getGameLogic().isHole(nextPos) ||
                     getDistanceBetweenPositions(currentPosAfterCards, nextFlagPos) <
                             getDistanceBetweenPositions(nextPos, nextFlagPos) ||
-                    !gameScreen.getGameLogic().canGo(nextPos, getDirection())) {
+                    !gameScreen.getGameLogic().canGo(nextPos, currentDirectionAfterCards)) {
 
                 programCard = new ProgramCard();
-                nextPos = ProgramCardAction.getPositionAfterProgramCardAction(currentPosAfterCards, this.getDirection(),
+                nextPos = ProgramCardAction.getPositionAfterProgramCardAction(currentPosAfterCards, currentDirectionAfterCards,
                         programCard.getAction());
+                if(++counter >= 50){
+                    break;
+                }
 
             }
 
-            if(!gameScreen.getGameLogic().canGo(nextPos, getDirection()) ||
+            if(!gameScreen.getGameLogic().canGo(nextPos, currentDirectionAfterCards) ||
                gameScreen.getGameLogic().isHole(nextPos)){
                 rotateClockwise();
                 programCard = new ProgramCard();
@@ -425,7 +436,7 @@ public class AI implements IRobot {
 
     /**
      * Set difficulty level of AI player
-     * @param difficultyAI
+     * @param difficultyAI - difficulty of AI
      */
     public void setDifficulty(String difficultyAI) {
         this.difficulty = difficultyAI;
