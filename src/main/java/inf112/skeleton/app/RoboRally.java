@@ -33,12 +33,21 @@ public class RoboRally extends Game {
         setMenuScreen();
     }
 
+    /**
+     * Generate a MenuScreen
+     */
     public void setMenuScreen() { setScreen(new MainMenuScreen()); }
 
+    /**
+     * Generate a GameScreen
+     */
     public void setGameScreen(){
         setScreen(GameScreen.getInstance());
     }
 
+    /**
+     * Generate a RulesScreen
+     */
     public void setRulesScreen() {
         setScreen(new RulesScreen());
     }
@@ -47,38 +56,73 @@ public class RoboRally extends Game {
         super.render();
     }
 
+    /**
+     * Set mapname
+     * @param map the mapname
+     */
     public void setGameMap(String map){
         this.map = map;
     }
 
+    /**
+     * Get gamemap mapname
+     * @return mapname
+     */
     public String getGameMap(){
         return this.map;
     }
 
+    /**
+     * Get the number of AIs
+     * @return number of AI
+     */
     public int getAiNumber() {
         return aiNumber;
     }
 
+    /**
+     * Set the number of AI
+     * @param aiNumber number of AI
+     */
     public void setAiNumber(int aiNumber) {
         this.aiNumber = aiNumber;
     }
 
+    /**
+     * Get difficulty of AI
+     * @return string with difficulty level
+     */
     public String getDifficultyAI() {
         return difficultyAI;
     }
 
+    /**
+     * Set the difficulty of AI
+     * @param difficultyAI the difficulty
+     */
     public void setDifficultyAI(String difficultyAI) {
         this.difficultyAI = difficultyAI;
     }
 
+    /**
+     * Check if currently is in debug mode
+     * @return true if you are in debug mode
+     */
     public boolean isDebugMode() {
         return debugMode;
     }
 
+    /**
+     * Set boolean of debug mode
+     * @param debugMode
+     */
     public void setDebugMode(boolean debugMode) {
         this.debugMode = debugMode;
     }
 
+    /**
+     * Toggle fullscreen
+     */
     public void toggleFullscreen(){
         boolean fullScreen = Gdx.graphics.isFullscreen();
         if (fullScreen){
