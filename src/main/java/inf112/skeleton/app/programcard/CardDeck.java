@@ -31,11 +31,7 @@ public class CardDeck {
     public ArrayList<ProgramCard> drawNineProgramCards(){
         this.deck.clear();
         for(int i = 0; i < 9; i++){
-            if (i < 8) {
-                this.addCardToDeck(new ProgramCard(ProgramCardAction.getAllProgramCardActions()[i]));
-            } else {
-                this.addCardToDeck(new ProgramCard());
-            }
+            this.addCardToDeck(new ProgramCard());
         }
         return deck;
     }
