@@ -6,6 +6,7 @@ import inf112.skeleton.app.enums.ProgramCardAction;
 import org.junit.Before;
 import org.junit.Test;
 
+import static inf112.skeleton.app.enums.ProgramCardAction.getDirectionAfterProgramCardAction;
 import static inf112.skeleton.app.enums.ProgramCardAction.getPositionAfterProgramCardAction;
 import static org.junit.Assert.assertEquals;
 
@@ -83,4 +84,30 @@ public class ProgramCardActionTest {
 
     }
 
+    @Test
+    public void shouldGetDirectionWestAfterProgramCardActionTurnLeft() {
+
+        ProgramCardAction action = ProgramCardAction.TURN_LEFT;
+
+        assertEquals(getDirectionAfterProgramCardAction(direction, action), Direction.WEST);
+
+    }
+
+    @Test
+    public void shouldGetDirectionEastAfterProgramCardActionTurnRight() {
+
+        ProgramCardAction action = ProgramCardAction.TURN_RIGHT;
+
+        assertEquals(getDirectionAfterProgramCardAction(direction, action), Direction.EAST);
+
+    }
+
+    @Test
+    public void shouldGetDirectionSouthAfterProgramCardActionUTurn() {
+
+        ProgramCardAction action = ProgramCardAction.U_TURN;
+
+        assertEquals(getDirectionAfterProgramCardAction(direction, action), Direction.SOUTH);
+
+    }
 }
