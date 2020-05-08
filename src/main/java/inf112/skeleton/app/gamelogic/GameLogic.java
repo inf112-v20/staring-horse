@@ -8,6 +8,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import inf112.skeleton.app.enums.Direction;
+import inf112.skeleton.app.robot.Player;
 import inf112.skeleton.app.robot.IRobot;
 import inf112.skeleton.app.screen.GameScreen;
 import java.util.ArrayList;
@@ -219,7 +220,7 @@ public class GameLogic {
      * @param layerName Name of layer you want the positions from. (NOT AN OBJECT LAYER)
      * @return an ArrayList<Vector2> containing all positions of that objects on the map.
      */
-    public ArrayList<Vector2> getAllPositionsFromObjectName(String layerName) {
+    public ArrayList<Vector2> getAllPositionsFromLayerName(String layerName) {
         TiledMapTileLayer layers = (TiledMapTileLayer) tiledMap.getLayers().get(layerName);
         ArrayList<Vector2> posList = new ArrayList<>();
 

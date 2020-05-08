@@ -96,7 +96,7 @@ public class GameScreen extends InputAdapter implements Screen {
         OrthographicCamera camera = new OrthographicCamera();
 
         this.gameLogic = new GameLogic();
-        respawnPoints = gameLogic.getAllPositionsFromObjectName("SpawnPoint");
+        respawnPoints = gameLogic.getAllPositionsFromLayerName("SpawnPoint");
         player = new Player();
 
         initializeLaserLayer();
@@ -402,7 +402,7 @@ public class GameScreen extends InputAdapter implements Screen {
      * Un-render all laser texture
      */
     public void unrenderLasers() {
-        ArrayList<Vector2> laserPositions = gameLogic.getAllPositionsFromObjectName("Laser");
+        ArrayList<Vector2> laserPositions = gameLogic.getAllPositionsFromLayerName("Laser");
         for (Vector2 laserPos : laserPositions) {
             laserLayer.setCell((int) laserPos.x, (int) laserPos.y, null);
         }

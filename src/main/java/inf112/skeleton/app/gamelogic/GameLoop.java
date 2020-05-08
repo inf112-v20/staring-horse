@@ -54,7 +54,7 @@ public class GameLoop {
                     endOfPhaseCheck(robot);
             }
 
-            gameScreen.getGameLogic().activateWallLasers(gameScreen.getGameLogic().getAllPositionsFromObjectName("WallLaser"));
+            gameScreen.getGameLogic().activateWallLasers(gameScreen.getGameLogic().getAllPositionsFromLayerName("WallLaser"));
             gameScreen.updatePlayerInfo();
 
             return;
