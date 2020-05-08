@@ -266,10 +266,18 @@ public class Player implements IRobot {
         return this.hand;
     }
 
+    /**
+     * Get the number of selected cards in Player's hand
+     * @return an int with the number of cards the Player has in his hand
+     */
     public int getNumberOfCardsInHand(){
         return this.numberOfCardsInHand;
     }
 
+    /**
+     * Check if Player's hand is full
+     * @return true if the Player's number of selected cards exceeds 5
+     */
     public boolean isHandFull() {
         return numberOfCardsInHand >= 5;
     }
@@ -338,10 +346,18 @@ public class Player implements IRobot {
         return "PLAYER";
     }
 
+    /**
+     * Checks if Player is a test robot
+     * @return true if Player is a TestRobot
+     */
     public boolean getIsTestPlayer() {
         return this.isTestRobot;
     }
 
+    /**
+     * Get how much damage the Player has taken
+     * @return an int with how much damage Player has taken
+     */
     public int getDamageTaken(){return (this.fullHealthPoints-this.healthPoints);}
 
     @Override
