@@ -39,7 +39,6 @@ public enum ProgramCardAction {
 
     /**
      * Get position after ProgramCard action is performed
-     *
      * @param pos Vector2 position
      * @param dir Direction
      * @param action ProgramCardAction to be performed
@@ -49,22 +48,45 @@ public enum ProgramCardAction {
         switch (action) {
             case MOVE_ONE:
                 pos = Direction.getPosInDirection(pos,dir);
-                return pos;
+                break;
             case MOVE_TWO:
                 pos = Direction.getPosInDirection(pos,dir);
                 pos = Direction.getPosInDirection(pos,dir);
-                return pos;
+                break;
             case MOVE_THREE:
                 pos = Direction.getPosInDirection(pos,dir);
                 pos = Direction.getPosInDirection(pos,dir);
                 pos = Direction.getPosInDirection(pos,dir);
-                return pos;
+                break;
             case BACK_UP:
                 pos = Direction.getPosInDirection(pos,Direction.oppositeOf(dir));
-                return pos;
+                break;
             default:
                 break;
         }
         return pos;
+    }
+
+    /**
+     * Get direction after ProgramCard action is performed
+     * @param dir Direction the robot is facing
+     * @param action ProgramCardAction
+     * @return Direction after ProgramCard action is performed
+     */
+    public static Direction getDirectionAfterProgramCardAction(Direction dir, ProgramCardAction action) {
+        switch (action) {
+            case TURN_RIGHT:
+                dir = Direction.rotateClockwise(dir);
+                break;
+            case TURN_LEFT:
+                dir = Direction.rotateCounterClockwise(dir);
+                break;
+            case U_TURN:
+                dir = Direction.oppositeOf(dir);
+                break;
+            default:
+                break;
+        }
+        return dir;
     }
 }
