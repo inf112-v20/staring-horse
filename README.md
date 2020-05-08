@@ -21,6 +21,9 @@
     *   Unit tests are run when building the game with maven.
     *   If you want to run them again in an IDE run test/java
 
+##  Known bugs
+
+[Known bugs with the game are in the report](https://github.com/inf112-v20/staring-horse/blob/master/Deliverables/ObligatoriskOppgave4.md) 
 
 Currently throws "WARNING: An illegal reflective access operation has occurred", 
 when the java version used is >8. This has no effect on function or performance, and is just a warning.
