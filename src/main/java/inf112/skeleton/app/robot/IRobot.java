@@ -7,7 +7,7 @@ import inf112.skeleton.app.programcard.ProgramCard;
 
 public interface IRobot {
     /**
-     * @return if robot has won game
+     * @return true if robot has won game
      */
     boolean hasWon();
 
@@ -41,7 +41,7 @@ public interface IRobot {
     void killRobot();
 
     /**
-     * respawn robot at respawn-point
+     * Respawn robot at respawn-point
      */
     void respawn();
 
@@ -60,8 +60,16 @@ public interface IRobot {
      */
     void performProgramCardAction(ProgramCard programCard);
 
+    /**
+     * Set robot direction
+     * @param dir Direction
+     */
     void setDirection(Direction dir);
 
+    /**
+     * The direction the robot is facing
+     * @return Direction
+     */
     Direction getDirection();
 
     /**
@@ -75,18 +83,46 @@ public interface IRobot {
      */
     TextureRegion getTexture();
 
+    /**
+     * Set robot position
+     * @param pos Vector2 position
+     */
     void setPos(Vector2 pos);
 
+    /**
+     * Get robot position
+     * @return Vector2
+     */
     Vector2 getPos();
 
+    /**
+     * Get robot x position
+     * @return int
+     */
     int getXPos();
 
+    /**
+     * Get robot y position
+     * @return int
+     */
     int getYPos();
 
+    /**
+     * Set robot x position
+     * @param x int
+     */
     void setXPos(int x);
 
+    /**
+     * Set robot y position
+     * @param y int
+     */
     void setYPos(int y);
 
+    /**
+     * Set respawn-point
+     * @param pos Vector2
+     */
     void setRespawnPoint(Vector2 pos);
 
     /**
@@ -94,6 +130,9 @@ public interface IRobot {
      */
     boolean isAlive();
 
+    /**
+     * Set to test player
+     */
     void setToTestRobot();
 
     /**
@@ -102,22 +141,51 @@ public interface IRobot {
     boolean getCameFromConveyor();
 
     /**
-     * sets the cameFromConveyor.
+     * Sets the cameFromConveyor.
+     * @param bool
      */
     void setCameFromConveyor(boolean bool);
 
+    /**
+     * Get robot name
+     * @return String
+     */
     String getName();
 
+    /**
+     * Return amount of health points
+     * @return int number of health points
+     */
     int getHealthPoints();
 
+    /**
+     * Get amount of lives
+     * @return int number of lives
+     */
     int getLives();
 
+    /**
+     * Get amount of flags taken
+     * @return int number of flags
+     */
     int getFlagsTaken();
 
+    /**
+     * Get if player should not be able to move
+     * @return boolean true if not able to move
+     */
     boolean getShouldNotMove();
 
+    /**
+     * Set to true if player should not be able to move, false otherwise
+     * @param bool
+     */
     void setShouldNotMove(boolean bool);
 
+    /**
+     * Return list of ProgramCards chosen
+     * @return ProgramCard list
+     */
     ProgramCard[] getHand();
 
     /**
@@ -127,7 +195,7 @@ public interface IRobot {
     void executeCardInHand(int phase);
 
     /**
-     * Heals a player by one unless the robot has max health.
+     * Heals a player by one, unless the robot has max health.
      */
     void heal();
 }

@@ -36,6 +36,15 @@ public enum ProgramCardAction {
         return moveProgramCardActions[RANDOM.nextInt(moveProgramCardActions.length)];
     }
 
+
+    /**
+     * Get position after ProgramCard action is performed
+     *
+     * @param pos Vector2 position
+     * @param dir Direction
+     * @param action ProgramCardAction to be performed
+     * @return Vector2 position after ProgramCardAction
+     */
     public static Vector2 getPositionAfterProgramCardAction(Vector2 pos, Direction dir, ProgramCardAction action) {
         switch (action) {
             case MOVE_ONE:

@@ -182,6 +182,9 @@ public class AI implements IRobot {
             this.healthPoints++;
     }
 
+    /**
+     * Reset AI number
+     */
     public static void resetRobotID(){
         aiNumber = 1;
     }
@@ -420,6 +423,10 @@ public class AI implements IRobot {
         return this.hand;
     }
 
+    /**
+     * Set difficulty level of AI player
+     * @param difficultyAI
+     */
     public void setDifficulty(String difficultyAI) {
         this.difficulty = difficultyAI;
     }
