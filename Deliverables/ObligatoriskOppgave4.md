@@ -192,5 +192,7 @@ Finnes på denne wiki siden: **[Wiki for manual tests](https://github.com/inf112
 
 **[Møtereferat 7. mai](https://github.com/inf112-v20/staring-horse/wiki/M%C3%B8te-29,-7.mai)**
 
+**[Møtereferat 8. mai](https://github.com/inf112-v20/staring-horse/wiki/M%C3%B8te-30,-8.mai)**
+
 
 
