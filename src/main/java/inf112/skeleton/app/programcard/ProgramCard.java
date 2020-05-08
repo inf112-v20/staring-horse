@@ -25,7 +25,7 @@ public class ProgramCard {
     }
 
     /**
-     *
+     * Get the texture/image of a ProgramCard
      * @return a card texture with the corresponding move.
      */
     public Texture getTexture(){
@@ -62,6 +62,10 @@ public class ProgramCard {
         return texture;
     }
 
+    /**
+     * Get the action of a programcard
+     * @return an programcardaction
+     */
     public ProgramCardAction getAction() {
         return this.action;
     }
@@ -105,6 +109,10 @@ public class ProgramCard {
         this.priority = p;
     }
 
+    /**
+     * Get programcard priority
+     * @return an int with the priority of the ProgramCard
+     */
     public int getPriority(){
         return this.priority;
     }
